@@ -1,11 +1,13 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
 import com.tecnicoya.api.entity.Usuario;
 import com.tecnicoya.api.entity.enums.EstadoUsuario;
 import com.tecnicoya.api.entity.enums.TipoUsuario;
 import com.tecnicoya.api.exception.ConflictoException;
+import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.repository.TecnicoRepository;
@@ -38,6 +40,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResponse obtenerPorId(Long id) {
         return UsuarioResponse.desde(buscar(id));
+    }
+
+    /** Mismo mensaje para correo inexistente y contraseña errónea: no revela qué correos están registrados. */
+    @Override
+    public UsuarioResponse autenticar(LoginRequest request) {
+        Usuario usuario = usuarioRepository.findByCorreo(normalizarCorreo(request.correo()))
+                .filter(encontrado -> passwordEncoder.matches(request.contrasena(), encontrado.getContrasena()))
+                .orElseThrow(() -> new CredencialesInvalidasException("Correo o contraseña incorrectos"));
+        if (usuario.getEstado() != EstadoUsuario.ACTIVO) {
+            throw new CredencialesInvalidasException("La cuenta está " + usuario.getEstado()
+                    + "; comuníquese con el administrador");
+        }
+        return UsuarioResponse.desde(usuario);
     }
 
     @Override

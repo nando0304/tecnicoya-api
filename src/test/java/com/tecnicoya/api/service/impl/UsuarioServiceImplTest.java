@@ -1,11 +1,13 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
 import com.tecnicoya.api.entity.Usuario;
 import com.tecnicoya.api.entity.enums.EstadoUsuario;
 import com.tecnicoya.api.entity.enums.TipoUsuario;
 import com.tecnicoya.api.exception.ConflictoException;
+import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.repository.TecnicoRepository;
@@ -86,6 +88,62 @@ class UsuarioServiceImplTest {
         assertThatThrownBy(() -> usuarioService.obtenerPorId(99L))
                 .isInstanceOf(RecursoNoEncontradoException.class)
                 .hasMessage("No se encontró el usuario con id 99");
+    }
+
+    @Test
+    void autenticar_conCredencialesValidas_devuelveUsuario() {
+        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
+        when(passwordEncoder.matches("Secreta123", "$2a$10$hash")).thenReturn(true);
+
+        UsuarioResponse respuesta = usuarioService.autenticar(login("Secreta123"));
+
+        assertThat(respuesta.idUsuario()).isEqualTo(4L);
+        assertThat(respuesta.tipoUsuario()).isEqualTo(TipoUsuario.CLIENTE);
+    }
+
+    @Test
+    void autenticar_conContrasenaIncorrecta_lanzaCredencialesInvalidas() {
+        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
+        when(passwordEncoder.matches("Otra12345", "$2a$10$hash")).thenReturn(false);
+
+        assertThatThrownBy(() -> usuarioService.autenticar(login("Otra12345")))
+                .isInstanceOf(CredencialesInvalidasException.class)
+                .hasMessage("Correo o contraseña incorrectos");
+    }
+
+    @Test
+    void autenticar_conCorreoInexistente_lanzaElMismoMensaje() {
+        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> usuarioService.autenticar(login("Secreta123")))
+                .isInstanceOf(CredencialesInvalidasException.class)
+                .hasMessage("Correo o contraseña incorrectos");
+    }
+
+    @Test
+    void autenticar_conCuentaBloqueada_lanzaCredencialesInvalidas() {
+        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.BLOQUEADO)));
+        when(passwordEncoder.matches("Secreta123", "$2a$10$hash")).thenReturn(true);
+
+        assertThatThrownBy(() -> usuarioService.autenticar(login("Secreta123")))
+                .isInstanceOf(CredencialesInvalidasException.class)
+                .hasMessageContaining("BLOQUEADO");
+    }
+
+    private static Usuario usuario(EstadoUsuario estado) {
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(4L);
+        usuario.setNombres("Ana");
+        usuario.setApellidos("Paredes");
+        usuario.setCorreo(CORREO_NORMALIZADO);
+        usuario.setContrasena("$2a$10$hash");
+        usuario.setTipoUsuario(TipoUsuario.CLIENTE);
+        usuario.setEstado(estado);
+        return usuario;
+    }
+
+    private static LoginRequest login(String contrasena) {
+        return new LoginRequest("  Ana.Paredes@Correo.Example ", contrasena);
     }
 
     private static UsuarioRequest request(String contrasena) {

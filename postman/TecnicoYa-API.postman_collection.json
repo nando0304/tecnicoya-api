@@ -1,0 +1,2837 @@
+{
+  "info": {
+    "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
+    "name": "TécnicoYa API",
+    "description": "Pruebas de los 55 endpoints de la API de TécnicoYa (11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Fecha y hora dentro de 7 días (formato LocalDateTime) para fechaServicio",
+          "const d = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);",
+          "const dos = (n) => String(n).padStart(2, '0');",
+          "pm.collectionVariables.set('fechaFutura', `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}T10:00:00`);"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "usuarioId",
+      "value": ""
+    },
+    {
+      "key": "usuarioTecnicoId",
+      "value": ""
+    },
+    {
+      "key": "tecnicoId",
+      "value": ""
+    },
+    {
+      "key": "servicioId",
+      "value": ""
+    },
+    {
+      "key": "disponibilidadId",
+      "value": ""
+    },
+    {
+      "key": "evidenciaId",
+      "value": ""
+    },
+    {
+      "key": "experienciaId",
+      "value": ""
+    },
+    {
+      "key": "servicioCalificarId",
+      "value": ""
+    },
+    {
+      "key": "calificacionId",
+      "value": ""
+    },
+    {
+      "key": "evidenciaPagoId",
+      "value": ""
+    },
+    {
+      "key": "planId",
+      "value": ""
+    },
+    {
+      "key": "suscripcionId",
+      "value": ""
+    },
+    {
+      "key": "pagoSuscripcionId",
+      "value": ""
+    },
+    {
+      "key": "fechaFutura",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Usuarios",
+      "description": "CRUD de usuarios. Crea un usuario de prueba y lo elimina al final.",
+      "item": [
+        {
+          "name": "Listar usuarios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios"
+          }
+        },
+        {
+          "name": "Obtener usuario por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('idUsuario = 1', () => pm.expect(pm.response.json().idUsuario).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/1"
+          }
+        },
+        {
+          "name": "Crear usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('usuarioId', pm.response.json().idUsuario);",
+                  "pm.test('Incluye cabecera Location', () => pm.expect(pm.response.headers.get('Location')).to.include('/api/usuarios/'));",
+                  "pm.test('No expone la contraseña', () => pm.expect(pm.response.json()).to.not.have.property('contrasena'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Usuario\",\n  \"apellidos\": \"De Prueba\",\n  \"telefono\": \"987654321\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"correo\": \"prueba.{{$timestamp}}@correo.example\",\n  \"contrasena\": \"ClaveSegura1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener usuario creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/{{usuarioId}}"
+          }
+        },
+        {
+          "name": "Actualizar usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estado = INACTIVO', () => pm.expect(pm.response.json().estado).to.eql(\"INACTIVO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios/{{usuarioId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Usuario Editado\",\n  \"apellidos\": \"De Prueba\",\n  \"telefono\": \"987654321\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"correo\": \"prueba.editado.{{$timestamp}}@correo.example\",\n  \"estado\": \"INACTIVO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "La contraseña es opcional al actualizar: si se omite se conserva la actual."
+          }
+        },
+        {
+          "name": "Eliminar usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/{{usuarioId}}"
+          }
+        },
+        {
+          "name": "Verificar que fue eliminado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/{{usuarioId}}"
+          }
+        },
+        {
+          "name": "[Error] Datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));",
+                  "pm.test('Detalla los campos con error', () => pm.expect(pm.response.json().errores).to.have.all.keys('nombres', 'correo', 'contrasena'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"\",\n  \"apellidos\": \"Perez\",\n  \"correo\": \"no-es-un-correo\",\n  \"contrasena\": \"123\",\n  \"tipoUsuario\": \"CLIENTE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Tipo de usuario inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Usuario\",\n  \"apellidos\": \"De Prueba\",\n  \"telefono\": \"987654321\",\n  \"tipoUsuario\": \"JEFE\",\n  \"correo\": \"x.{{$timestamp}}@correo.example\",\n  \"contrasena\": \"ClaveSegura1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Correo duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Usuario\",\n  \"apellidos\": \"De Prueba\",\n  \"telefono\": \"987654321\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"correo\": \"maria.quispe@correo.example\",\n  \"contrasena\": \"ClaveSegura1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Usuario inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/999999"
+          }
+        },
+        {
+          "name": "[Error] Cambiar el tipo de un técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios/5",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Pedro Alonso\",\n  \"apellidos\": \"Ramírez Castillo\",\n  \"correo\": \"pedro.ramirez@tecnicoya.example\",\n  \"tipoUsuario\": \"CLIENTE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "El usuario 5 tiene perfil de técnico: no puede pasar a CLIENTE."
+          }
+        },
+        {
+          "name": "[Error] Eliminar usuario con servicios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Técnicos",
+      "description": "Crea un usuario de tipo TECNICO, le registra un perfil de técnico y elimina ambos al final.",
+      "item": [
+        {
+          "name": "Listar técnicos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tecnicos"
+          }
+        },
+        {
+          "name": "Obtener técnico por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('idTecnico = 1', () => pm.expect(pm.response.json().idTecnico).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tecnicos/1"
+          }
+        },
+        {
+          "name": "(Preparación) Crear usuario técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('usuarioTecnicoId', pm.response.json().idUsuario);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Técnico\",\n  \"apellidos\": \"De Prueba\",\n  \"correo\": \"tecnico.prueba.{{$timestamp}}@tecnicoya.example\",\n  \"contrasena\": \"ClaveSegura1\",\n  \"telefono\": \"987000111\",\n  \"tipoUsuario\": \"TECNICO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Crear técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('tecnicoId', pm.response.json().idTecnico);",
+                  "pm.test('estadoVerificacion = PENDIENTE', () => pm.expect(pm.response.json().estadoVerificacion).to.eql(\"PENDIENTE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tecnicos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuarioTecnicoId}},\n  \"especialidad\": \"Pintura y acabados\",\n  \"descripcion\": \"Pintura de interiores y exteriores.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener técnico creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}"
+          }
+        },
+        {
+          "name": "Actualizar técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoVerificacion = VERIFICADO', () => pm.expect(pm.response.json().estadoVerificacion).to.eql(\"VERIFICADO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuarioTecnicoId}},\n  \"especialidad\": \"Pintura, drywall y acabados\",\n  \"estadoVerificacion\": \"VERIFICADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Perfil de técnico duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tecnicos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuarioTecnicoId}},\n  \"especialidad\": \"Otra especialidad\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Usuario que no es técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tecnicos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": 2,\n  \"especialidad\": \"Pintura\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/tecnicos/{{tecnicoId}}"
+          }
+        },
+        {
+          "name": "(Limpieza) Eliminar usuario técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/{{usuarioTecnicoId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Servicios",
+      "description": "Ciclo de vida de un servicio: ASIGNADO → EN_PROCESO → FINALIZADO.",
+      "item": [
+        {
+          "name": "Listar servicios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios"
+          }
+        },
+        {
+          "name": "Obtener servicio por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('idServicio = 1', () => pm.expect(pm.response.json().idServicio).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/1"
+          }
+        },
+        {
+          "name": "Crear servicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('servicioId', pm.response.json().idServicio);",
+                  "pm.test('estadoServicio = ASIGNADO', () => pm.expect(pm.response.json().estadoServicio).to.eql(\"ASIGNADO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"tecnicoId\": 1,\n  \"titulo\": \"Enchufe quemado\",\n  \"descripcionProblema\": \"El enchufe de la sala echa chispas.\",\n  \"prioridad\": \"ALTA\",\n  \"fechaServicio\": \"{{fechaFutura}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Si se envía un técnico y no se indica estado, el servicio queda ASIGNADO."
+          }
+        },
+        {
+          "name": "Obtener servicio creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/{{servicioId}}"
+          }
+        },
+        {
+          "name": "Actualizar a EN_PROCESO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoServicio = EN_PROCESO', () => pm.expect(pm.response.json().estadoServicio).to.eql(\"EN_PROCESO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios/{{servicioId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"tecnicoId\": 1,\n  \"titulo\": \"Enchufe quemado\",\n  \"descripcionProblema\": \"El enchufe de la sala echa chispas.\",\n  \"estadoServicio\": \"EN_PROCESO\",\n  \"fechaServicio\": \"{{fechaFutura}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Finalizar servicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('fechaCierre tiene valor', () => pm.expect(pm.response.json().fechaCierre).to.not.be.null);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios/{{servicioId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"tecnicoId\": 1,\n  \"titulo\": \"Enchufe quemado\",\n  \"descripcionProblema\": \"Se cambió el tomacorriente.\",\n  \"estadoServicio\": \"FINALIZADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Al finalizar sin fechaCierre, el sistema registra la fecha y hora actual."
+          }
+        },
+        {
+          "name": "[Error] EN_PROCESO sin técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"titulo\": \"Prueba\",\n  \"descripcionProblema\": \"Prueba\",\n  \"estadoServicio\": \"EN_PROCESO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Técnico no verificado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"tecnicoId\": 4,\n  \"titulo\": \"Prueba\",\n  \"descripcionProblema\": \"Prueba\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] El usuario no es cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 5,\n  \"titulo\": \"Prueba\",\n  \"descripcionProblema\": \"Prueba\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar servicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/{{servicioId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Disponibilidades",
+      "description": "Franjas horarias semanales de los técnicos.",
+      "item": [
+        {
+          "name": "Listar disponibilidades",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/disponibilidades"
+          }
+        },
+        {
+          "name": "Obtener disponibilidad por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/disponibilidades/1"
+          }
+        },
+        {
+          "name": "Crear disponibilidad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('disponibilidadId', pm.response.json().idDisponibilidad);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/disponibilidades",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 3,\n  \"diaSemana\": \"DOMINGO\",\n  \"horaInicio\": \"09:00\",\n  \"horaFin\": \"12:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener disponibilidad creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/disponibilidades/{{disponibilidadId}}"
+          }
+        },
+        {
+          "name": "Actualizar disponibilidad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('horaFin = 13:00:00', () => pm.expect(pm.response.json().horaFin).to.eql(\"13:00:00\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/disponibilidades/{{disponibilidadId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 3,\n  \"diaSemana\": \"DOMINGO\",\n  \"horaInicio\": \"09:00\",\n  \"horaFin\": \"13:00\",\n  \"estado\": \"INACTIVO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Cruce de horario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/disponibilidades",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 1,\n  \"diaSemana\": \"LUNES\",\n  \"horaInicio\": \"10:00\",\n  \"horaFin\": \"12:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "El técnico 1 ya atiende los lunes de 08:00 a 13:00."
+          }
+        },
+        {
+          "name": "[Error] Hora de fin anterior a la de inicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/disponibilidades",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 3,\n  \"diaSemana\": \"MARTES\",\n  \"horaInicio\": \"15:00\",\n  \"horaFin\": \"14:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar disponibilidad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/disponibilidades/{{disponibilidadId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Evidencias",
+      "description": "Documentos que respaldan a un técnico.",
+      "item": [
+        {
+          "name": "Listar evidencias",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias"
+          }
+        },
+        {
+          "name": "Obtener evidencia por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias/1"
+          }
+        },
+        {
+          "name": "Crear evidencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('evidenciaId', pm.response.json().idEvidencia);",
+                  "pm.test('estadoValidacion = PENDIENTE', () => pm.expect(pm.response.json().estadoValidacion).to.eql(\"PENDIENTE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"tipoEvidencia\": \"CERTIFICADO\",\n  \"urlArchivo\": \"https://archivos.tecnicoya.example/evidencias/prueba-certificado.pdf\",\n  \"descripcion\": \"Certificado de prueba\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener evidencia creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias/{{evidenciaId}}"
+          }
+        },
+        {
+          "name": "Actualizar evidencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoValidacion = APROBADO', () => pm.expect(pm.response.json().estadoValidacion).to.eql(\"APROBADO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias/{{evidenciaId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"tipoEvidencia\": \"CERTIFICADO\",\n  \"urlArchivo\": \"https://archivos.tecnicoya.example/evidencias/prueba-certificado-v2.pdf\",\n  \"descripcion\": \"Certificado revisado\",\n  \"estadoValidacion\": \"APROBADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] URL de archivo inválida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"tipoEvidencia\": \"OTRO\",\n  \"urlArchivo\": \"archivo.pdf\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar evidencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias/{{evidenciaId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Experiencias laborales",
+      "description": "Historial laboral de los técnicos.",
+      "item": [
+        {
+          "name": "Listar experiencias",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/experiencias-laborales"
+          }
+        },
+        {
+          "name": "Obtener experiencia por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/experiencias-laborales/1"
+          }
+        },
+        {
+          "name": "Crear experiencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('experienciaId', pm.response.json().idExperiencia);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/experiencias-laborales",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"empresa\": \"Servicios Integrales S.A.C.\",\n  \"cargo\": \"Ayudante de plomería\",\n  \"descripcion\": \"Apoyo en instalaciones sanitarias.\",\n  \"fechaInicio\": \"2014-01-06\",\n  \"fechaFin\": \"2016-04-30\",\n  \"actualidad\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener experiencia creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/experiencias-laborales/{{experienciaId}}"
+          }
+        },
+        {
+          "name": "Actualizar experiencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('cargo = Técnica en plomería', () => pm.expect(pm.response.json().cargo).to.eql(\"Técnica en plomería\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/experiencias-laborales/{{experienciaId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"empresa\": \"Servicios Integrales S.A.C.\",\n  \"cargo\": \"Técnica en plomería\",\n  \"fechaInicio\": \"2014-01-06\",\n  \"fechaFin\": \"2016-04-30\",\n  \"actualidad\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Sin fecha de fin y no es el trabajo actual",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/experiencias-laborales",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"empresa\": \"X\",\n  \"cargo\": \"Y\",\n  \"fechaInicio\": \"2020-01-01\",\n  \"actualidad\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Trabajo actual con fecha de fin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/experiencias-laborales",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"empresa\": \"X\",\n  \"cargo\": \"Y\",\n  \"fechaInicio\": \"2020-01-01\",\n  \"fechaFin\": \"2021-01-01\",\n  \"actualidad\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar experiencia",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/experiencias-laborales/{{experienciaId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Calificaciones",
+      "description": "Solo se califican servicios FINALIZADOS, una vez por servicio. Crea un servicio finalizado de prueba y lo elimina al final.",
+      "item": [
+        {
+          "name": "Listar calificaciones",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/calificaciones"
+          }
+        },
+        {
+          "name": "Obtener calificación por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/calificaciones/1"
+          }
+        },
+        {
+          "name": "(Preparación) Crear servicio finalizado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('servicioCalificarId', pm.response.json().idServicio);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"tecnicoId\": 2,\n  \"titulo\": \"Cambio de grifería\",\n  \"descripcionProblema\": \"Cambiar la grifería del lavadero.\",\n  \"estadoServicio\": \"FINALIZADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Crear calificación",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('calificacionId', pm.response.json().idCalificacion);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/calificaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": {{servicioCalificarId}},\n  \"puntuacion\": 5,\n  \"comentario\": \"Excelente trabajo, muy puntual.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener calificación creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/calificaciones/{{calificacionId}}"
+          }
+        },
+        {
+          "name": "Actualizar calificación",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('puntuacion = 4', () => pm.expect(pm.response.json().puntuacion).to.eql(4));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/calificaciones/{{calificacionId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": {{servicioCalificarId}},\n  \"puntuacion\": 4,\n  \"comentario\": \"Buen trabajo, aunque llegó tarde.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Servicio ya calificado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/calificaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": {{servicioCalificarId}},\n  \"puntuacion\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Servicio no finalizado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/calificaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 4,\n  \"puntuacion\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "El servicio 4 está EN_PROCESO."
+          }
+        },
+        {
+          "name": "[Error] Puntuación fuera de rango",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/calificaciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 1,\n  \"puntuacion\": 9\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar calificación",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/calificaciones/{{calificacionId}}"
+          }
+        },
+        {
+          "name": "(Limpieza) Eliminar servicio de prueba",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/servicios/{{servicioCalificarId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Evidencias de pago",
+      "description": "Comprobantes de pago de servicios con técnico asignado.",
+      "item": [
+        {
+          "name": "Listar evidencias de pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias-pago"
+          }
+        },
+        {
+          "name": "Obtener evidencia de pago por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias-pago/1"
+          }
+        },
+        {
+          "name": "Crear evidencia de pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('evidenciaPagoId', pm.response.json().idEvidenciaPago);",
+                  "pm.test('estadoValidacion = PENDIENTE', () => pm.expect(pm.response.json().estadoValidacion).to.eql(\"PENDIENTE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias-pago",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 4,\n  \"monto\": 50,\n  \"metodoPago\": \"TRANSFERENCIA\",\n  \"archivoEvidencia\": \"https://archivos.tecnicoya.example/pagos/prueba-voucher.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Si no se envía fechaPago, se registra la fecha y hora actual."
+          }
+        },
+        {
+          "name": "Obtener evidencia de pago creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias-pago/{{evidenciaPagoId}}"
+          }
+        },
+        {
+          "name": "Actualizar evidencia de pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoValidacion = APROBADO', () => pm.expect(pm.response.json().estadoValidacion).to.eql(\"APROBADO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias-pago/{{evidenciaPagoId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 4,\n  \"monto\": 55.5,\n  \"metodoPago\": \"TRANSFERENCIA\",\n  \"archivoEvidencia\": \"https://archivos.tecnicoya.example/pagos/prueba-voucher.png\",\n  \"estadoValidacion\": \"APROBADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Servicio sin técnico asignado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias-pago",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 5,\n  \"monto\": 30,\n  \"metodoPago\": \"EFECTIVO\",\n  \"archivoEvidencia\": \"https://archivos.tecnicoya.example/pagos/x.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Monto negativo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/evidencias-pago",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"servicioId\": 4,\n  \"monto\": -10,\n  \"metodoPago\": \"EFECTIVO\",\n  \"archivoEvidencia\": \"https://archivos.tecnicoya.example/pagos/x.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar evidencia de pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/evidencias-pago/{{evidenciaPagoId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - Planes de suscripción",
+      "description": "Planes que la plataforma ofrece a los técnicos.",
+      "item": [
+        {
+          "name": "Listar planes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion"
+          }
+        },
+        {
+          "name": "Obtener plan por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion/1"
+          }
+        },
+        {
+          "name": "Crear plan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('planId', pm.response.json().idPlan);",
+                  "pm.test('estado = ACTIVO', () => pm.expect(pm.response.json().estado).to.eql(\"ACTIVO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/planes-suscripcion",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombrePlan\": \"Plan de prueba {{$timestamp}}\",\n  \"precioInicial\": 15,\n  \"limiteClientes\": 10,\n  \"precioPosterior\": 25,\n  \"descripcion\": \"Plan creado desde Postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener plan creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion/{{planId}}"
+          }
+        },
+        {
+          "name": "Actualizar plan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estado = INACTIVO', () => pm.expect(pm.response.json().estado).to.eql(\"INACTIVO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/planes-suscripcion/{{planId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombrePlan\": \"Plan de prueba editado {{$timestamp}}\",\n  \"precioInicial\": 12.5,\n  \"limiteClientes\": 15,\n  \"precioPosterior\": 22.5,\n  \"estado\": \"INACTIVO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Nombre de plan duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/planes-suscripcion",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombrePlan\": \"Básico\",\n  \"precioInicial\": 0,\n  \"limiteClientes\": 5,\n  \"precioPosterior\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Eliminar plan con suscripciones",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion/1"
+          }
+        },
+        {
+          "name": "Eliminar plan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion/{{planId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Suscripciones",
+      "description": "Suscripciones de técnicos a planes (máximo una ACTIVA por técnico).",
+      "item": [
+        {
+          "name": "Listar suscripciones",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/suscripciones"
+          }
+        },
+        {
+          "name": "Obtener suscripción por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/suscripciones/1"
+          }
+        },
+        {
+          "name": "Crear suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('suscripcionId', pm.response.json().idSuscripcion);",
+                  "pm.test('estadoSuscripcion = PENDIENTE', () => pm.expect(pm.response.json().estadoSuscripcion).to.eql(\"PENDIENTE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/suscripciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 4,\n  \"planId\": 3,\n  \"fechaInicio\": \"2026-10-20\",\n  \"fechaFin\": \"2026-11-19\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener suscripción creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/suscripciones/{{suscripcionId}}"
+          }
+        },
+        {
+          "name": "Cancelar suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoSuscripcion = CANCELADA', () => pm.expect(pm.response.json().estadoSuscripcion).to.eql(\"CANCELADA\"));",
+                  "pm.test('fechaCancelacion tiene valor', () => pm.expect(pm.response.json().fechaCancelacion).to.not.be.null);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/suscripciones/{{suscripcionId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 4,\n  \"planId\": 3,\n  \"fechaInicio\": \"2026-10-20\",\n  \"fechaFin\": \"2026-11-19\",\n  \"estadoSuscripcion\": \"CANCELADA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Sin fechaCancelacion, el sistema usa la fecha actual."
+          }
+        },
+        {
+          "name": "[Error] Segunda suscripción ACTIVA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/suscripciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 1,\n  \"planId\": 2,\n  \"fechaInicio\": \"2026-10-01\",\n  \"fechaFin\": \"2026-10-31\",\n  \"estadoSuscripcion\": \"ACTIVA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Fecha de fin anterior a la de inicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/suscripciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 4,\n  \"planId\": 2,\n  \"fechaInicio\": \"2026-10-31\",\n  \"fechaFin\": \"2026-10-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/suscripciones/{{suscripcionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 - Pagos de suscripción",
+      "description": "Pagos que los técnicos realizan por su suscripción.",
+      "item": [
+        {
+          "name": "Listar pagos de suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Devuelve una lista con datos', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/pagos-suscripcion"
+          }
+        },
+        {
+          "name": "Obtener pago por id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/pagos-suscripcion/1"
+          }
+        },
+        {
+          "name": "Crear pago de suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('pagoSuscripcionId', pm.response.json().idPagoSuscripcion);",
+                  "pm.test('estadoPago = PENDIENTE', () => pm.expect(pm.response.json().estadoPago).to.eql(\"PENDIENTE\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/pagos-suscripcion",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"suscripcionId\": 2,\n  \"montoPago\": 29.9,\n  \"metodoPago\": \"TARJETA_CREDITO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Obtener pago creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/pagos-suscripcion/{{pagoSuscripcionId}}"
+          }
+        },
+        {
+          "name": "Actualizar pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('estadoPago = APROBADO', () => pm.expect(pm.response.json().estadoPago).to.eql(\"APROBADO\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/pagos-suscripcion/{{pagoSuscripcionId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"suscripcionId\": 2,\n  \"montoPago\": 29.9,\n  \"metodoPago\": \"TARJETA_CREDITO\",\n  \"estadoPago\": \"APROBADO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Pago de suscripción cancelada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/pagos-suscripcion",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"suscripcionId\": 4,\n  \"montoPago\": 10,\n  \"metodoPago\": \"EFECTIVO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar pago",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/pagos-suscripcion/{{pagoSuscripcionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 - Errores generales",
+      "description": "Respuestas de error comunes a toda la API.",
+      "item": [
+        {
+          "name": "[Error] Id con formato inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/abc"
+          }
+        },
+        {
+          "name": "[Error] Ruta inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/ruta-inexistente"
+          }
+        },
+        {
+          "name": "[Error] Método no permitido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 405', () => pm.response.to.have.status(405));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios"
+          }
+        }
+      ]
+    }
+  ]
+}

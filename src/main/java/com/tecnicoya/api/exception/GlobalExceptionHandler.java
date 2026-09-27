@@ -52,6 +52,12 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.BAD_REQUEST, ex.getMessage(), request, null);
     }
 
+    @ExceptionHandler(CredencialesInvalidasException.class)
+    public ResponseEntity<ApiErrorResponse> manejarCredencialesInvalidas(CredencialesInvalidasException ex,
+                                                                         HttpServletRequest request) {
+        return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> manejarValidacion(MethodArgumentNotValidException ex,
                                                               HttpServletRequest request) {

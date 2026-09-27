@@ -62,6 +62,9 @@ Cada recurso expone `GET /`, `GET /{id}`, `POST /`, `PUT /{id}` y `DELETE /{id}`
 | Suscripciones         | `/api/suscripciones`          |
 | Pagos de suscripción  | `/api/pagos-suscripcion`      |
 
+Inicio de sesión: `POST /api/auth/login` con `{ "correo": "...", "contrasena": "..." }`.
+Devuelve el usuario (sin contraseña) o `401` si las credenciales son incorrectas o la cuenta no está `ACTIVO`.
+
 Respuestas: `200` (consulta/actualización), `201` con cabecera `Location` (creación), `204` (eliminación).
 Los errores devuelven un JSON uniforme con mensaje en español:
 
@@ -71,7 +74,7 @@ Los errores devuelven un JSON uniforme con mensaje en español:
   "errores": { "correo": "El correo no tiene un formato válido" } }
 ```
 
-`400` datos inválidos o regla de negocio · `404` recurso inexistente · `409` duplicado o registro con datos relacionados.
+`400` datos inválidos o regla de negocio · `401` credenciales incorrectas · `404` recurso inexistente · `409` duplicado o registro con datos relacionados.
 
 ## Estructura
 
