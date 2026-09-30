@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/** Documento que respalda la idoneidad de un técnico: certificados, antecedentes, fotos de trabajos (tabla {@code evidencia}). */
 @Entity
 @Table(name = "evidencia")
 @Getter

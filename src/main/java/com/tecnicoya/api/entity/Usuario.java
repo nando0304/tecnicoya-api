@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/** Persona registrada en la plataforma: cliente, técnico o administrador (tabla {@code usuario}). */
 @Entity
 @Table(name = "usuario")
 @Getter

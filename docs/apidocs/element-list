@@ -1,0 +1,13 @@
+com.tecnicoya.api
+com.tecnicoya.api.config
+com.tecnicoya.api.controller
+com.tecnicoya.api.dto
+com.tecnicoya.api.dto.request
+com.tecnicoya.api.dto.response
+com.tecnicoya.api.entity
+com.tecnicoya.api.entity.enums
+com.tecnicoya.api.exception
+com.tecnicoya.api.repository
+com.tecnicoya.api.service
+com.tecnicoya.api.service.impl
+com.tecnicoya.api.util

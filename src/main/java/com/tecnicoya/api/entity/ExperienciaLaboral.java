@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/** Empleo anterior o actual de un técnico (tabla {@code experiencia_laboral}). */
 @Entity
 @Table(name = "experiencia_laboral")
 @Getter

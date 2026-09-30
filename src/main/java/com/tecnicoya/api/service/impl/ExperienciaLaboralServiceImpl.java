@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/** Implementación de {@link ExperienciaLaboralService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

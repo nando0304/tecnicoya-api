@@ -26,7 +26,18 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/** Convierte cualquier excepción en un {@link ApiErrorResponse} con mensaje en español. */
+/**
+ * Convierte cualquier excepción en un {@link ApiErrorResponse} con mensaje en español.
+ *
+ * <ul>
+ *   <li>400: {@link ReglaNegocioException}, datos inválidos, JSON mal formado o parámetro con tipo incorrecto.</li>
+ *   <li>401: {@link CredencialesInvalidasException}.</li>
+ *   <li>404: {@link RecursoNoEncontradoException} o ruta inexistente.</li>
+ *   <li>405 y 415: método HTTP o tipo de contenido no soportado.</li>
+ *   <li>409: {@link ConflictoException} o violación de una restricción de la base de datos (FK, UNIQUE).</li>
+ *   <li>500: cualquier otro error, que además se registra en el log.</li>
+ * </ul>
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -166,6 +177,7 @@ public class GlobalExceptionHandler {
     private static String nombreEstado(HttpStatus status) {
         return switch (status) {
             case BAD_REQUEST -> "Solicitud incorrecta";
+            case UNAUTHORIZED -> "No autorizado";
             case NOT_FOUND -> "No encontrado";
             case METHOD_NOT_ALLOWED -> "Método no permitido";
             case NOT_ACCEPTABLE -> "No aceptable";

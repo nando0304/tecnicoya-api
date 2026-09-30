@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/** Implementación de {@link TecnicoService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

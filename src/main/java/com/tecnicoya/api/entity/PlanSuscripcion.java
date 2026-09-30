@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+/** Plan que la plataforma ofrece a los técnicos: cobra {@code precioInicial} hasta {@code limiteClientes} clientes y {@code precioPosterior} a partir de ahí (tabla {@code plan_suscripcion}). */
 @Entity
 @Table(name = "plan_suscripcion")
 @Getter

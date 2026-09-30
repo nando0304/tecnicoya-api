@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Locale;
 
+/** Implementación de {@link UsuarioService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

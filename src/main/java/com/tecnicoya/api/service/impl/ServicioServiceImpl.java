@@ -26,6 +26,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+/** Implementación de {@link ServicioService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

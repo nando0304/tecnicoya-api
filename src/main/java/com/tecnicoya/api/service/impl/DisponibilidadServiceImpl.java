@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/** Implementación de {@link DisponibilidadService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

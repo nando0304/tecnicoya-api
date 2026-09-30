@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/** Comprobante del pago de un servicio (tabla {@code evidencia_pago}). */
 @Entity
 @Table(name = "evidencia_pago")
 @Getter

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Perfil profesional de un usuario de tipo {@code TECNICO}; relación 1 a 1 con {@link Usuario} (tabla {@code tecnico}). */
 @Entity
 @Table(name = "tecnico")
 @Getter

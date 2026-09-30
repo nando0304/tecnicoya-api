@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
     "name": "TécnicoYa API",
-    "description": "Pruebas de los 55 endpoints de la API de TécnicoYa (11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "description": "Pruebas de los 56 endpoints de la API de TécnicoYa: inicio de sesión y 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}.\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -26,6 +26,10 @@
     },
     {
       "key": "usuarioId",
+      "value": ""
+    },
+    {
+      "key": "usuarioCorreo",
       "value": ""
     },
     {
@@ -82,6 +86,155 @@
     }
   ],
   "item": [
+    {
+      "name": "00 - Autenticación",
+      "description": "Inicio de sesión. Todos los usuarios de ejemplo tienen la contraseña TecnicoYa2026!",
+      "item": [
+        {
+          "name": "Iniciar sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('idUsuario = 2', () => pm.expect(pm.response.json().idUsuario).to.eql(2));",
+                  "pm.test('tipoUsuario = CLIENTE', () => pm.expect(pm.response.json().tipoUsuario).to.eql(\"CLIENTE\"));",
+                  "pm.test('No expone la contraseña', () => pm.expect(pm.response.json()).to.not.have.property('contrasena'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"Maria.Quispe@Correo.Example\",\n  \"contrasena\": \"TecnicoYa2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "El correo no distingue mayúsculas: se normaliza antes de buscarlo."
+          }
+        },
+        {
+          "name": "[Error] Contraseña incorrecta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));",
+                  "pm.test('mensaje = Correo o contraseña incorrectos', () => pm.expect(pm.response.json().mensaje).to.eql(\"Correo o contraseña incorrectos\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"maria.quispe@correo.example\",\n  \"contrasena\": \"ClaveEquivocada1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "[Error] Correo no registrado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));",
+                  "pm.test('mensaje = Correo o contraseña incorrectos', () => pm.expect(pm.response.json().mensaje).to.eql(\"Correo o contraseña incorrectos\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"nadie@correo.example\",\n  \"contrasena\": \"TecnicoYa2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Responde lo mismo que con contraseña incorrecta, para no revelar qué correos existen."
+          }
+        },
+        {
+          "name": "[Error] Datos incompletos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));",
+                  "pm.test('Detalla los campos con error', () => pm.expect(pm.response.json().errores).to.have.all.keys('correo', 'contrasena'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"no-es-un-correo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     {
       "name": "01 - Usuarios",
       "description": "CRUD de usuarios. Crea un usuario de prueba y lo elimina al final.",
@@ -190,7 +343,8 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Responde 200', () => pm.response.to.have.status(200));",
-                  "pm.test('estado = INACTIVO', () => pm.expect(pm.response.json().estado).to.eql(\"INACTIVO\"));"
+                  "pm.test('estado = INACTIVO', () => pm.expect(pm.response.json().estado).to.eql(\"INACTIVO\"));",
+                  "pm.collectionVariables.set('usuarioCorreo', pm.response.json().correo);"
                 ]
               }
             }
@@ -214,6 +368,42 @@
               }
             },
             "description": "La contraseña es opcional al actualizar: si se omite se conserva la actual."
+          }
+        },
+        {
+          "name": "[Error] Iniciar sesión con cuenta INACTIVO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Devuelve un mensaje de error', () => pm.expect(pm.response.json().mensaje).to.be.a('string'));",
+                  "pm.test('Indica el estado de la cuenta', () => pm.expect(pm.response.json().mensaje).to.include('INACTIVO'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"{{usuarioCorreo}}\",\n  \"contrasena\": \"ClaveSegura1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "La contraseña es correcta, pero el usuario quedó INACTIVO en el paso anterior."
           }
         },
         {

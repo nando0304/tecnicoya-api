@@ -73,6 +73,26 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- Documentación HTML del código: ./mvnw javadoc:javadoc  ->  docs/apidocs/index.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <show>private</show>
+                    <doclint>all,-missing</doclint>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <charset>UTF-8</charset>
+                    <notimestamp>true</notimestamp>
+                    <doctitle>TécnicoYa API ${project.version}</doctitle>
+                    <windowtitle>TécnicoYa API</windowtitle>
+                    <outputDirectory>${project.basedir}/docs</outputDirectory>
+                    <!-- Sin esto, en Windows javadoc lee sus opciones en Cp1252 y rompe los acentos del título -->
+                    <additionalJOptions>
+                        <additionalJOption>-J-Dfile.encoding=UTF-8</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

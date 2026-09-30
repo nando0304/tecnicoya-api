@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/** Implementación de {@link PagoSuscripcionService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

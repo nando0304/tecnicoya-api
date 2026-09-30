@@ -7,6 +7,7 @@ import com.tecnicoya.api.entity.enums.MetodoPago;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/** Evidencia de pago devuelta por la API, con el título del servicio. */
 public record EvidenciaPagoResponse(
         Long idEvidenciaPago,
         Long servicioId,

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/** Contratación de un plan por parte de un técnico durante un periodo (tabla {@code suscripcion}). */
 @Entity
 @Table(name = "suscripcion")
 @Getter

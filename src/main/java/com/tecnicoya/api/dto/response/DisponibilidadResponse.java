@@ -6,6 +6,7 @@ import com.tecnicoya.api.entity.enums.EstadoRegistro;
 
 import java.time.LocalTime;
 
+/** Franja de disponibilidad devuelta por la API, con el nombre del técnico. */
 public record DisponibilidadResponse(
         Long idDisponibilidad,
         Long tecnicoId,

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/** Implementación de {@link SuscripcionService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

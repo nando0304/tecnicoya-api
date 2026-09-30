@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
 
+/** Datos de una franja de disponibilidad. Las horas usan el formato {@code HH:mm} o {@code HH:mm:ss}. */
 public record DisponibilidadRequest(
 
         @NotNull(message = "El id del técnico es obligatorio")

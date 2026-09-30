@@ -5,6 +5,7 @@ import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
 
 import java.time.LocalDate;
 
+/** Suscripción devuelta por la API, con el nombre del técnico y del plan. */
 public record SuscripcionResponse(
         Long idSuscripcion,
         Long tecnicoId,

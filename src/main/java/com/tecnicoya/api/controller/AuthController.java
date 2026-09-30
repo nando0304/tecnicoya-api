@@ -18,6 +18,13 @@ public class AuthController {
 
     private final UsuarioService usuarioService;
 
+    /**
+     * {@code POST /api/auth/login}: valida correo y contraseña.
+     *
+     * @param request correo y contraseña
+     * @return 200 con los datos del usuario (sin contraseña); 400 si faltan datos;
+     *         401 si las credenciales son incorrectas o la cuenta no está {@code ACTIVO}
+     */
     @PostMapping("/login")
     public UsuarioResponse login(@Valid @RequestBody LoginRequest request) {
         return usuarioService.autenticar(request);

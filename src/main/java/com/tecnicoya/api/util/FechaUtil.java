@@ -3,6 +3,7 @@ package com.tecnicoya.api.util;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/** Utilidades de fecha y hora. */
 public final class FechaUtil {
 
     private FechaUtil() {

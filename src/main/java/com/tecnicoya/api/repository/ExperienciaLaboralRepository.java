@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/** Acceso a datos de {@link ExperienciaLaboral}. */
 public interface ExperienciaLaboralRepository extends JpaRepository<ExperienciaLaboral, Long> {
 
+    /** Lista todos los registros cargando el técnico en la misma consulta (evita el problema N+1). */
     @Override
     @EntityGraph(attributePaths = {"tecnico", "tecnico.usuario"})
     List<ExperienciaLaboral> findAll();

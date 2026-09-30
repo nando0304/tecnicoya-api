@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/** Valoración de 1 a 5 que recibe un servicio finalizado; como máximo una por servicio (tabla {@code calificacion}). */
 @Entity
 @Table(name = "calificacion")
 @Getter

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/** Atención que un cliente solicita y que realiza un técnico (tabla {@code servicio}). */
 @Entity
 @Table(name = "servicio")
 @Getter

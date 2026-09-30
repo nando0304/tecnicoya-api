@@ -4,6 +4,7 @@ import com.tecnicoya.api.entity.Tecnico;
 import com.tecnicoya.api.entity.Usuario;
 import com.tecnicoya.api.entity.enums.EstadoVerificacion;
 
+/** Perfil de técnico devuelto por la API, junto con los datos de contacto de su usuario. */
 public record TecnicoResponse(
         Long idTecnico,
         Long usuarioId,

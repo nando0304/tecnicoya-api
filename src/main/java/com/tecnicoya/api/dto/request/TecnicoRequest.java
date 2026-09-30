@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/** Datos para registrar o actualizar el perfil de técnico de un usuario. */
 public record TecnicoRequest(
 
         @NotNull(message = "El id del usuario es obligatorio")
