@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Estado de un pago procesado por el proveedor de pagos. */
 public enum EstadoPago {

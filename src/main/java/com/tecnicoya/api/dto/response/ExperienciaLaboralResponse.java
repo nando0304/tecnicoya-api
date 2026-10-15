@@ -1,6 +1,6 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.ExperienciaLaboral;
+import com.tecnicoya.api.model.ExperienciaLaboral;
 
 import java.time.LocalDate;
 

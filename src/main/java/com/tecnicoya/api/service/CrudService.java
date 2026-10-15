@@ -12,6 +12,9 @@ import java.util.List;
  * <p>Cada recurso define su propia interfaz (por ejemplo {@link UsuarioService}) que extiende esta,
  * documenta sus reglas de negocio y puede añadir operaciones propias.
  *
+ * <p>Al crear o actualizar, los textos de una línea (nombres, títulos…) se guardan sin espacios repetidos
+ * y los textos libres opcionales (descripciones, comentarios) en blanco se guardan como {@code null}.
+ *
  * @param <Q> DTO de entrada (request)
  * @param <R> DTO de salida (response)
  */

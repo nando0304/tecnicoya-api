@@ -1,20 +1,23 @@
 package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.CalificacionRequest;
-import com.tecnicoya.api.entity.Servicio;
-import com.tecnicoya.api.entity.enums.EstadoServicio;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Calificacion;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.repository.CalificacionRepository;
 import com.tecnicoya.api.repository.ServicioRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -50,6 +53,18 @@ class CalificacionServiceImplTest {
                 .isInstanceOf(ConflictoException.class)
                 .hasMessageContaining("ya fue calificado");
         verify(calificacionRepository, never()).save(any());
+    }
+
+    @Test
+    void crear_comentarioEnBlanco_seGuardaComoNull() {
+        when(servicioRepository.findById(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
+        when(calificacionRepository.save(any(Calificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        calificacionService.crear(new CalificacionRequest(4L, 5, "   "));
+
+        ArgumentCaptor<Calificacion> guardada = ArgumentCaptor.forClass(Calificacion.class);
+        verify(calificacionRepository).save(guardada.capture());
+        assertThat(guardada.getValue().getComentario()).isNull();
     }
 
     private static Servicio servicio(EstadoServicio estado) {

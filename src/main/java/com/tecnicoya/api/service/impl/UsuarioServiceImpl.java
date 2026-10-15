@@ -3,22 +3,22 @@ package com.tecnicoya.api.service.impl;
 import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
-import com.tecnicoya.api.entity.Usuario;
-import com.tecnicoya.api.entity.enums.EstadoUsuario;
-import com.tecnicoya.api.entity.enums.TipoUsuario;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.model.enums.EstadoUsuario;
+import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.repository.UsuarioRepository;
 import com.tecnicoya.api.service.UsuarioService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -59,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public UsuarioResponse crear(UsuarioRequest request) {
-        if (!StringUtils.hasText(request.contrasena())) {
+        if (StringUtils.isBlank(request.contrasena())) {
             throw new ReglaNegocioException("La contraseña es obligatoria al registrar un usuario");
         }
         String correo = normalizarCorreo(request.correo());
@@ -89,7 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         copiarDatos(request, usuario, correo);
-        if (StringUtils.hasText(request.contrasena())) {
+        if (StringUtils.isNotBlank(request.contrasena())) {
             usuario.setContrasena(passwordEncoder.encode(request.contrasena()));
         }
         if (request.estado() != null) {
@@ -111,8 +111,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     private static void copiarDatos(UsuarioRequest request, Usuario usuario, String correo) {
-        usuario.setNombres(request.nombres().trim());
-        usuario.setApellidos(request.apellidos().trim());
+        usuario.setNombres(StringUtils.normalizeSpace(request.nombres()));
+        usuario.setApellidos(StringUtils.normalizeSpace(request.apellidos()));
         usuario.setCorreo(correo);
         usuario.setTelefono(request.telefono());
         usuario.setTipoUsuario(request.tipoUsuario());

@@ -9,4 +9,11 @@ public class RecursoNoEncontradoException extends RuntimeException {
     public RecursoNoEncontradoException(String recurso, Long id) {
         super("No se encontró " + recurso + " con id " + id);
     }
+
+    /**
+     * @param mensaje mensaje completo, para recursos que no se identifican con un id numérico (p. ej. archivos)
+     */
+    public RecursoNoEncontradoException(String mensaje) {
+        super(mensaje);
+    }
 }

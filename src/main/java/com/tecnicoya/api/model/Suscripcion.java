@@ -1,6 +1,6 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
-import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

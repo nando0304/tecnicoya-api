@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.PlanSuscripcion;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
+import com.tecnicoya.api.model.PlanSuscripcion;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 
 import java.math.BigDecimal;
 

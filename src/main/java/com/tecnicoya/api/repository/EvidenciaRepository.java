@@ -1,6 +1,6 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.Evidencia;
+import com.tecnicoya.api.model.Evidencia;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

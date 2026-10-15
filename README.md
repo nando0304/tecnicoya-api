@@ -52,6 +52,7 @@ También puede usar variables de entorno con los mismos nombres, que tienen prio
 | `DB_USER`     | `root`                                         |
 | `DB_PASSWORD` | `root`                                         |
 | `SERVER_PORT` | `8080`                                         |
+| `ARCHIVOS_DIR`| `uploads` (carpeta de los archivos subidos)    |
 
 ## 3. Levantar la API
 
@@ -96,6 +97,14 @@ Cada recurso expone `GET /`, `GET /{id}`, `POST /`, `PUT /{id}` y `DELETE /{id}`
 Inicio de sesión: `POST /api/auth/login` con `{ "correo": "...", "contrasena": "..." }`.
 Devuelve el usuario (sin contraseña) o `401` si las credenciales son incorrectas o la cuenta no está `ACTIVO`.
 
+Archivos: `POST /api/archivos` (formulario `multipart/form-data`, campo `archivo`; PDF, JPG, PNG o WEBP de hasta 5 MB)
+devuelve la `url` que luego se envía en `urlArchivo` (evidencias) o `archivoEvidencia` (evidencias de pago).
+`GET /api/archivos/{nombre}` descarga el archivo.
+
+```powershell
+curl.exe -F "archivo=@certificado.pdf" http://localhost:8080/api/archivos
+```
+
 Respuestas: `200` (consulta/actualización), `201` con cabecera `Location` (creación), `204` (eliminación).
 Los errores devuelven un JSON uniforme con mensaje en español:
 
@@ -105,18 +114,20 @@ Los errores devuelven un JSON uniforme con mensaje en español:
   "errores": { "correo": "El correo no tiene un formato válido" } }
 ```
 
-`400` datos inválidos o regla de negocio · `401` credenciales incorrectas · `404` recurso inexistente · `409` duplicado o registro con datos relacionados.
+`400` datos inválidos o regla de negocio · `401` credenciales incorrectas · `404` recurso inexistente · `409` duplicado o registro con datos relacionados · `413` archivo demasiado grande.
 
 El detalle de campos, reglas y ejemplos de cada recurso está en la [referencia de la API](docs/api-rest.md).
 
 ## Estructura
 
+El proyecto sigue el patrón **MVC**: el **Modelo** está en `model/`, el **Controlador** en `controller/` y la **Vista** es el front-end (`tecnicoya-web`), que muestra el JSON que devuelve la API.
+
 ```
 src/main/java/com/tecnicoya/api
 ├── config/        CORS abierto (solo desarrollo) y BCrypt
-├── controller/    un controlador REST por entidad, más AuthController
+├── controller/    Controlador: un controlador REST por entidad, más AuthController y ArchivoController
 ├── dto/           request (entrada validada) y response (salida)
-├── entity/        entidades JPA y enums del dominio
+├── model/         Modelo: entidades JPA y enums del dominio
 ├── exception/     excepciones de negocio y manejador global
 ├── repository/    interfaces JpaRepository
 ├── service/       interfaces de servicio (documentan las reglas de negocio)
@@ -140,7 +151,7 @@ postman/           colección de pruebas de la API
 ### Agregar un recurso nuevo
 
 1. **Base de datos:** agregue la tabla en `database/schema.sql` (y datos de prueba en `data.sql`) y ejecute el script.
-2. **Entidad:** cree la clase en `entity/`, con `@Table` y `@Column` usando los nombres exactos de la tabla. Si tiene estados, cree el enum en `entity/enums/`.
+2. **Entidad:** cree la clase en `model/`, con `@Table` y `@Column` usando los nombres exactos de la tabla. Si tiene estados, cree el enum en `model/enums/`.
 3. **Repositorio:** una interfaz en `repository/` que extienda `JpaRepository`.
 4. **DTOs:** un `record` de entrada en `dto/request/` con sus validaciones y uno de salida en `dto/response/` con su método `desde(entidad)`.
 5. **Servicio:** una interfaz en `service/` que extienda `CrudService<Request, Response>` y documente las reglas; su implementación en `service/impl/` con `@Transactional`.

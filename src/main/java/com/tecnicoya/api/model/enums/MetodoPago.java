@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Medio con el que se realizó un pago. */
 public enum MetodoPago {

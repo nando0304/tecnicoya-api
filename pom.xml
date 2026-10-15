@@ -18,6 +18,8 @@
 
     <properties>
         <java.version>17</java.version>
+        <!-- Spring Boot no gestiona la versión de Commons IO (sí las de Commons Lang y Commons Codec) -->
+        <commons-io.version>2.22.0</commons-io.version>
     </properties>
 
     <dependencies>
@@ -38,6 +40,24 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+        <!-- Apache Commons -->
+        <!-- Lang: normalización de los textos que llegan en las solicitudes (StringUtils) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- Codec: huella SHA-256 de los archivos subidos, que se usa como su nombre -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <!-- IO: nombre y extensión seguros de los archivos subidos (FilenameUtils) -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>

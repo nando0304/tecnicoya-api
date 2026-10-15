@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.EstadoValidacion;
-import com.tecnicoya.api.entity.enums.TipoEvidencia;
+import com.tecnicoya.api.model.enums.EstadoValidacion;
+import com.tecnicoya.api.model.enums.TipoEvidencia;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

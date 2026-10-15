@@ -1,6 +1,6 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.PagoSuscripcion;
+import com.tecnicoya.api.model.PagoSuscripcion;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

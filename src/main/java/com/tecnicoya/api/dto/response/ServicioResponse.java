@@ -1,9 +1,9 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.Servicio;
-import com.tecnicoya.api.entity.Tecnico;
-import com.tecnicoya.api.entity.enums.EstadoServicio;
-import com.tecnicoya.api.entity.enums.Prioridad;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.enums.EstadoServicio;
+import com.tecnicoya.api.model.enums.Prioridad;
 
 import java.time.LocalDateTime;
 

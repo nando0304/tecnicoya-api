@@ -3,10 +3,14 @@ package com.tecnicoya.api.exception;
 import com.tecnicoya.api.dto.response.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.exc.InvalidFormatException;
@@ -30,11 +37,13 @@ import java.util.stream.Collectors;
  * Convierte cualquier excepción en un {@link ApiErrorResponse} con mensaje en español.
  *
  * <ul>
- *   <li>400: {@link ReglaNegocioException}, datos inválidos, JSON mal formado o parámetro con tipo incorrecto.</li>
+ *   <li>400: {@link ReglaNegocioException}, datos inválidos, JSON mal formado, parámetro con tipo incorrecto
+ *       o archivo faltante o ilegible.</li>
  *   <li>401: {@link CredencialesInvalidasException}.</li>
  *   <li>404: {@link RecursoNoEncontradoException} o ruta inexistente.</li>
  *   <li>405 y 415: método HTTP o tipo de contenido no soportado.</li>
  *   <li>409: {@link ConflictoException} o violación de una restricción de la base de datos (FK, UNIQUE).</li>
+ *   <li>413: archivo más grande que {@code spring.servlet.multipart.max-file-size}.</li>
  *   <li>500: cualquier otro error, que además se registra en el log.</li>
  * </ul>
  */
@@ -45,6 +54,16 @@ public class GlobalExceptionHandler {
     private static final int MYSQL_REGISTRO_DUPLICADO = 1062;
     private static final int MYSQL_REGISTRO_REFERENCIADO = 1451;
     private static final int MYSQL_REFERENCIA_INEXISTENTE = 1452;
+
+    private final DataSize tamanoMaximoArchivo;
+
+    /**
+     * @param tamanoMaximoArchivo límite de subida configurado, para indicarlo en el mensaje de error 413
+     */
+    public GlobalExceptionHandler(
+            @Value("${spring.servlet.multipart.max-file-size:1MB}") DataSize tamanoMaximoArchivo) {
+        this.tamanoMaximoArchivo = tamanoMaximoArchivo;
+    }
 
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ResponseEntity<ApiErrorResponse> manejarNoEncontrado(RecursoNoEncontradoException ex,
@@ -117,8 +136,33 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ApiErrorResponse> manejarTipoContenido(HttpMediaTypeNotSupportedException ex,
                                                                  HttpServletRequest request) {
+        String esperado = ex.getSupportedMediaTypes().contains(MediaType.MULTIPART_FORM_DATA)
+                ? MediaType.MULTIPART_FORM_DATA_VALUE : MediaType.APPLICATION_JSON_VALUE;
         return construir(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-                "Tipo de contenido no soportado; envíe el cuerpo con 'Content-Type: application/json'", request, null);
+                "Tipo de contenido no soportado; envíe el cuerpo con 'Content-Type: " + esperado + "'", request, null);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiErrorResponse> manejarArchivoGrande(MaxUploadSizeExceededException ex,
+                                                                 HttpServletRequest request) {
+        String mensaje = "El archivo supera el tamaño máximo permitido de "
+                + FileUtils.byteCountToDisplaySize(tamanoMaximoArchivo.toBytes());
+        return construir(HttpStatus.CONTENT_TOO_LARGE, mensaje, request, null);
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<ApiErrorResponse> manejarArchivoFaltante(MissingServletRequestPartException ex,
+                                                                   HttpServletRequest request) {
+        String mensaje = String.format("Falta el archivo; envíelo en el campo '%s' del formulario",
+                ex.getRequestPartName());
+        return construir(HttpStatus.BAD_REQUEST, mensaje, request, null);
+    }
+
+    /** Cuerpo multipart mal formado o cortado (las subidas demasiado grandes las atiende {@link #manejarArchivoGrande}). */
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<ApiErrorResponse> manejarMultipartIlegible(MultipartException ex,
+                                                                     HttpServletRequest request) {
+        return construir(HttpStatus.BAD_REQUEST, "No se pudo leer el archivo enviado", request, null);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
@@ -182,6 +226,7 @@ public class GlobalExceptionHandler {
             case METHOD_NOT_ALLOWED -> "Método no permitido";
             case NOT_ACCEPTABLE -> "No aceptable";
             case CONFLICT -> "Conflicto";
+            case CONTENT_TOO_LARGE -> "Contenido demasiado grande";
             case UNSUPPORTED_MEDIA_TYPE -> "Tipo de contenido no soportado";
             case INTERNAL_SERVER_ERROR -> "Error interno del servidor";
             default -> status.getReasonPhrase();

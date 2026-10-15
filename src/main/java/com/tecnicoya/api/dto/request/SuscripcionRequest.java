@@ -1,6 +1,6 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;

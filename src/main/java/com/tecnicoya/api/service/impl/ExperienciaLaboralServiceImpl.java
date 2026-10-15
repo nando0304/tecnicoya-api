@@ -2,14 +2,15 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.ExperienciaLaboralRequest;
 import com.tecnicoya.api.dto.response.ExperienciaLaboralResponse;
-import com.tecnicoya.api.entity.ExperienciaLaboral;
-import com.tecnicoya.api.entity.Tecnico;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.ExperienciaLaboral;
+import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.repository.ExperienciaLaboralRepository;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.service.ExperienciaLaboralService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,9 +77,9 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
 
         experiencia.setTecnico(tecnico);
-        experiencia.setEmpresa(request.empresa().trim());
-        experiencia.setCargo(request.cargo().trim());
-        experiencia.setDescripcion(request.descripcion());
+        experiencia.setEmpresa(StringUtils.normalizeSpace(request.empresa()));
+        experiencia.setCargo(StringUtils.normalizeSpace(request.cargo()));
+        experiencia.setDescripcion(StringUtils.stripToNull(request.descripcion()));
         experiencia.setFechaInicio(request.fechaInicio());
         experiencia.setFechaFin(request.fechaFin());
         experiencia.setActualidad(request.actualidad());

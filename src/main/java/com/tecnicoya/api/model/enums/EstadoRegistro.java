@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Estado genérico activo/inactivo (disponibilidad y planes). */
 public enum EstadoRegistro {

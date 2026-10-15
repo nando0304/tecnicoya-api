@@ -2,15 +2,16 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.EvidenciaRequest;
 import com.tecnicoya.api.dto.response.EvidenciaResponse;
-import com.tecnicoya.api.entity.Evidencia;
-import com.tecnicoya.api.entity.Tecnico;
-import com.tecnicoya.api.entity.enums.EstadoValidacion;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
+import com.tecnicoya.api.model.Evidencia;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.enums.EstadoValidacion;
 import com.tecnicoya.api.repository.EvidenciaRepository;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.service.EvidenciaService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,6 +76,6 @@ public class EvidenciaServiceImpl implements EvidenciaService {
         evidencia.setTecnico(tecnico);
         evidencia.setTipoEvidencia(request.tipoEvidencia());
         evidencia.setUrlArchivo(request.urlArchivo().trim());
-        evidencia.setDescripcion(request.descripcion());
+        evidencia.setDescripcion(StringUtils.stripToNull(request.descripcion()));
     }
 }

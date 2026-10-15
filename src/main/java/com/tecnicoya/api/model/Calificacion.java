@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

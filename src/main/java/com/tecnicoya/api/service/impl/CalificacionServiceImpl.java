@@ -2,17 +2,18 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.CalificacionRequest;
 import com.tecnicoya.api.dto.response.CalificacionResponse;
-import com.tecnicoya.api.entity.Calificacion;
-import com.tecnicoya.api.entity.Servicio;
-import com.tecnicoya.api.entity.enums.EstadoServicio;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Calificacion;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.repository.CalificacionRepository;
 import com.tecnicoya.api.repository.ServicioRepository;
 import com.tecnicoya.api.service.CalificacionService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +49,7 @@ public class CalificacionServiceImpl implements CalificacionService {
         Calificacion calificacion = new Calificacion();
         calificacion.setServicio(servicio);
         calificacion.setPuntuacion(request.puntuacion());
-        calificacion.setComentario(request.comentario());
+        calificacion.setComentario(StringUtils.stripToNull(request.comentario()));
         calificacion.setFechaCalificacion(FechaUtil.ahora());
         return CalificacionResponse.desde(calificacionRepository.save(calificacion));
     }
@@ -65,7 +66,7 @@ public class CalificacionServiceImpl implements CalificacionService {
             calificacion.setServicio(servicio);
         }
         calificacion.setPuntuacion(request.puntuacion());
-        calificacion.setComentario(request.comentario());
+        calificacion.setComentario(StringUtils.stripToNull(request.comentario()));
         return CalificacionResponse.desde(calificacionRepository.save(calificacion));
     }
 

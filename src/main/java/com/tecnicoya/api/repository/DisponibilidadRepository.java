@@ -1,7 +1,7 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.Disponibilidad;
-import com.tecnicoya.api.entity.enums.DiaSemana;
+import com.tecnicoya.api.model.Disponibilidad;
+import com.tecnicoya.api.model.enums.DiaSemana;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -2,17 +2,18 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.TecnicoRequest;
 import com.tecnicoya.api.dto.response.TecnicoResponse;
-import com.tecnicoya.api.entity.Tecnico;
-import com.tecnicoya.api.entity.Usuario;
-import com.tecnicoya.api.entity.enums.EstadoVerificacion;
-import com.tecnicoya.api.entity.enums.TipoUsuario;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.model.enums.EstadoVerificacion;
+import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.repository.UsuarioRepository;
 import com.tecnicoya.api.service.TecnicoService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,7 +98,7 @@ public class TecnicoServiceImpl implements TecnicoService {
     }
 
     private static void copiarDatos(TecnicoRequest request, Tecnico tecnico) {
-        tecnico.setEspecialidad(request.especialidad().trim());
-        tecnico.setDescripcion(request.descripcion());
+        tecnico.setEspecialidad(StringUtils.normalizeSpace(request.especialidad()));
+        tecnico.setDescripcion(StringUtils.stripToNull(request.descripcion()));
     }
 }

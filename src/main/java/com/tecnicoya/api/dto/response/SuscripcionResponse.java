@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.Suscripcion;
-import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
+import com.tecnicoya.api.model.Suscripcion;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 
 import java.time.LocalDate;
 

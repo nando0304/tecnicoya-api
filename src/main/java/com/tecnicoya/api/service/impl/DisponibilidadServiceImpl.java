@@ -2,12 +2,12 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.DisponibilidadRequest;
 import com.tecnicoya.api.dto.response.DisponibilidadResponse;
-import com.tecnicoya.api.entity.Disponibilidad;
-import com.tecnicoya.api.entity.Tecnico;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Disponibilidad;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 import com.tecnicoya.api.repository.DisponibilidadRepository;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.service.DisponibilidadService;

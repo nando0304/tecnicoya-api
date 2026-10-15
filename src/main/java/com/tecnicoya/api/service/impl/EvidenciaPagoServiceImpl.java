@@ -2,12 +2,12 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.EvidenciaPagoRequest;
 import com.tecnicoya.api.dto.response.EvidenciaPagoResponse;
-import com.tecnicoya.api.entity.EvidenciaPago;
-import com.tecnicoya.api.entity.Servicio;
-import com.tecnicoya.api.entity.enums.EstadoServicio;
-import com.tecnicoya.api.entity.enums.EstadoValidacion;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.EvidenciaPago;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.enums.EstadoServicio;
+import com.tecnicoya.api.model.enums.EstadoValidacion;
 import com.tecnicoya.api.repository.EvidenciaPagoRepository;
 import com.tecnicoya.api.repository.ServicioRepository;
 import com.tecnicoya.api.service.EvidenciaPagoService;

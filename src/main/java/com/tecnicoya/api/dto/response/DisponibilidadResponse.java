@@ -1,8 +1,8 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.Disponibilidad;
-import com.tecnicoya.api.entity.enums.DiaSemana;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
+import com.tecnicoya.api.model.Disponibilidad;
+import com.tecnicoya.api.model.enums.DiaSemana;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 
 import java.time.LocalTime;
 

@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Rol del usuario dentro de la plataforma. */
 public enum TipoUsuario {

@@ -1,6 +1,6 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.Usuario;
+import com.tecnicoya.api.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

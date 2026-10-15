@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Ciclo de vida de un servicio solicitado. */
 public enum EstadoServicio {

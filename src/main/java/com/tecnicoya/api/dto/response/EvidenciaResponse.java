@@ -1,8 +1,8 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.Evidencia;
-import com.tecnicoya.api.entity.enums.EstadoValidacion;
-import com.tecnicoya.api.entity.enums.TipoEvidencia;
+import com.tecnicoya.api.model.Evidencia;
+import com.tecnicoya.api.model.enums.EstadoValidacion;
+import com.tecnicoya.api.model.enums.TipoEvidencia;
 
 import java.time.LocalDateTime;
 

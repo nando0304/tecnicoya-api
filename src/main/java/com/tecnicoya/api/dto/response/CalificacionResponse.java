@@ -1,8 +1,8 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.Calificacion;
-import com.tecnicoya.api.entity.Servicio;
-import com.tecnicoya.api.entity.Tecnico;
+import com.tecnicoya.api.model.Calificacion;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.Tecnico;
 
 import java.time.LocalDateTime;
 

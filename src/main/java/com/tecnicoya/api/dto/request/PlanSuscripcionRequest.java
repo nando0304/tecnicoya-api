@@ -1,6 +1,6 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;

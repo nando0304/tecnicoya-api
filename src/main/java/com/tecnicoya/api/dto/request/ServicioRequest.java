@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.EstadoServicio;
-import com.tecnicoya.api.entity.enums.Prioridad;
+import com.tecnicoya.api.model.enums.EstadoServicio;
+import com.tecnicoya.api.model.enums.Prioridad;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

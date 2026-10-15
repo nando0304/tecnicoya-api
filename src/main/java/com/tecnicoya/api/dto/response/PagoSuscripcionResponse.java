@@ -1,8 +1,8 @@
 package com.tecnicoya.api.dto.response;
 
-import com.tecnicoya.api.entity.PagoSuscripcion;
-import com.tecnicoya.api.entity.enums.EstadoPago;
-import com.tecnicoya.api.entity.enums.MetodoPago;
+import com.tecnicoya.api.model.PagoSuscripcion;
+import com.tecnicoya.api.model.enums.EstadoPago;
+import com.tecnicoya.api.model.enums.MetodoPago;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

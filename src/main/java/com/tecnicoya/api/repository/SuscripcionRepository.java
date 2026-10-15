@@ -1,7 +1,7 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.Suscripcion;
-import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
+import com.tecnicoya.api.model.Suscripcion;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

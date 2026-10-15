@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Urgencia con la que el cliente necesita el servicio. */
 public enum Prioridad {

@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.EstadoUsuario;
-import com.tecnicoya.api.entity.enums.TipoUsuario;
+import com.tecnicoya.api.model.enums.EstadoUsuario;
+import com.tecnicoya.api.model.enums.TipoUsuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

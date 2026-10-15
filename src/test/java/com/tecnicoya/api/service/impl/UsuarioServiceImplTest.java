@@ -3,13 +3,13 @@ package com.tecnicoya.api.service.impl;
 import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
-import com.tecnicoya.api.entity.Usuario;
-import com.tecnicoya.api.entity.enums.EstadoUsuario;
-import com.tecnicoya.api.entity.enums.TipoUsuario;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.model.enums.EstadoUsuario;
+import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.repository.UsuarioRepository;
 import org.junit.jupiter.api.Test;
@@ -61,6 +61,19 @@ class UsuarioServiceImplTest {
         assertThat(respuesta.correo()).isEqualTo(CORREO_NORMALIZADO);
         assertThat(respuesta.estado()).isEqualTo(EstadoUsuario.ACTIVO);
         assertThat(respuesta.fechaRegistro()).isNotNull();
+    }
+
+    @Test
+    void crear_normalizaLosEspaciosDeNombresYApellidos() {
+        when(usuarioRepository.existsByCorreo(CORREO_NORMALIZADO)).thenReturn(false);
+        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(inv -> inv.getArgument(0));
+        UsuarioRequest request = new UsuarioRequest("  Ana   María ", " Paredes\tRojas ", CORREO_NORMALIZADO,
+                "Secreta123", null, TipoUsuario.CLIENTE, null);
+
+        UsuarioResponse respuesta = usuarioService.crear(request);
+
+        assertThat(respuesta.nombres()).isEqualTo("Ana María");
+        assertThat(respuesta.apellidos()).isEqualTo("Paredes Rojas");
     }
 
     @Test

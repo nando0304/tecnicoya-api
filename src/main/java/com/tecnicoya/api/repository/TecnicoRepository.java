@@ -1,6 +1,6 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.Tecnico;
+import com.tecnicoya.api.model.Tecnico;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

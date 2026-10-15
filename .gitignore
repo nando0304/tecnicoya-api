@@ -33,3 +33,6 @@ build/
 
 ### Credenciales locales ###
 .env
+
+### Archivos subidos a la API ###
+uploads/

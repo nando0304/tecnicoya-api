@@ -1,7 +1,7 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
-import com.tecnicoya.api.entity.enums.EstadoServicio;
-import com.tecnicoya.api.entity.enums.Prioridad;
+import com.tecnicoya.api.model.enums.EstadoServicio;
+import com.tecnicoya.api.model.enums.Prioridad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -18,11 +18,18 @@ Funcionalidad disponible:
 
 - CRUD completo de los 11 recursos del modelo de datos (5 operaciones cada uno).
 - Inicio de sesión con correo y contraseña (`POST /api/auth/login`).
+- Subida y descarga de archivos (certificados, fotos de trabajos y comprobantes de pago) en `/api/archivos`.
 - Validación de datos de entrada y de reglas de negocio, con errores en JSON y en español.
 
 ## 2. Arquitectura
 
-La aplicación es un monolito **Spring Boot 4** con arquitectura **en capas**. Cada capa solo conoce a la de abajo, y los DTOs aíslan el formato JSON del modelo de base de datos.
+La aplicación es un monolito **Spring Boot 4** que sigue el patrón **MVC (Modelo-Vista-Controlador)**, organizado en capas. Cada capa solo conoce a la de abajo, y los DTOs aíslan el formato JSON del modelo de base de datos.
+
+| Parte de MVC | Dónde está | Qué hace |
+|---|---|---|
+| **Modelo** | `model` (entidades y `enums`), con `repository` y `service` trabajando sobre él | Representa los datos y aplica las reglas de negocio |
+| **Vista** | El front-end `tecnicoya-web` (o Postman durante las pruebas) | Muestra al usuario el JSON que devuelve la API |
+| **Controlador** | `controller` | Recibe las peticiones HTTP, llama al servicio y devuelve la respuesta |
 
 ```mermaid
 flowchart LR
@@ -30,7 +37,7 @@ flowchart LR
     subgraph API ["TécnicoYa API · Spring Boot"]
         CT["controller<br/>REST + validación @Valid"] --> SV["service / impl<br/>reglas de negocio · @Transactional"]
         SV --> RP["repository<br/>Spring Data JPA"]
-        RP --> EN["entity<br/>JPA / Hibernate"]
+        RP --> EN["model<br/>JPA / Hibernate"]
         DTO["dto<br/>request · response"] -.- CT
         EX["exception<br/>GlobalExceptionHandler"] -.->|"error JSON"| C
     end
@@ -42,7 +49,7 @@ flowchart LR
 | `controller` | Recibir la petición HTTP, validar el DTO de entrada y devolver el código HTTP correcto | Contener lógica de negocio ni acceder a repositorios |
 | `service` / `service.impl` | Aplicar las reglas de negocio dentro de una transacción y mapear entidades a DTOs | Conocer detalles de HTTP |
 | `repository` | Consultar y guardar entidades | Contener reglas de negocio |
-| `entity` | Representar las tablas de la base de datos | Salir de la capa de servicio (nunca se devuelven al cliente) |
+| `model` | Representar las tablas de la base de datos | Salir de la capa de servicio (nunca se devuelven al cliente) |
 | `exception` | Traducir cualquier excepción a un JSON de error uniforme | — |
 
 ### Flujo de una petición
@@ -86,15 +93,15 @@ Código fuente en `src/main/java/com/tecnicoya/api`:
 |---|---|---|
 | *(raíz)* | Arranque de la aplicación | `TecnicoYaApiApplication` |
 | `config` | Configuración transversal | `CorsConfig` (CORS abierto para desarrollo), `PasswordConfig` (BCrypt) |
-| `controller` | 12 controladores REST | Uno por recurso (`UsuarioController`, `ServicioController`…) y `AuthController` |
+| `controller` | 13 controladores REST | Uno por recurso (`UsuarioController`, `ServicioController`…), `AuthController` y `ArchivoController` |
 | `dto.request` | 12 *records* de entrada con Bean Validation | `UsuarioRequest`, `ServicioRequest`, `LoginRequest`… |
-| `dto.response` | 12 *records* de salida, cada uno con su método `desde(entidad)` | `UsuarioResponse`, `ServicioResponse`, `ApiErrorResponse`… |
-| `entity` | 11 entidades JPA, una por tabla | `Usuario`, `Tecnico`, `Servicio`… |
-| `entity.enums` | 12 enums con los valores de tipos y estados | `TipoUsuario`, `EstadoServicio`, `MetodoPago`… |
+| `dto.response` | 13 *records* de salida, cada uno con su método `desde(...)` | `UsuarioResponse`, `ServicioResponse`, `ArchivoResponse`, `ApiErrorResponse`… |
+| `model` | 11 entidades JPA, una por tabla | `Usuario`, `Tecnico`, `Servicio`… |
+| `model.enums` | 12 enums con los valores de tipos y estados | `TipoUsuario`, `EstadoServicio`, `MetodoPago`… |
 | `exception` | Excepciones de negocio y manejador global | `RecursoNoEncontradoException`, `ReglaNegocioException`, `ConflictoException`, `CredencialesInvalidasException`, `GlobalExceptionHandler` |
 | `repository` | 11 interfaces Spring Data JPA | `UsuarioRepository`, `DisponibilidadRepository` (con consulta de cruces de horario)… |
-| `service` | Contratos y reglas documentadas | `CrudService<Q, R>` y una interfaz por recurso |
-| `service.impl` | 11 implementaciones transaccionales | `ServicioServiceImpl`, `SuscripcionServiceImpl`… |
+| `service` | Contratos y reglas documentadas | `CrudService<Q, R>`, una interfaz por recurso y `ArchivoService` |
+| `service.impl` | 11 implementaciones transaccionales y el almacenamiento de archivos | `ServicioServiceImpl`, `SuscripcionServiceImpl`, `ArchivoServiceImpl`… |
 | `util` | Utilidades | `FechaUtil` |
 
 Otros directorios del repositorio:
@@ -273,6 +280,9 @@ Las versiones las gestiona el *parent* `spring-boot-starter-parent` 4.1.1, salvo
 | `spring-security-crypto` | 7.1.1 | Solo el cifrado BCrypt de contraseñas; no activa Spring Security |
 | `mysql-connector-j` | 9.7.0 | Driver JDBC de MySQL (solo en ejecución) |
 | `lombok` | 1.18.46 | Genera *getters*, *setters*, constructores y el *logger* (solo en compilación) |
+| `commons-lang3` | 3.20.0 | `StringUtils`: normaliza los textos de entrada (`normalizeSpace`, `stripToNull`) |
+| `commons-codec` | 1.21.0 | `DigestUtils`: huella SHA-256 de los archivos subidos, que se usa como su nombre |
+| `commons-io` | 2.22.0 (fijada en el `pom.xml`) | `FilenameUtils` (nombre y extensión seguros), `BoundedInputStream` (cuenta bytes) y `FileUtils` (tamaño legible en los errores) |
 | `spring-boot-starter-test` | 4.1.1 | Pruebas: JUnit 6.0.3, Mockito 5.23.0 y AssertJ 3.27.7 |
 
 Plugins de Maven:
@@ -295,6 +305,7 @@ Archivo `src/main/resources/application.properties`. Las credenciales se leen de
 | `DB_USER` | `root` | Usuario de MySQL |
 | `DB_PASSWORD` | `root` | Contraseña de MySQL |
 | `SERVER_PORT` | `8080` | Puerto HTTP de la API |
+| `ARCHIVOS_DIR` | `uploads` | Carpeta de los archivos subidos (relativa a la carpeta desde la que se inicia la API) |
 
 Otros ajustes relevantes:
 
@@ -304,6 +315,8 @@ Otros ajustes relevantes:
 | `spring.jpa.hibernate.naming.physical-strategy` | `PhysicalNamingStrategyStandardImpl` | Respeta los nombres de columna tal cual (`idUsuario`, `tipo_usuario`) |
 | `spring.jpa.open-in-view` | `false` | Las consultas terminan en la capa de servicio, no durante la respuesta HTTP |
 | `spring.sql.init.mode` | `never` | Los scripts SQL se ejecutan manualmente |
+| `spring.servlet.multipart.max-file-size` | `5MB` | Tamaño máximo de un archivo subido (más grande: `413`) |
+| `server.tomcat.max-swallow-size` | `50MB` | Tomcat descarta hasta 50 MB de una subida rechazada para poder enviar el `413`; con el valor por defecto (2 MB) cortaría la conexión |
 
 ## 8. Decisiones de diseño
 
@@ -314,6 +327,8 @@ Otros ajustes relevantes:
 - **Enums nativos de MySQL.** Tipos y estados son columnas `ENUM` y *enums* de Java, así que un valor no permitido se rechaza con la lista de opciones válidas.
 - **Consultas eficientes.** Los listados usan `@EntityGraph` para traer las relaciones en una sola consulta y evitar el problema N+1.
 - **Fechas sin fracciones de segundo** (`FechaUtil.ahora()`), para que lo que devuelve la API coincida con lo guardado en las columnas `DATETIME`.
+- **Textos normalizados** con Commons Lang. En los campos de una línea (nombres, títulos, cargos, nombre del plan) se colapsan los espacios repetidos con `StringUtils.normalizeSpace`, así `"Plan   Pro"` y `"Plan Pro"` cuentan como duplicados. En los textos libres opcionales (descripciones, comentarios) se usa `StringUtils.stripToNull`: se conservan los saltos de línea y un texto en blanco se guarda como `NULL`.
+- **Archivos con nombre por contenido.** Cada archivo subido se guarda como `<sha256>.<extensión>`. El mismo archivo se guarda una sola vez, el nombre no revela el original, el navegador puede guardarlo en caché para siempre (`Cache-Control: immutable`) y, como el nombre debe cumplir ese formato, no se puede pedir otro archivo del servidor con rutas como `../`.
 
 ## 9. Limitaciones conocidas
 
@@ -321,12 +336,14 @@ Otros ajustes relevantes:
 - **CORS abierto** a cualquier origen: pensado solo para desarrollo local.
 - **Listados sin paginación ni filtros.** Cada `GET` de colección devuelve todos los registros.
 - **Proveedor de pago no integrado.** Los estados de los pagos se actualizan manualmente mediante la API.
+- **Archivos en disco local y sin limpieza.** Los archivos subidos se guardan en `ARCHIVOS_DIR`, que debe estar en un volumen persistente si la API se despliega en un contenedor. Al eliminar una evidencia su archivo no se borra, porque otro registro puede usar el mismo contenido. El tipo se valida por la extensión, no por el contenido real del archivo.
 
 ## 10. Pruebas
 
 | Tipo | Dónde | Cómo se ejecuta |
 |---|---|---|
 | Unitarias (JUnit + Mockito, sin base de datos) | `src/test/java/.../service/impl` | `./mvnw test` |
+| Controlador de archivos con MockMvc (sin base de datos ni servidor) | `src/test/java/.../controller` | `./mvnw test` |
 | Integración de la API completa (106 peticiones con validaciones) | `postman/TecnicoYa-API.postman_collection.json` | *Collection Runner* de Postman, o `npx newman run postman/TecnicoYa-API.postman_collection.json` |
 
 La colección de Postman borra todo lo que crea, así que puede ejecutarse varias veces sobre los datos de ejemplo.

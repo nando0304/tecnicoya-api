@@ -1,7 +1,7 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
-import com.tecnicoya.api.entity.enums.EstadoValidacion;
-import com.tecnicoya.api.entity.enums.MetodoPago;
+import com.tecnicoya.api.model.enums.EstadoValidacion;
+import com.tecnicoya.api.model.enums.MetodoPago;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

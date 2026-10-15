@@ -1,7 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
-import com.tecnicoya.api.entity.enums.DiaSemana;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
+import com.tecnicoya.api.model.enums.DiaSemana;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;

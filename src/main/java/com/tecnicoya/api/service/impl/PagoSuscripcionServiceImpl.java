@@ -2,12 +2,12 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.PagoSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PagoSuscripcionResponse;
-import com.tecnicoya.api.entity.PagoSuscripcion;
-import com.tecnicoya.api.entity.Suscripcion;
-import com.tecnicoya.api.entity.enums.EstadoPago;
-import com.tecnicoya.api.entity.enums.EstadoSuscripcion;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.PagoSuscripcion;
+import com.tecnicoya.api.model.Suscripcion;
+import com.tecnicoya.api.model.enums.EstadoPago;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import com.tecnicoya.api.repository.PagoSuscripcionRepository;
 import com.tecnicoya.api.repository.SuscripcionRepository;
 import com.tecnicoya.api.service.PagoSuscripcionService;

@@ -1,7 +1,7 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
-import com.tecnicoya.api.entity.enums.DiaSemana;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
+import com.tecnicoya.api.model.enums.DiaSemana;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

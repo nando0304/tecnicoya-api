@@ -2,13 +2,14 @@ package com.tecnicoya.api.service.impl;
 
 import com.tecnicoya.api.dto.request.PlanSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PlanSuscripcionResponse;
-import com.tecnicoya.api.entity.PlanSuscripcion;
-import com.tecnicoya.api.entity.enums.EstadoRegistro;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
+import com.tecnicoya.api.model.PlanSuscripcion;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
 import com.tecnicoya.api.repository.PlanSuscripcionRepository;
 import com.tecnicoya.api.service.PlanSuscripcionService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +36,7 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
     @Override
     @Transactional
     public PlanSuscripcionResponse crear(PlanSuscripcionRequest request) {
-        String nombre = request.nombrePlan().trim();
+        String nombre = StringUtils.normalizeSpace(request.nombrePlan());
         if (planSuscripcionRepository.existsByNombrePlanIgnoreCase(nombre)) {
             throw new ConflictoException("Ya existe un plan con el nombre '" + nombre + "'");
         }
@@ -50,7 +51,7 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
     @Transactional
     public PlanSuscripcionResponse actualizar(Long id, PlanSuscripcionRequest request) {
         PlanSuscripcion plan = buscar(id);
-        String nombre = request.nombrePlan().trim();
+        String nombre = StringUtils.normalizeSpace(request.nombrePlan());
         if (planSuscripcionRepository.existsByNombrePlanIgnoreCaseAndIdPlanNot(nombre, id)) {
             throw new ConflictoException("Ya existe otro plan con el nombre '" + nombre + "'");
         }
@@ -79,6 +80,6 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
         plan.setPrecioInicial(request.precioInicial());
         plan.setLimiteClientes(request.limiteClientes());
         plan.setPrecioPosterior(request.precioPosterior());
-        plan.setDescripcion(request.descripcion());
+        plan.setDescripcion(StringUtils.stripToNull(request.descripcion()));
     }
 }

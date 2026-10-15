@@ -11,7 +11,8 @@ Endpoints de la API de **TécnicoYa**: parámetros, respuestas y ejemplos de uso
 2. [Errores](#errores)
 3. [Valores permitidos](#valores-permitidos)
 4. [Autenticación](#autenticación)
-5. Recursos: [Usuarios](#usuarios) · [Técnicos](#técnicos) · [Servicios](#servicios) · [Disponibilidades](#disponibilidades) · [Evidencias](#evidencias) · [Experiencias laborales](#experiencias-laborales) · [Calificaciones](#calificaciones) · [Evidencias de pago](#evidencias-de-pago) · [Planes de suscripción](#planes-de-suscripción) · [Suscripciones](#suscripciones) · [Pagos de suscripción](#pagos-de-suscripción)
+5. [Archivos](#archivos)
+6. Recursos: [Usuarios](#usuarios) · [Técnicos](#técnicos) · [Servicios](#servicios) · [Disponibilidades](#disponibilidades) · [Evidencias](#evidencias) · [Experiencias laborales](#experiencias-laborales) · [Calificaciones](#calificaciones) · [Evidencias de pago](#evidencias-de-pago) · [Planes de suscripción](#planes-de-suscripción) · [Suscripciones](#suscripciones) · [Pagos de suscripción](#pagos-de-suscripción)
 
 ---
 
@@ -67,7 +68,8 @@ Todos los errores devuelven el mismo cuerpo JSON:
 | `404` | No encontrado | El registro (o uno al que se hace referencia) no existe, o la ruta no existe |
 | `405` | Método no permitido | Método HTTP no soportado en la ruta (p. ej. `DELETE /api/usuarios`) |
 | `409` | Conflicto | Dato único duplicado, conflicto con otro registro o intento de borrar un registro con datos relacionados |
-| `415` | Tipo de contenido no soportado | Falta `Content-Type: application/json` |
+| `413` | Contenido demasiado grande | Archivo subido de más de 5 MB |
+| `415` | Tipo de contenido no soportado | Falta `Content-Type: application/json` (o `multipart/form-data` al subir archivos) |
 | `500` | Error interno del servidor | Error inesperado (queda registrado en el log) |
 
 **Validación de campos** (`400`):
@@ -208,6 +210,53 @@ Respuesta `401`:
   "ruta": "/api/auth/login"
 }
 ```
+
+---
+
+## Archivos
+
+`/api/archivos`: certificados, fotos de trabajos y comprobantes de pago. El front-end sube primero el archivo y luego envía la `url` devuelta en `urlArchivo` (evidencias) o `archivoEvidencia` (evidencias de pago).
+
+### `POST /api/archivos`
+
+Formulario `multipart/form-data` con el archivo en el campo `archivo`.
+
+| Regla | Detalle |
+|---|---|
+| Formatos | `pdf`, `jpg`, `jpeg`, `png`, `webp`, según la extensión del nombre |
+| Tamaño | Hasta 5 MB; si es más grande responde `413` |
+| Nombre | Se guarda como `<sha256>.<extensión>`. Si se sube dos veces el mismo contenido, se devuelve la misma URL |
+
+```powershell
+curl.exe -F "archivo=@cv.pdf" http://localhost:8080/api/archivos
+```
+
+Respuesta `201`, con la misma URL en la cabecera `Location`:
+
+```json
+{
+  "url": "http://localhost:8080/api/archivos/fffccc9054060e9411ef8a01f4aeeacb08e1d3e2ebcf4b45647b777c917b2194.pdf",
+  "nombre": "fffccc9054060e9411ef8a01f4aeeacb08e1d3e2ebcf4b45647b777c917b2194.pdf",
+  "nombreOriginal": "cv.pdf",
+  "tamanoBytes": 15,
+  "sha256": "fffccc9054060e9411ef8a01f4aeeacb08e1d3e2ebcf4b45647b777c917b2194"
+}
+```
+
+Errores: `400` si falta el campo `archivo`, el archivo está vacío o el formato no está permitido; `413` si supera el tamaño máximo.
+
+```json
+{
+  "status": 413,
+  "error": "Contenido demasiado grande",
+  "mensaje": "El archivo supera el tamaño máximo permitido de 5 MB",
+  "ruta": "/api/archivos"
+}
+```
+
+### `GET /api/archivos/{nombre}`
+
+Devuelve el archivo con su `Content-Type` (`application/pdf`, `image/png`…) y `Cache-Control: max-age=31536000, public, immutable`. Como el nombre depende del contenido, el archivo nunca cambia. Responde `404` si el archivo no existe o el nombre no tiene el formato `<sha256>.<extensión>`.
 
 ---
 
@@ -419,7 +468,7 @@ Respuesta de `GET /api/disponibilidades/1`:
 |---|---|---|---|
 | `tecnicoId` | id | Sí | Técnico existente |
 | `tipoEvidencia` | `TipoEvidencia` | Sí | — |
-| `urlArchivo` | texto | Sí | URL `http://` o `https://`, máximo 500 caracteres |
+| `urlArchivo` | texto | Sí | URL `http://` o `https://`, máximo 500 caracteres. Puede ser la que devuelve [`POST /api/archivos`](#archivos) |
 | `descripcion` | texto | No | Máximo 500 caracteres |
 | `estadoValidacion` | `EstadoValidacion` | No | Por defecto `PENDIENTE` |
 
@@ -550,7 +599,7 @@ Respuesta de `GET /api/calificaciones/1` (incluye el técnico calificado):
 | `servicioId` | id | Sí | Servicio no `CANCELADO` y con técnico asignado |
 | `monto` | monto | Sí | Mayor que 0; hasta 8 enteros y 2 decimales |
 | `metodoPago` | `MetodoPago` | Sí | — |
-| `archivoEvidencia` | texto | Sí | URL `http://` o `https://` del comprobante, máximo 500 |
+| `archivoEvidencia` | texto | Sí | URL `http://` o `https://` del comprobante, máximo 500. Puede ser la que devuelve [`POST /api/archivos`](#archivos) |
 | `fechaPago` | fecha y hora | No | No puede ser futura; si se omite, se usa la actual |
 | `estadoValidacion` | `EstadoValidacion` | No | Por defecto `PENDIENTE` |
 

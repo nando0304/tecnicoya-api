@@ -1,6 +1,6 @@
 package com.tecnicoya.api.repository;
 
-import com.tecnicoya.api.entity.PlanSuscripcion;
+import com.tecnicoya.api.model.PlanSuscripcion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /** Acceso a datos de {@link PlanSuscripcion}. */

@@ -1,7 +1,7 @@
-package com.tecnicoya.api.entity;
+package com.tecnicoya.api.model;
 
-import com.tecnicoya.api.entity.enums.EstadoUsuario;
-import com.tecnicoya.api.entity.enums.TipoUsuario;
+import com.tecnicoya.api.model.enums.EstadoUsuario;
+import com.tecnicoya.api.model.enums.TipoUsuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

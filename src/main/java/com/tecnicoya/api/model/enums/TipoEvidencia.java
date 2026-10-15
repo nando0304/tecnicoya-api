@@ -1,4 +1,4 @@
-package com.tecnicoya.api.entity.enums;
+package com.tecnicoya.api.model.enums;
 
 /** Tipo de documento que respalda la idoneidad de un técnico. */
 public enum TipoEvidencia {
