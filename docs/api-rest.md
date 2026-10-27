@@ -22,6 +22,8 @@ Endpoints de la API de **TécnicoYa**: parámetros, respuestas y ejemplos de uso
 
 **Formato:** JSON en UTF-8. En `POST` y `PUT` envíe la cabecera `Content-Type: application/json`.
 
+**Autenticación:** salvo el login, el registro y la descarga de archivos, todas las rutas exigen la cabecera `Authorization: Bearer <token>`, con el token que devuelve `POST /api/auth/login`. Ver [Autenticación](#autenticación).
+
 | Tipo de dato | Formato | Ejemplo |
 |---|---|---|
 | Fecha y hora | `yyyy-MM-ddTHH:mm:ss` (hora local, sin zona) | `"2026-10-02T15:00:00"` |
@@ -64,7 +66,7 @@ Todos los errores devuelven el mismo cuerpo JSON:
 | Código | `error` | Cuándo ocurre |
 |---|---|---|
 | `400` | Solicitud incorrecta | Datos inválidos, JSON mal formado, valor de enum inexistente, id no numérico o regla de negocio incumplida |
-| `401` | No autorizado | Credenciales incorrectas o cuenta no `ACTIVO` en el inicio de sesión |
+| `401` | No autorizado | Credenciales incorrectas o cuenta no `ACTIVO` en el inicio de sesión; o falta el token, no es válido o venció |
 | `404` | No encontrado | El registro (o uno al que se hace referencia) no existe, o la ruta no existe |
 | `405` | Método no permitido | Método HTTP no soportado en la ruta (p. ej. `DELETE /api/usuarios`) |
 | `409` | Conflicto | Dato único duplicado, conflicto con otro registro o intento de borrar un registro con datos relacionados |
@@ -164,7 +166,7 @@ Los campos de tipo y estado solo aceptan estos valores, escritos exactamente as�
 
 ### `POST /api/auth/login`
 
-Valida el correo y la contraseña y devuelve los datos del usuario. **No emite un token:** el resto de los endpoints no exigen autenticación por ahora.
+Valida el correo y la contraseña y devuelve un **token JWT** junto con los datos del usuario. El token se envía en las demás peticiones (ver [Uso del token](#uso-del-token)).
 
 | Campo | Tipo | Obligatorio | Validación |
 |---|---|---|---|
@@ -188,14 +190,17 @@ Respuesta `200`:
 
 ```json
 {
-  "idUsuario": 2,
-  "nombres": "María Fernanda",
-  "apellidos": "Quispe Huamán",
-  "correo": "maria.quispe@correo.example",
-  "telefono": "987200301",
-  "tipoUsuario": "CLIENTE",
-  "estado": "ACTIVO",
-  "fechaRegistro": "2026-02-11T18:22:10"
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiY29ycmVvIjoibWFyaWEucXVpc3BlQGNvcnJlby5leGFtcGxlIiwicm9sIjoiQ0xJRU5URSIsImlhdCI6MTc5MzA2NzE0NiwiZXhwIjoxNzkzMDk1OTQ2fQ.WebbvKkCI4e_dEaE27sT-iwCXOvGFHS3TObHEWIBPiw",
+  "usuario": {
+    "idUsuario": 2,
+    "nombres": "María Fernanda",
+    "apellidos": "Quispe Huamán",
+    "correo": "maria.quispe@correo.example",
+    "telefono": "987200301",
+    "tipoUsuario": "CLIENTE",
+    "estado": "ACTIVO",
+    "fechaRegistro": "2026-02-11T18:22:10"
+  }
 }
 ```
 
@@ -210,6 +215,46 @@ Respuesta `401`:
   "ruta": "/api/auth/login"
 }
 ```
+
+### Uso del token
+
+El token tiene tres partes separadas por puntos: cabecera, datos y firma. Los datos (la parte del medio, en Base64) son:
+
+```json
+{ "sub": "2", "correo": "maria.quispe@correo.example", "rol": "CLIENTE", "iat": 1793067146, "exp": 1793095946 }
+```
+
+`sub` es el id del usuario, `iat` la fecha de emisión y `exp` la de vencimiento (8 horas después; se configura con `JWT_HORAS_VALIDEZ`). La firma (HMAC-SHA256 con la clave `JWT_SECRET`) impide modificar los datos: un token alterado se rechaza.
+
+Todas las rutas de `/api` exigen el token en la cabecera `Authorization`, **salvo**:
+
+| Ruta pública | Motivo |
+|---|---|
+| `POST /api/auth/login` | Es donde se obtiene el token |
+| `POST /api/usuarios` | Registro de una cuenta nueva |
+| `GET /api/archivos/{nombre}` | El navegador abre los archivos como enlaces o imágenes, sin cabeceras |
+
+```powershell
+$token = (Invoke-RestMethod -Method Post http://localhost:8080/api/auth/login -ContentType "application/json" `
+  -Body '{"correo":"maria.quispe@correo.example","contrasena":"TecnicoYa2026!"}').token
+curl.exe -H "Authorization: Bearer $token" http://localhost:8080/api/usuarios
+```
+
+Sin token, o con uno inválido o vencido, la API responde `401` y la petición no llega al controlador:
+
+```json
+{
+  "timestamp": "2026-10-26T21:12:25.4981093",
+  "status": 401,
+  "error": "No autorizado",
+  "mensaje": "Debe iniciar sesión: envíe el token en la cabecera 'Authorization: Bearer <token>'",
+  "ruta": "/api/usuarios"
+}
+```
+
+Con un token inválido o vencido, el `mensaje` es `"El token no es válido o ya venció; inicie sesión nuevamente"`.
+
+El token solo comprueba **quién** hace la petición: la API no revisa permisos por rol, así que cualquier usuario con sesión puede llamar a cualquier endpoint.
 
 ---
 
@@ -228,7 +273,7 @@ Formulario `multipart/form-data` con el archivo en el campo `archivo`.
 | Nombre | Se guarda como `<sha256>.<extensión>`. Si se sube dos veces el mismo contenido, se devuelve la misma URL |
 
 ```powershell
-curl.exe -F "archivo=@cv.pdf" http://localhost:8080/api/archivos
+curl.exe -H "Authorization: Bearer $token" -F "archivo=@cv.pdf" http://localhost:8080/api/archivos
 ```
 
 Respuesta `201`, con la misma URL en la cabecera `Location`:

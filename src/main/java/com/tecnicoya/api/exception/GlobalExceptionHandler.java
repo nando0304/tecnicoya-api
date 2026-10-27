@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
  * <ul>
  *   <li>400: {@link ReglaNegocioException}, datos inválidos, JSON mal formado, parámetro con tipo incorrecto
  *       o archivo faltante o ilegible.</li>
- *   <li>401: {@link CredencialesInvalidasException}.</li>
+ *   <li>401: {@link CredencialesInvalidasException} o {@link NoAutenticadoException} (falta el token o no es
+ *       válido).</li>
  *   <li>404: {@link RecursoNoEncontradoException} o ruta inexistente.</li>
  *   <li>405 y 415: método HTTP o tipo de contenido no soportado.</li>
  *   <li>409: {@link ConflictoException} o violación de una restricción de la base de datos (FK, UNIQUE).</li>
@@ -85,6 +86,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CredencialesInvalidasException.class)
     public ResponseEntity<ApiErrorResponse> manejarCredencialesInvalidas(CredencialesInvalidasException ex,
                                                                          HttpServletRequest request) {
+        return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
+    }
+
+    /** Lanzada por {@link com.tecnicoya.api.security.JwtInterceptor} antes de llegar al controlador. */
+    @ExceptionHandler(NoAutenticadoException.class)
+    public ResponseEntity<ApiErrorResponse> manejarNoAutenticado(NoAutenticadoException ex,
+                                                                 HttpServletRequest request) {
         return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
     }
 

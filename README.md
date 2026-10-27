@@ -11,7 +11,7 @@ Stack: Spring Boot 4.1.1, Java 17, Spring Data JPA (Hibernate 7), MySQL 8 y Mave
 | [Descripción del sistema](docs/descripcion-sistema.md) | Arquitectura, módulos, modelo de datos, reglas de negocio y dependencias |
 | [Referencia de la API](docs/api-rest.md) | Cada endpoint con sus parámetros, respuestas y ejemplos de uso |
 | [Javadoc](docs/apidocs/index.html) | Documentación HTML generada desde los comentarios del código (ábrala en el navegador tras clonar el repositorio) |
-| [Colección de Postman](postman/TecnicoYa-API.postman_collection.json) | 106 peticiones con validaciones automáticas sobre todos los endpoints |
+| [Colección de Postman](postman/TecnicoYa-API.postman_collection.json) | 108 peticiones con validaciones automáticas sobre todos los endpoints |
 | [Esquema SQL](database/schema.sql) y [datos de ejemplo](database/data.sql) | Las 11 tablas y registros de prueba |
 
 ## Requisitos
@@ -53,6 +53,8 @@ También puede usar variables de entorno con los mismos nombres, que tienen prio
 | `DB_PASSWORD` | `root`                                         |
 | `SERVER_PORT` | `8080`                                         |
 | `ARCHIVOS_DIR`| `uploads` (carpeta de los archivos subidos)    |
+| `JWT_SECRET`  | clave de desarrollo (cámbiela fuera de su PC; mínimo 32 caracteres) |
+| `JWT_HORAS_VALIDEZ` | `8` (horas que dura el token)            |
 
 ## 3. Levantar la API
 
@@ -62,7 +64,13 @@ También puede usar variables de entorno con los mismos nombres, que tienen prio
 
 En VS Code o IntelliJ también puede ejecutar `TecnicoYaApiApplication` con el botón *Run*.
 
-Prueba rápida: `curl.exe http://localhost:8080/api/usuarios`
+Prueba rápida (inicia sesión y usa el token):
+
+```powershell
+$token = (Invoke-RestMethod -Method Post http://localhost:8080/api/auth/login -ContentType "application/json" `
+  -Body '{"correo":"maria.quispe@correo.example","contrasena":"TecnicoYa2026!"}').token
+curl.exe -H "Authorization: Bearer $token" http://localhost:8080/api/usuarios
+```
 
 ## Comandos útiles
 
@@ -95,14 +103,18 @@ Cada recurso expone `GET /`, `GET /{id}`, `POST /`, `PUT /{id}` y `DELETE /{id}`
 | Pagos de suscripción  | `/api/pagos-suscripcion`      |
 
 Inicio de sesión: `POST /api/auth/login` con `{ "correo": "...", "contrasena": "..." }`.
-Devuelve el usuario (sin contraseña) o `401` si las credenciales son incorrectas o la cuenta no está `ACTIVO`.
+Devuelve `{ "token": "...", "usuario": { ... } }` o `401` si las credenciales son incorrectas o la cuenta no está `ACTIVO`.
+
+**Token JWT:** todas las demás rutas exigen la cabecera `Authorization: Bearer <token>`, salvo el registro
+(`POST /api/usuarios`) y la descarga de archivos (`GET /api/archivos/{nombre}`). Sin token, o con uno inválido
+o vencido (dura 8 horas), responden `401`. Lo valida `security/JwtInterceptor` antes de llegar al controlador.
 
 Archivos: `POST /api/archivos` (formulario `multipart/form-data`, campo `archivo`; PDF, JPG, PNG o WEBP de hasta 5 MB)
 devuelve la `url` que luego se envía en `urlArchivo` (evidencias) o `archivoEvidencia` (evidencias de pago).
 `GET /api/archivos/{nombre}` descarga el archivo.
 
 ```powershell
-curl.exe -F "archivo=@certificado.pdf" http://localhost:8080/api/archivos
+curl.exe -H "Authorization: Bearer $token" -F "archivo=@certificado.pdf" http://localhost:8080/api/archivos
 ```
 
 Respuestas: `200` (consulta/actualización), `201` con cabecera `Location` (creación), `204` (eliminación).
@@ -114,7 +126,7 @@ Los errores devuelven un JSON uniforme con mensaje en español:
   "errores": { "correo": "El correo no tiene un formato válido" } }
 ```
 
-`400` datos inválidos o regla de negocio · `401` credenciales incorrectas · `404` recurso inexistente · `409` duplicado o registro con datos relacionados · `413` archivo demasiado grande.
+`400` datos inválidos o regla de negocio · `401` credenciales incorrectas o token faltante/inválido · `404` recurso inexistente · `409` duplicado o registro con datos relacionados · `413` archivo demasiado grande.
 
 El detalle de campos, reglas y ejemplos de cada recurso está en la [referencia de la API](docs/api-rest.md).
 
@@ -124,8 +136,9 @@ El proyecto sigue el patrón **MVC**: el **Modelo** está en `model/`, el **Cont
 
 ```
 src/main/java/com/tecnicoya/api
-├── config/        CORS abierto (solo desarrollo) y BCrypt
+├── config/        CORS abierto (solo desarrollo), BCrypt y registro del interceptor JWT
 ├── controller/    Controlador: un controlador REST por entidad, más AuthController y ArchivoController
+├── security/      token JWT: JwtService (genera y valida) y JwtInterceptor (lo exige en cada petición)
 ├── dto/           request (entrada validada) y response (salida)
 ├── model/         Modelo: entidades JPA y enums del dominio
 ├── exception/     excepciones de negocio y manejador global

@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
     "name": "TécnicoYa API",
-    "description": "Pruebas de los 56 endpoints de la API de TécnicoYa: inicio de sesión y 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}.\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "description": "Pruebas de los 56 endpoints de la API de TécnicoYa: inicio de sesión y 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}.\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: \"00 - Autenticación > Iniciar sesión\" guarda el token JWT en la variable {{token}}, que la colección envía en la cabecera Authorization: Bearer de todas las peticiones. Si ejecuta una carpeta suelta, inicie sesión primero (el token dura 8 horas).\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -19,10 +19,24 @@
       }
     }
   ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
   "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "token",
+      "value": ""
     },
     {
       "key": "usuarioId",
@@ -88,7 +102,7 @@
   "item": [
     {
       "name": "00 - Autenticación",
-      "description": "Inicio de sesión. Todos los usuarios de ejemplo tienen la contraseña TecnicoYa2026!",
+      "description": "Inicio de sesión. Todos los usuarios de ejemplo tienen la contraseña TecnicoYa2026!\n\nEl login devuelve { token, usuario }; el token se guarda en {{token}} para el resto de la colección. Solo el login, el registro (POST /usuarios) y la descarga de archivos (GET /archivos/{nombre}) no piden token.",
       "item": [
         {
           "name": "Iniciar sesión",
@@ -98,10 +112,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "const json = pm.response.json();",
                   "pm.test('Responde 200', () => pm.response.to.have.status(200));",
-                  "pm.test('idUsuario = 2', () => pm.expect(pm.response.json().idUsuario).to.eql(2));",
-                  "pm.test('tipoUsuario = CLIENTE', () => pm.expect(pm.response.json().tipoUsuario).to.eql(\"CLIENTE\"));",
-                  "pm.test('No expone la contraseña', () => pm.expect(pm.response.json()).to.not.have.property('contrasena'));"
+                  "pm.test('Devuelve un token JWT', () => pm.expect(json.token).to.match(/^[\\w-]+\\.[\\w-]+\\.[\\w-]+$/));",
+                  "pm.test('usuario.idUsuario = 2', () => pm.expect(json.usuario.idUsuario).to.eql(2));",
+                  "pm.test('usuario.tipoUsuario = CLIENTE', () => pm.expect(json.usuario.tipoUsuario).to.eql(\"CLIENTE\"));",
+                  "pm.test('No expone la contraseña', () => pm.expect(json.usuario).to.not.have.property('contrasena'));",
+                  "// Las demás peticiones envían este token en la cabecera Authorization: Bearer",
+                  "pm.collectionVariables.set('token', json.token);"
                 ]
               }
             }
@@ -124,7 +142,7 @@
                 }
               }
             },
-            "description": "El correo no distingue mayúsculas: se normaliza antes de buscarlo."
+            "description": "El correo no distingue mayúsculas: se normaliza antes de buscarlo. Guarda el token en {{token}}."
           }
         },
         {
@@ -231,6 +249,61 @@
                 }
               }
             }
+          }
+        },
+        {
+          "name": "[Error] Petición sin token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Indica el problema del token', () => pm.expect(pm.response.json().mensaje).to.include(\"Debe iniciar sesión\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios",
+            "description": "Sin la cabecera Authorization, cualquier ruta protegida responde 401."
+          }
+        },
+        {
+          "name": "[Error] Token inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Indica el problema del token', () => pm.expect(pm.response.json().mensaje).to.include(\"El token no es válido o ya venció\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "token.inventado.123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios",
+            "description": "Un token mal formado, modificado o vencido responde 401."
           }
         }
       ]

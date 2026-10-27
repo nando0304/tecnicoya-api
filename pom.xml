@@ -20,6 +20,7 @@
         <java.version>17</java.version>
         <!-- Spring Boot no gestiona la versión de Commons IO (sí las de Commons Lang y Commons Codec) -->
         <commons-io.version>2.22.0</commons-io.version>
+        <jjwt.version>0.13.0</jjwt.version>
     </properties>
 
     <dependencies>
@@ -40,6 +41,24 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+        <!-- JJWT: genera y valida el token JWT que se entrega al iniciar sesión -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Apache Commons -->

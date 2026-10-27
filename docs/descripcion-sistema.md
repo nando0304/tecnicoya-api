@@ -17,7 +17,7 @@ TécnicoYa conecta a **clientes** que necesitan un servicio a domicilio (electri
 Funcionalidad disponible:
 
 - CRUD completo de los 11 recursos del modelo de datos (5 operaciones cada uno).
-- Inicio de sesión con correo y contraseña (`POST /api/auth/login`).
+- Inicio de sesión con correo y contraseña (`POST /api/auth/login`), que entrega un token JWT exigido por el resto de endpoints.
 - Subida y descarga de archivos (certificados, fotos de trabajos y comprobantes de pago) en `/api/archivos`.
 - Validación de datos de entrada y de reglas de negocio, con errores en JSON y en español.
 
@@ -33,8 +33,9 @@ La aplicación es un monolito **Spring Boot 4** que sigue el patrón **MVC (Mode
 
 ```mermaid
 flowchart LR
-    C["Cliente HTTP<br/>front-end · Postman"] -->|JSON| CT
+    C["Cliente HTTP<br/>front-end · Postman"] -->|"JSON + token"| JW
     subgraph API ["TécnicoYa API · Spring Boot"]
+        JW["security<br/>JwtInterceptor valida el token"] --> CT
         CT["controller<br/>REST + validación @Valid"] --> SV["service / impl<br/>reglas de negocio · @Transactional"]
         SV --> RP["repository<br/>Spring Data JPA"]
         RP --> EN["model<br/>JPA / Hibernate"]
@@ -46,6 +47,7 @@ flowchart LR
 
 | Capa | Responsabilidad | No debe |
 |---|---|---|
+| `security` | Rechazar con `401` las peticiones sin un token válido, antes de llegar al controlador | Contener reglas de negocio |
 | `controller` | Recibir la petición HTTP, validar el DTO de entrada y devolver el código HTTP correcto | Contener lógica de negocio ni acceder a repositorios |
 | `service` / `service.impl` | Aplicar las reglas de negocio dentro de una transacción y mapear entidades a DTOs | Conocer detalles de HTTP |
 | `repository` | Consultar y guardar entidades | Contener reglas de negocio |
@@ -92,13 +94,14 @@ Código fuente en `src/main/java/com/tecnicoya/api`:
 | Paquete | Contenido | Clases principales |
 |---|---|---|
 | *(raíz)* | Arranque de la aplicación | `TecnicoYaApiApplication` |
-| `config` | Configuración transversal | `CorsConfig` (CORS abierto para desarrollo), `PasswordConfig` (BCrypt) |
+| `config` | Configuración transversal | `CorsConfig` (CORS abierto para desarrollo), `PasswordConfig` (BCrypt), `JwtConfig` (registra el interceptor JWT) |
+| `security` | Autenticación con token JWT | `JwtService` (genera y valida el token), `JwtInterceptor` (lo exige antes de llegar al controlador) |
 | `controller` | 13 controladores REST | Uno por recurso (`UsuarioController`, `ServicioController`…), `AuthController` y `ArchivoController` |
 | `dto.request` | 12 *records* de entrada con Bean Validation | `UsuarioRequest`, `ServicioRequest`, `LoginRequest`… |
-| `dto.response` | 13 *records* de salida, cada uno con su método `desde(...)` | `UsuarioResponse`, `ServicioResponse`, `ArchivoResponse`, `ApiErrorResponse`… |
+| `dto.response` | 14 *records* de salida, la mayoría con su método `desde(...)` | `UsuarioResponse`, `ServicioResponse`, `LoginResponse`, `ArchivoResponse`, `ApiErrorResponse`… |
 | `model` | 11 entidades JPA, una por tabla | `Usuario`, `Tecnico`, `Servicio`… |
 | `model.enums` | 12 enums con los valores de tipos y estados | `TipoUsuario`, `EstadoServicio`, `MetodoPago`… |
-| `exception` | Excepciones de negocio y manejador global | `RecursoNoEncontradoException`, `ReglaNegocioException`, `ConflictoException`, `CredencialesInvalidasException`, `GlobalExceptionHandler` |
+| `exception` | Excepciones de negocio y manejador global | `RecursoNoEncontradoException`, `ReglaNegocioException`, `ConflictoException`, `CredencialesInvalidasException`, `NoAutenticadoException`, `GlobalExceptionHandler` |
 | `repository` | 11 interfaces Spring Data JPA | `UsuarioRepository`, `DisponibilidadRepository` (con consulta de cruces de horario)… |
 | `service` | Contratos y reglas documentadas | `CrudService<Q, R>`, una interfaz por recurso y `ArchivoService` |
 | `service.impl` | 11 implementaciones transaccionales y el almacenamiento de archivos | `ServicioServiceImpl`, `SuscripcionServiceImpl`, `ArchivoServiceImpl`… |
@@ -256,7 +259,7 @@ Las reglas se aplican en la capa de servicio y cada interfaz las documenta en su
 | Recurso | Reglas principales |
 |---|---|
 | Usuario | Correo único, normalizado a minúsculas. Contraseña obligatoria al crear y guardada con BCrypt. Un usuario con perfil de técnico no puede cambiar de tipo. |
-| Inicio de sesión | Mismo mensaje para correo inexistente y contraseña incorrecta. Solo entran cuentas `ACTIVO`. |
+| Inicio de sesión | Mismo mensaje para correo inexistente y contraseña incorrecta. Solo entran cuentas `ACTIVO`. Entrega un token JWT válido por 8 horas. |
 | Técnico | El usuario debe ser `TECNICO` y tener un solo perfil. Estado de verificación inicial `PENDIENTE`. |
 | Servicio | El cliente debe ser `CLIENTE` y estar `ACTIVO`. Solo se asignan técnicos `VERIFICADO`. `ASIGNADO`, `EN_PROCESO` y `FINALIZADO` exigen técnico. La fecha de cierre solo existe en `FINALIZADO` o `CANCELADO`. |
 | Disponibilidad | `horaFin > horaInicio` y sin cruces con otras franjas del mismo técnico el mismo día. |
@@ -278,6 +281,7 @@ Las versiones las gestiona el *parent* `spring-boot-starter-parent` 4.1.1, salvo
 | `spring-boot-starter-data-jpa` | 4.1.1 | Persistencia: Spring Data JPA, Hibernate ORM 7.4.5 y pool de conexiones HikariCP 7.0.2 |
 | `spring-boot-starter-validation` | 4.1.1 | Validación de DTOs con Bean Validation (Hibernate Validator 9.1.3) |
 | `spring-security-crypto` | 7.1.1 | Solo el cifrado BCrypt de contraseñas; no activa Spring Security |
+| `jjwt-api`, `jjwt-impl`, `jjwt-jackson` | 0.13.0 (fijada en el `pom.xml`) | Generar, firmar y validar los tokens JWT |
 | `mysql-connector-j` | 9.7.0 | Driver JDBC de MySQL (solo en ejecución) |
 | `lombok` | 1.18.46 | Genera *getters*, *setters*, constructores y el *logger* (solo en compilación) |
 | `commons-lang3` | 3.20.0 | `StringUtils`: normaliza los textos de entrada (`normalizeSpace`, `stripToNull`) |
@@ -306,6 +310,8 @@ Archivo `src/main/resources/application.properties`. Las credenciales se leen de
 | `DB_PASSWORD` | `root` | Contraseña de MySQL |
 | `SERVER_PORT` | `8080` | Puerto HTTP de la API |
 | `ARCHIVOS_DIR` | `uploads` | Carpeta de los archivos subidos (relativa a la carpeta desde la que se inicia la API) |
+| `JWT_SECRET` | clave de desarrollo | Clave con la que se firman los tokens; mínimo 32 caracteres. Cámbiela fuera del entorno local |
+| `JWT_HORAS_VALIDEZ` | `8` | Horas que dura un token desde el inicio de sesión |
 
 Otros ajustes relevantes:
 
@@ -324,6 +330,7 @@ Otros ajustes relevantes:
 - **Validación en tres niveles.** Bean Validation en los DTOs (formato), reglas en los servicios (negocio) y restricciones `CHECK`/FK en MySQL (última barrera).
 - **Errores uniformes.** Todas las respuestas de error tienen la misma forma (`ApiErrorResponse`), con mensaje en español y detalle por campo cuando aplica.
 - **Contraseñas con BCrypt.** Se guarda el hash, nunca el texto plano.
+- **Autenticación con JWT y un interceptor.** El login entrega un token firmado (HMAC-SHA256) con el id, el correo y el rol del usuario. `JwtInterceptor` lo revisa antes de cada controlador y responde `401` si falta, fue modificado o venció. Es *stateless*: el servidor no guarda sesiones, solo verifica la firma. Se usa un `HandlerInterceptor` de Spring MVC en lugar de Spring Security completo para mantener el mecanismo simple y visible en dos clases.
 - **Enums nativos de MySQL.** Tipos y estados son columnas `ENUM` y *enums* de Java, así que un valor no permitido se rechaza con la lista de opciones válidas.
 - **Consultas eficientes.** Los listados usan `@EntityGraph` para traer las relaciones en una sola consulta y evitar el problema N+1.
 - **Fechas sin fracciones de segundo** (`FechaUtil.ahora()`), para que lo que devuelve la API coincida con lo guardado en las columnas `DATETIME`.
@@ -332,7 +339,9 @@ Otros ajustes relevantes:
 
 ## 9. Limitaciones conocidas
 
-- **Sin tokens de sesión.** `POST /api/auth/login` valida las credenciales, pero no emite un token (JWT o sesión) y el resto de endpoints no exigen autenticación. El siguiente paso natural es incorporar Spring Security con JWT y permisos por rol.
+- **Sin permisos por rol.** El token identifica al usuario, pero cualquier usuario con sesión puede llamar a cualquier endpoint (por ejemplo, un cliente podría eliminar un plan). El token ya incluye el `rol`, así que el siguiente paso es revisarlo en el interceptor o migrar a Spring Security.
+- **Registro abierto.** `POST /api/usuarios` es público para permitir el registro, y acepta cualquier `tipoUsuario`, incluido `ADMINISTRADOR`.
+- **Tokens sin revocación.** Un token sigue siendo válido hasta que vence aunque el usuario cierre sesión o un administrador bloquee la cuenta.
 - **CORS abierto** a cualquier origen: pensado solo para desarrollo local.
 - **Listados sin paginación ni filtros.** Cada `GET` de colección devuelve todos los registros.
 - **Proveedor de pago no integrado.** Los estados de los pagos se actualizan manualmente mediante la API.
@@ -344,6 +353,7 @@ Otros ajustes relevantes:
 |---|---|---|
 | Unitarias (JUnit + Mockito, sin base de datos) | `src/test/java/.../service/impl` | `./mvnw test` |
 | Controlador de archivos con MockMvc (sin base de datos ni servidor) | `src/test/java/.../controller` | `./mvnw test` |
-| Integración de la API completa (106 peticiones con validaciones) | `postman/TecnicoYa-API.postman_collection.json` | *Collection Runner* de Postman, o `npx newman run postman/TecnicoYa-API.postman_collection.json` |
+| Token JWT: generación, firma, vencimiento e interceptor con MockMvc | `src/test/java/.../security` | `./mvnw test` |
+| Integración de la API completa (108 peticiones con validaciones) | `postman/TecnicoYa-API.postman_collection.json` | *Collection Runner* de Postman, o `npx newman run postman/TecnicoYa-API.postman_collection.json` |
 
 La colección de Postman borra todo lo que crea, así que puede ejecutarse varias veces sobre los datos de ejemplo.
