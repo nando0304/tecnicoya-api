@@ -89,24 +89,37 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="ConflictoException.html" title="class in com.tecnicoya.api.exception">ConflictoException</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="AccesoDenegadoException.html" title="class in com.tecnicoya.api.exception">AccesoDenegadoException</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab5">
+<div class="block">El usuario inició sesión, pero su rol no tiene permiso para usar el recurso (principio de mínimo privilegio).</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="ConflictoException.html" title="class in com.tecnicoya.api.exception">ConflictoException</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">
 <div class="block">Datos duplicados o en conflicto con el estado actual (p. ej. correo ya registrado).</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">
 <div class="block">Correo o contraseña incorrectos, o cuenta que no puede iniciar sesión.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="DemasiadosIntentosException.html" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">
+<div class="block">Se superó el número de intentos fallidos de inicio de sesión permitidos (protección contra ataques de fuerza
+ bruta).</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="GlobalExceptionHandler.html" title="class in com.tecnicoya.api.exception">GlobalExceptionHandler</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Convierte cualquier excepción en un <a href="../dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response"><code>ApiErrorResponse</code></a> con mensaje en español.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="RecursoNoEncontradoException.html" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a></div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NoAutenticadoException.html" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab5">
+<div class="block">La petición no trae un token JWT válido: falta, fue modificado o ya venció.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="RecursoNoEncontradoException.html" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">
 <div class="block">Se traduce a HTTP 404.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="ReglaNegocioException.html" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="ReglaNegocioException.html" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">
 <div class="block">La solicitud es sintácticamente válida pero incumple una regla del negocio.</div>
 </div>
 </div>

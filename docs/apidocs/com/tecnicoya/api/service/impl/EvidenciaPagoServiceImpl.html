@@ -98,11 +98,11 @@ implements <a href="../EvidenciaPagoService.html" title="interface in com.tecnic
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/EvidenciaPagoRepository.html" title="interface in com.tecnicoya.api.repository">EvidenciaPagoRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#evidenciaPagoRepository" class="member-name-link">evidenciaPagoRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#evidenciaPagoDao" class="member-name-link">evidenciaPagoDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/ServicioRepository.html" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#servicioRepository" class="member-name-link">servicioRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -137,15 +137,15 @@ implements <a href="../EvidenciaPagoService.html" title="interface in com.tecnic
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarServicioPagable(java.lang.Long)" class="member-name-link">buscarServicioPagable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.entity.EvidenciaPago)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a>&nbsp;request,
- <a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a>&nbsp;evidenciaPago)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.model.EvidenciaPago)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a>&nbsp;request,
+ <a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a>&nbsp;evidenciaPago)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#crear(com.tecnicoya.api.dto.request.EvidenciaPagoRequest)" class="member-name-link">crear</a><wbr>(<a href="../../dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a>&nbsp;request)</code></div>
@@ -185,15 +185,15 @@ implements <a href="../EvidenciaPagoService.html" title="interface in com.tecnic
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="evidenciaPagoRepository">
-<h3>evidenciaPagoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/EvidenciaPagoRepository.html" title="interface in com.tecnicoya.api.repository">EvidenciaPagoRepository</a></span>&nbsp;<span class="element-name">evidenciaPagoRepository</span></div>
+<section class="detail" id="evidenciaPagoDao">
+<h3>evidenciaPagoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a></span>&nbsp;<span class="element-name">evidenciaPagoDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="servicioRepository">
-<h3>servicioRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/ServicioRepository.html" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></span>&nbsp;<span class="element-name">servicioRepository</span></div>
+<section class="detail" id="servicioDao">
+<h3>servicioDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></span>&nbsp;<span class="element-name">servicioDao</span></div>
 </section>
 </li>
 </ul>
@@ -304,20 +304,20 @@ implements <a href="../EvidenciaPagoService.html" title="interface in com.tecnic
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarServicioPagable(java.lang.Long)">
 <h3>buscarServicioPagable</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a></span>&nbsp;<span class="element-name">buscarServicioPagable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></span>&nbsp;<span class="element-name">buscarServicioPagable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.entity.EvidenciaPago)">
+<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.model.EvidenciaPago)">
 <h3>copiarDatos</h3>
 <div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">copiarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a>&nbsp;request,
- <a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a>&nbsp;evidenciaPago)</span></div>
+ <a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a>&nbsp;evidenciaPago)</span></div>
 </section>
 </li>
 </ul>

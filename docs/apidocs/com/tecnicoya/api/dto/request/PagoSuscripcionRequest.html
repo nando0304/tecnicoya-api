@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PagoSuscripcionRequest</span>(@NotNull(message="El id de la suscripci\u00f3n es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId, @NotNull(message="El monto del pago es obligatorio") @DecimalMin(value="0.01",message="El monto del pago debe ser mayor que 0") @Digits(integer=8,fraction=2,message="El monto del pago admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;montoPago, @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago, <a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a>&nbsp;estadoPago, @PastOrPresent(message="La fecha de pago no puede ser futura") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PagoSuscripcionRequest</span>(@NotNull(message="El id de la suscripci\u00f3n es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId, @NotNull(message="El monto del pago es obligatorio") @DecimalMin(value="0.01",message="El monto del pago debe ser mayor que 0") @Digits(integer=8,fraction=2,message="El monto del pago admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;montoPago, @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago, <a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a>&nbsp;estadoPago, @PastOrPresent(message="La fecha de pago no puede ser futura") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Si no se envía <code>fechaPago</code> se registra la fecha y hora actual.</div>
 </section>
@@ -93,7 +93,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></code></div>
 <div class="col-second even-row-color"><code><a href="#estadoPago" class="member-name-link">estadoPago</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>estadoPago</code> record component.</div>
@@ -103,7 +103,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>fechaPago</code> record component.</div>
 </div>
-<div class="col-first even-row-color"><code>private final @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></code></div>
+<div class="col-first even-row-color"><code>private final @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></code></div>
 <div class="col-second even-row-color"><code><a href="#metodoPago" class="member-name-link">metodoPago</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>metodoPago</code> record component.</div>
@@ -129,10 +129,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.math.BigDecimal,com.tecnicoya.api.entity.enums.MetodoPago,com.tecnicoya.api.entity.enums.EstadoPago,java.time.LocalDateTime)" class="member-name-link">PagoSuscripcionRequest</a><wbr>(@NotNull(message="El id de la suscripci\u00f3n es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.math.BigDecimal,com.tecnicoya.api.model.enums.MetodoPago,com.tecnicoya.api.model.enums.EstadoPago,java.time.LocalDateTime)" class="member-name-link">PagoSuscripcionRequest</a><wbr>(@NotNull(message="El id de la suscripci\u00f3n es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId,
  @NotNull(message="El monto del pago es obligatorio") @DecimalMin(value="0.01",message="El monto del pago debe ser mayor que 0") @Digits(integer=8,fraction=2,message="El monto del pago admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;montoPago,
- @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago,
- <a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a>&nbsp;estadoPago,
+ @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago,
+ <a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a>&nbsp;estadoPago,
  @PastOrPresent(message="La fecha de pago no puede ser futura") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>PagoSuscripcionRequest</code> record class.</div>
@@ -156,7 +156,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estadoPago()" class="member-name-link">estadoPago</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estadoPago</code> record component.</div>
@@ -171,7 +171,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a hash code value for this object.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#metodoPago()" class="member-name-link">metodoPago</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>metodoPago</code> record component.</div>
@@ -233,14 +233,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="metodoPago">
 <h3>metodoPago</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El m\u00e9todo de pago es obligatorio")
-</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span></div>
+</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span></div>
 <div class="block">The field for the <code>metodoPago</code> record component.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="estadoPago">
 <h3>estadoPago</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a></span>&nbsp;<span class="element-name">estadoPago</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></span>&nbsp;<span class="element-name">estadoPago</span></div>
 <div class="block">The field for the <code>estadoPago</code> record component.</div>
 </section>
 </li>
@@ -261,15 +261,15 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Long,java.math.BigDecimal,com.tecnicoya.api.entity.enums.MetodoPago,com.tecnicoya.api.entity.enums.EstadoPago,java.time.LocalDateTime)">
+<section class="detail" id="&lt;init&gt;(java.lang.Long,java.math.BigDecimal,com.tecnicoya.api.model.enums.MetodoPago,com.tecnicoya.api.model.enums.EstadoPago,java.time.LocalDateTime)">
 <h3>PagoSuscripcionRequest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PagoSuscripcionRequest</span><wbr><span class="parameters">(@NotNull(message="El id de la suscripci\u00f3n es obligatorio")
  @NotNull(message="El id de la suscripci\u00f3n es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId,
  @NotNull(message="El monto del pago es obligatorio") @DecimalMin(value="0.01",message="El monto del pago debe ser mayor que 0") @Digits(integer=8,fraction=2,message="El monto del pago admite hasta 8 enteros y 2 decimales")
  @NotNull(message="El monto del pago es obligatorio") @DecimalMin(value="0.01",message="El monto del pago debe ser mayor que 0") @Digits(integer=8,fraction=2,message="El monto del pago admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;montoPago,
  @NotNull(message="El m\u00e9todo de pago es obligatorio")
- @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago,
- <a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a>&nbsp;estadoPago,
+ @NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago,
+ <a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a>&nbsp;estadoPago,
  @PastOrPresent(message="La fecha de pago no puede ser futura")
  @PastOrPresent(message="La fecha de pago no puede ser futura") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago)</span></div>
 <div class="block">Creates an instance of a <code>PagoSuscripcionRequest</code> record class.</div>
@@ -365,7 +365,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="metodoPago()">
 <h3>metodoPago</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El m\u00e9todo de pago es obligatorio")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El m\u00e9todo de pago es obligatorio") <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span>()</div>
 <div class="block">Returns the value of the <code>metodoPago</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -376,7 +376,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoPago()">
 <h3>estadoPago</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a></span>&nbsp;<span class="element-name">estadoPago</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></span>&nbsp;<span class="element-name">estadoPago</span>()</div>
 <div class="block">Returns the value of the <code>estadoPago</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

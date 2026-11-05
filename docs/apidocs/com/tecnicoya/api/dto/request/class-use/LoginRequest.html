@@ -77,10 +77,11 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="../../response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">AuthController.</span><code><a href="../../../controller/AuthController.html#login(com.tecnicoya.api.dto.request.LoginRequest)" class="member-name-link">login</a><wbr>(@Valid <a href="../LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request)</code></div>
+<div class="col-first even-row-color"><code><a href="../../response/LoginResponse.html" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">AuthController.</span><code><a href="../../../controller/AuthController.html#login(com.tecnicoya.api.dto.request.LoginRequest,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">login</a><wbr>(@Valid <a href="../LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request,
+ jakarta.servlet.http.HttpServletRequest&nbsp;http)</code></div>
 <div class="col-last even-row-color">
-<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña.</div>
+<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña y genera el token.</div>
 </div>
 </div>
 </section>

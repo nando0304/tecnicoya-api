@@ -61,7 +61,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="package-signature">package <span class="element-name">com.tecnicoya.api.config</span></div>
 <section class="package-description" id="package-description">
-<div class="block">Configuración transversal de Spring: CORS y cifrado de contraseñas.</div>
+<div class="block">Configuración transversal de Spring: CORS, cifrado de contraseñas y registro del interceptor JWT.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -86,10 +86,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="CorsConfig.html" title="class in com.tecnicoya.api.config">CorsConfig</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">CORS abierto a cualquier origen para pruebas locales (front-end en otro puerto, Postman, etc.).</div>
+<div class="block">CORS restringido a los orígenes del front-end definidos en <code>tecnicoya.cors.origenes</code> (por defecto, el
+ servidor de desarrollo de Vite).</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="PasswordConfig.html" title="class in com.tecnicoya.api.config">PasswordConfig</a></div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JwtConfig.html" title="class in com.tecnicoya.api.config">JwtConfig</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Registra los interceptores de seguridad en todas las rutas de la API, en este orden:
+ 
+   <a href="../security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a>: exige el token y verifica el rol.
+   <a href="../security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security"><code>AuditoriaInterceptor</code></a>: registra las operaciones que modifican datos.
+ </div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="PasswordConfig.html" title="class in com.tecnicoya.api.config">PasswordConfig</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Define el <code>PasswordEncoder</code> (BCrypt) con el que se cifran y verifican las contraseñas.</div>
 </div>
 </div>

@@ -61,11 +61,19 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/config/package-summary.html">com.tecnicoya.api.config</a></div>
 <div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
-<div class="block">Configuración transversal de Spring: CORS y cifrado de contraseñas.</div>
+<div class="block">Configuración transversal de Spring: CORS, cifrado de contraseñas y registro del interceptor JWT.</div>
 </div>
 <div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/controller/package-summary.html">com.tecnicoya.api.controller</a></div>
 <div class="col-last even-row-color all-packages-table all-packages-table-tab1">
 <div class="block">Capa web: controladores REST bajo <code>/api</code>.</div>
+</div>
+<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/dao/package-summary.html">com.tecnicoya.api.dao</a></div>
+<div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
+<div class="block">Capa de acceso a datos con el patrón DAO (Data Access Object).</div>
+</div>
+<div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/dao/impl/package-summary.html">com.tecnicoya.api.dao.impl</a></div>
+<div class="col-last even-row-color all-packages-table all-packages-table-tab1">
+<div class="block">Implementaciones JPA de los DAO.</div>
 </div>
 <div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/dto/package-summary.html">com.tecnicoya.api.dto</a></div>
 <div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
@@ -79,21 +87,22 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
 <div class="block">DTOs de salida: lo que devuelve la API.</div>
 </div>
-<div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/entity/package-summary.html">com.tecnicoya.api.entity</a></div>
-<div class="col-last even-row-color all-packages-table all-packages-table-tab1">
-<div class="block">Entidades JPA mapeadas 1 a 1 con las tablas de <code>database/schema.sql</code>.</div>
-</div>
-<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/entity/enums/package-summary.html">com.tecnicoya.api.entity.enums</a></div>
-<div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
-<div class="block">Valores permitidos de los campos de tipo y estado; coinciden con las columnas <code>ENUM</code> de MySQL.</div>
-</div>
 <div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/exception/package-summary.html">com.tecnicoya.api.exception</a></div>
 <div class="col-last even-row-color all-packages-table all-packages-table-tab1">
 <div class="block">Excepciones de negocio y su traducción a respuestas HTTP con cuerpo JSON en español.</div>
 </div>
-<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/repository/package-summary.html">com.tecnicoya.api.repository</a></div>
+<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/model/package-summary.html">com.tecnicoya.api.model</a></div>
 <div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
-<div class="block">Acceso a datos con Spring Data JPA.</div>
+<div class="block">Modelo (la "M" de MVC): entidades JPA mapeadas 1 a 1 con las tablas de <code>database/schema.sql</code>.</div>
+</div>
+<div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/model/enums/package-summary.html">com.tecnicoya.api.model.enums</a></div>
+<div class="col-last even-row-color all-packages-table all-packages-table-tab1">
+<div class="block">Valores permitidos de los campos de tipo y estado; coinciden con las columnas <code>ENUM</code> de MySQL.</div>
+</div>
+<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a></div>
+<div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
+<div class="block">Autenticación con token JWT: <a href="com/tecnicoya/api/security/JwtService.html" title="class in com.tecnicoya.api.security"><code>JwtService</code></a> lo genera al iniciar sesión y
+ <a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a> lo exige en el resto de las peticiones.</div>
 </div>
 <div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/service/package-summary.html">com.tecnicoya.api.service</a></div>
 <div class="col-last even-row-color all-packages-table all-packages-table-tab1">
@@ -106,6 +115,10 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/util/package-summary.html">com.tecnicoya.api.util</a></div>
 <div class="col-last even-row-color all-packages-table all-packages-table-tab1">
 <div class="block">Utilidades generales.</div>
+</div>
+<div class="col-first odd-row-color all-packages-table all-packages-table-tab1"><a href="com/tecnicoya/api/validation/package-summary.html">com.tecnicoya.api.validation</a></div>
+<div class="col-last odd-row-color all-packages-table all-packages-table-tab1">
+<div class="block">Anotaciones de Bean Validation propias de la API, como <a href="com/tecnicoya/api/validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation"><code>SinHtml</code></a>.</div>
 </div>
 </div>
 </div>

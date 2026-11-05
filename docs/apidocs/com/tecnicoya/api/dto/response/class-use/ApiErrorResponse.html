@@ -76,13 +76,33 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;errores)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarConflicto(com.tecnicoya.api.exception.ConflictoException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarConflicto</a><wbr>(<a href="../../../exception/ConflictoException.html" title="class in com.tecnicoya.api.exception">ConflictoException</a>&nbsp;ex,
+<div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarAccesoDenegado(com.tecnicoya.api.exception.AccesoDenegadoException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarAccesoDenegado</a><wbr>(<a href="../../../exception/AccesoDenegadoException.html" title="class in com.tecnicoya.api.exception">AccesoDenegadoException</a>&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">El rol del usuario no está entre los permitidos por <a href="../../../security/RequiereRol.html" title="annotation interface in com.tecnicoya.api.security"><code>RequiereRol</code></a>.</div>
+</div>
+<div class="col-first even-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarArchivoFaltante(org.springframework.web.multipart.support.MissingServletRequestPartException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarArchivoFaltante</a><wbr>(org.springframework.web.multipart.support.MissingServletRequestPartException&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarArchivoGrande(org.springframework.web.multipart.MaxUploadSizeExceededException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarArchivoGrande</a><wbr>(org.springframework.web.multipart.MaxUploadSizeExceededException&nbsp;ex,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarCredencialesInvalidas(com.tecnicoya.api.exception.CredencialesInvalidasException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarCredencialesInvalidas</a><wbr>(<a href="../../../exception/CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a>&nbsp;ex,
+<div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarConflicto(com.tecnicoya.api.exception.ConflictoException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarConflicto</a><wbr>(<a href="../../../exception/ConflictoException.html" title="class in com.tecnicoya.api.exception">ConflictoException</a>&nbsp;ex,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarCredencialesInvalidas(com.tecnicoya.api.exception.CredencialesInvalidasException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarCredencialesInvalidas</a><wbr>(<a href="../../../exception/CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a>&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarDemasiadosIntentos(com.tecnicoya.api.exception.DemasiadosIntentosException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarDemasiadosIntentos</a><wbr>(<a href="../../../exception/DemasiadosIntentosException.html" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a>&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Bloqueo temporal por intentos fallidos de inicio de sesión; indica en <code>Retry-After</code> cuánto esperar.</div>
+</div>
 <div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarGeneral(java.lang.Exception,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarGeneral</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;ex,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
@@ -101,6 +121,18 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarMetodoNoPermitido(org.springframework.web.HttpRequestMethodNotSupportedException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarMetodoNoPermitido</a><wbr>(org.springframework.web.HttpRequestMethodNotSupportedException&nbsp;ex,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarMultipartIlegible(org.springframework.web.multipart.MultipartException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarMultipartIlegible</a><wbr>(org.springframework.web.multipart.MultipartException&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Cuerpo multipart mal formado o cortado (las subidas demasiado grandes las atiende <a href="../../../exception/GlobalExceptionHandler.html#manejarArchivoGrande(org.springframework.web.multipart.MaxUploadSizeExceededException,jakarta.servlet.http.HttpServletRequest)"><code>GlobalExceptionHandler.manejarArchivoGrande(org.springframework.web.multipart.MaxUploadSizeExceededException, jakarta.servlet.http.HttpServletRequest)</code></a>).</div>
+</div>
+<div class="col-first even-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarNoAutenticado(com.tecnicoya.api.exception.NoAutenticadoException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarNoAutenticado</a><wbr>(<a href="../../../exception/NoAutenticadoException.html" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a>&nbsp;ex,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Lanzada por <a href="../../../security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a> antes de llegar al controlador.</div>
+</div>
 <div class="col-first odd-row-color"><code>org.springframework.http.ResponseEntity&lt;<a href="../ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a>&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">GlobalExceptionHandler.</span><code><a href="../../../exception/GlobalExceptionHandler.html#manejarNoEncontrado(com.tecnicoya.api.exception.RecursoNoEncontradoException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">manejarNoEncontrado</a><wbr>(<a href="../../../exception/RecursoNoEncontradoException.html" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a>&nbsp;ex,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>

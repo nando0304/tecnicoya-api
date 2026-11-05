@@ -98,11 +98,11 @@ implements <a href="../DisponibilidadService.html" title="interface in com.tecni
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/DisponibilidadRepository.html" title="interface in com.tecnicoya.api.repository">DisponibilidadRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#disponibilidadRepository" class="member-name-link">disponibilidadRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#disponibilidadDao" class="member-name-link">disponibilidadDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tecnicoRepository" class="member-name-link">tecnicoRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -138,10 +138,10 @@ implements <a href="../DisponibilidadService.html" title="interface in com.tecni
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarDatos(com.tecnicoya.api.dto.request.DisponibilidadRequest,com.tecnicoya.api.entity.Disponibilidad)" class="member-name-link">aplicarDatos</a><wbr>(<a href="../../dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a>&nbsp;request,
- <a href="../../entity/Disponibilidad.html" title="class in com.tecnicoya.api.entity">Disponibilidad</a>&nbsp;disponibilidad)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarDatos(com.tecnicoya.api.dto.request.DisponibilidadRequest,com.tecnicoya.api.model.Disponibilidad)" class="member-name-link">aplicarDatos</a><wbr>(<a href="../../dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a>&nbsp;request,
+ <a href="../../model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a>&nbsp;disponibilidad)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Disponibilidad.html" title="class in com.tecnicoya.api.entity">Disponibilidad</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/DisponibilidadResponse.html" title="class in com.tecnicoya.api.dto.response">DisponibilidadResponse</a></code></div>
@@ -182,15 +182,15 @@ implements <a href="../DisponibilidadService.html" title="interface in com.tecni
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="disponibilidadRepository">
-<h3>disponibilidadRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/DisponibilidadRepository.html" title="interface in com.tecnicoya.api.repository">DisponibilidadRepository</a></span>&nbsp;<span class="element-name">disponibilidadRepository</span></div>
+<section class="detail" id="disponibilidadDao">
+<h3>disponibilidadDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a></span>&nbsp;<span class="element-name">disponibilidadDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tecnicoRepository">
-<h3>tecnicoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></span>&nbsp;<span class="element-name">tecnicoRepository</span></div>
+<section class="detail" id="tecnicoDao">
+<h3>tecnicoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
 </section>
 </li>
 </ul>
@@ -301,14 +301,14 @@ implements <a href="../DisponibilidadService.html" title="interface in com.tecni
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Disponibilidad.html" title="class in com.tecnicoya.api.entity">Disponibilidad</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="aplicarDatos(com.tecnicoya.api.dto.request.DisponibilidadRequest,com.tecnicoya.api.entity.Disponibilidad)">
+<section class="detail" id="aplicarDatos(com.tecnicoya.api.dto.request.DisponibilidadRequest,com.tecnicoya.api.model.Disponibilidad)">
 <h3>aplicarDatos</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">aplicarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a>&nbsp;request,
- <a href="../../entity/Disponibilidad.html" title="class in com.tecnicoya.api.entity">Disponibilidad</a>&nbsp;disponibilidad)</span></div>
+ <a href="../../model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a>&nbsp;disponibilidad)</span></div>
 </section>
 </li>
 </ul>

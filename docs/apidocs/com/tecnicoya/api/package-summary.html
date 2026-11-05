@@ -63,8 +63,9 @@ loadScripts(document, 'script');</script>
 <section class="package-description" id="package-description">
 <div class="block">API REST de TécnicoYa: plataforma que conecta clientes con técnicos de servicios a domicilio.
 
- <p>Arquitectura en capas: <code>controller</code> → <code>service</code> → <code>repository</code> → <code>entity</code>,
- con DTOs en <code>dto</code> para no exponer las entidades.</div>
+ <p>Arquitectura MVC en capas: <code>controller</code> (Controlador) → <code>service</code> → <code>repository</code>
+ → <code>model</code> (Modelo), con DTOs en <code>dto</code> para no exponer las entidades. La Vista es el front-end,
+ que consume las respuestas JSON.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -76,35 +77,44 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="config/package-summary.html">com.tecnicoya.api.config</a></div>
 <div class="col-last even-row-color">
-<div class="block">Configuración transversal de Spring: CORS y cifrado de contraseñas.</div>
+<div class="block">Configuración transversal de Spring: CORS, cifrado de contraseñas y registro del interceptor JWT.</div>
 </div>
 <div class="col-first odd-row-color"><a href="controller/package-summary.html">com.tecnicoya.api.controller</a></div>
 <div class="col-last odd-row-color">
 <div class="block">Capa web: controladores REST bajo <code>/api</code>.</div>
 </div>
-<div class="col-first even-row-color"><a href="dto/package-summary.html">com.tecnicoya.api.dto</a></div>
+<div class="col-first even-row-color"><a href="dao/package-summary.html">com.tecnicoya.api.dao</a></div>
 <div class="col-last even-row-color">
-<div class="block">Objetos de transferencia de datos entre la API y sus clientes.</div>
+<div class="block">Capa de acceso a datos con el patrón DAO (Data Access Object).</div>
 </div>
-<div class="col-first odd-row-color"><a href="entity/package-summary.html">com.tecnicoya.api.entity</a></div>
+<div class="col-first odd-row-color"><a href="dto/package-summary.html">com.tecnicoya.api.dto</a></div>
 <div class="col-last odd-row-color">
-<div class="block">Entidades JPA mapeadas 1 a 1 con las tablas de <code>database/schema.sql</code>.</div>
+<div class="block">Objetos de transferencia de datos entre la API y sus clientes.</div>
 </div>
 <div class="col-first even-row-color"><a href="exception/package-summary.html">com.tecnicoya.api.exception</a></div>
 <div class="col-last even-row-color">
 <div class="block">Excepciones de negocio y su traducción a respuestas HTTP con cuerpo JSON en español.</div>
 </div>
-<div class="col-first odd-row-color"><a href="repository/package-summary.html">com.tecnicoya.api.repository</a></div>
+<div class="col-first odd-row-color"><a href="model/package-summary.html">com.tecnicoya.api.model</a></div>
 <div class="col-last odd-row-color">
-<div class="block">Acceso a datos con Spring Data JPA.</div>
+<div class="block">Modelo (la "M" de MVC): entidades JPA mapeadas 1 a 1 con las tablas de <code>database/schema.sql</code>.</div>
 </div>
-<div class="col-first even-row-color"><a href="service/package-summary.html">com.tecnicoya.api.service</a></div>
+<div class="col-first even-row-color"><a href="security/package-summary.html">com.tecnicoya.api.security</a></div>
 <div class="col-last even-row-color">
+<div class="block">Autenticación con token JWT: <a href="security/JwtService.html" title="class in com.tecnicoya.api.security"><code>JwtService</code></a> lo genera al iniciar sesión y
+ <a href="security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a> lo exige en el resto de las peticiones.</div>
+</div>
+<div class="col-first odd-row-color"><a href="service/package-summary.html">com.tecnicoya.api.service</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Contratos de la lógica de negocio; cada interfaz documenta las reglas de su recurso.</div>
 </div>
-<div class="col-first odd-row-color"><a href="util/package-summary.html">com.tecnicoya.api.util</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="util/package-summary.html">com.tecnicoya.api.util</a></div>
+<div class="col-last even-row-color">
 <div class="block">Utilidades generales.</div>
+</div>
+<div class="col-first odd-row-color"><a href="validation/package-summary.html">com.tecnicoya.api.validation</a></div>
+<div class="col-last odd-row-color">
+<div class="block">Anotaciones de Bean Validation propias de la API, como <a href="validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation"><code>SinHtml</code></a>.</div>
 </div>
 </div>
 </div>

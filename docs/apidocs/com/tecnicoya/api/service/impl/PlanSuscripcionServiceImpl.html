@@ -98,8 +98,8 @@ implements <a href="../PlanSuscripcionService.html" title="interface in com.tecn
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/PlanSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#planSuscripcionRepository" class="member-name-link">planSuscripcionRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#planSuscripcionDao" class="member-name-link">planSuscripcionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -134,12 +134,12 @@ implements <a href="../PlanSuscripcionService.html" title="interface in com.tecn
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.entity.PlanSuscripcion,java.lang.String)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/PlanSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a>&nbsp;request,
- <a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a>&nbsp;plan,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.model.PlanSuscripcion,java.lang.String)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/PlanSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a>&nbsp;request,
+ <a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a>&nbsp;plan,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombre)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/PlanSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></code></div>
@@ -180,9 +180,9 @@ implements <a href="../PlanSuscripcionService.html" title="interface in com.tecn
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="planSuscripcionRepository">
-<h3>planSuscripcionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/PlanSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></span>&nbsp;<span class="element-name">planSuscripcionRepository</span></div>
+<section class="detail" id="planSuscripcionDao">
+<h3>planSuscripcionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></span>&nbsp;<span class="element-name">planSuscripcionDao</span></div>
 </section>
 </li>
 </ul>
@@ -293,14 +293,14 @@ implements <a href="../PlanSuscripcionService.html" title="interface in com.tecn
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.entity.PlanSuscripcion,java.lang.String)">
+<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.model.PlanSuscripcion,java.lang.String)">
 <h3>copiarDatos</h3>
 <div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">copiarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/PlanSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a>&nbsp;request,
- <a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a>&nbsp;plan,
+ <a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a>&nbsp;plan,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombre)</span></div>
 </section>
 </li>

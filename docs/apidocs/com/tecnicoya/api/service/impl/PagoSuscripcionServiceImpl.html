@@ -98,11 +98,11 @@ implements <a href="../PagoSuscripcionService.html" title="interface in com.tecn
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/PagoSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PagoSuscripcionRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#pagoSuscripcionRepository" class="member-name-link">pagoSuscripcionRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#pagoSuscripcionDao" class="member-name-link">pagoSuscripcionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/SuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#suscripcionRepository" class="member-name-link">suscripcionRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#suscripcionDao" class="member-name-link">suscripcionDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -137,10 +137,10 @@ implements <a href="../PagoSuscripcionService.html" title="interface in com.tecn
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/PagoSuscripcion.html" title="class in com.tecnicoya.api.entity">PagoSuscripcion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/PagoSuscripcion.html" title="class in com.tecnicoya.api.model">PagoSuscripcion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarSuscripcionNoCancelada(java.lang.Long)" class="member-name-link">buscarSuscripcionNoCancelada</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/PagoSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></code></div>
@@ -181,15 +181,15 @@ implements <a href="../PagoSuscripcionService.html" title="interface in com.tecn
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="pagoSuscripcionRepository">
-<h3>pagoSuscripcionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/PagoSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PagoSuscripcionRepository</a></span>&nbsp;<span class="element-name">pagoSuscripcionRepository</span></div>
+<section class="detail" id="pagoSuscripcionDao">
+<h3>pagoSuscripcionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a></span>&nbsp;<span class="element-name">pagoSuscripcionDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="suscripcionRepository">
-<h3>suscripcionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/SuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></span>&nbsp;<span class="element-name">suscripcionRepository</span></div>
+<section class="detail" id="suscripcionDao">
+<h3>suscripcionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></span>&nbsp;<span class="element-name">suscripcionDao</span></div>
 </section>
 </li>
 </ul>
@@ -300,13 +300,13 @@ implements <a href="../PagoSuscripcionService.html" title="interface in com.tecn
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/PagoSuscripcion.html" title="class in com.tecnicoya.api.entity">PagoSuscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/PagoSuscripcion.html" title="class in com.tecnicoya.api.model">PagoSuscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarSuscripcionNoCancelada(java.lang.Long)">
 <h3>buscarSuscripcionNoCancelada</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a></span>&nbsp;<span class="element-name">buscarSuscripcionNoCancelada</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></span>&nbsp;<span class="element-name">buscarSuscripcionNoCancelada</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;suscripcionId)</span></div>
 </section>
 </li>
 </ul>

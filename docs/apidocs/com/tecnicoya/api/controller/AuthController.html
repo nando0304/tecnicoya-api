@@ -80,7 +80,10 @@ loadScripts(document, 'script');</script>
 @RequestMapping("/api/auth")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">AuthController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Inicio de sesión: valida las credenciales y devuelve los datos del usuario.</div>
+<div class="block">Inicio de sesión: valida las credenciales y entrega el token JWT con los datos del usuario.
+
+ <p>Cada intento queda en el log de auditoría (sin la contraseña) y los intentos fallidos se limitan con
+ <a href="../security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security"><code>LimiteIntentosLogin</code></a> para frenar ataques de fuerza bruta.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,6 +96,12 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>private final <a href="../security/JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></code></div>
+<div class="col-second even-row-color"><code><a href="#jwtService" class="member-name-link">jwtService</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>private final <a href="../security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#limiteIntentos" class="member-name-link">limiteIntentos</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>private final <a href="../service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></code></div>
 <div class="col-second even-row-color"><code><a href="#usuarioService" class="member-name-link">usuarioService</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
@@ -123,10 +132,11 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#login(com.tecnicoya.api.dto.request.LoginRequest)" class="member-name-link">login</a><wbr>(@Valid <a href="../dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/response/LoginResponse.html" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#login(com.tecnicoya.api.dto.request.LoginRequest,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">login</a><wbr>(@Valid <a href="../dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request,
+ jakarta.servlet.http.HttpServletRequest&nbsp;http)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña.</div>
+<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña y genera el token.</div>
 </div>
 </div>
 </div>
@@ -149,6 +159,18 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="usuarioService">
 <h3>usuarioService</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></span>&nbsp;<span class="element-name">usuarioService</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="jwtService">
+<h3>jwtService</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../security/JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></span>&nbsp;<span class="element-name">jwtService</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="limiteIntentos">
+<h3>limiteIntentos</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></span>&nbsp;<span class="element-name">limiteIntentos</span></div>
 </section>
 </li>
 </ul>
@@ -174,18 +196,21 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="login(com.tecnicoya.api.dto.request.LoginRequest)">
+<section class="detail" id="login(com.tecnicoya.api.dto.request.LoginRequest,jakarta.servlet.http.HttpServletRequest)">
 <h3>login</h3>
 <div class="member-signature"><span class="annotations">@PostMapping("/login")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></span>&nbsp;<span class="element-name">login</span><wbr><span class="parameters">(@Valid @RequestBody
- @Valid <a href="../dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request)</span></div>
-<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña.</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/response/LoginResponse.html" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></span>&nbsp;<span class="element-name">login</span><wbr><span class="parameters">(@Valid @RequestBody
+ @Valid <a href="../dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request,
+ jakarta.servlet.http.HttpServletRequest&nbsp;http)</span></div>
+<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña y genera el token.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>request</code> - correo y contraseña</dd>
+<dd><code>http</code> - petición HTTP, para obtener la IP del cliente</dd>
 <dt>Returns:</dt>
-<dd>200 con los datos del usuario (sin contraseña); 400 si faltan datos;
-         401 si las credenciales son incorrectas o la cuenta no está <code>ACTIVO</code></dd>
+<dd>200 con el token y los datos del usuario (sin contraseña); 400 si faltan datos;
+         401 si las credenciales son incorrectas o la cuenta no está <code>ACTIVO</code>;
+         429 si se superó el número de intentos fallidos permitidos</dd>
 </dl>
 </section>
 </li>

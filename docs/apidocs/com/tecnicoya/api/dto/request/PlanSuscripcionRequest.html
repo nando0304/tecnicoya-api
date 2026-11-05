@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PlanSuscripcionRequest</span>(@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombrePlan, @NotNull(message="El precio inicial es obligatorio") @DecimalMin(value="0.00",message="El precio inicial no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio inicial admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioInicial, @NotNull(message="El l\u00edmite de clientes es obligatorio") @Min(value=1L,message="El l\u00edmite de clientes debe ser al menos 1") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;limiteClientes, @NotNull(message="El precio posterior es obligatorio") @DecimalMin(value="0.00",message="El precio posterior no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio posterior admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioPosterior, @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcion, <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PlanSuscripcionRequest</span>(<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a> @NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombrePlan, @NotNull(message="El precio inicial es obligatorio") @DecimalMin(value="0.00",message="El precio inicial no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio inicial admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioInicial, @NotNull(message="El l\u00edmite de clientes es obligatorio") @Min(value=1L,message="El l\u00edmite de clientes debe ser al menos 1") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;limiteClientes, @NotNull(message="El precio posterior es obligatorio") @DecimalMin(value="0.00",message="El precio posterior no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio posterior admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioPosterior, <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a> @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcion, <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Datos para registrar o actualizar un plan de suscripción.</div>
 </section>
@@ -98,7 +98,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>descripcion</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#estado" class="member-name-link">estado</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>estado</code> record component.</div>
@@ -134,12 +134,12 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.math.BigDecimal,java.lang.Integer,java.math.BigDecimal,java.lang.String,com.tecnicoya.api.entity.enums.EstadoRegistro)" class="member-name-link">PlanSuscripcionRequest</a><wbr>(@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombrePlan,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.math.BigDecimal,java.lang.Integer,java.math.BigDecimal,java.lang.String,com.tecnicoya.api.model.enums.EstadoRegistro)" class="member-name-link">PlanSuscripcionRequest</a><wbr>(@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombrePlan,
  @NotNull(message="El precio inicial es obligatorio") @DecimalMin(value="0.00",message="El precio inicial no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio inicial admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioInicial,
  @NotNull(message="El l\u00edmite de clientes es obligatorio") @Min(value=1L,message="El l\u00edmite de clientes debe ser al menos 1") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;limiteClientes,
  @NotNull(message="El precio posterior es obligatorio") @DecimalMin(value="0.00",message="El precio posterior no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio posterior admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioPosterior,
  @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcion,
- <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)</code></div>
+ <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>PlanSuscripcionRequest</code> record class.</div>
 </div>
@@ -167,7 +167,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estado()" class="member-name-link">estado</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
@@ -225,6 +225,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@NotBlank(message="El nombre del plan es obligatorio")
 @Size(max=100,
       message="El nombre del plan no debe superar los 100 caracteres")
+<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
 </span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">nombrePlan</span></div>
 <div class="block">The field for the <code>nombrePlan</code> record component.</div>
 </section>
@@ -270,6 +271,7 @@ loadScripts(document, 'script');</script>
 <h3>descripcion</h3>
 <div class="member-signature"><span class="annotations">@Size(max=500,
       message="La descripci\u00f3n no debe superar los 500 caracteres")
+<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
 </span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">descripcion</span></div>
 <div class="block">The field for the <code>descripcion</code> record component.</div>
 </section>
@@ -277,7 +279,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estado">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span></div>
 <div class="block">The field for the <code>estado</code> record component.</div>
 </section>
 </li>
@@ -290,9 +292,9 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,java.math.BigDecimal,java.lang.Integer,java.math.BigDecimal,java.lang.String,com.tecnicoya.api.entity.enums.EstadoRegistro)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,java.math.BigDecimal,java.lang.Integer,java.math.BigDecimal,java.lang.String,com.tecnicoya.api.model.enums.EstadoRegistro)">
 <h3>PlanSuscripcionRequest</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlanSuscripcionRequest</span><wbr><span class="parameters">(@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres")
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlanSuscripcionRequest</span><wbr><span class="parameters">(@NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
  @NotBlank(message="El nombre del plan es obligatorio") @Size(max=100,message="El nombre del plan no debe superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombrePlan,
  @NotNull(message="El precio inicial es obligatorio") @DecimalMin(value="0.00",message="El precio inicial no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio inicial admite hasta 8 enteros y 2 decimales")
  @NotNull(message="El precio inicial es obligatorio") @DecimalMin(value="0.00",message="El precio inicial no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio inicial admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioInicial,
@@ -300,9 +302,9 @@ loadScripts(document, 'script');</script>
  @NotNull(message="El l\u00edmite de clientes es obligatorio") @Min(value=1L,message="El l\u00edmite de clientes debe ser al menos 1") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;limiteClientes,
  @NotNull(message="El precio posterior es obligatorio") @DecimalMin(value="0.00",message="El precio posterior no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio posterior admite hasta 8 enteros y 2 decimales")
  @NotNull(message="El precio posterior es obligatorio") @DecimalMin(value="0.00",message="El precio posterior no puede ser negativo") @Digits(integer=8,fraction=2,message="El precio posterior admite hasta 8 enteros y 2 decimales") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;precioPosterior,
- @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres")
+ @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
  @Size(max=500,message="La descripci\u00f3n no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcion,
- <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)</span></div>
+ <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)</span></div>
 <div class="block">Creates an instance of a <code>PlanSuscripcionRequest</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -442,7 +444,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estado()">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span>()</div>
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

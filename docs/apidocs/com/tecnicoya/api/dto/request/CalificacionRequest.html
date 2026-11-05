@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CalificacionRequest</span>(@NotNull(message="El id del servicio es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId, @NotNull(message="La puntuaci\u00f3n es obligatoria") @Min(value=1L,message="La puntuaci\u00f3n m\u00ednima es 1") @Max(value=5L,message="La puntuaci\u00f3n m\u00e1xima es 5") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;puntuacion, @Size(max=500,message="El comentario no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;comentario)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">CalificacionRequest</span>(@NotNull(message="El id del servicio es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId, @NotNull(message="La puntuaci\u00f3n es obligatoria") @Min(value=1L,message="La puntuaci\u00f3n m\u00ednima es 1") @Max(value=5L,message="La puntuaci\u00f3n m\u00e1xima es 5") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;puntuacion, <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a> @Size(max=500,message="El comentario no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;comentario)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Datos para registrar o actualizar la calificación de un servicio.</div>
 </section>
@@ -211,6 +211,7 @@ loadScripts(document, 'script');</script>
 <h3>comentario</h3>
 <div class="member-signature"><span class="annotations">@Size(max=500,
       message="El comentario no debe superar los 500 caracteres")
+<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
 </span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@Size(max=500,message="El comentario no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">comentario</span></div>
 <div class="block">The field for the <code>comentario</code> record component.</div>
 </section>
@@ -230,7 +231,7 @@ loadScripts(document, 'script');</script>
  @NotNull(message="El id del servicio es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId,
  @NotNull(message="La puntuaci\u00f3n es obligatoria") @Min(value=1L,message="La puntuaci\u00f3n m\u00ednima es 1") @Max(value=5L,message="La puntuaci\u00f3n m\u00e1xima es 5")
  @NotNull(message="La puntuaci\u00f3n es obligatoria") @Min(value=1L,message="La puntuaci\u00f3n m\u00ednima es 1") @Max(value=5L,message="La puntuaci\u00f3n m\u00e1xima es 5") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;puntuacion,
- @Size(max=500,message="El comentario no debe superar los 500 caracteres")
+ @Size(max=500,message="El comentario no debe superar los 500 caracteres") <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
  @Size(max=500,message="El comentario no debe superar los 500 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;comentario)</span></div>
 <div class="block">Creates an instance of a <code>CalificacionRequest</code> record class.</div>
 <dl class="notes">

@@ -98,14 +98,14 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/PlanSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#planSuscripcionRepository" class="member-name-link">planSuscripcionRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#planSuscripcionDao" class="member-name-link">planSuscripcionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/SuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#suscripcionRepository" class="member-name-link">suscripcionRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#suscripcionDao" class="member-name-link">suscripcionDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#tecnicoRepository" class="member-name-link">tecnicoRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -141,16 +141,16 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarFechasYValidar(com.tecnicoya.api.dto.request.SuscripcionRequest,com.tecnicoya.api.entity.Suscripcion)" class="member-name-link">aplicarFechasYValidar</a><wbr>(<a href="../../dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a>&nbsp;request,
- <a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a>&nbsp;suscripcion)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarFechasYValidar(com.tecnicoya.api.dto.request.SuscripcionRequest,com.tecnicoya.api.model.Suscripcion)" class="member-name-link">aplicarFechasYValidar</a><wbr>(<a href="../../dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a>&nbsp;request,
+ <a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarPlanActivo(java.lang.Long)" class="member-name-link">buscarPlanActivo</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarTecnico(java.lang.Long)" class="member-name-link">buscarTecnico</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/SuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">SuscripcionResponse</a></code></div>
@@ -174,7 +174,7 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <div class="block">Busca un registro por su id.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tieneOtraSuscripcionActiva(com.tecnicoya.api.entity.Suscripcion)" class="member-name-link">tieneOtraSuscripcionActiva</a><wbr>(<a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a>&nbsp;suscripcion)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tieneOtraSuscripcionActiva(com.tecnicoya.api.model.Suscripcion)" class="member-name-link">tieneOtraSuscripcionActiva</a><wbr>(<a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -194,21 +194,21 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="suscripcionRepository">
-<h3>suscripcionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/SuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></span>&nbsp;<span class="element-name">suscripcionRepository</span></div>
+<section class="detail" id="suscripcionDao">
+<h3>suscripcionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></span>&nbsp;<span class="element-name">suscripcionDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tecnicoRepository">
-<h3>tecnicoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></span>&nbsp;<span class="element-name">tecnicoRepository</span></div>
+<section class="detail" id="tecnicoDao">
+<h3>tecnicoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="planSuscripcionRepository">
-<h3>planSuscripcionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/PlanSuscripcionRepository.html" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></span>&nbsp;<span class="element-name">planSuscripcionRepository</span></div>
+<section class="detail" id="planSuscripcionDao">
+<h3>planSuscripcionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></span>&nbsp;<span class="element-name">planSuscripcionDao</span></div>
 </section>
 </li>
 </ul>
@@ -319,32 +319,32 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="aplicarFechasYValidar(com.tecnicoya.api.dto.request.SuscripcionRequest,com.tecnicoya.api.entity.Suscripcion)">
+<section class="detail" id="aplicarFechasYValidar(com.tecnicoya.api.dto.request.SuscripcionRequest,com.tecnicoya.api.model.Suscripcion)">
 <h3>aplicarFechasYValidar</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">aplicarFechasYValidar</span><wbr><span class="parameters">(<a href="../../dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a>&nbsp;request,
- <a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a>&nbsp;suscripcion)</span></div>
+ <a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tieneOtraSuscripcionActiva(com.tecnicoya.api.entity.Suscripcion)">
+<section class="detail" id="tieneOtraSuscripcionActiva(com.tecnicoya.api.model.Suscripcion)">
 <h3>tieneOtraSuscripcionActiva</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">tieneOtraSuscripcionActiva</span><wbr><span class="parameters">(<a href="../../entity/Suscripcion.html" title="class in com.tecnicoya.api.entity">Suscripcion</a>&nbsp;suscripcion)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">tieneOtraSuscripcionActiva</span><wbr><span class="parameters">(<a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarTecnico(java.lang.Long)">
 <h3>buscarTecnico</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a></span>&nbsp;<span class="element-name">buscarTecnico</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></span>&nbsp;<span class="element-name">buscarTecnico</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarPlanActivo(java.lang.Long)">
 <h3>buscarPlanActivo</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/PlanSuscripcion.html" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a></span>&nbsp;<span class="element-name">buscarPlanActivo</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></span>&nbsp;<span class="element-name">buscarPlanActivo</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId)</span></div>
 </section>
 </li>
 </ul>

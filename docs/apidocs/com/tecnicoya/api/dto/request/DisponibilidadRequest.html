@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">DisponibilidadRequest</span>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a>&nbsp;diaSemana, @NotNull(message="La hora de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaInicio, @NotNull(message="La hora de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaFin, <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">DisponibilidadRequest</span>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a>&nbsp;diaSemana, @NotNull(message="La hora de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaInicio, @NotNull(message="La hora de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaFin, <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Datos de una franja de disponibilidad. Las horas usan el formato <code>HH:mm</code> o <code>HH:mm:ss</code>.</div>
 </section>
@@ -93,12 +93,12 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a></code></div>
+<div class="col-first even-row-color"><code>private final @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></code></div>
 <div class="col-second even-row-color"><code><a href="#diaSemana" class="member-name-link">diaSemana</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>diaSemana</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#estado" class="member-name-link">estado</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>estado</code> record component.</div>
@@ -129,11 +129,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,com.tecnicoya.api.entity.enums.DiaSemana,java.time.LocalTime,java.time.LocalTime,com.tecnicoya.api.entity.enums.EstadoRegistro)" class="member-name-link">DisponibilidadRequest</a><wbr>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
- @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a>&nbsp;diaSemana,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,com.tecnicoya.api.model.enums.DiaSemana,java.time.LocalTime,java.time.LocalTime,com.tecnicoya.api.model.enums.EstadoRegistro)" class="member-name-link">DisponibilidadRequest</a><wbr>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
+ @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a>&nbsp;diaSemana,
  @NotNull(message="La hora de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaInicio,
  @NotNull(message="La hora de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaFin,
- <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)</code></div>
+ <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>DisponibilidadRequest</code> record class.</div>
 </div>
@@ -151,7 +151,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#diaSemana()" class="member-name-link">diaSemana</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>diaSemana</code> record component.</div>
@@ -161,7 +161,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estado()" class="member-name-link">estado</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
@@ -220,7 +220,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="diaSemana">
 <h3>diaSemana</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El d\u00eda de la semana es obligatorio")
-</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a></span>&nbsp;<span class="element-name">diaSemana</span></div>
+</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></span>&nbsp;<span class="element-name">diaSemana</span></div>
 <div class="block">The field for the <code>diaSemana</code> record component.</div>
 </section>
 </li>
@@ -243,7 +243,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estado">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span></div>
 <div class="block">The field for the <code>estado</code> record component.</div>
 </section>
 </li>
@@ -256,17 +256,17 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Long,com.tecnicoya.api.entity.enums.DiaSemana,java.time.LocalTime,java.time.LocalTime,com.tecnicoya.api.entity.enums.EstadoRegistro)">
+<section class="detail" id="&lt;init&gt;(java.lang.Long,com.tecnicoya.api.model.enums.DiaSemana,java.time.LocalTime,java.time.LocalTime,com.tecnicoya.api.model.enums.EstadoRegistro)">
 <h3>DisponibilidadRequest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">DisponibilidadRequest</span><wbr><span class="parameters">(@NotNull(message="El id del t\u00e9cnico es obligatorio")
  @NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
  @NotNull(message="El d\u00eda de la semana es obligatorio")
- @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a>&nbsp;diaSemana,
+ @NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a>&nbsp;diaSemana,
  @NotNull(message="La hora de inicio es obligatoria")
  @NotNull(message="La hora de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaInicio,
  @NotNull(message="La hora de fin es obligatoria")
  @NotNull(message="La hora de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalTime.html" title="class or interface in java.time" class="external-link">LocalTime</a>&nbsp;horaFin,
- <a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a>&nbsp;estado)</span></div>
+ <a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a>&nbsp;estado)</span></div>
 <div class="block">Creates an instance of a <code>DisponibilidadRequest</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -343,7 +343,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="diaSemana()">
 <h3>diaSemana</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El d\u00eda de la semana es obligatorio")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../entity/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a></span>&nbsp;<span class="element-name">diaSemana</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El d\u00eda de la semana es obligatorio") <a href="../../model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></span>&nbsp;<span class="element-name">diaSemana</span>()</div>
 <div class="block">Returns the value of the <code>diaSemana</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -378,7 +378,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estado()">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></span>&nbsp;<span class="element-name">estado</span>()</div>
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

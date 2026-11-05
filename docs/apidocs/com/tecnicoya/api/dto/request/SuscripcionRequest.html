@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">SuscripcionRequest</span>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, @NotNull(message="El id del plan es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId, @NotNull(message="La fecha de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaInicio, @NotNull(message="La fecha de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaFin, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaCancelacion, <a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">SuscripcionRequest</span>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, @NotNull(message="El id del plan es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId, @NotNull(message="La fecha de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaInicio, @NotNull(message="La fecha de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaFin, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaCancelacion, <a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">La fecha de cancelación solo se acepta en estado CANCELADA (si se omite, se usa la fecha actual).</div>
 </section>
@@ -93,7 +93,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></code></div>
 <div class="col-second even-row-color"><code><a href="#estadoSuscripcion" class="member-name-link">estadoSuscripcion</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>estadoSuscripcion</code> record component.</div>
@@ -134,12 +134,12 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.time.LocalDate,java.time.LocalDate,java.time.LocalDate,com.tecnicoya.api.entity.enums.EstadoSuscripcion)" class="member-name-link">SuscripcionRequest</a><wbr>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.time.LocalDate,java.time.LocalDate,java.time.LocalDate,com.tecnicoya.api.model.enums.EstadoSuscripcion)" class="member-name-link">SuscripcionRequest</a><wbr>(@NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
  @NotNull(message="El id del plan es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;planId,
  @NotNull(message="La fecha de inicio es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaInicio,
  @NotNull(message="La fecha de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaFin,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaCancelacion,
- <a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)</code></div>
+ <a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>SuscripcionRequest</code> record class.</div>
 </div>
@@ -162,7 +162,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estadoSuscripcion()" class="member-name-link">estadoSuscripcion</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estadoSuscripcion</code> record component.</div>
@@ -261,7 +261,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoSuscripcion">
 <h3>estadoSuscripcion</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a></span>&nbsp;<span class="element-name">estadoSuscripcion</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></span>&nbsp;<span class="element-name">estadoSuscripcion</span></div>
 <div class="block">The field for the <code>estadoSuscripcion</code> record component.</div>
 </section>
 </li>
@@ -274,7 +274,7 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.time.LocalDate,java.time.LocalDate,java.time.LocalDate,com.tecnicoya.api.entity.enums.EstadoSuscripcion)">
+<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.time.LocalDate,java.time.LocalDate,java.time.LocalDate,com.tecnicoya.api.model.enums.EstadoSuscripcion)">
 <h3>SuscripcionRequest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SuscripcionRequest</span><wbr><span class="parameters">(@NotNull(message="El id del t\u00e9cnico es obligatorio")
  @NotNull(message="El id del t\u00e9cnico es obligatorio") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
@@ -285,7 +285,7 @@ loadScripts(document, 'script');</script>
  @NotNull(message="La fecha de fin es obligatoria")
  @NotNull(message="La fecha de fin es obligatoria") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaFin,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDate.html" title="class or interface in java.time" class="external-link">LocalDate</a>&nbsp;fechaCancelacion,
- <a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)</span></div>
+ <a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a>&nbsp;estadoSuscripcion)</span></div>
 <div class="block">Creates an instance of a <code>SuscripcionRequest</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -409,7 +409,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoSuscripcion()">
 <h3>estadoSuscripcion</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a></span>&nbsp;<span class="element-name">estadoSuscripcion</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></span>&nbsp;<span class="element-name">estadoSuscripcion</span>()</div>
 <div class="block">Returns the value of the <code>estadoSuscripcion</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

@@ -98,11 +98,11 @@ implements <a href="../ExperienciaLaboralService.html" title="interface in com.t
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/ExperienciaLaboralRepository.html" title="interface in com.tecnicoya.api.repository">ExperienciaLaboralRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#experienciaLaboralRepository" class="member-name-link">experienciaLaboralRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#experienciaLaboralDao" class="member-name-link">experienciaLaboralDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tecnicoRepository" class="member-name-link">tecnicoRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -138,10 +138,10 @@ implements <a href="../ExperienciaLaboralService.html" title="interface in com.t
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarDatos(com.tecnicoya.api.dto.request.ExperienciaLaboralRequest,com.tecnicoya.api.entity.ExperienciaLaboral)" class="member-name-link">aplicarDatos</a><wbr>(<a href="../../dto/request/ExperienciaLaboralRequest.html" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a>&nbsp;request,
- <a href="../../entity/ExperienciaLaboral.html" title="class in com.tecnicoya.api.entity">ExperienciaLaboral</a>&nbsp;experiencia)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#aplicarDatos(com.tecnicoya.api.dto.request.ExperienciaLaboralRequest,com.tecnicoya.api.model.ExperienciaLaboral)" class="member-name-link">aplicarDatos</a><wbr>(<a href="../../dto/request/ExperienciaLaboralRequest.html" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a>&nbsp;request,
+ <a href="../../model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a>&nbsp;experiencia)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/ExperienciaLaboral.html" title="class in com.tecnicoya.api.entity">ExperienciaLaboral</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/ExperienciaLaboralResponse.html" title="class in com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></code></div>
@@ -182,15 +182,15 @@ implements <a href="../ExperienciaLaboralService.html" title="interface in com.t
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="experienciaLaboralRepository">
-<h3>experienciaLaboralRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/ExperienciaLaboralRepository.html" title="interface in com.tecnicoya.api.repository">ExperienciaLaboralRepository</a></span>&nbsp;<span class="element-name">experienciaLaboralRepository</span></div>
+<section class="detail" id="experienciaLaboralDao">
+<h3>experienciaLaboralDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a></span>&nbsp;<span class="element-name">experienciaLaboralDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tecnicoRepository">
-<h3>tecnicoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></span>&nbsp;<span class="element-name">tecnicoRepository</span></div>
+<section class="detail" id="tecnicoDao">
+<h3>tecnicoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
 </section>
 </li>
 </ul>
@@ -301,14 +301,14 @@ implements <a href="../ExperienciaLaboralService.html" title="interface in com.t
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/ExperienciaLaboral.html" title="class in com.tecnicoya.api.entity">ExperienciaLaboral</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="aplicarDatos(com.tecnicoya.api.dto.request.ExperienciaLaboralRequest,com.tecnicoya.api.entity.ExperienciaLaboral)">
+<section class="detail" id="aplicarDatos(com.tecnicoya.api.dto.request.ExperienciaLaboralRequest,com.tecnicoya.api.model.ExperienciaLaboral)">
 <h3>aplicarDatos</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">aplicarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/ExperienciaLaboralRequest.html" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a>&nbsp;request,
- <a href="../../entity/ExperienciaLaboral.html" title="class in com.tecnicoya.api.entity">ExperienciaLaboral</a>&nbsp;experiencia)</span></div>
+ <a href="../../model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a>&nbsp;experiencia)</span></div>
 </section>
 </li>
 </ul>

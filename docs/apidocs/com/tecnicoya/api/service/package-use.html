@@ -58,12 +58,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Capa web: controladores REST bajo <code>/api</code>.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.dto.response">com.tecnicoya.api.dto.response</a></div>
 <div class="col-last odd-row-color">
+<div class="block">DTOs de salida: lo que devuelve la API.</div>
+</div>
+<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-last even-row-color">
 <div class="block">Contratos de la lógica de negocio; cada interfaz documenta las reglas de su recurso.</div>
 </div>
-<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementaciones transaccionales de los servicios.</div>
 </div>
 </div>
@@ -75,33 +79,41 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><a href="class-use/CalificacionService.html#com.tecnicoya.api.controller">CalificacionService</a></div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoService.html#com.tecnicoya.api.controller">ArchivoService</a></div>
 <div class="col-last even-row-color">
+<div class="block">Almacenamiento de los archivos que respaldan las evidencias de los técnicos y los comprobantes de pago.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/CalificacionService.html#com.tecnicoya.api.controller">CalificacionService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de calificaciones de servicios.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/DisponibilidadService.html#com.tecnicoya.api.controller">DisponibilidadService</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/DisponibilidadService.html#com.tecnicoya.api.controller">DisponibilidadService</a></div>
+<div class="col-last even-row-color">
 <div class="block">Lógica de negocio de franjas de disponibilidad de los técnicos.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/EvidenciaPagoService.html#com.tecnicoya.api.controller">EvidenciaPagoService</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/EvidenciaPagoService.html#com.tecnicoya.api.controller">EvidenciaPagoService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de evidencias de pago de servicios.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/EvidenciaService.html#com.tecnicoya.api.controller">EvidenciaService</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/EvidenciaService.html#com.tecnicoya.api.controller">EvidenciaService</a></div>
+<div class="col-last even-row-color">
 <div class="block">Lógica de negocio de evidencias (documentos) de los técnicos.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ExperienciaLaboralService.html#com.tecnicoya.api.controller">ExperienciaLaboralService</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ExperienciaLaboralService.html#com.tecnicoya.api.controller">ExperienciaLaboralService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de experiencia laboral de los técnicos.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/PagoSuscripcionService.html#com.tecnicoya.api.controller">PagoSuscripcionService</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/PagoSuscripcionService.html#com.tecnicoya.api.controller">PagoSuscripcionService</a></div>
+<div class="col-last even-row-color">
 <div class="block">Lógica de negocio de pagos de suscripción.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/PlanSuscripcionService.html#com.tecnicoya.api.controller">PlanSuscripcionService</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/PlanSuscripcionService.html#com.tecnicoya.api.controller">PlanSuscripcionService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de planes de suscripción.</div>
+</div>
+<div class="col-first even-row-color"><a href="class-use/ReporteService.html#com.tecnicoya.api.controller">ReporteService</a></div>
+<div class="col-last even-row-color">
+<div class="block">Reportes en Excel (<code>.xlsx</code>) generados con Apache POI.</div>
 </div>
 <div class="col-first odd-row-color"><a href="class-use/ServicioService.html#com.tecnicoya.api.controller">ServicioService</a></div>
 <div class="col-last odd-row-color">
@@ -123,13 +135,30 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="com.tecnicoya.api.dto.response">
+<div class="caption"><span>Classes in <a href="package-summary.html">com.tecnicoya.api.service</a> used by <a href="../dto/response/package-summary.html">com.tecnicoya.api.dto.response</a></span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoAlmacenado.html#com.tecnicoya.api.dto.response">ArchivoAlmacenado</a></div>
+<div class="col-last even-row-color">
+<div class="block">Archivo guardado por <a href="ArchivoService.html" title="interface in com.tecnicoya.api.service"><code>ArchivoService</code></a>.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="com.tecnicoya.api.service">
 <div class="caption"><span>Classes in <a href="package-summary.html">com.tecnicoya.api.service</a> used by <a href="package-summary.html">com.tecnicoya.api.service</a></span></div>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><a href="class-use/CrudService.html#com.tecnicoya.api.service">CrudService</a></div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoAlmacenado.html#com.tecnicoya.api.service">ArchivoAlmacenado</a></div>
 <div class="col-last even-row-color">
+<div class="block">Archivo guardado por <a href="ArchivoService.html" title="interface in com.tecnicoya.api.service"><code>ArchivoService</code></a>.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/CrudService.html#com.tecnicoya.api.service">CrudService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Operaciones CRUD comunes a todos los recursos de la API.</div>
 </div>
 </div>
@@ -141,6 +170,14 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoAlmacenado.html#com.tecnicoya.api.service.impl">ArchivoAlmacenado</a></div>
+<div class="col-last even-row-color">
+<div class="block">Archivo guardado por <a href="ArchivoService.html" title="interface in com.tecnicoya.api.service"><code>ArchivoService</code></a>.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/ArchivoService.html#com.tecnicoya.api.service.impl">ArchivoService</a></div>
+<div class="col-last odd-row-color">
+<div class="block">Almacenamiento de los archivos que respaldan las evidencias de los técnicos y los comprobantes de pago.</div>
+</div>
 <div class="col-first even-row-color"><a href="class-use/CalificacionService.html#com.tecnicoya.api.service.impl">CalificacionService</a></div>
 <div class="col-last even-row-color">
 <div class="block">Lógica de negocio de calificaciones de servicios.</div>
@@ -173,20 +210,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de planes de suscripción.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ServicioService.html#com.tecnicoya.api.service.impl">ServicioService</a></div>
+<div class="col-first even-row-color"><a href="class-use/ReporteService.html#com.tecnicoya.api.service.impl">ReporteService</a></div>
 <div class="col-last even-row-color">
+<div class="block">Reportes en Excel (<code>.xlsx</code>) generados con Apache POI.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/ServicioService.html#com.tecnicoya.api.service.impl">ServicioService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de servicios solicitados por los clientes.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/SuscripcionService.html#com.tecnicoya.api.service.impl">SuscripcionService</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/SuscripcionService.html#com.tecnicoya.api.service.impl">SuscripcionService</a></div>
+<div class="col-last even-row-color">
 <div class="block">Lógica de negocio de suscripciones de técnicos a planes.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/TecnicoService.html#com.tecnicoya.api.service.impl">TecnicoService</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/TecnicoService.html#com.tecnicoya.api.service.impl">TecnicoService</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Lógica de negocio de perfiles de técnico.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/UsuarioService.html#com.tecnicoya.api.service.impl">UsuarioService</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/UsuarioService.html#com.tecnicoya.api.service.impl">UsuarioService</a></div>
+<div class="col-last even-row-color">
 <div class="block">Lógica de negocio de usuarios (clientes, técnicos y administradores).</div>
 </div>
 </div>

@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">UsuarioRequest</span>(@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombres, @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apellidos, @NotBlank(message="El correo es obligatorio") @Email(message="El correo no tiene un formato v\u00e1lido") @Size(max=150,message="El correo no debe superar los 150 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo, @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena, @Pattern(regexp="^\\+?[0-9]{7,15}$",message="El tel\u00e9fono debe tener entre 7 y 15 d\u00edgitos, opcionalmente precedido de \'+\'") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;telefono, @NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a>&nbsp;tipoUsuario, <a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a>&nbsp;estado)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">UsuarioRequest</span>(<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a> @NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombres, <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a> @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apellidos, @NotBlank(message="El correo es obligatorio") @Email(message="El correo no tiene un formato v\u00e1lido") @Size(max=150,message="El correo no debe superar los 150 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo, @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena, @Pattern(regexp="^\\+?[0-9]{7,15}$",message="El tel\u00e9fono debe tener entre 7 y 15 d\u00edgitos, opcionalmente precedido de \'+\'") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;telefono, @NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a>&nbsp;tipoUsuario, <a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a>&nbsp;estado)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Datos para registrar o actualizar un usuario.
  La contraseña es obligatoria al crear; al actualizar, si se omite se conserva la actual.</div>
@@ -99,7 +99,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>apellidos</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first odd-row-color"><code>private final @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#contrasena" class="member-name-link">contrasena</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>contrasena</code> record component.</div>
@@ -109,7 +109,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>correo</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#estado" class="member-name-link">estado</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>estado</code> record component.</div>
@@ -124,7 +124,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>telefono</code> record component.</div>
 </div>
-<div class="col-first even-row-color"><code>private final @NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a></code></div>
+<div class="col-first even-row-color"><code>private final @NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></code></div>
 <div class="col-second even-row-color"><code><a href="#tipoUsuario" class="member-name-link">tipoUsuario</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>tipoUsuario</code> record component.</div>
@@ -140,13 +140,13 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.entity.enums.TipoUsuario,com.tecnicoya.api.entity.enums.EstadoUsuario)" class="member-name-link">UsuarioRequest</a><wbr>(@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombres,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.model.enums.TipoUsuario,com.tecnicoya.api.model.enums.EstadoUsuario)" class="member-name-link">UsuarioRequest</a><wbr>(@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombres,
  @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apellidos,
  @NotBlank(message="El correo es obligatorio") @Email(message="El correo no tiene un formato v\u00e1lido") @Size(max=150,message="El correo no debe superar los 150 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo,
- @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena,
+ @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena,
  @Pattern(regexp="^\\+?[0-9]{7,15}$",message="El tel\u00e9fono debe tener entre 7 y 15 d\u00edgitos, opcionalmente precedido de \'+\'") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;telefono,
- @NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a>&nbsp;tipoUsuario,
- <a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a>&nbsp;estado)</code></div>
+ @NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a>&nbsp;tipoUsuario,
+ <a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a>&nbsp;estado)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>UsuarioRequest</code> record class.</div>
 </div>
@@ -169,7 +169,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>apellidos</code> record component.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contrasena()" class="member-name-link">contrasena</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>contrasena</code> record component.</div>
@@ -184,7 +184,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estado()" class="member-name-link">estado</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
@@ -204,7 +204,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>telefono</code> record component.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tipoUsuario()" class="member-name-link">tipoUsuario</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>tipoUsuario</code> record component.</div>
@@ -237,6 +237,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@NotBlank(message="Los nombres son obligatorios")
 @Size(max=100,
       message="Los nombres no deben superar los 100 caracteres")
+<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
 </span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">nombres</span></div>
 <div class="block">The field for the <code>nombres</code> record component.</div>
 </section>
@@ -247,6 +248,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@NotBlank(message="Los apellidos son obligatorios")
 @Size(max=100,
       message="Los apellidos no deben superar los 100 caracteres")
+<a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
 </span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">apellidos</span></div>
 <div class="block">The field for the <code>apellidos</code> record component.</div>
 </section>
@@ -268,7 +270,9 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Size(min=8,
       max=72,
       message="La contrase\u00f1a debe tener entre 8 y 72 caracteres")
-</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">contrasena</span></div>
+@Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",
+         message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero")
+</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">contrasena</span></div>
 <div class="block">The field for the <code>contrasena</code> record component.</div>
 </section>
 </li>
@@ -285,14 +289,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="tipoUsuario">
 <h3>tipoUsuario</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El tipo de usuario es obligatorio")
-</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a></span>&nbsp;<span class="element-name">tipoUsuario</span></div>
+</span><span class="modifiers">private final</span>&nbsp;<span class="return-type">@NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></span>&nbsp;<span class="element-name">tipoUsuario</span></div>
 <div class="block">The field for the <code>tipoUsuario</code> record component.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="estado">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a></span>&nbsp;<span class="element-name">estado</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></span>&nbsp;<span class="element-name">estado</span></div>
 <div class="block">The field for the <code>estado</code> record component.</div>
 </section>
 </li>
@@ -305,21 +309,21 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.entity.enums.TipoUsuario,com.tecnicoya.api.entity.enums.EstadoUsuario)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.model.enums.TipoUsuario,com.tecnicoya.api.model.enums.EstadoUsuario)">
 <h3>UsuarioRequest</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UsuarioRequest</span><wbr><span class="parameters">(@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres")
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UsuarioRequest</span><wbr><span class="parameters">(@NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
  @NotBlank(message="Los nombres son obligatorios") @Size(max=100,message="Los nombres no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;nombres,
- @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres")
+ @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="../../validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">@SinHtml</a>
  @NotBlank(message="Los apellidos son obligatorios") @Size(max=100,message="Los apellidos no deben superar los 100 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apellidos,
  @NotBlank(message="El correo es obligatorio") @Email(message="El correo no tiene un formato v\u00e1lido") @Size(max=150,message="El correo no debe superar los 150 caracteres")
  @NotBlank(message="El correo es obligatorio") @Email(message="El correo no tiene un formato v\u00e1lido") @Size(max=150,message="El correo no debe superar los 150 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo,
- @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres")
- @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena,
+ @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero")
+ @Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contrasena,
  @Pattern(regexp="^\\+?[0-9]{7,15}$",message="El tel\u00e9fono debe tener entre 7 y 15 d\u00edgitos, opcionalmente precedido de \'+\'")
  @Pattern(regexp="^\\+?[0-9]{7,15}$",message="El tel\u00e9fono debe tener entre 7 y 15 d\u00edgitos, opcionalmente precedido de \'+\'") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;telefono,
  @NotNull(message="El tipo de usuario es obligatorio")
- @NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a>&nbsp;tipoUsuario,
- <a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a>&nbsp;estado)</span></div>
+ @NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a>&nbsp;tipoUsuario,
+ <a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a>&nbsp;estado)</span></div>
 <div class="block">Creates an instance of a <code>UsuarioRequest</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -431,7 +435,9 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Size(min=8,
       max=72,
       message="La contrase\u00f1a debe tener entre 8 y 72 caracteres")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">contrasena</span>()</div>
+@Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",
+         message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@Size(min=8,max=72,message="La contrase\u00f1a debe tener entre 8 y 72 caracteres") @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d).*$",message="La contrase\u00f1a debe contener al menos una letra y un n\u00famero") <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">contrasena</span>()</div>
 <div class="block">Returns the value of the <code>contrasena</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -456,7 +462,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="tipoUsuario()">
 <h3>tipoUsuario</h3>
 <div class="member-signature"><span class="annotations">@NotNull(message="El tipo de usuario es obligatorio")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El tipo de usuario es obligatorio") <a href="../../entity/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a></span>&nbsp;<span class="element-name">tipoUsuario</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull(message="El tipo de usuario es obligatorio") <a href="../../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></span>&nbsp;<span class="element-name">tipoUsuario</span>()</div>
 <div class="block">Returns the value of the <code>tipoUsuario</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -467,7 +473,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estado()">
 <h3>estado</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a></span>&nbsp;<span class="element-name">estado</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></span>&nbsp;<span class="element-name">estado</span>()</div>
 <div class="block">Returns the value of the <code>estado</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

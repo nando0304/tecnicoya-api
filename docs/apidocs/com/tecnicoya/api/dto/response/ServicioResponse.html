@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">ServicioResponse</span>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idServicio, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;clienteId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;clienteNombre, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;tecnicoNombre, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;titulo, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcionProblema, <a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a>&nbsp;estadoServicio, <a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a>&nbsp;prioridad, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaSolicitud, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaServicio, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaCierre)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">ServicioResponse</span>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idServicio, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;clienteId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;clienteNombre, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;tecnicoNombre, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;titulo, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcionProblema, <a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&nbsp;estadoServicio, <a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a>&nbsp;prioridad, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaSolicitud, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaServicio, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaCierre)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Servicio devuelto por la API, con los nombres del cliente y del técnico (<code>null</code> si aún no tiene).</div>
 </section>
@@ -108,7 +108,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>descripcionProblema</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#estadoServicio" class="member-name-link">estadoServicio</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>estadoServicio</code> record component.</div>
@@ -133,7 +133,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>idServicio</code> record component.</div>
 </div>
-<div class="col-first even-row-color"><code>private final <a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></code></div>
 <div class="col-second even-row-color"><code><a href="#prioridad" class="member-name-link">prioridad</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>prioridad</code> record component.</div>
@@ -164,15 +164,15 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.lang.String,java.lang.Long,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.entity.enums.EstadoServicio,com.tecnicoya.api.entity.enums.Prioridad,java.time.LocalDateTime,java.time.LocalDateTime,java.time.LocalDateTime)" class="member-name-link">ServicioResponse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idServicio,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.lang.String,java.lang.Long,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.model.enums.EstadoServicio,com.tecnicoya.api.model.enums.Prioridad,java.time.LocalDateTime,java.time.LocalDateTime,java.time.LocalDateTime)" class="member-name-link">ServicioResponse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idServicio,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;clienteId,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;clienteNombre,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;tecnicoId,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;tecnicoNombre,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;titulo,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcionProblema,
- <a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a>&nbsp;estadoServicio,
- <a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a>&nbsp;prioridad,
+ <a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&nbsp;estadoServicio,
+ <a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a>&nbsp;prioridad,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaSolicitud,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaServicio,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaCierre)</code></div>
@@ -209,14 +209,14 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the value of the <code>descripcionProblema</code> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ServicioResponse.html" title="class in com.tecnicoya.api.dto.response">ServicioResponse</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#desde(com.tecnicoya.api.entity.Servicio)" class="member-name-link">desde</a><wbr>(<a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a>&nbsp;servicio)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#desde(com.tecnicoya.api.model.Servicio)" class="member-name-link">desde</a><wbr>(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estadoServicio()" class="member-name-link">estadoServicio</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estadoServicio</code> record component.</div>
@@ -246,7 +246,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>idServicio</code> record component.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prioridad()" class="member-name-link">prioridad</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>prioridad</code> record component.</div>
@@ -340,14 +340,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoServicio">
 <h3>estadoServicio</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a></span>&nbsp;<span class="element-name">estadoServicio</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></span>&nbsp;<span class="element-name">estadoServicio</span></div>
 <div class="block">The field for the <code>estadoServicio</code> record component.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="prioridad">
 <h3>prioridad</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a></span>&nbsp;<span class="element-name">prioridad</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></span>&nbsp;<span class="element-name">prioridad</span></div>
 <div class="block">The field for the <code>prioridad</code> record component.</div>
 </section>
 </li>
@@ -381,7 +381,7 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.lang.String,java.lang.Long,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.entity.enums.EstadoServicio,com.tecnicoya.api.entity.enums.Prioridad,java.time.LocalDateTime,java.time.LocalDateTime,java.time.LocalDateTime)">
+<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.lang.String,java.lang.Long,java.lang.String,java.lang.String,java.lang.String,com.tecnicoya.api.model.enums.EstadoServicio,com.tecnicoya.api.model.enums.Prioridad,java.time.LocalDateTime,java.time.LocalDateTime,java.time.LocalDateTime)">
 <h3>ServicioResponse</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ServicioResponse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idServicio,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;clienteId,
@@ -390,8 +390,8 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;tecnicoNombre,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;titulo,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;descripcionProblema,
- <a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a>&nbsp;estadoServicio,
- <a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a>&nbsp;prioridad,
+ <a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&nbsp;estadoServicio,
+ <a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a>&nbsp;prioridad,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaSolicitud,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaServicio,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaCierre)</span></div>
@@ -422,9 +422,9 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="desde(com.tecnicoya.api.entity.Servicio)">
+<section class="detail" id="desde(com.tecnicoya.api.model.Servicio)">
 <h3>desde</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ServicioResponse.html" title="class in com.tecnicoya.api.dto.response">ServicioResponse</a></span>&nbsp;<span class="element-name">desde</span><wbr><span class="parameters">(<a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a>&nbsp;servicio)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ServicioResponse.html" title="class in com.tecnicoya.api.dto.response">ServicioResponse</a></span>&nbsp;<span class="element-name">desde</span><wbr><span class="parameters">(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio)</span></div>
 </section>
 </li>
 <li>
@@ -548,7 +548,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoServicio()">
 <h3>estadoServicio</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a></span>&nbsp;<span class="element-name">estadoServicio</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></span>&nbsp;<span class="element-name">estadoServicio</span>()</div>
 <div class="block">Returns the value of the <code>estadoServicio</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -559,7 +559,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="prioridad()">
 <h3>prioridad</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/Prioridad.html" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a></span>&nbsp;<span class="element-name">prioridad</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></span>&nbsp;<span class="element-name">prioridad</span>()</div>
 <div class="block">Returns the value of the <code>prioridad</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

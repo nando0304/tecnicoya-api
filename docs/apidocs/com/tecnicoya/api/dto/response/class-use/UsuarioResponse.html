@@ -62,12 +62,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">DTOs de salida: lo que devuelve la API.</div>
 </div>
-<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-first even-row-color"><a href="#com.tecnicoya.api.security">com.tecnicoya.api.security</a></div>
 <div class="col-last even-row-color">
+<div class="block">Autenticación con token JWT: <a href="../../../security/JwtService.html" title="class in com.tecnicoya.api.security"><code>JwtService</code></a> lo genera al iniciar sesión y
+ <a href="../../../security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a> lo exige en el resto de las peticiones.</div>
+</div>
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Contratos de la lógica de negocio; cada interfaz documenta las reglas de su recurso.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
+<div class="col-last even-row-color">
 <div class="block">Implementaciones transaccionales de los servicios.</div>
 </div>
 </div>
@@ -88,13 +93,8 @@ loadScripts(document, 'script');</script>
 <div class="block"><code>PUT /api/usuarios/{id}</code>: reemplaza los datos de un registro.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">AuthController.</span><code><a href="../../../controller/AuthController.html#login(com.tecnicoya.api.dto.request.LoginRequest)" class="member-name-link">login</a><wbr>(@Valid <a href="../../request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a>&nbsp;request)</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UsuarioController.</span><code><a href="../../../controller/UsuarioController.html#obtenerPorId(java.lang.Long)" class="member-name-link">obtenerPorId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color">
-<div class="block"><code>POST /api/auth/login</code>: valida correo y contraseña.</div>
-</div>
-<div class="col-first even-row-color"><code><a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UsuarioController.</span><code><a href="../../../controller/UsuarioController.html#obtenerPorId(java.lang.Long)" class="member-name-link">obtenerPorId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
-<div class="col-last even-row-color">
 <div class="block"><code>GET /api/usuarios/{id}</code>: obtiene un registro.</div>
 </div>
 </div>
@@ -119,14 +119,58 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="com.tecnicoya.api.dto.response">
 <h2>Uses of <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a> in <a href="../package-summary.html">com.tecnicoya.api.dto.response</a></h2>
+<div class="caption"><span>Fields in <a href="../package-summary.html">com.tecnicoya.api.dto.response</a> declared as <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>private final <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">LoginResponse.</span><code><a href="../LoginResponse.html#usuario" class="member-name-link">usuario</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The field for the <a href="../../../../../../com/tecnicoya/api/dto/response/LoginResponse.html#param-usuario"><code>usuario</code></a> record component.</div>
+</div>
+</div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">com.tecnicoya.api.dto.response</a> that return <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UsuarioResponse.</span><code><a href="../UsuarioResponse.html#desde(com.tecnicoya.api.entity.Usuario)" class="member-name-link">desde</a><wbr>(<a href="../../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a>&nbsp;usuario)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UsuarioResponse.</span><code><a href="../UsuarioResponse.html#desde(com.tecnicoya.api.model.Usuario)" class="member-name-link">desde</a><wbr>(<a href="../../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a>&nbsp;usuario)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">LoginResponse.</span><code><a href="../LoginResponse.html#usuario()" class="member-name-link">usuario</a>()</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Returns the value of the <a href="../../../../../../com/tecnicoya/api/dto/response/LoginResponse.html#param-usuario"><code>usuario</code></a> record component.</div>
+</div>
+</div>
+<div class="caption"><span>Constructors in <a href="../package-summary.html">com.tecnicoya.api.dto.response</a> with parameters of type <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier</div>
+<div class="table-header col-second">Constructor</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../LoginResponse.html#%3Cinit%3E(java.lang.String,com.tecnicoya.api.dto.response.UsuarioResponse)" class="member-name-link">LoginResponse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token,
+ <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a>&nbsp;usuario)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates an instance of a <code>LoginResponse</code> record class.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="com.tecnicoya.api.security">
+<h2>Uses of <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a> in <a href="../../../security/package-summary.html">com.tecnicoya.api.security</a></h2>
+<div class="caption"><span>Methods in <a href="../../../security/package-summary.html">com.tecnicoya.api.security</a> with parameters of type <a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">JwtService.</span><code><a href="../../../security/JwtService.html#generarToken(com.tecnicoya.api.dto.response.UsuarioResponse)" class="member-name-link">generarToken</a><wbr>(<a href="../UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a>&nbsp;usuario)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Crea el token que el usuario enviará en la cabecera <code>Authorization</code> de las demás peticiones.</div>
+</div>
 </div>
 </section>
 </li>

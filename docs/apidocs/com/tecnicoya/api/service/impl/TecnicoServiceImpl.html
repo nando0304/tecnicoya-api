@@ -98,11 +98,11 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#tecnicoRepository" class="member-name-link">tecnicoRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/UsuarioRepository.html" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#usuarioRepository" class="member-name-link">usuarioRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -137,15 +137,15 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarUsuarioTecnico(java.lang.Long)" class="member-name-link">buscarUsuarioTecnico</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;usuarioId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.TecnicoRequest,com.tecnicoya.api.entity.Tecnico)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a>&nbsp;request,
- <a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a>&nbsp;tecnico)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.TecnicoRequest,com.tecnicoya.api.model.Tecnico)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a>&nbsp;request,
+ <a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a>&nbsp;tecnico)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/TecnicoResponse.html" title="class in com.tecnicoya.api.dto.response">TecnicoResponse</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#crear(com.tecnicoya.api.dto.request.TecnicoRequest)" class="member-name-link">crear</a><wbr>(<a href="../../dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a>&nbsp;request)</code></div>
@@ -185,15 +185,15 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="tecnicoRepository">
-<h3>tecnicoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></span>&nbsp;<span class="element-name">tecnicoRepository</span></div>
+<section class="detail" id="tecnicoDao">
+<h3>tecnicoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="usuarioRepository">
-<h3>usuarioRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/UsuarioRepository.html" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></span>&nbsp;<span class="element-name">usuarioRepository</span></div>
+<section class="detail" id="usuarioDao">
+<h3>usuarioDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></span>&nbsp;<span class="element-name">usuarioDao</span></div>
 </section>
 </li>
 </ul>
@@ -304,20 +304,20 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarUsuarioTecnico(java.lang.Long)">
 <h3>buscarUsuarioTecnico</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a></span>&nbsp;<span class="element-name">buscarUsuarioTecnico</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;usuarioId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></span>&nbsp;<span class="element-name">buscarUsuarioTecnico</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;usuarioId)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.TecnicoRequest,com.tecnicoya.api.entity.Tecnico)">
+<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.TecnicoRequest,com.tecnicoya.api.model.Tecnico)">
 <h3>copiarDatos</h3>
 <div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">copiarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a>&nbsp;request,
- <a href="../../entity/Tecnico.html" title="class in com.tecnicoya.api.entity">Tecnico</a>&nbsp;tecnico)</span></div>
+ <a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a>&nbsp;tecnico)</span></div>
 </section>
 </li>
 </ul>

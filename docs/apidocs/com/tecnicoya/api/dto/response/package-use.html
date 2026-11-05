@@ -66,12 +66,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Excepciones de negocio y su traducción a respuestas HTTP con cuerpo JSON en español.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.security">com.tecnicoya.api.security</a></div>
 <div class="col-last odd-row-color">
+<div class="block">Autenticación con token JWT: <a href="../../security/JwtService.html" title="class in com.tecnicoya.api.security"><code>JwtService</code></a> lo genera al iniciar sesión y
+ <a href="../../security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a> lo exige en el resto de las peticiones.</div>
+</div>
+<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-last even-row-color">
 <div class="block">Contratos de la lógica de negocio; cada interfaz documenta las reglas de su recurso.</div>
 </div>
-<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementaciones transaccionales de los servicios.</div>
 </div>
 </div>
@@ -83,25 +88,33 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><a href="class-use/CalificacionResponse.html#com.tecnicoya.api.controller">CalificacionResponse</a></div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoResponse.html#com.tecnicoya.api.controller">ArchivoResponse</a></div>
 <div class="col-last even-row-color">
+<div class="block">Archivo subido.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/CalificacionResponse.html#com.tecnicoya.api.controller">CalificacionResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Calificación devuelta por la API, con el título del servicio y el técnico calificado.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/DisponibilidadResponse.html#com.tecnicoya.api.controller">DisponibilidadResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/DisponibilidadResponse.html#com.tecnicoya.api.controller">DisponibilidadResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Franja de disponibilidad devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/EvidenciaPagoResponse.html#com.tecnicoya.api.controller">EvidenciaPagoResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/EvidenciaPagoResponse.html#com.tecnicoya.api.controller">EvidenciaPagoResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Evidencia de pago devuelta por la API, con el título del servicio.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/EvidenciaResponse.html#com.tecnicoya.api.controller">EvidenciaResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/EvidenciaResponse.html#com.tecnicoya.api.controller">EvidenciaResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Evidencia devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ExperienciaLaboralResponse.html#com.tecnicoya.api.controller">ExperienciaLaboralResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ExperienciaLaboralResponse.html#com.tecnicoya.api.controller">ExperienciaLaboralResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Experiencia laboral devuelta por la API, con el nombre del técnico.</div>
+</div>
+<div class="col-first even-row-color"><a href="class-use/LoginResponse.html#com.tecnicoya.api.controller">LoginResponse</a></div>
+<div class="col-last even-row-color">
+<div class="block">Respuesta del inicio de sesión.</div>
 </div>
 <div class="col-first odd-row-color"><a href="class-use/PagoSuscripcionResponse.html#com.tecnicoya.api.controller">PagoSuscripcionResponse</a></div>
 <div class="col-last odd-row-color">
@@ -136,48 +149,52 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><a href="class-use/CalificacionResponse.html#com.tecnicoya.api.dto.response">CalificacionResponse</a></div>
+<div class="col-first even-row-color"><a href="class-use/ArchivoResponse.html#com.tecnicoya.api.dto.response">ArchivoResponse</a></div>
 <div class="col-last even-row-color">
+<div class="block">Archivo subido.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/CalificacionResponse.html#com.tecnicoya.api.dto.response">CalificacionResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Calificación devuelta por la API, con el título del servicio y el técnico calificado.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/DisponibilidadResponse.html#com.tecnicoya.api.dto.response">DisponibilidadResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/DisponibilidadResponse.html#com.tecnicoya.api.dto.response">DisponibilidadResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Franja de disponibilidad devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/EvidenciaPagoResponse.html#com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/EvidenciaPagoResponse.html#com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Evidencia de pago devuelta por la API, con el título del servicio.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/EvidenciaResponse.html#com.tecnicoya.api.dto.response">EvidenciaResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/EvidenciaResponse.html#com.tecnicoya.api.dto.response">EvidenciaResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Evidencia devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ExperienciaLaboralResponse.html#com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ExperienciaLaboralResponse.html#com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Experiencia laboral devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/PagoSuscripcionResponse.html#com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/PagoSuscripcionResponse.html#com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Pago de suscripción devuelto por la API, con el técnico y el nombre del plan.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/PlanSuscripcionResponse.html#com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/PlanSuscripcionResponse.html#com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Plan de suscripción devuelto por la API.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/ServicioResponse.html#com.tecnicoya.api.dto.response">ServicioResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/ServicioResponse.html#com.tecnicoya.api.dto.response">ServicioResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Servicio devuelto por la API, con los nombres del cliente y del técnico (<code>null</code> si aún no tiene).</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/SuscripcionResponse.html#com.tecnicoya.api.dto.response">SuscripcionResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/SuscripcionResponse.html#com.tecnicoya.api.dto.response">SuscripcionResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Suscripción devuelta por la API, con el nombre del técnico y del plan.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/TecnicoResponse.html#com.tecnicoya.api.dto.response">TecnicoResponse</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/TecnicoResponse.html#com.tecnicoya.api.dto.response">TecnicoResponse</a></div>
+<div class="col-last even-row-color">
 <div class="block">Perfil de técnico devuelto por la API, junto con los datos de contacto de su usuario.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/UsuarioResponse.html#com.tecnicoya.api.dto.response">UsuarioResponse</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/UsuarioResponse.html#com.tecnicoya.api.dto.response">UsuarioResponse</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Nunca incluye la contraseña.</div>
 </div>
 </div>
@@ -192,6 +209,19 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><a href="class-use/ApiErrorResponse.html#com.tecnicoya.api.exception">ApiErrorResponse</a></div>
 <div class="col-last even-row-color">
 <div class="block">Cuerpo JSON estándar para todas las respuestas de error de la API.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="com.tecnicoya.api.security">
+<div class="caption"><span>Classes in <a href="package-summary.html">com.tecnicoya.api.dto.response</a> used by <a href="../../security/package-summary.html">com.tecnicoya.api.security</a></span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/UsuarioResponse.html#com.tecnicoya.api.security">UsuarioResponse</a></div>
+<div class="col-last even-row-color">
+<div class="block">Nunca incluye la contraseña.</div>
 </div>
 </div>
 </section>

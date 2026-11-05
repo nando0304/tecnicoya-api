@@ -85,7 +85,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">UsuarioServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></span></div>
-<div class="block">Implementación de <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service"><code>UsuarioService</code></a>.</div>
+<div class="block">Implementación de <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service"><code>UsuarioService</code></a>. Registra en el log (Logback) las altas, bajas y cambios de contraseña.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -101,11 +101,11 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <div class="col-first even-row-color"><code>private final org.springframework.security.crypto.password.PasswordEncoder</code></div>
 <div class="col-second even-row-color"><code><a href="#passwordEncoder" class="member-name-link">passwordEncoder</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tecnicoRepository" class="member-name-link">tecnicoRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/UsuarioRepository.html" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#usuarioRepository" class="member-name-link">usuarioRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -145,12 +145,12 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Mismo mensaje para correo inexistente y contraseña errónea: no revela qué correos están registrados.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.UsuarioRequest,com.tecnicoya.api.entity.Usuario,java.lang.String)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/UsuarioRequest.html" title="class in com.tecnicoya.api.dto.request">UsuarioRequest</a>&nbsp;request,
- <a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a>&nbsp;usuario,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copiarDatos(com.tecnicoya.api.dto.request.UsuarioRequest,com.tecnicoya.api.model.Usuario,java.lang.String)" class="member-name-link">copiarDatos</a><wbr>(<a href="../../dto/request/UsuarioRequest.html" title="class in com.tecnicoya.api.dto.request">UsuarioRequest</a>&nbsp;request,
+ <a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a>&nbsp;usuario,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></code></div>
@@ -194,15 +194,15 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="usuarioRepository">
-<h3>usuarioRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/UsuarioRepository.html" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></span>&nbsp;<span class="element-name">usuarioRepository</span></div>
+<section class="detail" id="usuarioDao">
+<h3>usuarioDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></span>&nbsp;<span class="element-name">usuarioDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tecnicoRepository">
-<h3>tecnicoRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/TecnicoRepository.html" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></span>&nbsp;<span class="element-name">tecnicoRepository</span></div>
+<section class="detail" id="tecnicoDao">
+<h3>tecnicoDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
 </section>
 </li>
 <li>
@@ -334,14 +334,14 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.UsuarioRequest,com.tecnicoya.api.entity.Usuario,java.lang.String)">
+<section class="detail" id="copiarDatos(com.tecnicoya.api.dto.request.UsuarioRequest,com.tecnicoya.api.model.Usuario,java.lang.String)">
 <h3>copiarDatos</h3>
 <div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">copiarDatos</span><wbr><span class="parameters">(<a href="../../dto/request/UsuarioRequest.html" title="class in com.tecnicoya.api.dto.request">UsuarioRequest</a>&nbsp;request,
- <a href="../../entity/Usuario.html" title="class in com.tecnicoya.api.entity">Usuario</a>&nbsp;usuario,
+ <a href="../../model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a>&nbsp;usuario,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;correo)</span></div>
 </section>
 </li>

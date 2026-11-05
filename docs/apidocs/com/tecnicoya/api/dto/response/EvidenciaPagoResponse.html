@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">EvidenciaPagoResponse</span>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idEvidenciaPago, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;servicioTitulo, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;monto, <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;archivoEvidencia, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago, <a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a>&nbsp;estadoValidacion)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">EvidenciaPagoResponse</span>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idEvidenciaPago, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;servicioTitulo, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;monto, <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;archivoEvidencia, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago, <a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a>&nbsp;estadoValidacion)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Evidencia de pago devuelta por la API, con el título del servicio.</div>
 </section>
@@ -98,7 +98,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>archivoEvidencia</code> record component.</div>
 </div>
-<div class="col-first odd-row-color"><code>private final <a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#estadoValidacion" class="member-name-link">estadoValidacion</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>estadoValidacion</code> record component.</div>
@@ -113,7 +113,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">The field for the <code>idEvidenciaPago</code> record component.</div>
 </div>
-<div class="col-first even-row-color"><code>private final <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></code></div>
 <div class="col-second even-row-color"><code><a href="#metodoPago" class="member-name-link">metodoPago</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">The field for the <code>metodoPago</code> record component.</div>
@@ -144,14 +144,14 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.lang.String,java.math.BigDecimal,com.tecnicoya.api.entity.enums.MetodoPago,java.lang.String,java.time.LocalDateTime,com.tecnicoya.api.entity.enums.EstadoValidacion)" class="member-name-link">EvidenciaPagoResponse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idEvidenciaPago,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Long,java.lang.Long,java.lang.String,java.math.BigDecimal,com.tecnicoya.api.model.enums.MetodoPago,java.lang.String,java.time.LocalDateTime,com.tecnicoya.api.model.enums.EstadoValidacion)" class="member-name-link">EvidenciaPagoResponse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idEvidenciaPago,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;servicioTitulo,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;monto,
- <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago,
+ <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;archivoEvidencia,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago,
- <a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a>&nbsp;estadoValidacion)</code></div>
+ <a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a>&nbsp;estadoValidacion)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>EvidenciaPagoResponse</code> record class.</div>
 </div>
@@ -175,14 +175,14 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the value of the <code>archivoEvidencia</code> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#desde(com.tecnicoya.api.entity.EvidenciaPago)" class="member-name-link">desde</a><wbr>(<a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a>&nbsp;evidenciaPago)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#desde(com.tecnicoya.api.model.EvidenciaPago)" class="member-name-link">desde</a><wbr>(<a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a>&nbsp;evidenciaPago)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#estadoValidacion()" class="member-name-link">estadoValidacion</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>estadoValidacion</code> record component.</div>
@@ -202,7 +202,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>idEvidenciaPago</code> record component.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#metodoPago()" class="member-name-link">metodoPago</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>metodoPago</code> record component.</div>
@@ -275,7 +275,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="metodoPago">
 <h3>metodoPago</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span></div>
 <div class="block">The field for the <code>metodoPago</code> record component.</div>
 </section>
 </li>
@@ -296,7 +296,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoValidacion">
 <h3>estadoValidacion</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a></span>&nbsp;<span class="element-name">estadoValidacion</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></span>&nbsp;<span class="element-name">estadoValidacion</span></div>
 <div class="block">The field for the <code>estadoValidacion</code> record component.</div>
 </section>
 </li>
@@ -309,16 +309,16 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.lang.String,java.math.BigDecimal,com.tecnicoya.api.entity.enums.MetodoPago,java.lang.String,java.time.LocalDateTime,com.tecnicoya.api.entity.enums.EstadoValidacion)">
+<section class="detail" id="&lt;init&gt;(java.lang.Long,java.lang.Long,java.lang.String,java.math.BigDecimal,com.tecnicoya.api.model.enums.MetodoPago,java.lang.String,java.time.LocalDateTime,com.tecnicoya.api.model.enums.EstadoValidacion)">
 <h3>EvidenciaPagoResponse</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">EvidenciaPagoResponse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;idEvidenciaPago,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;servicioTitulo,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html" title="class or interface in java.math" class="external-link">BigDecimal</a>&nbsp;monto,
- <a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a>&nbsp;metodoPago,
+ <a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a>&nbsp;metodoPago,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;archivoEvidencia,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaPago,
- <a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a>&nbsp;estadoValidacion)</span></div>
+ <a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a>&nbsp;estadoValidacion)</span></div>
 <div class="block">Creates an instance of a <code>EvidenciaPagoResponse</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -342,9 +342,9 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="desde(com.tecnicoya.api.entity.EvidenciaPago)">
+<section class="detail" id="desde(com.tecnicoya.api.model.EvidenciaPago)">
 <h3>desde</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></span>&nbsp;<span class="element-name">desde</span><wbr><span class="parameters">(<a href="../../entity/EvidenciaPago.html" title="class in com.tecnicoya.api.entity">EvidenciaPago</a>&nbsp;evidenciaPago)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></span>&nbsp;<span class="element-name">desde</span><wbr><span class="parameters">(<a href="../../model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a>&nbsp;evidenciaPago)</span></div>
 </section>
 </li>
 <li>
@@ -435,7 +435,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="metodoPago()">
 <h3>metodoPago</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></span>&nbsp;<span class="element-name">metodoPago</span>()</div>
 <div class="block">Returns the value of the <code>metodoPago</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -468,7 +468,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="estadoValidacion()">
 <h3>estadoValidacion</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a></span>&nbsp;<span class="element-name">estadoValidacion</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></span>&nbsp;<span class="element-name">estadoValidacion</span>()</div>
 <div class="block">Returns the value of the <code>estadoValidacion</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>

@@ -98,11 +98,11 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../repository/CalificacionRepository.html" title="interface in com.tecnicoya.api.repository">CalificacionRepository</a></code></div>
-<div class="col-second even-row-color"><code><a href="#calificacionRepository" class="member-name-link">calificacionRepository</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#calificacionDao" class="member-name-link">calificacionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../repository/ServicioRepository.html" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#servicioRepository" class="member-name-link">servicioRepository</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
@@ -137,10 +137,10 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Reemplaza los datos de un registro existente.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Calificacion.html" title="class in com.tecnicoya.api.entity">Calificacion</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Calificacion.html" title="class in com.tecnicoya.api.model">Calificacion</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscar(java.lang.Long)" class="member-name-link">buscar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private <a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarServicioFinalizado(java.lang.Long)" class="member-name-link">buscarServicioFinalizado</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../dto/response/CalificacionResponse.html" title="class in com.tecnicoya.api.dto.response">CalificacionResponse</a></code></div>
@@ -181,15 +181,15 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="calificacionRepository">
-<h3>calificacionRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/CalificacionRepository.html" title="interface in com.tecnicoya.api.repository">CalificacionRepository</a></span>&nbsp;<span class="element-name">calificacionRepository</span></div>
+<section class="detail" id="calificacionDao">
+<h3>calificacionDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></span>&nbsp;<span class="element-name">calificacionDao</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="servicioRepository">
-<h3>servicioRepository</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../repository/ServicioRepository.html" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></span>&nbsp;<span class="element-name">servicioRepository</span></div>
+<section class="detail" id="servicioDao">
+<h3>servicioDao</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></span>&nbsp;<span class="element-name">servicioDao</span></div>
 </section>
 </li>
 </ul>
@@ -300,13 +300,13 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <li>
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Calificacion.html" title="class in com.tecnicoya.api.entity">Calificacion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Calificacion.html" title="class in com.tecnicoya.api.model">Calificacion</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="buscarServicioFinalizado(java.lang.Long)">
 <h3>buscarServicioFinalizado</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../entity/Servicio.html" title="class in com.tecnicoya.api.entity">Servicio</a></span>&nbsp;<span class="element-name">buscarServicioFinalizado</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></span>&nbsp;<span class="element-name">buscarServicioFinalizado</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;servicioId)</span></div>
 </section>
 </li>
 </ul>

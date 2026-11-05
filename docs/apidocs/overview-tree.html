@@ -54,16 +54,19 @@ loadScripts(document, 'script');</script>
 <li><a href="com/tecnicoya/api/package-tree.html">com.tecnicoya.api</a>, </li>
 <li><a href="com/tecnicoya/api/config/package-tree.html">com.tecnicoya.api.config</a>, </li>
 <li><a href="com/tecnicoya/api/controller/package-tree.html">com.tecnicoya.api.controller</a>, </li>
+<li><a href="com/tecnicoya/api/dao/package-tree.html">com.tecnicoya.api.dao</a>, </li>
+<li><a href="com/tecnicoya/api/dao/impl/package-tree.html">com.tecnicoya.api.dao.impl</a>, </li>
 <li><a href="com/tecnicoya/api/dto/package-tree.html">com.tecnicoya.api.dto</a>, </li>
 <li><a href="com/tecnicoya/api/dto/request/package-tree.html">com.tecnicoya.api.dto.request</a>, </li>
 <li><a href="com/tecnicoya/api/dto/response/package-tree.html">com.tecnicoya.api.dto.response</a>, </li>
-<li><a href="com/tecnicoya/api/entity/package-tree.html">com.tecnicoya.api.entity</a>, </li>
-<li><a href="com/tecnicoya/api/entity/enums/package-tree.html">com.tecnicoya.api.entity.enums</a>, </li>
 <li><a href="com/tecnicoya/api/exception/package-tree.html">com.tecnicoya.api.exception</a>, </li>
-<li><a href="com/tecnicoya/api/repository/package-tree.html">com.tecnicoya.api.repository</a>, </li>
+<li><a href="com/tecnicoya/api/model/package-tree.html">com.tecnicoya.api.model</a>, </li>
+<li><a href="com/tecnicoya/api/model/enums/package-tree.html">com.tecnicoya.api.model.enums</a>, </li>
+<li><a href="com/tecnicoya/api/security/package-tree.html">com.tecnicoya.api.security</a>, </li>
 <li><a href="com/tecnicoya/api/service/package-tree.html">com.tecnicoya.api.service</a>, </li>
 <li><a href="com/tecnicoya/api/service/impl/package-tree.html">com.tecnicoya.api.service.impl</a>, </li>
-<li><a href="com/tecnicoya/api/util/package-tree.html">com.tecnicoya.api.util</a></li>
+<li><a href="com/tecnicoya/api/util/package-tree.html">com.tecnicoya.api.util</a>, </li>
+<li><a href="com/tecnicoya/api/validation/package-tree.html">com.tecnicoya.api.validation</a></li>
 </ul>
 </div>
 <section class="hierarchy">
@@ -71,35 +74,71 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/ArchivoController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">ArchivoController</a></li>
+<li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ArchivoServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">ArchivoServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ArchivoService.html" title="interface in com.tecnicoya.api.service">ArchivoService</a>)</li>
+<li class="circle">com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/Auditoria.html" class="type-name-link" title="class in com.tecnicoya.api.util">Auditoria</a></li>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/AuditoriaInterceptor.html" class="type-name-link" title="class in com.tecnicoya.api.security">AuditoriaInterceptor</a> (implements org.springframework.web.servlet.HandlerInterceptor)</li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/AuthController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">AuthController</a></li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Calificacion.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Calificacion</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Calificacion.html" class="type-name-link" title="class in com.tecnicoya.api.model">Calificacion</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/CalificacionController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">CalificacionController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/CalificacionServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">CalificacionServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/CalificacionService.html" title="interface in com.tecnicoya.api.service">CalificacionService</a>)</li>
 <li class="circle">com.tecnicoya.api.config.<a href="com/tecnicoya/api/config/CorsConfig.html" class="type-name-link" title="class in com.tecnicoya.api.config">CorsConfig</a> (implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer)</li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Disponibilidad.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Disponibilidad</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Disponibilidad.html" class="type-name-link" title="class in com.tecnicoya.api.model">Disponibilidad</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/DisponibilidadController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">DisponibilidadController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/DisponibilidadService.html" title="interface in com.tecnicoya.api.service">DisponibilidadService</a>)</li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Evidencia.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Evidencia</a></li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/EstadisticasDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">EstadisticasDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEstadisticasDao.html" title="interface in com.tecnicoya.api.dao">IEstadisticasDao</a>)</li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Evidencia.html" class="type-name-link" title="class in com.tecnicoya.api.model">Evidencia</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/EvidenciaController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">EvidenciaController</a></li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/EvidenciaPago.html" class="type-name-link" title="class in com.tecnicoya.api.entity">EvidenciaPago</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/EvidenciaPago.html" class="type-name-link" title="class in com.tecnicoya.api.model">EvidenciaPago</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/EvidenciaPagoController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">EvidenciaPagoController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/EvidenciaPagoService.html" title="interface in com.tecnicoya.api.service">EvidenciaPagoService</a>)</li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/EvidenciaService.html" title="interface in com.tecnicoya.api.service">EvidenciaService</a>)</li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/ExperienciaLaboral.html" class="type-name-link" title="class in com.tecnicoya.api.entity">ExperienciaLaboral</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/ExperienciaLaboral.html" class="type-name-link" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/ExperienciaLaboralController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">ExperienciaLaboralController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">ExperienciaLaboralServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ExperienciaLaboralService.html" title="interface in com.tecnicoya.api.service">ExperienciaLaboralService</a>)</li>
 <li class="circle">com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/FechaUtil.html" class="type-name-link" title="class in com.tecnicoya.api.util">FechaUtil</a></li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">GenericDaoImpl</a>&lt;T,<wbr>ID&gt; (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IGenericDao.html" title="interface in com.tecnicoya.api.dao">IGenericDao</a>&lt;T,<wbr>ID&gt;)
+<ul>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/CalificacionDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">CalificacionDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/DisponibilidadDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">DisponibilidadDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/EvidenciaDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">EvidenciaDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEvidenciaDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/EvidenciaPagoDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">EvidenciaPagoDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/ExperienciaLaboralDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">ExperienciaLaboralDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/PagoSuscripcionDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">PagoSuscripcionDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/PlanSuscripcionDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">PlanSuscripcionDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/ServicioDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">ServicioDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/SuscripcionDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">SuscripcionDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/TecnicoDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">TecnicoDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a>)</li>
+<li class="circle">com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/UsuarioDaoImpl.html" class="type-name-link" title="class in com.tecnicoya.api.dao.impl">UsuarioDaoImpl</a> (implements com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a>)</li>
+</ul>
+</li>
+<li class="circle">org.springframework.web.filter.GenericFilterBean (implements org.springframework.beans.factory.BeanNameAware, org.springframework.beans.factory.DisposableBean, org.springframework.context.EnvironmentAware, org.springframework.core.env.EnvironmentCapable, jakarta.servlet.Filter, org.springframework.beans.factory.InitializingBean, org.springframework.web.context.ServletContextAware)
+<ul>
+<li class="circle">org.springframework.web.filter.OncePerRequestFilter
+<ul>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/CabecerasSeguridadFilter.html" class="type-name-link" title="class in com.tecnicoya.api.security">CabecerasSeguridadFilter</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/GlobalExceptionHandler.html" class="type-name-link" title="class in com.tecnicoya.api.exception">GlobalExceptionHandler</a></li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/PagoSuscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.entity">PagoSuscripcion</a></li>
+<li class="circle">com.tecnicoya.api.config.<a href="com/tecnicoya/api/config/JwtConfig.html" class="type-name-link" title="class in com.tecnicoya.api.config">JwtConfig</a> (implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer)</li>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" class="type-name-link" title="class in com.tecnicoya.api.security">JwtInterceptor</a> (implements org.springframework.web.servlet.HandlerInterceptor)</li>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtService.html" class="type-name-link" title="class in com.tecnicoya.api.security">JwtService</a></li>
+<li class="circle">com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" class="type-name-link" title="class in com.tecnicoya.api.util">LibroExcel</a> (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/AutoCloseable.html" title="class or interface in java.lang" class="external-link">AutoCloseable</a>)</li>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" class="type-name-link" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/PagoSuscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.model">PagoSuscripcion</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/PagoSuscripcionController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">PagoSuscripcionController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/PagoSuscripcionServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">PagoSuscripcionServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/PagoSuscripcionService.html" title="interface in com.tecnicoya.api.service">PagoSuscripcionService</a>)</li>
 <li class="circle">com.tecnicoya.api.config.<a href="com/tecnicoya/api/config/PasswordConfig.html" class="type-name-link" title="class in com.tecnicoya.api.config">PasswordConfig</a></li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/PlanSuscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.entity">PlanSuscripcion</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/PlanSuscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/PlanSuscripcionController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">PlanSuscripcionController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">PlanSuscripcionServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/PlanSuscripcionService.html" title="interface in com.tecnicoya.api.service">PlanSuscripcionService</a>)</li>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" class="type-name-link external-link" title="class or interface in java.lang">Record</a>
 <ul>
 <li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></li>
+<li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ArchivoAlmacenado.html" class="type-name-link" title="class in com.tecnicoya.api.service">ArchivoAlmacenado</a></li>
+<li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ArchivoResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">ArchivoResponse</a></li>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/CalificacionRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">CalificacionRequest</a></li>
 <li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/CalificacionResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">CalificacionResponse</a></li>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a></li>
@@ -111,6 +150,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ExperienciaLaboralRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a></li>
 <li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ExperienciaLaboralResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></li>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/LoginRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">LoginRequest</a></li>
+<li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/LoginResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></li>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/PagoSuscripcionRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">PagoSuscripcionRequest</a></li>
 <li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/PagoSuscripcionResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></li>
 <li class="circle">com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/PlanSuscripcionRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a></li>
@@ -125,13 +165,16 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/UsuarioResponse.html" class="type-name-link" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></li>
 </ul>
 </li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Servicio.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Servicio</a></li>
+<li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/ReporteController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">ReporteController</a></li>
+<li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">ReporteServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service">ReporteService</a>)</li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Servicio.html" class="type-name-link" title="class in com.tecnicoya.api.model">Servicio</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/ServicioController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">ServicioController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ServicioService.html" title="interface in com.tecnicoya.api.service">ServicioService</a>)</li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Suscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Suscripcion</a></li>
+<li class="circle">com.tecnicoya.api.validation.<a href="com/tecnicoya/api/validation/SinHtmlValidator.html" class="type-name-link" title="class in com.tecnicoya.api.validation">SinHtmlValidator</a> (implements jakarta.validation.ConstraintValidator&lt;A,<wbr>T&gt;)</li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Suscripcion.html" class="type-name-link" title="class in com.tecnicoya.api.model">Suscripcion</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/SuscripcionController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">SuscripcionController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">SuscripcionServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/SuscripcionService.html" title="interface in com.tecnicoya.api.service">SuscripcionService</a>)</li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Tecnico.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Tecnico</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Tecnico.html" class="type-name-link" title="class in com.tecnicoya.api.model">Tecnico</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/TecnicoController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">TecnicoController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">TecnicoServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/TecnicoService.html" title="interface in com.tecnicoya.api.service">TecnicoService</a>)</li>
 <li class="circle">com.tecnicoya.api.<a href="com/tecnicoya/api/TecnicoYaApiApplication.html" class="type-name-link" title="class in com.tecnicoya.api">TecnicoYaApiApplication</a></li>
@@ -141,8 +184,11 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" class="type-name-link external-link" title="class or interface in java.lang">RuntimeException</a>
 <ul>
+<li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/AccesoDenegadoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">AccesoDenegadoException</a></li>
 <li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/ConflictoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">ConflictoException</a></li>
 <li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/CredencialesInvalidasException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a></li>
+<li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/DemasiadosIntentosException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a></li>
+<li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/NoAutenticadoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a></li>
 <li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/RecursoNoEncontradoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a></li>
 <li class="circle">com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/ReglaNegocioException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a></li>
 </ul>
@@ -151,7 +197,7 @@ loadScripts(document, 'script');</script>
 </li>
 </ul>
 </li>
-<li class="circle">com.tecnicoya.api.entity.<a href="com/tecnicoya/api/entity/Usuario.html" class="type-name-link" title="class in com.tecnicoya.api.entity">Usuario</a></li>
+<li class="circle">com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Usuario.html" class="type-name-link" title="class in com.tecnicoya.api.model">Usuario</a></li>
 <li class="circle">com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/UsuarioController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">UsuarioController</a></li>
 <li class="circle">com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html" class="type-name-link" title="class in com.tecnicoya.api.service.impl">UsuarioServiceImpl</a> (implements com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a>)</li>
 </ul>
@@ -161,6 +207,7 @@ loadScripts(document, 'script');</script>
 <section class="hierarchy">
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ArchivoService.html" class="type-name-link" title="interface in com.tecnicoya.api.service">ArchivoService</a></li>
 <li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/CrudService.html" class="type-name-link" title="interface in com.tecnicoya.api.service">CrudService</a>&lt;Q,<wbr>R&gt;
 <ul>
 <li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/CalificacionService.html" class="type-name-link" title="interface in com.tecnicoya.api.service">CalificacionService</a></li>
@@ -176,75 +223,30 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/UsuarioService.html" class="type-name-link" title="interface in com.tecnicoya.api.service">UsuarioService</a></li>
 </ul>
 </li>
-<li class="circle">org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEstadisticasDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IEstadisticasDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IGenericDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IGenericDao</a>&lt;T,<wbr>ID&gt;
 <ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (also extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)
-<ul>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/CalificacionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">CalificacionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/DisponibilidadRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">DisponibilidadRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaPagoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaPagoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ExperienciaLaboralRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ExperienciaLaboralRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PagoSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PagoSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PlanSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ServicioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/SuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/TecnicoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/UsuarioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ICalificacionDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IDisponibilidadDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEvidenciaDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IEvidenciaDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IEvidenciaPagoDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IExperienciaLaboralDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IPlanSuscripcionDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IServicioDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IServicioDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ISuscripcionDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/ITecnicoDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></li>
+<li class="circle">com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IUsuarioDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></li>
 </ul>
 </li>
+<li class="circle">com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ReporteService.html" class="type-name-link" title="interface in com.tecnicoya.api.service">ReporteService</a></li>
 </ul>
-</li>
-<li class="circle">org.springframework.data.repository.Repository&lt;T,<wbr>ID&gt;
+</section>
+<section class="hierarchy">
+<h2 title="Annotation Interface Hierarchy">Annotation Interface Hierarchy</h2>
 <ul>
-<li class="circle">org.springframework.data.repository.CrudRepository&lt;T,<wbr>ID&gt;
-<ul>
-<li class="circle">org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;
-<ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (also extends org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;)
-<ul>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/CalificacionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">CalificacionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/DisponibilidadRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">DisponibilidadRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaPagoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaPagoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ExperienciaLaboralRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ExperienciaLaboralRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PagoSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PagoSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PlanSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ServicioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/SuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/TecnicoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/UsuarioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="circle">org.springframework.data.repository.PagingAndSortingRepository&lt;T,<wbr>ID&gt;
-<ul>
-<li class="circle">org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;
-<ul>
-<li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (also extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;)
-<ul>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/CalificacionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">CalificacionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/DisponibilidadRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">DisponibilidadRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaPagoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaPagoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/EvidenciaRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">EvidenciaRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ExperienciaLaboralRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ExperienciaLaboralRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PagoSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PagoSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/PlanSuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">PlanSuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/ServicioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">ServicioRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/SuscripcionRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">SuscripcionRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/TecnicoRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">TecnicoRepository</a></li>
-<li class="circle">com.tecnicoya.api.repository.<a href="com/tecnicoya/api/repository/UsuarioRepository.html" class="type-name-link" title="interface in com.tecnicoya.api.repository">UsuarioRepository</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="circle">com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/RequiereRol.html" class="type-name-link" title="annotation interface in com.tecnicoya.api.security">RequiereRol</a> (implements java.lang.annotation.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>)</li>
+<li class="circle">com.tecnicoya.api.validation.<a href="com/tecnicoya/api/validation/SinHtml.html" class="type-name-link" title="annotation interface in com.tecnicoya.api.validation">SinHtml</a> (implements java.lang.annotation.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>)</li>
 </ul>
 </section>
 <section class="hierarchy">
@@ -254,18 +256,18 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html" class="type-name-link external-link" title="class or interface in java.lang">Enum</a>&lt;E&gt; (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;T&gt;, java.lang.constant.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/constant/Constable.html" title="class or interface in java.lang.constant" class="external-link">Constable</a>, java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
 <ul>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/DiaSemana.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">DiaSemana</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoPago.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoPago</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoRegistro.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoRegistro</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoServicio.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoServicio</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoSuscripcion.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoSuscripcion</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoUsuario.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoUsuario</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoValidacion.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoValidacion</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/EstadoVerificacion.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">EstadoVerificacion</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/MetodoPago.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">MetodoPago</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/Prioridad.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">Prioridad</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/TipoEvidencia.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">TipoEvidencia</a></li>
-<li class="circle">com.tecnicoya.api.entity.enums.<a href="com/tecnicoya/api/entity/enums/TipoUsuario.html" class="type-name-link" title="enum class in com.tecnicoya.api.entity.enums">TipoUsuario</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/DiaSemana.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoPago.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoRegistro.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoServicio.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoSuscripcion.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoUsuario.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoValidacion.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/MetodoPago.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/Prioridad.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/TipoEvidencia.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">TipoEvidencia</a></li>
+<li class="circle">com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/TipoUsuario.html" class="type-name-link" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></li>
 </ul>
 </li>
 </ul>
