@@ -1,5 +1,6 @@
 package com.tecnicoya.api.service.impl;
 
+import com.google.common.collect.ImmutableList;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.service.ArchivoAlmacenado;
@@ -20,7 +21,6 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -28,7 +28,9 @@ import java.util.regex.Pattern;
 @Service
 public class ArchivoServiceImpl implements ArchivoService {
 
-    private static final List<String> EXTENSIONES_PERMITIDAS = List.of("pdf", "jpg", "jpeg", "png", "webp");
+    /** Lista inmutable de Google Guava: nadie puede agregar extensiones en tiempo de ejecución. */
+    private static final ImmutableList<String> EXTENSIONES_PERMITIDAS =
+            ImmutableList.of("pdf", "jpg", "jpeg", "png", "webp");
     /** Nombre de un archivo guardado: 64 dígitos hexadecimales (SHA-256) y una extensión permitida. */
     private static final Pattern NOMBRE_ALMACENADO =
             Pattern.compile("[0-9a-f]{64}\\.(?:" + String.join("|", EXTENSIONES_PERMITIDAS) + ")");

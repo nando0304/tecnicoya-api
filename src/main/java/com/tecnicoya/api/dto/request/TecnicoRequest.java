@@ -1,6 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
 import com.tecnicoya.api.model.enums.EstadoVerificacion;
+import com.tecnicoya.api.validation.SinHtml;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,9 +14,11 @@ public record TecnicoRequest(
 
         @NotBlank(message = "La especialidad es obligatoria")
         @Size(max = 100, message = "La especialidad no debe superar los 100 caracteres")
+        @SinHtml
         String especialidad,
 
         @Size(max = 1000, message = "La descripción no debe superar los 1000 caracteres")
+        @SinHtml
         String descripcion,
 
         EstadoVerificacion estadoVerificacion

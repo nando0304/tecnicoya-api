@@ -1,12 +1,12 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IPlanSuscripcionDao;
 import com.tecnicoya.api.dto.request.PlanSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PlanSuscripcionResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
-import com.tecnicoya.api.model.PlanSuscripcion;
 import com.tecnicoya.api.model.enums.EstadoRegistro;
-import com.tecnicoya.api.repository.PlanSuscripcionRepository;
+import com.tecnicoya.api.model.PlanSuscripcion;
 import com.tecnicoya.api.service.PlanSuscripcionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -21,11 +21,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
 
-    private final PlanSuscripcionRepository planSuscripcionRepository;
+    private final IPlanSuscripcionDao planSuscripcionDao;
 
     @Override
     public List<PlanSuscripcionResponse> listar() {
-        return planSuscripcionRepository.findAll().stream().map(PlanSuscripcionResponse::desde).toList();
+        return planSuscripcionDao.listar().stream().map(PlanSuscripcionResponse::desde).toList();
     }
 
     @Override
@@ -37,14 +37,14 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
     @Transactional
     public PlanSuscripcionResponse crear(PlanSuscripcionRequest request) {
         String nombre = StringUtils.normalizeSpace(request.nombrePlan());
-        if (planSuscripcionRepository.existsByNombrePlanIgnoreCase(nombre)) {
+        if (planSuscripcionDao.existeNombre(nombre)) {
             throw new ConflictoException("Ya existe un plan con el nombre '" + nombre + "'");
         }
 
         PlanSuscripcion plan = new PlanSuscripcion();
         copiarDatos(request, plan, nombre);
         plan.setEstado(request.estado() != null ? request.estado() : EstadoRegistro.ACTIVO);
-        return PlanSuscripcionResponse.desde(planSuscripcionRepository.save(plan));
+        return PlanSuscripcionResponse.desde(planSuscripcionDao.guardar(plan));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
     public PlanSuscripcionResponse actualizar(Long id, PlanSuscripcionRequest request) {
         PlanSuscripcion plan = buscar(id);
         String nombre = StringUtils.normalizeSpace(request.nombrePlan());
-        if (planSuscripcionRepository.existsByNombrePlanIgnoreCaseAndIdPlanNot(nombre, id)) {
+        if (planSuscripcionDao.existeNombreEnOtroPlan(nombre, id)) {
             throw new ConflictoException("Ya existe otro plan con el nombre '" + nombre + "'");
         }
 
@@ -60,18 +60,17 @@ public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
         if (request.estado() != null) {
             plan.setEstado(request.estado());
         }
-        return PlanSuscripcionResponse.desde(planSuscripcionRepository.save(plan));
+        return PlanSuscripcionResponse.desde(planSuscripcionDao.guardar(plan));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        planSuscripcionRepository.delete(buscar(id));
-        planSuscripcionRepository.flush();
+        planSuscripcionDao.eliminar(buscar(id));
     }
 
     private PlanSuscripcion buscar(Long id) {
-        return planSuscripcionRepository.findById(id)
+        return planSuscripcionDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el plan de suscripción", id));
     }
 

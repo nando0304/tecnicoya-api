@@ -27,7 +27,7 @@ La aplicación es un monolito **Spring Boot 4** que sigue el patrón **MVC (Mode
 
 | Parte de MVC | Dónde está | Qué hace |
 |---|---|---|
-| **Modelo** | `model` (entidades y `enums`), con `repository` y `service` trabajando sobre él | Representa los datos y aplica las reglas de negocio |
+| **Modelo** | `model` (entidades y `enums`), con `dao` y `service` trabajando sobre él | Representa los datos y aplica las reglas de negocio |
 | **Vista** | El front-end `tecnicoya-web` (o Postman durante las pruebas) | Muestra al usuario el JSON que devuelve la API |
 | **Controlador** | `controller` | Recibe las peticiones HTTP, llama al servicio y devuelve la respuesta |
 
@@ -37,7 +37,7 @@ flowchart LR
     subgraph API ["TécnicoYa API · Spring Boot"]
         JW["security<br/>JwtInterceptor valida el token"] --> CT
         CT["controller<br/>REST + validación @Valid"] --> SV["service / impl<br/>reglas de negocio · @Transactional"]
-        SV --> RP["repository<br/>Spring Data JPA"]
+        SV --> RP["dao (interfaces) → dao.impl<br/>EntityManager + JPQL"]
         RP --> EN["model<br/>JPA / Hibernate"]
         DTO["dto<br/>request · response"] -.- CT
         EX["exception<br/>GlobalExceptionHandler"] -.->|"error JSON"| C
@@ -47,10 +47,10 @@ flowchart LR
 
 | Capa | Responsabilidad | No debe |
 |---|---|---|
-| `security` | Rechazar con `401` las peticiones sin un token válido, antes de llegar al controlador | Contener reglas de negocio |
-| `controller` | Recibir la petición HTTP, validar el DTO de entrada y devolver el código HTTP correcto | Contener lógica de negocio ni acceder a repositorios |
+| `security` | Rechazar con `401` las peticiones sin un token válido y con `403` las de un rol sin permiso, antes de llegar al controlador; auditar las operaciones | Contener reglas de negocio |
+| `controller` | Recibir la petición HTTP, validar el DTO de entrada y devolver el código HTTP correcto | Contener lógica de negocio ni acceder a los DAO |
 | `service` / `service.impl` | Aplicar las reglas de negocio dentro de una transacción y mapear entidades a DTOs | Conocer detalles de HTTP |
-| `repository` | Consultar y guardar entidades | Contener reglas de negocio |
+| `dao` / `dao.impl` | Consultar y guardar entidades (patrón DAO); los servicios solo conocen las interfaces `IXxxDao` | Contener reglas de negocio |
 | `model` | Representar las tablas de la base de datos | Salir de la capa de servicio (nunca se devuelven al cliente) |
 | `exception` | Traducir cualquier excepción a un JSON de error uniforme | — |
 
@@ -64,7 +64,7 @@ sequenceDiagram
     participant C as Cliente
     participant SC as ServicioController
     participant SS as ServicioServiceImpl
-    participant R as Repositorios
+    participant R as DAO
     participant DB as MySQL
     participant EH as GlobalExceptionHandler
     C->>SC: POST /api/servicios (JSON)
@@ -74,14 +74,14 @@ sequenceDiagram
         EH-->>C: 400 con los errores por campo
     end
     SC->>SS: crear(request)
-    SS->>R: findById(cliente), findById(técnico)
+    SS->>R: buscarPorId(cliente), buscarPorId(técnico)
     R->>DB: SELECT
     SS->>SS: valida reglas: cliente ACTIVO, técnico VERIFICADO, estado y fechas
     alt incumple una regla
         SS->>EH: ReglaNegocioException
         EH-->>C: 400 con el mensaje de la regla
     end
-    SS->>R: save(servicio)
+    SS->>R: guardar(servicio)
     R->>DB: INSERT
     SS-->>SC: ServicioResponse.desde(servicio)
     SC-->>C: 201 Created + cabecera Location
@@ -94,18 +94,20 @@ Código fuente en `src/main/java/com/tecnicoya/api`:
 | Paquete | Contenido | Clases principales |
 |---|---|---|
 | *(raíz)* | Arranque de la aplicación | `TecnicoYaApiApplication` |
-| `config` | Configuración transversal | `CorsConfig` (CORS abierto para desarrollo), `PasswordConfig` (BCrypt), `JwtConfig` (registra el interceptor JWT) |
-| `security` | Autenticación con token JWT | `JwtService` (genera y valida el token), `JwtInterceptor` (lo exige antes de llegar al controlador) |
-| `controller` | 13 controladores REST | Uno por recurso (`UsuarioController`, `ServicioController`…), `AuthController` y `ArchivoController` |
+| `config` | Configuración transversal | `CorsConfig` (CORS limitado a los orígenes del front-end), `PasswordConfig` (BCrypt), `JwtConfig` (registra los interceptores JWT y de auditoría) |
+| `security` | Autenticación, autorización y auditoría | `JwtService` (genera y valida el token), `JwtInterceptor` (lo exige y verifica `@RequiereRol`), `LimiteIntentosLogin` (fuerza bruta, con Guava), `AuditoriaInterceptor`, `CabecerasSeguridadFilter` |
+| `controller` | 14 controladores REST | Uno por recurso (`UsuarioController`, `ServicioController`…), `AuthController`, `ArchivoController` y `ReporteController` (Excel) |
 | `dto.request` | 12 *records* de entrada con Bean Validation | `UsuarioRequest`, `ServicioRequest`, `LoginRequest`… |
 | `dto.response` | 14 *records* de salida, la mayoría con su método `desde(...)` | `UsuarioResponse`, `ServicioResponse`, `LoginResponse`, `ArchivoResponse`, `ApiErrorResponse`… |
 | `model` | 11 entidades JPA, una por tabla | `Usuario`, `Tecnico`, `Servicio`… |
 | `model.enums` | 12 enums con los valores de tipos y estados | `TipoUsuario`, `EstadoServicio`, `MetodoPago`… |
-| `exception` | Excepciones de negocio y manejador global | `RecursoNoEncontradoException`, `ReglaNegocioException`, `ConflictoException`, `CredencialesInvalidasException`, `NoAutenticadoException`, `GlobalExceptionHandler` |
-| `repository` | 11 interfaces Spring Data JPA | `UsuarioRepository`, `DisponibilidadRepository` (con consulta de cruces de horario)… |
-| `service` | Contratos y reglas documentadas | `CrudService<Q, R>`, una interfaz por recurso y `ArchivoService` |
-| `service.impl` | 11 implementaciones transaccionales y el almacenamiento de archivos | `ServicioServiceImpl`, `SuscripcionServiceImpl`, `ArchivoServiceImpl`… |
-| `util` | Utilidades | `FechaUtil` |
+| `exception` | Excepciones de negocio y manejador global | `RecursoNoEncontradoException`, `ReglaNegocioException`, `ConflictoException`, `CredencialesInvalidasException`, `NoAutenticadoException`, `AccesoDenegadoException`, `DemasiadosIntentosException`, `GlobalExceptionHandler` |
+| `dao` | Patrón DAO: `IGenericDao` y 12 interfaces | `IUsuarioDao`, `IDisponibilidadDao` (con consulta de cruces de horario), `IEstadisticasDao` (consultas agregadas)… |
+| `dao.impl` | Implementaciones JPA con `EntityManager` y JPQL parametrizado | `GenericDaoImpl`, `UsuarioDaoImpl`, `EstadisticasDaoImpl`… |
+| `service` | Contratos y reglas documentadas | `CrudService<Q, R>`, una interfaz por recurso, `ArchivoService` y `ReporteService` |
+| `service.impl` | 11 implementaciones transaccionales, el almacenamiento de archivos y los reportes | `ServicioServiceImpl`, `ArchivoServiceImpl`, `ReporteServiceImpl` (Apache POI)… |
+| `validation` | Validaciones propias | `@SinHtml` (rechaza HTML y JavaScript: XSS) |
+| `util` | Utilidades | `FechaUtil`, `LibroExcel` (Apache POI), `Auditoria` (logger de seguridad) |
 
 Otros directorios del repositorio:
 
@@ -278,7 +280,7 @@ Las versiones las gestiona el *parent* `spring-boot-starter-parent` 4.1.1, salvo
 | Dependencia | Versión | Para qué se usa |
 |---|---|---|
 | `spring-boot-starter-webmvc` | 4.1.1 | API REST: Spring MVC 7.0.9, Tomcat 11.0.24 embebido y Jackson 3.1.5 para JSON |
-| `spring-boot-starter-data-jpa` | 4.1.1 | Persistencia: Spring Data JPA, Hibernate ORM 7.4.5 y pool de conexiones HikariCP 7.0.2 |
+| `spring-boot-starter-data-jpa` | 4.1.1 | Persistencia: JPA con Hibernate ORM 7.4.5 (usado desde los DAO con `EntityManager`) y pool de conexiones HikariCP 7.0.2 |
 | `spring-boot-starter-validation` | 4.1.1 | Validación de DTOs con Bean Validation (Hibernate Validator 9.1.3) |
 | `spring-security-crypto` | 7.1.1 | Solo el cifrado BCrypt de contraseñas; no activa Spring Security |
 | `jjwt-api`, `jjwt-impl`, `jjwt-jackson` | 0.13.0 (fijada en el `pom.xml`) | Generar, firmar y validar los tokens JWT |
@@ -287,6 +289,10 @@ Las versiones las gestiona el *parent* `spring-boot-starter-parent` 4.1.1, salvo
 | `commons-lang3` | 3.20.0 | `StringUtils`: normaliza los textos de entrada (`normalizeSpace`, `stripToNull`) |
 | `commons-codec` | 1.21.0 | `DigestUtils`: huella SHA-256 de los archivos subidos, que se usa como su nombre |
 | `commons-io` | 2.22.0 (fijada en el `pom.xml`) | `FilenameUtils` (nombre y extensión seguros), `BoundedInputStream` (cuenta bytes) y `FileUtils` (tamaño legible en los errores) |
+| `commons-collections4` | 4.5.0 (fijada en el `pom.xml`) | `CollectionUtils`: comprobaciones de listas vacías seguras ante `null` en los reportes |
+| `guava` | 33.4.8-jre (fijada en el `pom.xml`) | `CacheBuilder` (límite de intentos de login), `Preconditions`, colecciones inmutables, `Multimap` y `Stopwatch` |
+| `poi-ooxml` | 5.4.1 (fijada en el `pom.xml`) | Apache POI: genera los reportes Excel (`.xlsx`) |
+| `logback-classic` | incluido en `spring-boot-starter-logging` | Logs en consola, archivo rotativo y log de auditoría (`logback-spring.xml`) |
 | `spring-boot-starter-test` | 4.1.1 | Pruebas: JUnit 6.0.3, Mockito 5.23.0 y AssertJ 3.27.7 |
 
 Plugins de Maven:
@@ -296,6 +302,7 @@ Plugins de Maven:
 | `maven-compiler-plugin` | Compila con Java 17 y ejecuta el procesador de anotaciones de Lombok |
 | `spring-boot-maven-plugin` | `spring-boot:run` y el JAR ejecutable |
 | `maven-javadoc-plugin` 3.12.0 | Genera el Javadoc en `docs/apidocs` |
+| `dependency-check-maven` 12.1.3 | OWASP Dependency-Check: `dependency-check:check` busca vulnerabilidades conocidas en las librerías |
 
 Entorno necesario: **JDK 17** o superior y **MySQL 8.0.16** o superior. Maven no hace falta instalarlo: el *wrapper* (`mvnw` / `mvnw.cmd`) descarga Maven 3.9.16.
 
@@ -332,17 +339,18 @@ Otros ajustes relevantes:
 - **Contraseñas con BCrypt.** Se guarda el hash, nunca el texto plano.
 - **Autenticación con JWT y un interceptor.** El login entrega un token firmado (HMAC-SHA256) con el id, el correo y el rol del usuario. `JwtInterceptor` lo revisa antes de cada controlador y responde `401` si falta, fue modificado o venció. Es *stateless*: el servidor no guarda sesiones, solo verifica la firma. Se usa un `HandlerInterceptor` de Spring MVC en lugar de Spring Security completo para mantener el mecanismo simple y visible en dos clases.
 - **Enums nativos de MySQL.** Tipos y estados son columnas `ENUM` y *enums* de Java, así que un valor no permitido se rechaza con la lista de opciones válidas.
-- **Consultas eficientes.** Los listados usan `@EntityGraph` para traer las relaciones en una sola consulta y evitar el problema N+1.
+- **Consultas eficientes.** Los listados de los DAO usan `JOIN FETCH` para traer las relaciones en una sola consulta y evitar el problema N+1.
+- **Seguridad.** El detalle de cada medida (fuerza bruta, roles, XSS, inyección SQL, cabeceras, auditoría) está en [librerias-y-seguridad.md](librerias-y-seguridad.md).
 - **Fechas sin fracciones de segundo** (`FechaUtil.ahora()`), para que lo que devuelve la API coincida con lo guardado en las columnas `DATETIME`.
 - **Textos normalizados** con Commons Lang. En los campos de una línea (nombres, títulos, cargos, nombre del plan) se colapsan los espacios repetidos con `StringUtils.normalizeSpace`, así `"Plan   Pro"` y `"Plan Pro"` cuentan como duplicados. En los textos libres opcionales (descripciones, comentarios) se usa `StringUtils.stripToNull`: se conservan los saltos de línea y un texto en blanco se guarda como `NULL`.
 - **Archivos con nombre por contenido.** Cada archivo subido se guarda como `<sha256>.<extensión>`. El mismo archivo se guarda una sola vez, el nombre no revela el original, el navegador puede guardarlo en caché para siempre (`Cache-Control: immutable`) y, como el nombre debe cumplir ese formato, no se puede pedir otro archivo del servidor con rutas como `../`.
 
 ## 9. Limitaciones conocidas
 
-- **Sin permisos por rol.** El token identifica al usuario, pero cualquier usuario con sesión puede llamar a cualquier endpoint (por ejemplo, un cliente podría eliminar un plan). El token ya incluye el `rol`, así que el siguiente paso es revisarlo en el interceptor o migrar a Spring Security.
+- **Permisos por rol solo en los reportes.** `@RequiereRol` ya se aplica a `/api/reportes`, pero en los CRUD cualquier usuario con sesión puede llamar a cualquier endpoint (por ejemplo, un cliente podría eliminar un plan). Basta con anotar los controladores o métodos que correspondan.
 - **Registro abierto.** `POST /api/usuarios` es público para permitir el registro, y acepta cualquier `tipoUsuario`, incluido `ADMINISTRADOR`.
 - **Tokens sin revocación.** Un token sigue siendo válido hasta que vence aunque el usuario cierre sesión o un administrador bloquee la cuenta.
-- **CORS abierto** a cualquier origen: pensado solo para desarrollo local.
+- **Límite de intentos en memoria.** El contador de intentos fallidos de login vive en la memoria de la API: se reinicia al reiniciarla y no se comparte entre varias instancias.
 - **Listados sin paginación ni filtros.** Cada `GET` de colección devuelve todos los registros.
 - **Proveedor de pago no integrado.** Los estados de los pagos se actualizan manualmente mediante la API.
 - **Archivos en disco local y sin limpieza.** Los archivos subidos se guardan en `ARCHIVOS_DIR`, que debe estar en un volumen persistente si la API se despliega en un contenedor. Al eliminar una evidencia su archivo no se borra, porque otro registro puede usar el mismo contenido. El tipo se valida por la extensión, no por el contenido real del archivo.

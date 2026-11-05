@@ -1,15 +1,15 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IDisponibilidadDao;
+import com.tecnicoya.api.dao.ITecnicoDao;
 import com.tecnicoya.api.dto.request.DisponibilidadRequest;
 import com.tecnicoya.api.dto.response.DisponibilidadResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Disponibilidad;
-import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.model.enums.EstadoRegistro;
-import com.tecnicoya.api.repository.DisponibilidadRepository;
-import com.tecnicoya.api.repository.TecnicoRepository;
+import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.service.DisponibilidadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,12 +23,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class DisponibilidadServiceImpl implements DisponibilidadService {
 
-    private final DisponibilidadRepository disponibilidadRepository;
-    private final TecnicoRepository tecnicoRepository;
+    private final IDisponibilidadDao disponibilidadDao;
+    private final ITecnicoDao tecnicoDao;
 
     @Override
     public List<DisponibilidadResponse> listar() {
-        return disponibilidadRepository.findAll().stream().map(DisponibilidadResponse::desde).toList();
+        return disponibilidadDao.listar().stream().map(DisponibilidadResponse::desde).toList();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
         Disponibilidad disponibilidad = new Disponibilidad();
         disponibilidad.setEstado(request.estado() != null ? request.estado() : EstadoRegistro.ACTIVO);
         aplicarDatos(request, disponibilidad);
-        return DisponibilidadResponse.desde(disponibilidadRepository.save(disponibilidad));
+        return DisponibilidadResponse.desde(disponibilidadDao.guardar(disponibilidad));
     }
 
     @Override
@@ -53,18 +53,17 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
             disponibilidad.setEstado(request.estado());
         }
         aplicarDatos(request, disponibilidad);
-        return DisponibilidadResponse.desde(disponibilidadRepository.save(disponibilidad));
+        return DisponibilidadResponse.desde(disponibilidadDao.guardar(disponibilidad));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        disponibilidadRepository.delete(buscar(id));
-        disponibilidadRepository.flush();
+        disponibilidadDao.eliminar(buscar(id));
     }
 
     private Disponibilidad buscar(Long id) {
-        return disponibilidadRepository.findById(id)
+        return disponibilidadDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la disponibilidad", id));
     }
 
@@ -72,10 +71,10 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
         if (!request.horaFin().isAfter(request.horaInicio())) {
             throw new ReglaNegocioException("La hora de fin debe ser posterior a la hora de inicio");
         }
-        Tecnico tecnico = tecnicoRepository.findById(request.tecnicoId())
+        Tecnico tecnico = tecnicoDao.buscarPorId(request.tecnicoId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
 
-        long cruces = disponibilidadRepository.contarCrucesDeHorario(tecnico.getIdTecnico(), request.diaSemana(),
+        long cruces = disponibilidadDao.contarCrucesDeHorario(tecnico.getIdTecnico(), request.diaSemana(),
                 request.horaInicio(), request.horaFin(), disponibilidad.getIdDisponibilidad());
         if (cruces > 0) {
             throw new ConflictoException(String.format(

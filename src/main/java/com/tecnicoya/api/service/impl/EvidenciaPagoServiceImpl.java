@@ -1,15 +1,15 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IEvidenciaPagoDao;
+import com.tecnicoya.api.dao.IServicioDao;
 import com.tecnicoya.api.dto.request.EvidenciaPagoRequest;
 import com.tecnicoya.api.dto.response.EvidenciaPagoResponse;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.EvidenciaPago;
-import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.enums.EstadoValidacion;
-import com.tecnicoya.api.repository.EvidenciaPagoRepository;
-import com.tecnicoya.api.repository.ServicioRepository;
+import com.tecnicoya.api.model.EvidenciaPago;
+import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.service.EvidenciaPagoService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +24,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
 
-    private final EvidenciaPagoRepository evidenciaPagoRepository;
-    private final ServicioRepository servicioRepository;
+    private final IEvidenciaPagoDao evidenciaPagoDao;
+    private final IServicioDao servicioDao;
 
     @Override
     public List<EvidenciaPagoResponse> listar() {
-        return evidenciaPagoRepository.findAll().stream().map(EvidenciaPagoResponse::desde).toList();
+        return evidenciaPagoDao.listar().stream().map(EvidenciaPagoResponse::desde).toList();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
         evidenciaPago.setEstadoValidacion(request.estadoValidacion() != null
                 ? request.estadoValidacion() : EstadoValidacion.PENDIENTE);
         copiarDatos(request, evidenciaPago);
-        return EvidenciaPagoResponse.desde(evidenciaPagoRepository.save(evidenciaPago));
+        return EvidenciaPagoResponse.desde(evidenciaPagoDao.guardar(evidenciaPago));
     }
 
     @Override
@@ -63,23 +63,22 @@ public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
             evidenciaPago.setEstadoValidacion(request.estadoValidacion());
         }
         copiarDatos(request, evidenciaPago);
-        return EvidenciaPagoResponse.desde(evidenciaPagoRepository.save(evidenciaPago));
+        return EvidenciaPagoResponse.desde(evidenciaPagoDao.guardar(evidenciaPago));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        evidenciaPagoRepository.delete(buscar(id));
-        evidenciaPagoRepository.flush();
+        evidenciaPagoDao.eliminar(buscar(id));
     }
 
     private EvidenciaPago buscar(Long id) {
-        return evidenciaPagoRepository.findById(id)
+        return evidenciaPagoDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la evidencia de pago", id));
     }
 
     private Servicio buscarServicioPagable(Long servicioId) {
-        Servicio servicio = servicioRepository.findById(servicioId)
+        Servicio servicio = servicioDao.buscarPorId(servicioId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el servicio", servicioId));
         if (servicio.getEstadoServicio() == EstadoServicio.CANCELADO) {
             throw new ReglaNegocioException("No se puede registrar un pago para un servicio CANCELADO");

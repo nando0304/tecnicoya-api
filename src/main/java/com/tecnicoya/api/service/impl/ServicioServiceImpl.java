@@ -1,20 +1,22 @@
 package com.tecnicoya.api.service.impl;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.tecnicoya.api.dao.IServicioDao;
+import com.tecnicoya.api.dao.ITecnicoDao;
+import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.ServicioRequest;
 import com.tecnicoya.api.dto.response.ServicioResponse;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.Servicio;
-import com.tecnicoya.api.model.Tecnico;
-import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.EstadoVerificacion;
 import com.tecnicoya.api.model.enums.Prioridad;
 import com.tecnicoya.api.model.enums.TipoUsuario;
-import com.tecnicoya.api.repository.ServicioRepository;
-import com.tecnicoya.api.repository.TecnicoRepository;
-import com.tecnicoya.api.repository.UsuarioRepository;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.service.ServicioService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 /** Implementación de {@link ServicioService}. */
 @Service
@@ -33,18 +33,19 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public class ServicioServiceImpl implements ServicioService {
 
-    private static final Set<EstadoServicio> ESTADOS_CON_TECNICO =
-            EnumSet.of(EstadoServicio.ASIGNADO, EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
-    private static final Set<EstadoServicio> ESTADOS_CERRADOS =
-            EnumSet.of(EstadoServicio.FINALIZADO, EstadoServicio.CANCELADO);
+    /** Conjuntos inmutables de Google Guava (respaldados internamente por un EnumSet). */
+    private static final ImmutableSet<EstadoServicio> ESTADOS_CON_TECNICO =
+            Sets.immutableEnumSet(EstadoServicio.ASIGNADO, EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
+    private static final ImmutableSet<EstadoServicio> ESTADOS_CERRADOS =
+            Sets.immutableEnumSet(EstadoServicio.FINALIZADO, EstadoServicio.CANCELADO);
 
-    private final ServicioRepository servicioRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final TecnicoRepository tecnicoRepository;
+    private final IServicioDao servicioDao;
+    private final IUsuarioDao usuarioDao;
+    private final ITecnicoDao tecnicoDao;
 
     @Override
     public List<ServicioResponse> listar() {
-        return servicioRepository.findAll().stream().map(ServicioResponse::desde).toList();
+        return servicioDao.listar().stream().map(ServicioResponse::desde).toList();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ServicioServiceImpl implements ServicioService {
         servicio.setPrioridad(request.prioridad() != null ? request.prioridad() : Prioridad.MEDIA);
 
         aplicarDatos(request, servicio);
-        return ServicioResponse.desde(servicioRepository.save(servicio));
+        return ServicioResponse.desde(servicioDao.guardar(servicio));
     }
 
     @Override
@@ -80,18 +81,17 @@ public class ServicioServiceImpl implements ServicioService {
         }
 
         aplicarDatos(request, servicio);
-        return ServicioResponse.desde(servicioRepository.save(servicio));
+        return ServicioResponse.desde(servicioDao.guardar(servicio));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        servicioRepository.delete(buscar(id));
-        servicioRepository.flush();
+        servicioDao.eliminar(buscar(id));
     }
 
     private Servicio buscar(Long id) {
-        return servicioRepository.findById(id)
+        return servicioDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el servicio", id));
     }
 
@@ -139,7 +139,7 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     private Usuario buscarClienteActivo(Long clienteId) {
-        Usuario cliente = usuarioRepository.findById(clienteId)
+        Usuario cliente = usuarioDao.buscarPorId(clienteId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el cliente", clienteId));
         if (cliente.getTipoUsuario() != TipoUsuario.CLIENTE) {
             throw new ReglaNegocioException("El usuario con id " + clienteId + " no es de tipo CLIENTE");
@@ -151,7 +151,7 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     private Tecnico buscarTecnicoVerificado(Long tecnicoId) {
-        Tecnico tecnico = tecnicoRepository.findById(tecnicoId)
+        Tecnico tecnico = tecnicoDao.buscarPorId(tecnicoId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", tecnicoId));
         if (tecnico.getEstadoVerificacion() != EstadoVerificacion.VERIFICADO) {
             throw new ReglaNegocioException("Solo se pueden asignar técnicos verificados; el técnico con id "

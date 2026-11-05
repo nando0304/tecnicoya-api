@@ -36,3 +36,6 @@ build/
 
 ### Archivos subidos a la API ###
 uploads/
+
+### Logs de la API (Logback) ###
+logs/

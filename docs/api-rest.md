@@ -12,7 +12,8 @@ Endpoints de la API de **TécnicoYa**: parámetros, respuestas y ejemplos de uso
 3. [Valores permitidos](#valores-permitidos)
 4. [Autenticación](#autenticación)
 5. [Archivos](#archivos)
-6. Recursos: [Usuarios](#usuarios) · [Técnicos](#técnicos) · [Servicios](#servicios) · [Disponibilidades](#disponibilidades) · [Evidencias](#evidencias) · [Experiencias laborales](#experiencias-laborales) · [Calificaciones](#calificaciones) · [Evidencias de pago](#evidencias-de-pago) · [Planes de suscripción](#planes-de-suscripción) · [Suscripciones](#suscripciones) · [Pagos de suscripción](#pagos-de-suscripción)
+6. [Reportes Excel](#reportes-excel)
+7. Recursos: [Usuarios](#usuarios) · [Técnicos](#técnicos) · [Servicios](#servicios) · [Disponibilidades](#disponibilidades) · [Evidencias](#evidencias) · [Experiencias laborales](#experiencias-laborales) · [Calificaciones](#calificaciones) · [Evidencias de pago](#evidencias-de-pago) · [Planes de suscripción](#planes-de-suscripción) · [Suscripciones](#suscripciones) · [Pagos de suscripción](#pagos-de-suscripción)
 
 ---
 
@@ -67,11 +68,13 @@ Todos los errores devuelven el mismo cuerpo JSON:
 |---|---|---|
 | `400` | Solicitud incorrecta | Datos inválidos, JSON mal formado, valor de enum inexistente, id no numérico o regla de negocio incumplida |
 | `401` | No autorizado | Credenciales incorrectas o cuenta no `ACTIVO` en el inicio de sesión; o falta el token, no es válido o venció |
+| `403` | Acceso denegado | El token es válido, pero el rol del usuario no tiene permiso para el recurso (p. ej. un `CLIENTE` pidiendo un [reporte](#reportes-excel)) |
 | `404` | No encontrado | El registro (o uno al que se hace referencia) no existe, o la ruta no existe |
 | `405` | Método no permitido | Método HTTP no soportado en la ruta (p. ej. `DELETE /api/usuarios`) |
 | `409` | Conflicto | Dato único duplicado, conflicto con otro registro o intento de borrar un registro con datos relacionados |
 | `413` | Contenido demasiado grande | Archivo subido de más de 5 MB |
 | `415` | Tipo de contenido no soportado | Falta `Content-Type: application/json` (o `multipart/form-data` al subir archivos) |
+| `429` | Demasiadas solicitudes | Demasiados intentos fallidos de inicio de sesión; la cabecera `Retry-After` indica los segundos de espera |
 | `500` | Error interno del servidor | Error inesperado (queda registrado en el log) |
 
 **Validación de campos** (`400`):
@@ -87,6 +90,24 @@ Todos los errores devuelven el mismo cuerpo JSON:
     "nombres": "Los nombres son obligatorios",
     "contrasena": "La contraseña debe tener entre 8 y 72 caracteres",
     "correo": "El correo no tiene un formato válido"
+  }
+}
+```
+
+**Reglas de seguridad en la validación** (`400`):
+
+- **Contraseña:** entre 8 y 72 caracteres, con al menos una letra y un número.
+- **Textos libres** (nombres, apellidos, títulos, descripciones, comentarios, empresa, cargo, especialidad, nombre del plan): no aceptan etiquetas HTML ni código JavaScript (`<script>`, `<img onerror=...>`, `javascript:`…), para evitar ataques XSS. Un `<` suelto, como en "temperatura < 5", sí se acepta.
+
+```json
+{
+  "status": 400,
+  "error": "Solicitud incorrecta",
+  "mensaje": "La solicitud contiene datos inválidos",
+  "ruta": "/api/usuarios",
+  "errores": {
+    "nombres": "No se permiten etiquetas HTML ni código JavaScript",
+    "contrasena": "La contraseña debe contener al menos una letra y un número"
   }
 }
 ```
@@ -179,6 +200,9 @@ Valida el correo y la contraseña y devuelve un **token JWT** junto con los dato
 | `400` | Falta el correo o la contraseña, o el correo no tiene formato válido |
 | `401` | `"Correo o contraseña incorrectos"`: el mensaje es el mismo si el correo no existe, para no revelar qué correos están registrados |
 | `401` | `"La cuenta está INACTIVO; comuníquese con el administrador"` (o `BLOQUEADO`): la contraseña es correcta, pero la cuenta no está activa |
+| `429` | Tras 5 intentos fallidos con el mismo correo desde la misma IP, el login queda bloqueado 15 minutos desde el último fallo (protección contra fuerza bruta). Un login correcto reinicia el contador. Se configura con `LOGIN_MAX_INTENTOS` y `LOGIN_MINUTOS_BLOQUEO` |
+
+Todos los intentos (exitosos, fallidos y bloqueados) quedan en el log de auditoría `logs/auditoria.log`, sin la contraseña.
 
 Petición:
 
@@ -302,6 +326,29 @@ Errores: `400` si falta el campo `archivo`, el archivo está vacío o el formato
 ### `GET /api/archivos/{nombre}`
 
 Devuelve el archivo con su `Content-Type` (`application/pdf`, `image/png`…) y `Cache-Control: max-age=31536000, public, immutable`. Como el nombre depende del contenido, el archivo nunca cambia. Responde `404` si el archivo no existe o el nombre no tiene el formato `<sha256>.<extensión>`.
+
+---
+
+## Reportes Excel
+
+Reportes `.xlsx` generados con **Apache POI**. **Solo para usuarios `ADMINISTRADOR`**: cualquier otro rol recibe `403`, porque contienen datos personales de todos los usuarios. Nunca incluyen contraseñas. Cada descarga queda en el log de auditoría.
+
+| Método y ruta | Contenido | Archivo |
+|---|---|---|
+| `GET /api/reportes/usuarios` | Usuarios: datos de contacto, tipo, estado y fecha de registro | `tecnicoya-usuarios-AAAA-MM-DD.xlsx` |
+| `GET /api/reportes/tecnicos` | Técnicos con servicios asignados, servicios finalizados, número de calificaciones y calificación promedio | `tecnicoya-tecnicos-AAAA-MM-DD.xlsx` |
+| `GET /api/reportes/servicios` | Servicios con cliente, técnico, prioridad, estado y fechas | `tecnicoya-servicios-AAAA-MM-DD.xlsx` |
+| `GET /api/reportes/general` | Hoja **Resumen** (usuarios por tipo, servicios por estado, ingresos por suscripciones aprobadas, calificación promedio) más las tres hojas anteriores | `tecnicoya-general-AAAA-MM-DD.xlsx` |
+
+Respuesta `200`: el archivo binario con `Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` y `Content-Disposition: attachment; filename="..."`. Cada hoja tiene encabezados con estilo, filtros, la fila de encabezados fija y montos y fechas con formato.
+
+| Respuesta | Cuándo |
+|---|---|
+| `200` | El usuario es `ADMINISTRADOR` |
+| `401` | Falta el token o no es válido |
+| `403` | El usuario no es `ADMINISTRADOR` |
+
+En Postman use **Send and Download** para guardar el archivo. En la web, los botones **Exportar Excel** de las páginas de administración y **Descargar reporte general** del panel llaman a estos endpoints.
 
 ---
 

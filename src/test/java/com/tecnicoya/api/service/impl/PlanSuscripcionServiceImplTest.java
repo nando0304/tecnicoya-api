@@ -1,15 +1,15 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IPlanSuscripcionDao;
 import com.tecnicoya.api.dto.request.PlanSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PlanSuscripcionResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.model.PlanSuscripcion;
-import com.tecnicoya.api.repository.PlanSuscripcionRepository;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
 
 import java.math.BigDecimal;
 
@@ -24,24 +24,24 @@ import static org.mockito.Mockito.when;
 class PlanSuscripcionServiceImplTest {
 
     @Mock
-    private PlanSuscripcionRepository planSuscripcionRepository;
+    private IPlanSuscripcionDao planSuscripcionDao;
     @InjectMocks
     private PlanSuscripcionServiceImpl planSuscripcionService;
 
     @Test
     void crear_nombreConEspaciosRepetidos_detectaElDuplicado() {
-        when(planSuscripcionRepository.existsByNombrePlanIgnoreCase("Plan Pro")).thenReturn(true);
+        when(planSuscripcionDao.existeNombre("Plan Pro")).thenReturn(true);
 
         assertThatThrownBy(() -> planSuscripcionService.crear(request("  Plan   Pro ", null)))
                 .isInstanceOf(ConflictoException.class)
                 .hasMessageContaining("'Plan Pro'");
-        verify(planSuscripcionRepository, never()).save(any());
+        verify(planSuscripcionDao, never()).guardar(any());
     }
 
     @Test
     void crear_descripcionEnBlanco_seGuardaComoNull() {
-        when(planSuscripcionRepository.existsByNombrePlanIgnoreCase("Plan Pro")).thenReturn(false);
-        when(planSuscripcionRepository.save(any(PlanSuscripcion.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(planSuscripcionDao.existeNombre("Plan Pro")).thenReturn(false);
+        when(planSuscripcionDao.guardar(any(PlanSuscripcion.class))).thenAnswer(inv -> inv.getArgument(0));
 
         PlanSuscripcionResponse respuesta = planSuscripcionService.crear(request("Plan Pro", " \n "));
 

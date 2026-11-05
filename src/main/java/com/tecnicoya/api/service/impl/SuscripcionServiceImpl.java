@@ -1,18 +1,18 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IPlanSuscripcionDao;
+import com.tecnicoya.api.dao.ISuscripcionDao;
+import com.tecnicoya.api.dao.ITecnicoDao;
 import com.tecnicoya.api.dto.request.SuscripcionRequest;
 import com.tecnicoya.api.dto.response.SuscripcionResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
+import com.tecnicoya.api.model.enums.EstadoRegistro;
+import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import com.tecnicoya.api.model.PlanSuscripcion;
 import com.tecnicoya.api.model.Suscripcion;
 import com.tecnicoya.api.model.Tecnico;
-import com.tecnicoya.api.model.enums.EstadoRegistro;
-import com.tecnicoya.api.model.enums.EstadoSuscripcion;
-import com.tecnicoya.api.repository.PlanSuscripcionRepository;
-import com.tecnicoya.api.repository.SuscripcionRepository;
-import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.service.SuscripcionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class SuscripcionServiceImpl implements SuscripcionService {
 
-    private final SuscripcionRepository suscripcionRepository;
-    private final TecnicoRepository tecnicoRepository;
-    private final PlanSuscripcionRepository planSuscripcionRepository;
+    private final ISuscripcionDao suscripcionDao;
+    private final ITecnicoDao tecnicoDao;
+    private final IPlanSuscripcionDao planSuscripcionDao;
 
     @Override
     public List<SuscripcionResponse> listar() {
-        return suscripcionRepository.findAll().stream().map(SuscripcionResponse::desde).toList();
+        return suscripcionDao.listar().stream().map(SuscripcionResponse::desde).toList();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SuscripcionServiceImpl implements SuscripcionService {
         suscripcion.setEstadoSuscripcion(request.estadoSuscripcion() != null
                 ? request.estadoSuscripcion() : EstadoSuscripcion.PENDIENTE);
         aplicarFechasYValidar(request, suscripcion);
-        return SuscripcionResponse.desde(suscripcionRepository.save(suscripcion));
+        return SuscripcionResponse.desde(suscripcionDao.guardar(suscripcion));
     }
 
     @Override
@@ -67,18 +67,17 @@ public class SuscripcionServiceImpl implements SuscripcionService {
             suscripcion.setEstadoSuscripcion(request.estadoSuscripcion());
         }
         aplicarFechasYValidar(request, suscripcion);
-        return SuscripcionResponse.desde(suscripcionRepository.save(suscripcion));
+        return SuscripcionResponse.desde(suscripcionDao.guardar(suscripcion));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        suscripcionRepository.delete(buscar(id));
-        suscripcionRepository.flush();
+        suscripcionDao.eliminar(buscar(id));
     }
 
     private Suscripcion buscar(Long id) {
-        return suscripcionRepository.findById(id)
+        return suscripcionDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la suscripción", id));
     }
 
@@ -111,18 +110,18 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     private boolean tieneOtraSuscripcionActiva(Suscripcion suscripcion) {
         Long tecnicoId = suscripcion.getTecnico().getIdTecnico();
         return suscripcion.getIdSuscripcion() == null
-                ? suscripcionRepository.existsByTecnico_IdTecnicoAndEstadoSuscripcion(tecnicoId, EstadoSuscripcion.ACTIVA)
-                : suscripcionRepository.existsByTecnico_IdTecnicoAndEstadoSuscripcionAndIdSuscripcionNot(
+                ? suscripcionDao.existePorTecnicoYEstado(tecnicoId, EstadoSuscripcion.ACTIVA)
+                : suscripcionDao.existePorTecnicoYEstadoEnOtraSuscripcion(
                         tecnicoId, EstadoSuscripcion.ACTIVA, suscripcion.getIdSuscripcion());
     }
 
     private Tecnico buscarTecnico(Long tecnicoId) {
-        return tecnicoRepository.findById(tecnicoId)
+        return tecnicoDao.buscarPorId(tecnicoId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", tecnicoId));
     }
 
     private PlanSuscripcion buscarPlanActivo(Long planId) {
-        PlanSuscripcion plan = planSuscripcionRepository.findById(planId)
+        PlanSuscripcion plan = planSuscripcionDao.buscarPorId(planId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el plan de suscripción", planId));
         if (plan.getEstado() != EstadoRegistro.ACTIVO) {
             throw new ReglaNegocioException("El plan '" + plan.getNombrePlan() + "' no está ACTIVO");

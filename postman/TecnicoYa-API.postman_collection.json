@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
     "name": "TécnicoYa API",
-    "description": "Pruebas de los 56 endpoints de la API de TécnicoYa: inicio de sesión y 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id}.\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: \"00 - Autenticación > Iniciar sesión\" guarda el token JWT en la variable {{token}}, que la colección envía en la cabecera Authorization: Bearer de todas las peticiones. Si ejecuta una carpeta suelta, inicie sesión primero (el token dura 8 horas).\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "description": "Pruebas de los 60 endpoints de la API de TécnicoYa: inicio de sesión, 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id} y 4 reportes Excel (solo administrador).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: \"00 - Autenticación > Iniciar sesión\" guarda el token JWT en la variable {{token}}, que la colección envía en la cabecera Authorization: Bearer de todas las peticiones. Si ejecuta una carpeta suelta, inicie sesión primero (el token dura 8 horas).\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -36,6 +36,10 @@
     },
     {
       "key": "token",
+      "value": ""
+    },
+    {
+      "key": "tokenAdmin",
       "value": ""
     },
     {
@@ -3092,6 +3096,238 @@
             "method": "DELETE",
             "header": [],
             "url": "{{baseUrl}}/usuarios"
+          }
+        },
+        {
+          "name": "[Error] Texto con HTML (XSS)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Rechaza el HTML en nombres (@SinHtml)', () => pm.expect(pm.response.json().errores.nombres).to.include('HTML'));",
+                  "pm.test('Exige letra y número en la contraseña', () => pm.expect(pm.response.json().errores.contrasena).to.include('letra'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"<script>alert(1)</script>\",\n  \"apellidos\": \"Prueba\",\n  \"correo\": \"xss.prueba@correo.example\",\n  \"contrasena\": \"soloLetras\",\n  \"tipoUsuario\": \"CLIENTE\"\n}"
+            },
+            "url": "{{baseUrl}}/usuarios"
+          }
+        },
+        {
+          "name": "Cabeceras de seguridad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('X-Content-Type-Options: nosniff', () => pm.response.to.have.header('X-Content-Type-Options', 'nosniff'));",
+                  "pm.test('X-Frame-Options: DENY', () => pm.response.to.have.header('X-Frame-Options', 'DENY'));",
+                  "pm.test('Content-Security-Policy restrictiva', () => pm.expect(pm.response.headers.get('Content-Security-Policy')).to.include(\"default-src 'none'\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/planes-suscripcion"
+          }
+        }
+      ]
+    },
+    {
+      "name": "13 - Reportes Excel",
+      "description": "Reportes .xlsx generados con Apache POI. Solo los descarga un ADMINISTRADOR (anotación @RequiereRol): la carpeta inicia sesión como administrador y guarda su token en {{tokenAdmin}}. El token por defecto de la colección es de un CLIENTE, que recibe 403.",
+      "item": [
+        {
+          "name": "(Preparación) Iniciar sesión como administrador",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es ADMINISTRADOR', () => pm.expect(pm.response.json().usuario.tipoUsuario).to.eql('ADMINISTRADOR'));",
+                  "pm.collectionVariables.set('tokenAdmin', pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"carlos.mendoza@tecnicoya.example\",\n  \"contrasena\": \"TecnicoYa2026!\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Reporte de usuarios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es un archivo .xlsx', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('spreadsheetml'));",
+                  "pm.test('Se descarga como adjunto', () => pm.expect(pm.response.headers.get('Content-Disposition')).to.include('tecnicoya-usuarios-'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/usuarios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reporte de técnicos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es un archivo .xlsx', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('spreadsheetml'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/tecnicos",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reporte de servicios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es un archivo .xlsx', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('spreadsheetml'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/servicios",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reporte general",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es un archivo .xlsx', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('spreadsheetml'));",
+                  "pm.test('Se descarga como adjunto', () => pm.expect(pm.response.headers.get('Content-Disposition')).to.include('tecnicoya-general-'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/general",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "[Error] Cliente sin permiso (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Indica que el rol no tiene permiso', () => pm.expect(pm.response.json().mensaje).to.include('CLIENTE'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/general"
           }
         }
       ]

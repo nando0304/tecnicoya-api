@@ -1,5 +1,6 @@
 package com.tecnicoya.api.dto.request;
 
+import com.tecnicoya.api.validation.SinHtml;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -15,13 +16,16 @@ public record ExperienciaLaboralRequest(
 
         @NotBlank(message = "La empresa es obligatoria")
         @Size(max = 150, message = "La empresa no debe superar los 150 caracteres")
+        @SinHtml
         String empresa,
 
         @NotBlank(message = "El cargo es obligatorio")
         @Size(max = 100, message = "El cargo no debe superar los 100 caracteres")
+        @SinHtml
         String cargo,
 
         @Size(max = 1000, message = "La descripción no debe superar los 1000 caracteres")
+        @SinHtml
         String descripcion,
 
         @NotNull(message = "La fecha de inicio es obligatoria")

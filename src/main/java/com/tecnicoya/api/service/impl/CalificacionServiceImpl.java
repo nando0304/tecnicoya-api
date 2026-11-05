@@ -1,15 +1,15 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.ICalificacionDao;
+import com.tecnicoya.api.dao.IServicioDao;
 import com.tecnicoya.api.dto.request.CalificacionRequest;
 import com.tecnicoya.api.dto.response.CalificacionResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Calificacion;
-import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.model.enums.EstadoServicio;
-import com.tecnicoya.api.repository.CalificacionRepository;
-import com.tecnicoya.api.repository.ServicioRepository;
+import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.service.CalificacionService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,12 +25,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CalificacionServiceImpl implements CalificacionService {
 
-    private final CalificacionRepository calificacionRepository;
-    private final ServicioRepository servicioRepository;
+    private final ICalificacionDao calificacionDao;
+    private final IServicioDao servicioDao;
 
     @Override
     public List<CalificacionResponse> listar() {
-        return calificacionRepository.findAll().stream().map(CalificacionResponse::desde).toList();
+        return calificacionDao.listar().stream().map(CalificacionResponse::desde).toList();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CalificacionServiceImpl implements CalificacionService {
     @Transactional
     public CalificacionResponse crear(CalificacionRequest request) {
         Servicio servicio = buscarServicioFinalizado(request.servicioId());
-        if (calificacionRepository.existsByServicio_IdServicio(servicio.getIdServicio())) {
+        if (calificacionDao.existePorServicio(servicio.getIdServicio())) {
             throw new ConflictoException("El servicio con id " + servicio.getIdServicio() + " ya fue calificado");
         }
 
@@ -51,7 +51,7 @@ public class CalificacionServiceImpl implements CalificacionService {
         calificacion.setPuntuacion(request.puntuacion());
         calificacion.setComentario(StringUtils.stripToNull(request.comentario()));
         calificacion.setFechaCalificacion(FechaUtil.ahora());
-        return CalificacionResponse.desde(calificacionRepository.save(calificacion));
+        return CalificacionResponse.desde(calificacionDao.guardar(calificacion));
     }
 
     @Override
@@ -60,30 +60,29 @@ public class CalificacionServiceImpl implements CalificacionService {
         Calificacion calificacion = buscar(id);
         if (!calificacion.getServicio().getIdServicio().equals(request.servicioId())) {
             Servicio servicio = buscarServicioFinalizado(request.servicioId());
-            if (calificacionRepository.existsByServicio_IdServicioAndIdCalificacionNot(servicio.getIdServicio(), id)) {
+            if (calificacionDao.existePorServicioEnOtraCalificacion(servicio.getIdServicio(), id)) {
                 throw new ConflictoException("El servicio con id " + servicio.getIdServicio() + " ya fue calificado");
             }
             calificacion.setServicio(servicio);
         }
         calificacion.setPuntuacion(request.puntuacion());
         calificacion.setComentario(StringUtils.stripToNull(request.comentario()));
-        return CalificacionResponse.desde(calificacionRepository.save(calificacion));
+        return CalificacionResponse.desde(calificacionDao.guardar(calificacion));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        calificacionRepository.delete(buscar(id));
-        calificacionRepository.flush();
+        calificacionDao.eliminar(buscar(id));
     }
 
     private Calificacion buscar(Long id) {
-        return calificacionRepository.findById(id)
+        return calificacionDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la calificación", id));
     }
 
     private Servicio buscarServicioFinalizado(Long servicioId) {
-        Servicio servicio = servicioRepository.findById(servicioId)
+        Servicio servicio = servicioDao.buscarPorId(servicioId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el servicio", servicioId));
         if (servicio.getEstadoServicio() != EstadoServicio.FINALIZADO) {
             throw new ReglaNegocioException("Solo se pueden calificar servicios FINALIZADOS; el servicio con id "

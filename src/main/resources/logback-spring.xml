@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuración de Logback, la librería de logging que Spring Boot usa por defecto (a través de SLF4J).
+
+  Destinos (appenders):
+    CONSOLA    -> la terminal, con colores.
+    ARCHIVO    -> logs/tecnicoya-api.log: log general. Rota cada día o al llegar a 10 MB; guarda 30 días comprimidos.
+                  Se escribe de forma asíncrona (ASYNC_ARCHIVO) para no frenar las peticiones.
+    AUDITORIA  -> logs/auditoria.log: solo eventos de seguridad (logins, bloqueos, accesos denegados y operaciones
+                  que modifican datos). Rota cada día y guarda 90 días.
+
+  Niveles, de más a menos detallado: TRACE < DEBUG < INFO < WARN < ERROR.
+  La carpeta se cambia con la propiedad tecnicoya.logs.directorio (variable de entorno LOGS_DIR).
+  Con el perfil "dev" (SPRING_PROFILES_ACTIVE=dev) se activa el nivel DEBUG y se muestran las consultas SQL.
+-->
+<configuration>
+
+    <!-- Conversores de Spring Boot (%clr para colores, %wEx para excepciones) -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="LOG_DIR" source="tecnicoya.logs.directorio" defaultValue="logs"/>
+
+    <!--
+      %X{usuario} muestra el usuario autenticado (id:rol) que JwtInterceptor deja en el MDC.
+      %replace(%msg) cambia los saltos de línea por espacios: evita la "inyección en logs" (CRLF injection), en la que un
+      usuario malicioso escribe saltos de línea en un campo para falsificar líneas del log.
+    -->
+    <property name="MENSAJE_SEGURO" value="%replace(%msg){'[\r\n]+', ' '}"/>
+    <property name="PATRON_ARCHIVO"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{usuario:-anonimo}] %logger{40} - ${MENSAJE_SEGURO}%n%wEx"/>
+    <property name="PATRON_CONSOLA"
+              value="%clr(%d{HH:mm:ss.SSS}){faint} %clr(%5level) %clr([%X{usuario:-anonimo}]){magenta} %clr(%logger{36}){cyan} %clr(:){faint} ${MENSAJE_SEGURO}%n%wEx"/>
+
+    <appender name="CONSOLA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATRON_CONSOLA}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ARCHIVO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/tecnicoya-api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/historial/tecnicoya-api.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATRON_ARCHIVO}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Escribe en ARCHIVO desde otro hilo; nunca descarta mensajes WARN ni ERROR -->
+    <appender name="ASYNC_ARCHIVO" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="ARCHIVO"/>
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+
+    <appender name="AUDITORIA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/auditoria.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/historial/auditoria.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{usuario:-anonimo}] ${MENSAJE_SEGURO}%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Eventos de seguridad (ver com.tecnicoya.api.util.Auditoria): a su archivo propio y a la consola -->
+    <logger name="AUDITORIA" level="INFO" additivity="false">
+        <appender-ref ref="AUDITORIA"/>
+        <appender-ref ref="CONSOLA"/>
+    </logger>
+
+    <logger name="com.tecnicoya.api" level="INFO"/>
+    <logger name="org.apache.poi" level="WARN"/>
+
+    <springProfile name="dev">
+        <logger name="com.tecnicoya.api" level="DEBUG"/>
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+    </springProfile>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLA"/>
+        <appender-ref ref="ASYNC_ARCHIVO"/>
+    </root>
+</configuration>

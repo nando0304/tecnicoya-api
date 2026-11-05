@@ -1,24 +1,24 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IServicioDao;
+import com.tecnicoya.api.dao.ITecnicoDao;
+import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.ServicioRequest;
 import com.tecnicoya.api.dto.response.ServicioResponse;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.Servicio;
-import com.tecnicoya.api.model.Tecnico;
-import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.EstadoVerificacion;
 import com.tecnicoya.api.model.enums.Prioridad;
 import com.tecnicoya.api.model.enums.TipoUsuario;
-import com.tecnicoya.api.repository.ServicioRepository;
-import com.tecnicoya.api.repository.TecnicoRepository;
-import com.tecnicoya.api.repository.UsuarioRepository;
-import org.junit.jupiter.api.Test;
+import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.Usuario;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
 
 import java.util.Optional;
 
@@ -33,19 +33,19 @@ import static org.mockito.Mockito.when;
 class ServicioServiceImplTest {
 
     @Mock
-    private ServicioRepository servicioRepository;
+    private IServicioDao servicioDao;
     @Mock
-    private UsuarioRepository usuarioRepository;
+    private IUsuarioDao usuarioDao;
     @Mock
-    private TecnicoRepository tecnicoRepository;
+    private ITecnicoDao tecnicoDao;
     @InjectMocks
     private ServicioServiceImpl servicioService;
 
     @Test
     void crear_conTecnicoYSinEstado_quedaAsignadoConPrioridadMedia() {
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
-        when(tecnicoRepository.findById(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.VERIFICADO)));
-        when(servicioRepository.save(any(Servicio.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(usuarioDao.buscarPorId(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
+        when(tecnicoDao.buscarPorId(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.VERIFICADO)));
+        when(servicioDao.guardar(any(Servicio.class))).thenAnswer(inv -> inv.getArgument(0));
 
         ServicioResponse respuesta = servicioService.crear(request(1L, null));
 
@@ -57,9 +57,9 @@ class ServicioServiceImplTest {
 
     @Test
     void crear_finalizadoSinFechaCierre_asignaFechaCierreAutomatica() {
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
-        when(tecnicoRepository.findById(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.VERIFICADO)));
-        when(servicioRepository.save(any(Servicio.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(usuarioDao.buscarPorId(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
+        when(tecnicoDao.buscarPorId(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.VERIFICADO)));
+        when(servicioDao.guardar(any(Servicio.class))).thenAnswer(inv -> inv.getArgument(0));
 
         ServicioResponse respuesta = servicioService.crear(request(1L, EstadoServicio.FINALIZADO));
 
@@ -68,28 +68,28 @@ class ServicioServiceImplTest {
 
     @Test
     void crear_conUsuarioQueNoEsCliente_lanzaReglaNegocio() {
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.TECNICO)));
+        when(usuarioDao.buscarPorId(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.TECNICO)));
 
         assertThatThrownBy(() -> servicioService.crear(request(null, null)))
                 .isInstanceOf(ReglaNegocioException.class)
                 .hasMessageContaining("no es de tipo CLIENTE");
-        verify(servicioRepository, never()).save(any());
+        verify(servicioDao, never()).guardar(any());
     }
 
     @Test
     void crear_enProcesoSinTecnico_lanzaReglaNegocio() {
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
+        when(usuarioDao.buscarPorId(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
 
         assertThatThrownBy(() -> servicioService.crear(request(null, EstadoServicio.EN_PROCESO)))
                 .isInstanceOf(ReglaNegocioException.class)
                 .hasMessageContaining("debe tener un técnico asignado");
-        verify(servicioRepository, never()).save(any());
+        verify(servicioDao, never()).guardar(any());
     }
 
     @Test
     void crear_conTecnicoNoVerificado_lanzaReglaNegocio() {
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
-        when(tecnicoRepository.findById(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.PENDIENTE)));
+        when(usuarioDao.buscarPorId(2L)).thenReturn(Optional.of(usuario(2L, TipoUsuario.CLIENTE)));
+        when(tecnicoDao.buscarPorId(1L)).thenReturn(Optional.of(tecnico(EstadoVerificacion.PENDIENTE)));
 
         assertThatThrownBy(() -> servicioService.crear(request(1L, null)))
                 .isInstanceOf(ReglaNegocioException.class)

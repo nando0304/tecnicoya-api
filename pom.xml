@@ -21,6 +21,10 @@
         <!-- Spring Boot no gestiona la versión de Commons IO (sí las de Commons Lang y Commons Codec) -->
         <commons-io.version>2.22.0</commons-io.version>
         <jjwt.version>0.13.0</jjwt.version>
+        <guava.version>33.4.8-jre</guava.version>
+        <poi.version>5.4.1</poi.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
+        <dependency-check.version>12.1.3</dependency-check.version>
     </properties>
 
     <dependencies>
@@ -79,6 +83,31 @@
             <version>${commons-io.version}</version>
         </dependency>
 
+        <!-- Collections: utilidades null-safe para listas y mapas (CollectionUtils, MapUtils) en los reportes -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
+
+        <!-- Google Guava: caché del límite de intentos de login (CacheBuilder), validaciones (Preconditions),
+             colecciones inmutables (ImmutableList, ImmutableMap) y agrupaciones (Multimap) -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- Apache POI: generación de los reportes en Excel (.xlsx) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- Logback: viene incluido en los starters de Spring Boot (spring-boot-starter-logging);
+             su configuración está en src/main/resources/logback-spring.xml -->
+
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -130,6 +159,26 @@
                     <additionalJOptions>
                         <additionalJOption>-J-Dfile.encoding=UTF-8</additionalJOption>
                     </additionalJOptions>
+                </configuration>
+            </plugin>
+            <!-- OWASP Dependency-Check: busca vulnerabilidades conocidas (CVE) en las librerías del proyecto.
+                 No corre en cada build; ejecútelo a mano con  ./mvnw dependency-check:check
+                 (la primera vez descarga la base de datos NVD y demora varios minutos).
+                 El reporte queda en target/dependency-check-report.html -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${dependency-check.version}</version>
+                <configuration>
+                    <formats>
+                        <format>HTML</format>
+                        <format>JSON</format>
+                    </formats>
+                    <!-- Falla si alguna librería tiene una vulnerabilidad de severidad alta (CVSS >= 7) -->
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                    <!-- Opcional: con una clave gratuita de https://nvd.nist.gov/developers/request-an-api-key
+                         en la variable de entorno NVD_API_KEY la descarga es mucho más rápida -->
+                    <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
                 </configuration>
             </plugin>
             <plugin>

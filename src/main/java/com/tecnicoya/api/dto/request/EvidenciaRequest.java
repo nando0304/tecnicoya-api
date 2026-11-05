@@ -2,6 +2,7 @@ package com.tecnicoya.api.dto.request;
 
 import com.tecnicoya.api.model.enums.EstadoValidacion;
 import com.tecnicoya.api.model.enums.TipoEvidencia;
+import com.tecnicoya.api.validation.SinHtml;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +23,7 @@ public record EvidenciaRequest(
         String urlArchivo,
 
         @Size(max = 500, message = "La descripción no debe superar los 500 caracteres")
+        @SinHtml
         String descripcion,
 
         EstadoValidacion estadoValidacion

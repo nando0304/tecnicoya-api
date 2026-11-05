@@ -1,5 +1,7 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.ITecnicoDao;
+import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
@@ -7,17 +9,15 @@ import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.TipoUsuario;
-import com.tecnicoya.api.repository.TecnicoRepository;
-import com.tecnicoya.api.repository.UsuarioRepository;
-import org.junit.jupiter.api.Test;
+import com.tecnicoya.api.model.Usuario;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -35,9 +35,9 @@ class UsuarioServiceImplTest {
     private static final String CORREO_NORMALIZADO = "ana.paredes@correo.example";
 
     @Mock
-    private UsuarioRepository usuarioRepository;
+    private IUsuarioDao usuarioDao;
     @Mock
-    private TecnicoRepository tecnicoRepository;
+    private ITecnicoDao tecnicoDao;
     @Mock
     private PasswordEncoder passwordEncoder;
     @InjectMocks
@@ -45,9 +45,9 @@ class UsuarioServiceImplTest {
 
     @Test
     void crear_guardaContrasenaCifradaYCorreoNormalizado() {
-        when(usuarioRepository.existsByCorreo(CORREO_NORMALIZADO)).thenReturn(false);
+        when(usuarioDao.existeCorreo(CORREO_NORMALIZADO)).thenReturn(false);
         when(passwordEncoder.encode("Secreta123")).thenReturn("$2a$10$hash");
-        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(inv -> {
+        when(usuarioDao.guardar(any(Usuario.class))).thenAnswer(inv -> {
             Usuario usuario = inv.getArgument(0);
             usuario.setIdUsuario(1L);
             return usuario;
@@ -56,7 +56,7 @@ class UsuarioServiceImplTest {
         UsuarioResponse respuesta = usuarioService.crear(request("Secreta123"));
 
         ArgumentCaptor<Usuario> guardado = ArgumentCaptor.forClass(Usuario.class);
-        verify(usuarioRepository).save(guardado.capture());
+        verify(usuarioDao).guardar(guardado.capture());
         assertThat(guardado.getValue().getContrasena()).isEqualTo("$2a$10$hash");
         assertThat(respuesta.correo()).isEqualTo(CORREO_NORMALIZADO);
         assertThat(respuesta.estado()).isEqualTo(EstadoUsuario.ACTIVO);
@@ -65,8 +65,8 @@ class UsuarioServiceImplTest {
 
     @Test
     void crear_normalizaLosEspaciosDeNombresYApellidos() {
-        when(usuarioRepository.existsByCorreo(CORREO_NORMALIZADO)).thenReturn(false);
-        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(usuarioDao.existeCorreo(CORREO_NORMALIZADO)).thenReturn(false);
+        when(usuarioDao.guardar(any(Usuario.class))).thenAnswer(inv -> inv.getArgument(0));
         UsuarioRequest request = new UsuarioRequest("  Ana   María ", " Paredes\tRojas ", CORREO_NORMALIZADO,
                 "Secreta123", null, TipoUsuario.CLIENTE, null);
 
@@ -78,12 +78,12 @@ class UsuarioServiceImplTest {
 
     @Test
     void crear_conCorreoDuplicado_lanzaConflicto() {
-        when(usuarioRepository.existsByCorreo(CORREO_NORMALIZADO)).thenReturn(true);
+        when(usuarioDao.existeCorreo(CORREO_NORMALIZADO)).thenReturn(true);
 
         assertThatThrownBy(() -> usuarioService.crear(request("Secreta123")))
                 .isInstanceOf(ConflictoException.class)
                 .hasMessageContaining(CORREO_NORMALIZADO);
-        verify(usuarioRepository, never()).save(any());
+        verify(usuarioDao, never()).guardar(any());
     }
 
     @Test
@@ -91,12 +91,12 @@ class UsuarioServiceImplTest {
         assertThatThrownBy(() -> usuarioService.crear(request(null)))
                 .isInstanceOf(ReglaNegocioException.class)
                 .hasMessageContaining("contraseña");
-        verify(usuarioRepository, never()).save(any());
+        verify(usuarioDao, never()).guardar(any());
     }
 
     @Test
     void obtenerPorId_inexistente_lanzaNoEncontrado() {
-        when(usuarioRepository.findById(99L)).thenReturn(Optional.empty());
+        when(usuarioDao.buscarPorId(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> usuarioService.obtenerPorId(99L))
                 .isInstanceOf(RecursoNoEncontradoException.class)
@@ -105,7 +105,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void autenticar_conCredencialesValidas_devuelveUsuario() {
-        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
+        when(usuarioDao.buscarPorCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
         when(passwordEncoder.matches("Secreta123", "$2a$10$hash")).thenReturn(true);
 
         UsuarioResponse respuesta = usuarioService.autenticar(login("Secreta123"));
@@ -116,7 +116,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void autenticar_conContrasenaIncorrecta_lanzaCredencialesInvalidas() {
-        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
+        when(usuarioDao.buscarPorCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
         when(passwordEncoder.matches("Otra12345", "$2a$10$hash")).thenReturn(false);
 
         assertThatThrownBy(() -> usuarioService.autenticar(login("Otra12345")))
@@ -126,7 +126,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void autenticar_conCorreoInexistente_lanzaElMismoMensaje() {
-        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.empty());
+        when(usuarioDao.buscarPorCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> usuarioService.autenticar(login("Secreta123")))
                 .isInstanceOf(CredencialesInvalidasException.class)
@@ -135,7 +135,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void autenticar_conCuentaBloqueada_lanzaCredencialesInvalidas() {
-        when(usuarioRepository.findByCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.BLOQUEADO)));
+        when(usuarioDao.buscarPorCorreo(CORREO_NORMALIZADO)).thenReturn(Optional.of(usuario(EstadoUsuario.BLOQUEADO)));
         when(passwordEncoder.matches("Secreta123", "$2a$10$hash")).thenReturn(true);
 
         assertThatThrownBy(() -> usuarioService.autenticar(login("Secreta123")))

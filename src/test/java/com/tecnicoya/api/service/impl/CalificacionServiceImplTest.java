@@ -1,19 +1,19 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.ICalificacionDao;
+import com.tecnicoya.api.dao.IServicioDao;
 import com.tecnicoya.api.dto.request.CalificacionRequest;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Calificacion;
-import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.model.enums.EstadoServicio;
-import com.tecnicoya.api.repository.CalificacionRepository;
-import com.tecnicoya.api.repository.ServicioRepository;
-import org.junit.jupiter.api.Test;
+import com.tecnicoya.api.model.Servicio;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
 
 import java.util.Optional;
 
@@ -28,42 +28,42 @@ import static org.mockito.Mockito.when;
 class CalificacionServiceImplTest {
 
     @Mock
-    private CalificacionRepository calificacionRepository;
+    private ICalificacionDao calificacionDao;
     @Mock
-    private ServicioRepository servicioRepository;
+    private IServicioDao servicioDao;
     @InjectMocks
     private CalificacionServiceImpl calificacionService;
 
     @Test
     void crear_servicioNoFinalizado_lanzaReglaNegocio() {
-        when(servicioRepository.findById(4L)).thenReturn(Optional.of(servicio(EstadoServicio.EN_PROCESO)));
+        when(servicioDao.buscarPorId(4L)).thenReturn(Optional.of(servicio(EstadoServicio.EN_PROCESO)));
 
         assertThatThrownBy(() -> calificacionService.crear(new CalificacionRequest(4L, 5, "Muy bien")))
                 .isInstanceOf(ReglaNegocioException.class)
                 .hasMessageContaining("FINALIZADOS");
-        verify(calificacionRepository, never()).save(any());
+        verify(calificacionDao, never()).guardar(any());
     }
 
     @Test
     void crear_servicioYaCalificado_lanzaConflicto() {
-        when(servicioRepository.findById(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
-        when(calificacionRepository.existsByServicio_IdServicio(4L)).thenReturn(true);
+        when(servicioDao.buscarPorId(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
+        when(calificacionDao.existePorServicio(4L)).thenReturn(true);
 
         assertThatThrownBy(() -> calificacionService.crear(new CalificacionRequest(4L, 4, null)))
                 .isInstanceOf(ConflictoException.class)
                 .hasMessageContaining("ya fue calificado");
-        verify(calificacionRepository, never()).save(any());
+        verify(calificacionDao, never()).guardar(any());
     }
 
     @Test
     void crear_comentarioEnBlanco_seGuardaComoNull() {
-        when(servicioRepository.findById(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
-        when(calificacionRepository.save(any(Calificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(servicioDao.buscarPorId(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
+        when(calificacionDao.guardar(any(Calificacion.class))).thenAnswer(inv -> inv.getArgument(0));
 
         calificacionService.crear(new CalificacionRequest(4L, 5, "   "));
 
         ArgumentCaptor<Calificacion> guardada = ArgumentCaptor.forClass(Calificacion.class);
-        verify(calificacionRepository).save(guardada.capture());
+        verify(calificacionDao).guardar(guardada.capture());
         assertThat(guardada.getValue().getComentario()).isNull();
     }
 

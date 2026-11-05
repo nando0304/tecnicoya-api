@@ -1,13 +1,13 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IExperienciaLaboralDao;
+import com.tecnicoya.api.dao.ITecnicoDao;
 import com.tecnicoya.api.dto.request.ExperienciaLaboralRequest;
 import com.tecnicoya.api.dto.response.ExperienciaLaboralResponse;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.ExperienciaLaboral;
 import com.tecnicoya.api.model.Tecnico;
-import com.tecnicoya.api.repository.ExperienciaLaboralRepository;
-import com.tecnicoya.api.repository.TecnicoRepository;
 import com.tecnicoya.api.service.ExperienciaLaboralService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -22,12 +22,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService {
 
-    private final ExperienciaLaboralRepository experienciaLaboralRepository;
-    private final TecnicoRepository tecnicoRepository;
+    private final IExperienciaLaboralDao experienciaLaboralDao;
+    private final ITecnicoDao tecnicoDao;
 
     @Override
     public List<ExperienciaLaboralResponse> listar() {
-        return experienciaLaboralRepository.findAll().stream().map(ExperienciaLaboralResponse::desde).toList();
+        return experienciaLaboralDao.listar().stream().map(ExperienciaLaboralResponse::desde).toList();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
     public ExperienciaLaboralResponse crear(ExperienciaLaboralRequest request) {
         ExperienciaLaboral experiencia = new ExperienciaLaboral();
         aplicarDatos(request, experiencia);
-        return ExperienciaLaboralResponse.desde(experienciaLaboralRepository.save(experiencia));
+        return ExperienciaLaboralResponse.desde(experienciaLaboralDao.guardar(experiencia));
     }
 
     @Override
@@ -48,18 +48,17 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
     public ExperienciaLaboralResponse actualizar(Long id, ExperienciaLaboralRequest request) {
         ExperienciaLaboral experiencia = buscar(id);
         aplicarDatos(request, experiencia);
-        return ExperienciaLaboralResponse.desde(experienciaLaboralRepository.save(experiencia));
+        return ExperienciaLaboralResponse.desde(experienciaLaboralDao.guardar(experiencia));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        experienciaLaboralRepository.delete(buscar(id));
-        experienciaLaboralRepository.flush();
+        experienciaLaboralDao.eliminar(buscar(id));
     }
 
     private ExperienciaLaboral buscar(Long id) {
-        return experienciaLaboralRepository.findById(id)
+        return experienciaLaboralDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la experiencia laboral", id));
     }
 
@@ -73,7 +72,7 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
         if (request.fechaFin() != null && request.fechaFin().isBefore(request.fechaInicio())) {
             throw new ReglaNegocioException("La fecha de fin no puede ser anterior a la fecha de inicio");
         }
-        Tecnico tecnico = tecnicoRepository.findById(request.tecnicoId())
+        Tecnico tecnico = tecnicoDao.buscarPorId(request.tecnicoId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
 
         experiencia.setTecnico(tecnico);

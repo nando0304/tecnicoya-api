@@ -1,16 +1,16 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.ITecnicoDao;
+import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.TecnicoRequest;
 import com.tecnicoya.api.dto.response.TecnicoResponse;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.Tecnico;
-import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.model.enums.EstadoVerificacion;
 import com.tecnicoya.api.model.enums.TipoUsuario;
-import com.tecnicoya.api.repository.TecnicoRepository;
-import com.tecnicoya.api.repository.UsuarioRepository;
+import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.service.TecnicoService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -25,12 +25,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class TecnicoServiceImpl implements TecnicoService {
 
-    private final TecnicoRepository tecnicoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final ITecnicoDao tecnicoDao;
+    private final IUsuarioDao usuarioDao;
 
     @Override
     public List<TecnicoResponse> listar() {
-        return tecnicoRepository.findAll().stream().map(TecnicoResponse::desde).toList();
+        return tecnicoDao.listar().stream().map(TecnicoResponse::desde).toList();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Transactional
     public TecnicoResponse crear(TecnicoRequest request) {
         Usuario usuario = buscarUsuarioTecnico(request.usuarioId());
-        if (tecnicoRepository.existsByUsuario_IdUsuario(usuario.getIdUsuario())) {
+        if (tecnicoDao.existePerfilDeUsuario(usuario.getIdUsuario())) {
             throw new ConflictoException("El usuario con id " + usuario.getIdUsuario()
                     + " ya tiene un perfil de técnico registrado");
         }
@@ -52,7 +52,7 @@ public class TecnicoServiceImpl implements TecnicoService {
         copiarDatos(request, tecnico);
         tecnico.setEstadoVerificacion(request.estadoVerificacion() != null
                 ? request.estadoVerificacion() : EstadoVerificacion.PENDIENTE);
-        return TecnicoResponse.desde(tecnicoRepository.save(tecnico));
+        return TecnicoResponse.desde(tecnicoDao.guardar(tecnico));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TecnicoServiceImpl implements TecnicoService {
         Tecnico tecnico = buscar(id);
         if (!tecnico.getUsuario().getIdUsuario().equals(request.usuarioId())) {
             Usuario usuario = buscarUsuarioTecnico(request.usuarioId());
-            if (tecnicoRepository.existsByUsuario_IdUsuarioAndIdTecnicoNot(usuario.getIdUsuario(), id)) {
+            if (tecnicoDao.existePerfilDeUsuarioEnOtroTecnico(usuario.getIdUsuario(), id)) {
                 throw new ConflictoException("El usuario con id " + usuario.getIdUsuario()
                         + " ya tiene otro perfil de técnico registrado");
             }
@@ -72,23 +72,22 @@ public class TecnicoServiceImpl implements TecnicoService {
         if (request.estadoVerificacion() != null) {
             tecnico.setEstadoVerificacion(request.estadoVerificacion());
         }
-        return TecnicoResponse.desde(tecnicoRepository.save(tecnico));
+        return TecnicoResponse.desde(tecnicoDao.guardar(tecnico));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        tecnicoRepository.delete(buscar(id));
-        tecnicoRepository.flush();
+        tecnicoDao.eliminar(buscar(id));
     }
 
     private Tecnico buscar(Long id) {
-        return tecnicoRepository.findById(id)
+        return tecnicoDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", id));
     }
 
     private Usuario buscarUsuarioTecnico(Long usuarioId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
+        Usuario usuario = usuarioDao.buscarPorId(usuarioId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el usuario", usuarioId));
         if (usuario.getTipoUsuario() != TipoUsuario.TECNICO) {
             throw new ReglaNegocioException("El usuario con id " + usuarioId

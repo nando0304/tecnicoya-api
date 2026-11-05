@@ -1,5 +1,7 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.ITecnicoDao;
+import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
@@ -7,13 +9,12 @@ import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.TipoUsuario;
-import com.tecnicoya.api.repository.TecnicoRepository;
-import com.tecnicoya.api.repository.UsuarioRepository;
+import com.tecnicoya.api.model.Usuario;
 import com.tecnicoya.api.service.UsuarioService;
 import com.tecnicoya.api.util.FechaUtil;
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,19 +24,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Locale;
 
-/** Implementación de {@link UsuarioService}. */
+/** Implementación de {@link UsuarioService}. Registra en el log (Logback) las altas, bajas y cambios de contraseña. */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
-    private final TecnicoRepository tecnicoRepository;
+    private final IUsuarioDao usuarioDao;
+    private final ITecnicoDao tecnicoDao;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<UsuarioResponse> listar() {
-        return usuarioRepository.findAll().stream().map(UsuarioResponse::desde).toList();
+        return usuarioDao.listar().stream().map(UsuarioResponse::desde).toList();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     /** Mismo mensaje para correo inexistente y contraseña errónea: no revela qué correos están registrados. */
     @Override
     public UsuarioResponse autenticar(LoginRequest request) {
-        Usuario usuario = usuarioRepository.findByCorreo(normalizarCorreo(request.correo()))
+        Usuario usuario = usuarioDao.buscarPorCorreo(normalizarCorreo(request.correo()))
                 .filter(encontrado -> passwordEncoder.matches(request.contrasena(), encontrado.getContrasena()))
                 .orElseThrow(() -> new CredencialesInvalidasException("Correo o contraseña incorrectos"));
         if (usuario.getEstado() != EstadoUsuario.ACTIVO) {
@@ -63,7 +65,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new ReglaNegocioException("La contraseña es obligatoria al registrar un usuario");
         }
         String correo = normalizarCorreo(request.correo());
-        if (usuarioRepository.existsByCorreo(correo)) {
+        if (usuarioDao.existeCorreo(correo)) {
             throw new ConflictoException("Ya existe un usuario registrado con el correo " + correo);
         }
 
@@ -72,7 +74,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setContrasena(passwordEncoder.encode(request.contrasena()));
         usuario.setEstado(request.estado() != null ? request.estado() : EstadoUsuario.ACTIVO);
         usuario.setFechaRegistro(FechaUtil.ahora());
-        return UsuarioResponse.desde(usuarioRepository.save(usuario));
+        Usuario guardado = usuarioDao.guardar(usuario);
+        log.info("Usuario registrado: id={}, tipo={}", guardado.getIdUsuario(), guardado.getTipoUsuario());
+        return UsuarioResponse.desde(guardado);
     }
 
     @Override
@@ -80,10 +84,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponse actualizar(Long id, UsuarioRequest request) {
         Usuario usuario = buscar(id);
         String correo = normalizarCorreo(request.correo());
-        if (usuarioRepository.existsByCorreoAndIdUsuarioNot(correo, id)) {
+        if (usuarioDao.existeCorreoEnOtroUsuario(correo, id)) {
             throw new ConflictoException("Ya existe otro usuario registrado con el correo " + correo);
         }
-        if (request.tipoUsuario() != TipoUsuario.TECNICO && tecnicoRepository.existsByUsuario_IdUsuario(id)) {
+        if (request.tipoUsuario() != TipoUsuario.TECNICO && tecnicoDao.existePerfilDeUsuario(id)) {
             throw new ReglaNegocioException("El usuario tiene un perfil de técnico asociado; no puede cambiar su tipo a "
                     + request.tipoUsuario());
         }
@@ -91,22 +95,23 @@ public class UsuarioServiceImpl implements UsuarioService {
         copiarDatos(request, usuario, correo);
         if (StringUtils.isNotBlank(request.contrasena())) {
             usuario.setContrasena(passwordEncoder.encode(request.contrasena()));
+            log.info("Contraseña cambiada: usuario id={}", id);
         }
         if (request.estado() != null) {
             usuario.setEstado(request.estado());
         }
-        return UsuarioResponse.desde(usuarioRepository.save(usuario));
+        return UsuarioResponse.desde(usuarioDao.guardar(usuario));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        usuarioRepository.delete(buscar(id));
-        usuarioRepository.flush();
+        usuarioDao.eliminar(buscar(id));
+        log.info("Usuario eliminado: id={}", id);
     }
 
     private Usuario buscar(Long id) {
-        return usuarioRepository.findById(id)
+        return usuarioDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el usuario", id));
     }
 

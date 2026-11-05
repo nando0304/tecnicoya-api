@@ -1,18 +1,31 @@
 package com.tecnicoya.api.security;
 
+import com.tecnicoya.api.exception.AccesoDenegadoException;
 import com.tecnicoya.api.exception.NoAutenticadoException;
+import com.tecnicoya.api.model.enums.TipoUsuario;
+import com.tecnicoya.api.util.Auditoria;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.MDC;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Arrays;
 
 /**
  * Exige un token JWT válido, enviado en la cabecera {@code Authorization: Bearer <token>}, antes de que la petición
  * llegue al controlador. Si falta o no es válido, responde 401.
+ *
+ * <p>Con el token válido, deja el id y el rol del usuario como atributos de la petición ({@link #ATRIBUTO_USUARIO},
+ * {@link #ATRIBUTO_ROL}) y en el MDC de Logback, para que aparezcan en cada línea de log. Si el endpoint está
+ * anotado con {@link RequiereRol} y el rol del usuario no está permitido, responde 403.
  *
  * <p>Rutas públicas, que no piden token:
  * <ul>
@@ -26,7 +39,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class JwtInterceptor implements HandlerInterceptor {
 
+    /** Atributo de la petición con el id ({@code Long}) del usuario autenticado. */
+    public static final String ATRIBUTO_USUARIO = "tecnicoya.usuarioId";
+    /** Atributo de la petición con el rol ({@link TipoUsuario}) del usuario autenticado. */
+    public static final String ATRIBUTO_ROL = "tecnicoya.rol";
+
     private static final String PREFIJO = "Bearer ";
+    private static final String MDC_USUARIO = "usuario";
 
     private final JwtService jwtService;
 
@@ -40,12 +59,44 @@ public class JwtInterceptor implements HandlerInterceptor {
             throw new NoAutenticadoException(
                     "Debe iniciar sesión: envíe el token en la cabecera 'Authorization: Bearer <token>'");
         }
+        Claims datos;
         try {
-            jwtService.validarToken(cabecera.substring(PREFIJO.length()));
+            datos = jwtService.validarToken(cabecera.substring(PREFIJO.length()));
         } catch (JwtException | IllegalArgumentException ex) {
+            Auditoria.LOG.warn("TOKEN_RECHAZADO {} {} ip={}", request.getMethod(), request.getRequestURI(),
+                    request.getRemoteAddr());
             throw new NoAutenticadoException("El token no es válido o ya venció; inicie sesión nuevamente");
         }
+
+        Long usuarioId = Long.valueOf(datos.getSubject());
+        TipoUsuario rol = TipoUsuario.valueOf(datos.get("rol", String.class));
+        request.setAttribute(ATRIBUTO_USUARIO, usuarioId);
+        request.setAttribute(ATRIBUTO_ROL, rol);
+        MDC.put(MDC_USUARIO, usuarioId + ":" + rol);
+
+        verificarRol(request, handler, usuarioId, rol);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+                                Exception ex) {
+        MDC.remove(MDC_USUARIO);
+    }
+
+    private static void verificarRol(HttpServletRequest request, Object handler, Long usuarioId, TipoUsuario rol) {
+        if (!(handler instanceof HandlerMethod metodo)) {
+            return;
+        }
+        RequiereRol requerido = AnnotatedElementUtils.findMergedAnnotation(metodo.getMethod(), RequiereRol.class);
+        if (requerido == null) {
+            requerido = AnnotatedElementUtils.findMergedAnnotation(metodo.getBeanType(), RequiereRol.class);
+        }
+        if (requerido != null && Arrays.stream(requerido.value()).noneMatch(rol::equals)) {
+            Auditoria.LOG.warn("ACCESO_DENEGADO usuario={} rol={} {} {}", usuarioId, rol, request.getMethod(),
+                    request.getRequestURI());
+            throw new AccesoDenegadoException("Su rol (" + rol + ") no tiene permiso para usar este recurso");
+        }
     }
 
     private static boolean esPublica(HttpServletRequest request) {

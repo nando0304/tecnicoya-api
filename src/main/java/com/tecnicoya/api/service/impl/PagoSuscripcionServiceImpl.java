@@ -1,15 +1,15 @@
 package com.tecnicoya.api.service.impl;
 
+import com.tecnicoya.api.dao.IPagoSuscripcionDao;
+import com.tecnicoya.api.dao.ISuscripcionDao;
 import com.tecnicoya.api.dto.request.PagoSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PagoSuscripcionResponse;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
-import com.tecnicoya.api.model.PagoSuscripcion;
-import com.tecnicoya.api.model.Suscripcion;
 import com.tecnicoya.api.model.enums.EstadoPago;
 import com.tecnicoya.api.model.enums.EstadoSuscripcion;
-import com.tecnicoya.api.repository.PagoSuscripcionRepository;
-import com.tecnicoya.api.repository.SuscripcionRepository;
+import com.tecnicoya.api.model.PagoSuscripcion;
+import com.tecnicoya.api.model.Suscripcion;
 import com.tecnicoya.api.service.PagoSuscripcionService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +24,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
 
-    private final PagoSuscripcionRepository pagoSuscripcionRepository;
-    private final SuscripcionRepository suscripcionRepository;
+    private final IPagoSuscripcionDao pagoSuscripcionDao;
+    private final ISuscripcionDao suscripcionDao;
 
     @Override
     public List<PagoSuscripcionResponse> listar() {
-        return pagoSuscripcionRepository.findAll().stream().map(PagoSuscripcionResponse::desde).toList();
+        return pagoSuscripcionDao.listar().stream().map(PagoSuscripcionResponse::desde).toList();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
         pago.setFechaPago(request.fechaPago() != null ? request.fechaPago() : FechaUtil.ahora());
         pago.setMontoPago(request.montoPago());
         pago.setMetodoPago(request.metodoPago());
-        return PagoSuscripcionResponse.desde(pagoSuscripcionRepository.save(pago));
+        return PagoSuscripcionResponse.desde(pagoSuscripcionDao.guardar(pago));
     }
 
     @Override
@@ -64,23 +64,22 @@ public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
         }
         pago.setMontoPago(request.montoPago());
         pago.setMetodoPago(request.metodoPago());
-        return PagoSuscripcionResponse.desde(pagoSuscripcionRepository.save(pago));
+        return PagoSuscripcionResponse.desde(pagoSuscripcionDao.guardar(pago));
     }
 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        pagoSuscripcionRepository.delete(buscar(id));
-        pagoSuscripcionRepository.flush();
+        pagoSuscripcionDao.eliminar(buscar(id));
     }
 
     private PagoSuscripcion buscar(Long id) {
-        return pagoSuscripcionRepository.findById(id)
+        return pagoSuscripcionDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el pago de suscripción", id));
     }
 
     private Suscripcion buscarSuscripcionNoCancelada(Long suscripcionId) {
-        Suscripcion suscripcion = suscripcionRepository.findById(suscripcionId)
+        Suscripcion suscripcion = suscripcionDao.buscarPorId(suscripcionId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("la suscripción", suscripcionId));
         if (suscripcion.getEstadoSuscripcion() == EstadoSuscripcion.CANCELADA) {
             throw new ReglaNegocioException("No se pueden registrar pagos para una suscripción CANCELADA");

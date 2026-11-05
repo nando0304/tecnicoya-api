@@ -1,6 +1,7 @@
 package com.tecnicoya.api.dto.request;
 
 import com.tecnicoya.api.model.enums.EstadoRegistro;
+import com.tecnicoya.api.validation.SinHtml;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
@@ -15,6 +16,7 @@ public record PlanSuscripcionRequest(
 
         @NotBlank(message = "El nombre del plan es obligatorio")
         @Size(max = 100, message = "El nombre del plan no debe superar los 100 caracteres")
+        @SinHtml
         String nombrePlan,
 
         @NotNull(message = "El precio inicial es obligatorio")
@@ -32,6 +34,7 @@ public record PlanSuscripcionRequest(
         BigDecimal precioPosterior,
 
         @Size(max = 500, message = "La descripción no debe superar los 500 caracteres")
+        @SinHtml
         String descripcion,
 
         EstadoRegistro estado

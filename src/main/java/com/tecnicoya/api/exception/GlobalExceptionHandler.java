@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +42,12 @@ import java.util.stream.Collectors;
  *       o archivo faltante o ilegible.</li>
  *   <li>401: {@link CredencialesInvalidasException} o {@link NoAutenticadoException} (falta el token o no es
  *       válido).</li>
+ *   <li>403: {@link AccesoDenegadoException} (el rol del usuario no tiene permiso).</li>
  *   <li>404: {@link RecursoNoEncontradoException} o ruta inexistente.</li>
  *   <li>405 y 415: método HTTP o tipo de contenido no soportado.</li>
  *   <li>409: {@link ConflictoException} o violación de una restricción de la base de datos (FK, UNIQUE).</li>
  *   <li>413: archivo más grande que {@code spring.servlet.multipart.max-file-size}.</li>
+ *   <li>429: {@link DemasiadosIntentosException} (bloqueo temporal por intentos fallidos de inicio de sesión).</li>
  *   <li>500: cualquier otro error, que además se registra en el log.</li>
  * </ul>
  */
@@ -94,6 +97,24 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> manejarNoAutenticado(NoAutenticadoException ex,
                                                                  HttpServletRequest request) {
         return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
+    }
+
+    /** El rol del usuario no está entre los permitidos por {@link com.tecnicoya.api.security.RequiereRol}. */
+    @ExceptionHandler(AccesoDenegadoException.class)
+    public ResponseEntity<ApiErrorResponse> manejarAccesoDenegado(AccesoDenegadoException ex,
+                                                                  HttpServletRequest request) {
+        return construir(HttpStatus.FORBIDDEN, ex.getMessage(), request, null);
+    }
+
+    /** Bloqueo temporal por intentos fallidos de inicio de sesión; indica en {@code Retry-After} cuánto esperar. */
+    @ExceptionHandler(DemasiadosIntentosException.class)
+    public ResponseEntity<ApiErrorResponse> manejarDemasiadosIntentos(DemasiadosIntentosException ex,
+                                                                      HttpServletRequest request) {
+        ResponseEntity<ApiErrorResponse> respuesta = construir(HttpStatus.TOO_MANY_REQUESTS, ex.getMessage(), request,
+                null);
+        return ResponseEntity.status(respuesta.getStatusCode())
+                .header(HttpHeaders.RETRY_AFTER, String.valueOf(ex.getEsperar().toSeconds()))
+                .body(respuesta.getBody());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -230,6 +251,8 @@ public class GlobalExceptionHandler {
         return switch (status) {
             case BAD_REQUEST -> "Solicitud incorrecta";
             case UNAUTHORIZED -> "No autorizado";
+            case FORBIDDEN -> "Acceso denegado";
+            case TOO_MANY_REQUESTS -> "Demasiadas solicitudes";
             case NOT_FOUND -> "No encontrado";
             case METHOD_NOT_ALLOWED -> "Método no permitido";
             case NOT_ACCEPTABLE -> "No aceptable";

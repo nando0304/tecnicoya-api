@@ -1,5 +1,6 @@
 package com.tecnicoya.api.dto.request;
 
+import com.tecnicoya.api.validation.SinHtml;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ public record CalificacionRequest(
         Integer puntuacion,
 
         @Size(max = 500, message = "El comentario no debe superar los 500 caracteres")
+        @SinHtml
         String comentario
 ) {
 }
