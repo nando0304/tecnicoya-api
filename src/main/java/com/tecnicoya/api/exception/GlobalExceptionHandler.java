@@ -1,6 +1,7 @@
 package com.tecnicoya.api.exception;
 
 import com.tecnicoya.api.dto.response.ApiErrorResponse;
+import com.tecnicoya.api.util.Auditoria;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -212,8 +213,8 @@ public class GlobalExceptionHandler {
             case MYSQL_REGISTRO_DUPLICADO -> "Ya existe un registro con esos datos únicos";
             default -> "La operación viola una restricción de integridad de la base de datos";
         };
-        log.warn("Violación de integridad en {} {}: {}", request.getMethod(), request.getRequestURI(),
-                ex.getMostSpecificCause().getMessage());
+        log.warn("Violación de integridad en {} {}: {}", Auditoria.limpiar(request.getMethod()),
+                Auditoria.limpiar(request.getRequestURI()), Auditoria.limpiar(ex.getMostSpecificCause().getMessage()));
         return construir(HttpStatus.CONFLICT, mensaje, request, null);
     }
 
@@ -225,7 +226,8 @@ public class GlobalExceptionHandler {
                     HttpStatus.resolve(errorSpring.getStatusCode().value()), HttpStatus.BAD_REQUEST);
             return construir(status, "La solicitud no pudo ser procesada", request, null);
         }
-        log.error("Error no controlado en {} {}", request.getMethod(), request.getRequestURI(), ex);
+        log.error("Error no controlado en {} {}", Auditoria.limpiar(request.getMethod()),
+                Auditoria.limpiar(request.getRequestURI()), ex);
         return construir(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Ocurrió un error inesperado en el servidor. Intente nuevamente más tarde.", request, null);
     }

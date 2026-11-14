@@ -5,6 +5,7 @@ import com.tecnicoya.api.dao.ITecnicoDao;
 import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.ServicioRequest;
 import com.tecnicoya.api.dto.response.ServicioResponse;
+import com.tecnicoya.api.exception.AccesoDenegadoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
@@ -14,17 +15,24 @@ import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.Mock;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.startsWith;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,6 +46,8 @@ class ServicioServiceImplTest {
     private IUsuarioDao usuarioDao;
     @Mock
     private ITecnicoDao tecnicoDao;
+    @Mock
+    private ControlAcceso controlAcceso;
     @InjectMocks
     private ServicioServiceImpl servicioService;
 
@@ -94,6 +104,46 @@ class ServicioServiceImplTest {
         assertThatThrownBy(() -> servicioService.crear(request(1L, null)))
                 .isInstanceOf(ReglaNegocioException.class)
                 .hasMessageContaining("técnicos verificados");
+    }
+
+    @Test
+    void crear_aNombreDeOtroCliente_lanzaAccesoDenegadoSinGuardar() {
+        doThrow(new AccesoDenegadoException("No tiene permiso"))
+                .when(controlAcceso).exigirPropietario(anyString(), eq(2L));
+
+        assertThatThrownBy(() -> servicioService.crear(request(null, null)))
+                .isInstanceOf(AccesoDenegadoException.class);
+        verify(servicioDao, never()).guardar(any());
+    }
+
+    @Test
+    void crear_clienteNoPuedeRegistrarloYaFinalizado() {
+        doThrow(new AccesoDenegadoException("No tiene permiso"))
+                .when(controlAcceso).exigirAdministrador(anyString());
+
+        assertThatThrownBy(() -> servicioService.crear(request(1L, EstadoServicio.FINALIZADO)))
+                .isInstanceOf(AccesoDenegadoException.class);
+        verify(servicioDao, never()).guardar(any());
+    }
+
+    @Test
+    void actualizar_aFinalizado_exigeQueSeaElTecnicoAsignado() {
+        Servicio existente = new Servicio();
+        existente.setIdServicio(9L);
+        existente.setCliente(usuario(2L, TipoUsuario.CLIENTE));
+        existente.setTecnico(tecnico(EstadoVerificacion.VERIFICADO));
+        existente.setEstadoServicio(EstadoServicio.EN_PROCESO);
+        existente.setFechaSolicitud(LocalDateTime.now().minusDays(1));
+        when(servicioDao.buscarPorId(9L)).thenReturn(Optional.of(existente));
+        when(tecnicoDao.buscarPorId(1L)).thenReturn(Optional.of(existente.getTecnico()));
+        // La primera verificación (participantes del servicio) pasa; la segunda pide al técnico asignado (usuario 5)
+        lenient().doThrow(new AccesoDenegadoException("solo lo hace el técnico asignado"))
+                .when(controlAcceso).exigirPropietario(startsWith("marcar el servicio"), eq(5L));
+
+        assertThatThrownBy(() -> servicioService.actualizar(9L, request(1L, EstadoServicio.FINALIZADO)))
+                .isInstanceOf(AccesoDenegadoException.class)
+                .hasMessageContaining("técnico asignado");
+        verify(servicioDao, never()).guardar(any());
     }
 
     private static ServicioRequest request(Long tecnicoId, EstadoServicio estado) {

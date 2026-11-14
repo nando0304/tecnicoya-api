@@ -11,6 +11,7 @@ import com.tecnicoya.api.model.enums.EstadoVerificacion;
 import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.TecnicoService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link TecnicoService}. */
+/**
+ * Implementación de {@link TecnicoService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea y edita su propio perfil, y solo el
+ * administrador cambia el estado de verificación (un técnico no puede autoverificarse).
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,6 +33,7 @@ public class TecnicoServiceImpl implements TecnicoService {
 
     private final ITecnicoDao tecnicoDao;
     private final IUsuarioDao usuarioDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<TecnicoResponse> listar() {
@@ -41,6 +48,10 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Override
     @Transactional
     public TecnicoResponse crear(TecnicoRequest request) {
+        controlAcceso.exigirPropietario("crear el perfil de técnico de otro usuario", request.usuarioId());
+        if (request.estadoVerificacion() != null && request.estadoVerificacion() != EstadoVerificacion.PENDIENTE) {
+            controlAcceso.exigirAdministrador("registrar un técnico en estado " + request.estadoVerificacion());
+        }
         Usuario usuario = buscarUsuarioTecnico(request.usuarioId());
         if (tecnicoDao.existePerfilDeUsuario(usuario.getIdUsuario())) {
             throw new ConflictoException("El usuario con id " + usuario.getIdUsuario()
@@ -59,7 +70,12 @@ public class TecnicoServiceImpl implements TecnicoService {
     @Transactional
     public TecnicoResponse actualizar(Long id, TecnicoRequest request) {
         Tecnico tecnico = buscar(id);
+        controlAcceso.exigirPropietario("modificar el perfil de otro técnico", tecnico.getUsuario().getIdUsuario());
+        if (request.estadoVerificacion() != null && request.estadoVerificacion() != tecnico.getEstadoVerificacion()) {
+            controlAcceso.exigirAdministrador("cambiar el estado de verificación a " + request.estadoVerificacion());
+        }
         if (!tecnico.getUsuario().getIdUsuario().equals(request.usuarioId())) {
+            controlAcceso.exigirAdministrador("pasar el perfil de técnico a otro usuario");
             Usuario usuario = buscarUsuarioTecnico(request.usuarioId());
             if (tecnicoDao.existePerfilDeUsuarioEnOtroTecnico(usuario.getIdUsuario(), id)) {
                 throw new ConflictoException("El usuario con id " + usuario.getIdUsuario()

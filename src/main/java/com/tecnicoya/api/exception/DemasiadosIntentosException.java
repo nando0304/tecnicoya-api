@@ -8,7 +8,7 @@ import java.time.Duration;
  */
 public class DemasiadosIntentosException extends RuntimeException {
 
-    private final transient Duration esperar;
+    private final Duration esperar;
 
     /**
      * @param mensaje mensaje para el usuario

@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 /** Implementación de {@link ArchivoService} que guarda los archivos en una carpeta del servidor. */
 @Service
-public class ArchivoServiceImpl implements ArchivoService {
+public final class ArchivoServiceImpl implements ArchivoService {
 
     /** Lista inmutable de Google Guava: nadie puede agregar extensiones en tiempo de ejecución. */
     private static final ImmutableList<String> EXTENSIONES_PERMITIDAS =

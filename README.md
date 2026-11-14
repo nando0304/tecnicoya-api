@@ -87,7 +87,8 @@ curl.exe -H "Authorization: Bearer $token" http://localhost:8080/api/usuarios
 | `.\mvnw.cmd clean install` | Compila y ejecuta las pruebas unitarias (no necesitan BD) |
 | `.\mvnw.cmd test` | Solo las pruebas unitarias |
 | `.\mvnw.cmd javadoc:javadoc` | Regenera el Javadoc en `docs/apidocs/` |
-| `.mvnw.cmd dependency-check:check` | Busca vulnerabilidades conocidas (CVE) en las librerías con OWASP Dependency-Check; reporte en `target/dependency-check-report.html` |
+| `.\mvnw.cmd dependency-check:check` | Busca vulnerabilidades conocidas (CVE) en las librerías con OWASP Dependency-Check; reporte en `target/dependency-check-report.html` |
+| `.\mvnw.cmd compile spotbugs:check` | Análisis estático de seguridad (SAST) con SpotBugs + FindSecBugs; falla si encuentra un problema. Falsos positivos justificados en `spotbugs-exclude.xml` |
 | `postman collection run postman/TecnicoYa-API.postman_collection.json` | Ejecuta la colección de Postman desde la terminal (con la API levantada); también sirve `npx newman run ...` |
 
 En Linux o macOS use `./mvnw` en lugar de `.\mvnw.cmd`.
@@ -137,7 +138,7 @@ Los errores devuelven un JSON uniforme con mensaje en español:
   "errores": { "correo": "El correo no tiene un formato válido" } }
 ```
 
-`400` datos inválidos o regla de negocio · `401` credenciales incorrectas o token faltante/inválido · `403` rol sin permiso · `404` recurso inexistente · `409` duplicado o registro con datos relacionados · `413` archivo demasiado grande · `429` demasiados intentos de login.
+`400` datos inválidos o regla de negocio · `401` credenciales incorrectas o token faltante/inválido · `403` sin permiso (rol no autorizado o registro de otro usuario) · `404` recurso inexistente · `409` duplicado o registro con datos relacionados · `413` archivo demasiado grande · `429` demasiados intentos de login.
 
 El detalle de campos, reglas y ejemplos de cada recurso está en la [referencia de la API](docs/api-rest.md).
 

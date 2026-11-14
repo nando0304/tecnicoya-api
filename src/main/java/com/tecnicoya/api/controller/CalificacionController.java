@@ -2,6 +2,8 @@ package com.tecnicoya.api.controller;
 
 import com.tecnicoya.api.dto.request.CalificacionRequest;
 import com.tecnicoya.api.dto.response.CalificacionResponse;
+import com.tecnicoya.api.model.enums.TipoUsuario;
+import com.tecnicoya.api.security.RequiereRol;
 import com.tecnicoya.api.service.CalificacionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -80,6 +82,7 @@ public class CalificacionController {
      *
      * @param id id del registro
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {

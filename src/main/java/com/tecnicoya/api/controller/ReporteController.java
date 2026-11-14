@@ -83,7 +83,7 @@ public class ReporteController {
         byte[] contenido = generador.get();
         String archivo = "tecnicoya-" + nombre + "-" + LocalDate.now() + ".xlsx";
         Auditoria.LOG.info("REPORTE_DESCARGADO {} usuario={}", archivo,
-                request.getAttribute(JwtInterceptor.ATRIBUTO_USUARIO));
+                Auditoria.limpiar(request.getAttribute(JwtInterceptor.ATRIBUTO_USUARIO)));
         return ResponseEntity.ok()
                 .contentType(XLSX)
                 .header(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.attachment().filename(archivo).build()

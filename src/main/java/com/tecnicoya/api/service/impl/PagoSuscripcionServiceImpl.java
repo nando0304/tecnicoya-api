@@ -10,6 +10,7 @@ import com.tecnicoya.api.model.enums.EstadoPago;
 import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import com.tecnicoya.api.model.PagoSuscripcion;
 import com.tecnicoya.api.model.Suscripcion;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.PagoSuscripcionService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link PagoSuscripcionService}. */
+/**
+ * Implementación de {@link PagoSuscripcionService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo registra pagos de sus propias
+ * suscripciones y siempre quedan PENDIENTES; el administrador los aprueba, edita o elimina.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -26,6 +32,7 @@ public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
 
     private final IPagoSuscripcionDao pagoSuscripcionDao;
     private final ISuscripcionDao suscripcionDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<PagoSuscripcionResponse> listar() {
@@ -40,8 +47,14 @@ public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
     @Override
     @Transactional
     public PagoSuscripcionResponse crear(PagoSuscripcionRequest request) {
+        Suscripcion suscripcion = buscarSuscripcionNoCancelada(request.suscripcionId());
+        controlAcceso.exigirPropietario("registrar un pago de la suscripción de otro técnico",
+                suscripcion.getTecnico().getUsuario().getIdUsuario());
+        if (request.estadoPago() != null && request.estadoPago() != EstadoPago.PENDIENTE) {
+            controlAcceso.exigirAdministrador("registrar un pago en estado " + request.estadoPago());
+        }
         PagoSuscripcion pago = new PagoSuscripcion();
-        pago.setSuscripcion(buscarSuscripcionNoCancelada(request.suscripcionId()));
+        pago.setSuscripcion(suscripcion);
         pago.setEstadoPago(request.estadoPago() != null ? request.estadoPago() : EstadoPago.PENDIENTE);
         pago.setFechaPago(request.fechaPago() != null ? request.fechaPago() : FechaUtil.ahora());
         pago.setMontoPago(request.montoPago());

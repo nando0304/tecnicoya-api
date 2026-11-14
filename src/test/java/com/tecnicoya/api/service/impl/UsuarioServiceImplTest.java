@@ -5,6 +5,7 @@ import com.tecnicoya.api.dao.IUsuarioDao;
 import com.tecnicoya.api.dto.request.LoginRequest;
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
+import com.tecnicoya.api.exception.AccesoDenegadoException;
 import com.tecnicoya.api.exception.ConflictoException;
 import com.tecnicoya.api.exception.CredencialesInvalidasException;
 import com.tecnicoya.api.exception.RecursoNoEncontradoException;
@@ -12,6 +13,7 @@ import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -25,6 +27,9 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,6 +45,8 @@ class UsuarioServiceImplTest {
     private ITecnicoDao tecnicoDao;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private ControlAcceso controlAcceso;
     @InjectMocks
     private UsuarioServiceImpl usuarioService;
 
@@ -141,6 +148,51 @@ class UsuarioServiceImplTest {
         assertThatThrownBy(() -> usuarioService.autenticar(login("Secreta123")))
                 .isInstanceOf(CredencialesInvalidasException.class)
                 .hasMessageContaining("BLOQUEADO");
+    }
+
+    @Test
+    void crear_cliente_noExigeSerAdministrador() {
+        when(usuarioDao.guardar(any(Usuario.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        usuarioService.crear(request("Secreta123"));
+
+        verify(controlAcceso, never()).exigirAdministrador(anyString());
+    }
+
+    @Test
+    void crear_administradorSinSerAdministrador_lanzaAccesoDenegado() {
+        doThrow(new AccesoDenegadoException("No tiene permiso para registrar un usuario ADMINISTRADOR"))
+                .when(controlAcceso).exigirAdministrador(anyString());
+        UsuarioRequest intento = new UsuarioRequest("Ana", "Paredes", "ana@correo.example", "Secreta123",
+                null, TipoUsuario.ADMINISTRADOR, null);
+
+        assertThatThrownBy(() -> usuarioService.crear(intento))
+                .isInstanceOf(AccesoDenegadoException.class)
+                .hasMessageContaining("ADMINISTRADOR");
+        verify(usuarioDao, never()).guardar(any());
+    }
+
+    @Test
+    void actualizar_otroUsuario_lanzaAccesoDenegado() {
+        doThrow(new AccesoDenegadoException("No tiene permiso"))
+                .when(controlAcceso).exigirPropietario(anyString(), eq(4L));
+
+        assertThatThrownBy(() -> usuarioService.actualizar(4L, request(null)))
+                .isInstanceOf(AccesoDenegadoException.class);
+        verify(usuarioDao, never()).guardar(any());
+    }
+
+    @Test
+    void actualizar_cambiarSuPropioTipo_exigeSerAdministrador() {
+        when(usuarioDao.buscarPorId(4L)).thenReturn(Optional.of(usuario(EstadoUsuario.ACTIVO)));
+        doThrow(new AccesoDenegadoException("No tiene permiso"))
+                .when(controlAcceso).exigirAdministrador(anyString());
+        UsuarioRequest ascenso = new UsuarioRequest("Ana", "Paredes", CORREO_NORMALIZADO, null,
+                null, TipoUsuario.ADMINISTRADOR, null);
+
+        assertThatThrownBy(() -> usuarioService.actualizar(4L, ascenso))
+                .isInstanceOf(AccesoDenegadoException.class);
+        verify(usuarioDao, never()).guardar(any());
     }
 
     private static Usuario usuario(EstadoUsuario estado) {

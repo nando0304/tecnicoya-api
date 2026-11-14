@@ -2,6 +2,8 @@ package com.tecnicoya.api.controller;
 
 import com.tecnicoya.api.dto.request.PlanSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PlanSuscripcionResponse;
+import com.tecnicoya.api.model.enums.TipoUsuario;
+import com.tecnicoya.api.security.RequiereRol;
 import com.tecnicoya.api.service.PlanSuscripcionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,7 @@ public class PlanSuscripcionController {
      *         400 si los datos son inválidos o incumplen una regla de negocio;
      *         404 si hace referencia a un registro inexistente; 409 si hay un conflicto
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @PostMapping
     public ResponseEntity<PlanSuscripcionResponse> crear(@Valid @RequestBody PlanSuscripcionRequest request) {
         PlanSuscripcionResponse creado = planSuscripcionService.crear(request);
@@ -69,6 +72,7 @@ public class PlanSuscripcionController {
      * @param request nuevos datos
      * @return 200 con el registro actualizado; 400, 404 o 409 en los mismos casos que {@link #crear}
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @PutMapping("/{id}")
     public PlanSuscripcionResponse actualizar(@PathVariable Long id, @Valid @RequestBody PlanSuscripcionRequest request) {
         return planSuscripcionService.actualizar(id, request);
@@ -80,6 +84,7 @@ public class PlanSuscripcionController {
      *
      * @param id id del registro
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {

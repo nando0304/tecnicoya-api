@@ -19,7 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
      * @param origenes orígenes permitidos separados por comas, p. ej. {@code http://localhost:5173}
      */
     public CorsConfig(@Value("${tecnicoya.cors.origenes}") String[] origenes) {
-        this.origenes = origenes;
+        this.origenes = origenes.clone();
     }
 
     @Override

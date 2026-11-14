@@ -85,7 +85,10 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">SuscripcionServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../SuscripcionService.html" title="interface in com.tecnicoya.api.service">SuscripcionService</a></span></div>
-<div class="block">Implementación de <a href="../SuscripcionService.html" title="interface in com.tecnicoya.api.service"><code>SuscripcionService</code></a>.</div>
+<div class="block">Implementación de <a href="../SuscripcionService.html" title="interface in com.tecnicoya.api.service"><code>SuscripcionService</code></a>.
+
+ <p>Control de acceso (<a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>): un técnico solo solicita y cancela sus propias
+ suscripciones. Solo el administrador las activa (al confirmar el pago), cambia el plan o las fechas.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -98,15 +101,18 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#planSuscripcionDao" class="member-name-link">planSuscripcionDao</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></code></div>
+<div class="col-second even-row-color"><code><a href="#controlAcceso" class="member-name-link">controlAcceso</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#suscripcionDao" class="member-name-link">suscripcionDao</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#planSuscripcionDao" class="member-name-link">planSuscripcionDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#suscripcionDao" class="member-name-link">suscripcionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -176,6 +182,12 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tieneOtraSuscripcionActiva(com.tecnicoya.api.model.Suscripcion)" class="member-name-link">tieneOtraSuscripcionActiva</a><wbr>(<a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#verificarPermisoDeEdicion(com.tecnicoya.api.model.Suscripcion,com.tecnicoya.api.dto.request.SuscripcionRequest)" class="member-name-link">verificarPermisoDeEdicion</a><wbr>(<a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion,
+ <a href="../../dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a>&nbsp;request)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">El técnico dueño solo puede cancelar; cualquier otro cambio lo hace el administrador.</div>
+</div>
 </div>
 </div>
 </div>
@@ -209,6 +221,12 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <section class="detail" id="planSuscripcionDao">
 <h3>planSuscripcionDao</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></span>&nbsp;<span class="element-name">planSuscripcionDao</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="controlAcceso">
+<h3>controlAcceso</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></span>&nbsp;<span class="element-name">controlAcceso</span></div>
 </section>
 </li>
 </ul>
@@ -314,6 +332,14 @@ implements <a href="../SuscripcionService.html" title="interface in com.tecnicoy
 <dt>Parameters:</dt>
 <dd><code>id</code> - identificador del registro</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="verificarPermisoDeEdicion(com.tecnicoya.api.model.Suscripcion,com.tecnicoya.api.dto.request.SuscripcionRequest)">
+<h3>verificarPermisoDeEdicion</h3>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">verificarPermisoDeEdicion</span><wbr><span class="parameters">(<a href="../../model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a>&nbsp;suscripcion,
+ <a href="../../dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a>&nbsp;request)</span></div>
+<div class="block">El técnico dueño solo puede cancelar; cualquier otro cambio lo hace el administrador.</div>
 </section>
 </li>
 <li>

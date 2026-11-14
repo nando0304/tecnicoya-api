@@ -13,6 +13,7 @@ import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import com.tecnicoya.api.model.PlanSuscripcion;
 import com.tecnicoya.api.model.Suscripcion;
 import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.SuscripcionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-/** Implementación de {@link SuscripcionService}. */
+/**
+ * Implementación de {@link SuscripcionService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo solicita y cancela sus propias
+ * suscripciones. Solo el administrador las activa (al confirmar el pago), cambia el plan o las fechas.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -30,6 +36,7 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     private final ISuscripcionDao suscripcionDao;
     private final ITecnicoDao tecnicoDao;
     private final IPlanSuscripcionDao planSuscripcionDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<SuscripcionResponse> listar() {
@@ -44,8 +51,15 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     @Override
     @Transactional
     public SuscripcionResponse crear(SuscripcionRequest request) {
+        Tecnico tecnico = buscarTecnico(request.tecnicoId());
+        controlAcceso.exigirPropietario("solicitar una suscripción para otro técnico",
+                tecnico.getUsuario().getIdUsuario());
+        if (request.estadoSuscripcion() != null && request.estadoSuscripcion() != EstadoSuscripcion.PENDIENTE) {
+            controlAcceso.exigirAdministrador("registrar una suscripción en estado " + request.estadoSuscripcion()
+                    + "; la activa el administrador al confirmar el pago");
+        }
         Suscripcion suscripcion = new Suscripcion();
-        suscripcion.setTecnico(buscarTecnico(request.tecnicoId()));
+        suscripcion.setTecnico(tecnico);
         suscripcion.setPlan(buscarPlanActivo(request.planId()));
         suscripcion.setEstadoSuscripcion(request.estadoSuscripcion() != null
                 ? request.estadoSuscripcion() : EstadoSuscripcion.PENDIENTE);
@@ -57,6 +71,7 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     @Transactional
     public SuscripcionResponse actualizar(Long id, SuscripcionRequest request) {
         Suscripcion suscripcion = buscar(id);
+        verificarPermisoDeEdicion(suscripcion, request);
         if (!suscripcion.getTecnico().getIdTecnico().equals(request.tecnicoId())) {
             suscripcion.setTecnico(buscarTecnico(request.tecnicoId()));
         }
@@ -74,6 +89,22 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     @Transactional
     public void eliminar(Long id) {
         suscripcionDao.eliminar(buscar(id));
+    }
+
+    /** El técnico dueño solo puede cancelar; cualquier otro cambio lo hace el administrador. */
+    private void verificarPermisoDeEdicion(Suscripcion suscripcion, SuscripcionRequest request) {
+        controlAcceso.exigirPropietario("modificar la suscripción de otro técnico",
+                suscripcion.getTecnico().getUsuario().getIdUsuario());
+        EstadoSuscripcion nuevoEstado = request.estadoSuscripcion();
+        boolean cambiaEstado = nuevoEstado != null && nuevoEstado != suscripcion.getEstadoSuscripcion()
+                && nuevoEstado != EstadoSuscripcion.CANCELADA;
+        boolean cambiaCondiciones = !suscripcion.getTecnico().getIdTecnico().equals(request.tecnicoId())
+                || !suscripcion.getPlan().getIdPlan().equals(request.planId())
+                || !suscripcion.getFechaInicio().equals(request.fechaInicio())
+                || !suscripcion.getFechaFin().equals(request.fechaFin());
+        if (cambiaEstado || cambiaCondiciones) {
+            controlAcceso.exigirAdministrador("cambiar el estado, el plan o las fechas de una suscripción");
+        }
     }
 
     private Suscripcion buscar(Long id) {

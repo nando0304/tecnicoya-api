@@ -243,7 +243,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="actualizar(java.lang.Long,com.tecnicoya.api.dto.request.EvidenciaPagoRequest)">
 <h3>actualizar</h3>
-<div class="member-signature"><span class="annotations">@PutMapping("/{id}")
+<div class="member-signature"><span class="annotations"><a href="../security/RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">@RequiereRol</a>(<a href="../model/enums/TipoUsuario.html#ADMINISTRADOR">ADMINISTRADOR</a>)
+@PutMapping("/{id}")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/response/EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></span>&nbsp;<span class="element-name">actualizar</span><wbr><span class="parameters">(@PathVariable
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id,
  @Valid @RequestBody
@@ -261,7 +262,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="eliminar(java.lang.Long)">
 <h3>eliminar</h3>
-<div class="member-signature"><span class="annotations">@DeleteMapping("/{id}")
+<div class="member-signature"><span class="annotations"><a href="../security/RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">@RequiereRol</a>(<a href="../model/enums/TipoUsuario.html#ADMINISTRADOR">ADMINISTRADOR</a>)
+@DeleteMapping("/{id}")
 @ResponseStatus(NO_CONTENT)
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">eliminar</span><wbr><span class="parameters">(@PathVariable
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>

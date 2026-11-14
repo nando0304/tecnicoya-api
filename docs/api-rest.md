@@ -68,7 +68,7 @@ Todos los errores devuelven el mismo cuerpo JSON:
 |---|---|---|
 | `400` | Solicitud incorrecta | Datos inválidos, JSON mal formado, valor de enum inexistente, id no numérico o regla de negocio incumplida |
 | `401` | No autorizado | Credenciales incorrectas o cuenta no `ACTIVO` en el inicio de sesión; o falta el token, no es válido o venció |
-| `403` | Acceso denegado | El token es válido, pero el rol del usuario no tiene permiso para el recurso (p. ej. un `CLIENTE` pidiendo un [reporte](#reportes-excel)) |
+| `403` | Acceso denegado | El token es válido, pero el usuario no tiene permiso: su rol no puede usar el endpoint (p. ej. un `CLIENTE` pidiendo un [reporte](#reportes-excel)) o el registro no le pertenece (p. ej. editar la cuenta de otro usuario). Ver [Permisos](#permisos) |
 | `404` | No encontrado | El registro (o uno al que se hace referencia) no existe, o la ruta no existe |
 | `405` | Método no permitido | Método HTTP no soportado en la ruta (p. ej. `DELETE /api/usuarios`) |
 | `409` | Conflicto | Dato único duplicado, conflicto con otro registro o intento de borrar un registro con datos relacionados |
@@ -255,7 +255,7 @@ Todas las rutas de `/api` exigen el token en la cabecera `Authorization`, **salv
 | Ruta pública | Motivo |
 |---|---|
 | `POST /api/auth/login` | Es donde se obtiene el token |
-| `POST /api/usuarios` | Registro de una cuenta nueva |
+| `POST /api/usuarios` | Registro de una cuenta nueva (el token es opcional: si lo envía un administrador, puede crear otros administradores) |
 | `GET /api/archivos/{nombre}` | El navegador abre los archivos como enlaces o imágenes, sin cabeceras |
 
 ```powershell
@@ -278,7 +278,43 @@ Sin token, o con uno inválido o vencido, la API responde `401` y la petición n
 
 Con un token inválido o vencido, el `mensaje` es `"El token no es válido o ya venció; inicie sesión nuevamente"`.
 
-El token solo comprueba **quién** hace la petición: la API no revisa permisos por rol, así que cualquier usuario con sesión puede llamar a cualquier endpoint.
+### Permisos
+
+El token dice **quién** hace la petición; después la API comprueba **qué puede hacer** en dos niveles. Si no tiene permiso responde `403` y el intento queda en el log de auditoría (`ACCESO_DENEGADO`). El `ADMINISTRADOR` puede hacer todo.
+
+**1. Por rol** (anotación `@RequiereRol` en el controlador): solo el `ADMINISTRADOR` puede usar estos endpoints.
+
+| Endpoints solo para administrador |
+|---|
+| `GET /api/usuarios` (lista con correos y teléfonos de todos) y `DELETE /api/usuarios/{id}` |
+| `POST`, `PUT` y `DELETE` de `/api/planes-suscripcion` |
+| `PUT` y `DELETE` de `/api/pagos-suscripcion/{id}` y de `/api/evidencias-pago/{id}` (validar pagos) |
+| `DELETE` de `/api/tecnicos/{id}`, `/api/servicios/{id}`, `/api/suscripciones/{id}` y `/api/calificaciones/{id}` |
+| `GET /api/reportes/*` |
+
+**2. Por dueño del registro** (clase `ControlAcceso`, en la capa de servicios). Evita el ataque IDOR: cambiar el id de la URL o del cuerpo para tocar datos ajenos.
+
+| Recurso | Quién puede crearlo o modificarlo (además del administrador) |
+|---|---|
+| Usuarios | Cada usuario ve (`GET /{id}`) y edita solo su cuenta. Nadie se registra como `ADMINISTRADOR`, ni cambia su propio tipo de usuario o estado |
+| Técnicos | El técnico, solo su perfil. No puede cambiar su `estadoVerificacion` (no puede autoverificarse) |
+| Servicios | El cliente solicita servicios solo a su nombre y edita los suyos; el técnico edita los que tiene asignados o acepta uno sin técnico. Solo el técnico asignado marca `EN_PROCESO` o `FINALIZADO`. Un cliente no puede registrar un servicio ya finalizado |
+| Calificaciones | Solo el cliente que solicitó el servicio |
+| Evidencias de pago | El cliente o el técnico del servicio; siempre quedan `PENDIENTE` hasta que el administrador las valida |
+| Disponibilidades, experiencias y evidencias | El técnico, solo las de su perfil. Solo el administrador aprueba o rechaza una evidencia |
+| Suscripciones y pagos de suscripción | El técnico, solo para sí mismo y siempre `PENDIENTE`. Puede cancelar su suscripción; activarla o cambiar el plan o las fechas lo hace el administrador |
+
+Las consultas (`GET`) de técnicos, servicios, planes, reseñas, etc. siguen abiertas a cualquier usuario con sesión, porque la web las necesita para el directorio de técnicos y los perfiles públicos.
+
+```json
+{
+  "timestamp": "2026-11-13T21:24:31.512",
+  "status": 403,
+  "error": "Acceso denegado",
+  "mensaje": "No tiene permiso para modificar los datos de otro usuario",
+  "ruta": "/api/usuarios/3"
+}
+```
 
 ---
 

@@ -8,6 +8,7 @@ import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.ExperienciaLaboral;
 import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.ExperienciaLaboralService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link ExperienciaLaboralService}. */
+/**
+ * Implementación de {@link ExperienciaLaboralService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina la experiencia laboral
+ * de su propio perfil.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -24,6 +30,7 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
 
     private final IExperienciaLaboralDao experienciaLaboralDao;
     private final ITecnicoDao tecnicoDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<ExperienciaLaboralResponse> listar() {
@@ -47,6 +54,7 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
     @Transactional
     public ExperienciaLaboralResponse actualizar(Long id, ExperienciaLaboralRequest request) {
         ExperienciaLaboral experiencia = buscar(id);
+        verificarDueno(experiencia);
         aplicarDatos(request, experiencia);
         return ExperienciaLaboralResponse.desde(experienciaLaboralDao.guardar(experiencia));
     }
@@ -54,7 +62,14 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
     @Override
     @Transactional
     public void eliminar(Long id) {
-        experienciaLaboralDao.eliminar(buscar(id));
+        ExperienciaLaboral experiencia = buscar(id);
+        verificarDueno(experiencia);
+        experienciaLaboralDao.eliminar(experiencia);
+    }
+
+    private void verificarDueno(ExperienciaLaboral experiencia) {
+        controlAcceso.exigirPropietario("gestionar la experiencia laboral de otro técnico",
+                experiencia.getTecnico().getUsuario().getIdUsuario());
     }
 
     private ExperienciaLaboral buscar(Long id) {
@@ -74,6 +89,8 @@ public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService 
         }
         Tecnico tecnico = tecnicoDao.buscarPorId(request.tecnicoId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
+        controlAcceso.exigirPropietario("gestionar la experiencia laboral de otro técnico",
+                tecnico.getUsuario().getIdUsuario());
 
         experiencia.setTecnico(tecnico);
         experiencia.setEmpresa(StringUtils.normalizeSpace(request.empresa()));

@@ -25,6 +25,8 @@
         <poi.version>5.4.1</poi.version>
         <commons-collections4.version>4.5.0</commons-collections4.version>
         <dependency-check.version>12.1.3</dependency-check.version>
+        <spotbugs-plugin.version>4.9.3.0</spotbugs-plugin.version>
+        <findsecbugs.version>1.14.0</findsecbugs.version>
     </properties>
 
     <dependencies>
@@ -179,6 +181,32 @@
                     <!-- Opcional: con una clave gratuita de https://nvd.nist.gov/developers/request-an-api-key
                          en la variable de entorno NVD_API_KEY la descarga es mucho más rápida -->
                     <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
+                </configuration>
+            </plugin>
+            <!-- SAST (análisis estático de seguridad): SpotBugs revisa el bytecode compilado en busca de errores
+                 y el complemento FindSecBugs agrega reglas de seguridad (inyección SQL/JPQL, XSS, path traversal,
+                 criptografía débil, secretos en el código, etc.; más de 140 tipos de vulnerabilidad).
+                 Ejecútelo a mano con  ./mvnw compile spotbugs:check   (falla si encuentra algún problema)
+                 o con  ./mvnw compile spotbugs:gui  para ver los hallazgos en una ventana.
+                 El detalle queda en target/spotbugsXml.xml -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <!-- Low: informa también los hallazgos de prioridad baja -->
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Hallazgos revisados y justificados como falsos positivos -->
+                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>${findsecbugs.version}</version>
+                        </plugin>
+                    </plugins>
                 </configuration>
             </plugin>
             <plugin>

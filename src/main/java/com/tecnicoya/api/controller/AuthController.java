@@ -48,7 +48,8 @@ public class AuthController {
         try {
             limiteIntentos.verificar(clave);
         } catch (DemasiadosIntentosException ex) {
-            Auditoria.LOG.warn("LOGIN_BLOQUEADO correo={} ip={}", request.correo(), ip);
+            Auditoria.LOG.warn("LOGIN_BLOQUEADO correo={} ip={}", Auditoria.limpiar(request.correo()),
+                    Auditoria.limpiar(ip));
             throw ex;
         }
 
@@ -57,13 +58,15 @@ public class AuthController {
             usuario = usuarioService.autenticar(request);
         } catch (CredencialesInvalidasException ex) {
             int fallos = limiteIntentos.registrarFallo(clave);
-            Auditoria.LOG.warn("LOGIN_FALLIDO correo={} ip={} intento={}/{}", request.correo(), ip, fallos,
+            Auditoria.LOG.warn("LOGIN_FALLIDO correo={} ip={} intento={}/{}", Auditoria.limpiar(request.correo()),
+                    Auditoria.limpiar(ip), fallos,
                     limiteIntentos.getMaxIntentos());
             throw ex;
         }
 
         limiteIntentos.reiniciar(clave);
-        Auditoria.LOG.info("LOGIN_EXITOSO usuario={} rol={} ip={}", usuario.idUsuario(), usuario.tipoUsuario(), ip);
+        Auditoria.LOG.info("LOGIN_EXITOSO usuario={} rol={} ip={}", usuario.idUsuario(), usuario.tipoUsuario(),
+                Auditoria.limpiar(ip));
         return new LoginResponse(jwtService.generarToken(usuario), usuario);
     }
 }

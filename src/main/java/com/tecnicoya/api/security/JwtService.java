@@ -22,7 +22,7 @@ import java.util.Date;
  * coincidir y el token se rechaza.
  */
 @Service
-public class JwtService {
+public final class JwtService {
 
     private final SecretKey clave;
     private final Duration validez;

@@ -10,6 +10,7 @@ import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.enums.EstadoValidacion;
 import com.tecnicoya.api.model.EvidenciaPago;
 import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.EvidenciaPagoService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link EvidenciaPagoService}. */
+/**
+ * Implementación de {@link EvidenciaPagoService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): solo el cliente o el técnico del servicio
+ * registran su pago, y siempre queda PENDIENTE; el administrador lo valida, edita o elimina.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -26,6 +32,7 @@ public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
 
     private final IEvidenciaPagoDao evidenciaPagoDao;
     private final IServicioDao servicioDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<EvidenciaPagoResponse> listar() {
@@ -40,8 +47,14 @@ public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
     @Override
     @Transactional
     public EvidenciaPagoResponse crear(EvidenciaPagoRequest request) {
+        Servicio servicio = buscarServicioPagable(request.servicioId());
+        controlAcceso.exigirPropietario("registrar el pago de un servicio en el que no participa",
+                servicio.getCliente().getIdUsuario(), servicio.getTecnico().getUsuario().getIdUsuario());
+        if (request.estadoValidacion() != null && request.estadoValidacion() != EstadoValidacion.PENDIENTE) {
+            controlAcceso.exigirAdministrador("registrar un pago en estado " + request.estadoValidacion());
+        }
         EvidenciaPago evidenciaPago = new EvidenciaPago();
-        evidenciaPago.setServicio(buscarServicioPagable(request.servicioId()));
+        evidenciaPago.setServicio(servicio);
         evidenciaPago.setFechaPago(request.fechaPago() != null ? request.fechaPago() : FechaUtil.ahora());
         evidenciaPago.setEstadoValidacion(request.estadoValidacion() != null
                 ? request.estadoValidacion() : EstadoValidacion.PENDIENTE);

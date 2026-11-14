@@ -8,6 +8,7 @@ import com.tecnicoya.api.exception.RecursoNoEncontradoException;
 import com.tecnicoya.api.model.enums.EstadoValidacion;
 import com.tecnicoya.api.model.Evidencia;
 import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.EvidenciaService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link EvidenciaService}. */
+/**
+ * Implementación de {@link EvidenciaService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina las evidencias
+ * de su propio perfil. Solo el administrador aprueba o rechaza una evidencia.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -25,6 +31,7 @@ public class EvidenciaServiceImpl implements EvidenciaService {
 
     private final IEvidenciaDao evidenciaDao;
     private final ITecnicoDao tecnicoDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<EvidenciaResponse> listar() {
@@ -39,6 +46,9 @@ public class EvidenciaServiceImpl implements EvidenciaService {
     @Override
     @Transactional
     public EvidenciaResponse crear(EvidenciaRequest request) {
+        if (request.estadoValidacion() != null && request.estadoValidacion() != EstadoValidacion.PENDIENTE) {
+            controlAcceso.exigirAdministrador("registrar una evidencia en estado " + request.estadoValidacion());
+        }
         Evidencia evidencia = new Evidencia();
         evidencia.setFechaCarga(FechaUtil.ahora());
         evidencia.setEstadoValidacion(request.estadoValidacion() != null
@@ -51,6 +61,12 @@ public class EvidenciaServiceImpl implements EvidenciaService {
     @Transactional
     public EvidenciaResponse actualizar(Long id, EvidenciaRequest request) {
         Evidencia evidencia = buscar(id);
+        verificarDueno(evidencia);
+        EstadoValidacion nuevoEstado = request.estadoValidacion();
+        if (nuevoEstado != null && nuevoEstado != EstadoValidacion.PENDIENTE
+                && nuevoEstado != evidencia.getEstadoValidacion()) {
+            controlAcceso.exigirAdministrador("cambiar el estado de validación a " + nuevoEstado);
+        }
         if (request.estadoValidacion() != null) {
             evidencia.setEstadoValidacion(request.estadoValidacion());
         }
@@ -61,7 +77,14 @@ public class EvidenciaServiceImpl implements EvidenciaService {
     @Override
     @Transactional
     public void eliminar(Long id) {
-        evidenciaDao.eliminar(buscar(id));
+        Evidencia evidencia = buscar(id);
+        verificarDueno(evidencia);
+        evidenciaDao.eliminar(evidencia);
+    }
+
+    private void verificarDueno(Evidencia evidencia) {
+        controlAcceso.exigirPropietario("gestionar las evidencias de otro técnico",
+                evidencia.getTecnico().getUsuario().getIdUsuario());
     }
 
     private Evidencia buscar(Long id) {
@@ -72,6 +95,8 @@ public class EvidenciaServiceImpl implements EvidenciaService {
     private void aplicarDatos(EvidenciaRequest request, Evidencia evidencia) {
         Tecnico tecnico = tecnicoDao.buscarPorId(request.tecnicoId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
+        controlAcceso.exigirPropietario("gestionar las evidencias de otro técnico",
+                tecnico.getUsuario().getIdUsuario());
         evidencia.setTecnico(tecnico);
         evidencia.setTipoEvidencia(request.tipoEvidencia());
         evidencia.setUrlArchivo(request.urlArchivo().trim());

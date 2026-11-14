@@ -108,21 +108,26 @@ loadScripts(document, 'script');</script>
        una respuesta en el navegador no se ejecuta ningún script (XSS) y los datos personales no quedan en
        caché.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">Control de acceso a nivel de registro: evita que un usuario modifique datos que no le pertenecen
+ (OWASP Top 10 A01 - Broken Access Control, conocido como IDOR) o que se dé a sí mismo privilegios que no tiene.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Exige un token JWT válido, enviado en la cabecera <code>Authorization: Bearer &lt;token&gt;</code>, antes de que la petición
  llegue al controlador.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Genera y valida los tokens JWT de la API.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Protección contra ataques de fuerza bruta en el inicio de sesión.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab7"><a href="RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">RequiereRol</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab7">
+<div class="col-first even-row-color class-summary class-summary-tab7"><a href="RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">RequiereRol</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab7">
 <div class="block">Restringe un controlador o un endpoint a ciertos roles (principio de mínimo privilegio).</div>
 </div>
 </div>

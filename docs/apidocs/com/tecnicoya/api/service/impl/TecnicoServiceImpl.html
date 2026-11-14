@@ -85,7 +85,10 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">TecnicoServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.api.service">TecnicoService</a></span></div>
-<div class="block">Implementación de <a href="../TecnicoService.html" title="interface in com.tecnicoya.api.service"><code>TecnicoService</code></a>.</div>
+<div class="block">Implementación de <a href="../TecnicoService.html" title="interface in com.tecnicoya.api.service"><code>TecnicoService</code></a>.
+
+ <p>Control de acceso (<a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>): un técnico solo crea y edita su propio perfil, y solo el
+ administrador cambia el estado de verificación (un técnico no puede autoverificarse).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -98,12 +101,15 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></code></div>
+<div class="col-second even-row-color"><code><a href="#controlAcceso" class="member-name-link">controlAcceso</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -194,6 +200,12 @@ implements <a href="../TecnicoService.html" title="interface in com.tecnicoya.ap
 <section class="detail" id="usuarioDao">
 <h3>usuarioDao</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></span>&nbsp;<span class="element-name">usuarioDao</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="controlAcceso">
+<h3>controlAcceso</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></span>&nbsp;<span class="element-name">controlAcceso</span></div>
 </section>
 </li>
 </ul>

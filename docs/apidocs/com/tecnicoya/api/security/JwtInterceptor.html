@@ -97,7 +97,10 @@ implements org.springframework.web.servlet.HandlerInterceptor</span></div>
    <li><code>POST /api/usuarios</code>: registro de una cuenta nueva.</li>
    <li><code>GET /api/archivos/{nombre}</code>: el navegador abre los archivos como enlaces o imágenes, sin cabeceras.</li>
    <li>Peticiones <code>OPTIONS</code> de CORS: el navegador las envía antes de la real y nunca llevan el token.</li>
- </ul></div>
+ </ul>
+ En una ruta pública el token es opcional: si viene y es válido, también se leen el usuario y el rol. Así el
+ administrador puede crear otros administradores con <code>POST /api/usuarios</code>, mientras que un registro
+ anónimo no puede (lo comprueba <a href="ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -162,14 +165,25 @@ implements org.springframework.web.servlet.HandlerInterceptor</span></div>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;handler,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;ex)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#esPublica(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">esPublica</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#preHandle(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,java.lang.Object)" class="member-name-link">preHandle</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#autenticarSiHayToken(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">autenticarSiHayToken</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">En una ruta pública el token es opcional: si no viene o no es válido, la petición sigue como anónima.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#esPublica(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">esPublica</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#preHandle(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,java.lang.Object)" class="member-name-link">preHandle</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request,
  jakarta.servlet.http.HttpServletResponse&nbsp;response,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;handler)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static <a href="../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#registrarSesion(jakarta.servlet.http.HttpServletRequest,io.jsonwebtoken.Claims)" class="member-name-link">registrarSesion</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request,
+ io.jsonwebtoken.Claims&nbsp;datos)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Deja el id y el rol del token como atributos de la petición y en el MDC de Logback.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#verificarRol(jakarta.servlet.http.HttpServletRequest,java.lang.Object,java.lang.Long,com.tecnicoya.api.model.enums.TipoUsuario)" class="member-name-link">verificarRol</a><wbr>(jakarta.servlet.http.HttpServletRequest&nbsp;request,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;handler,
@@ -305,6 +319,21 @@ implements org.springframework.web.servlet.HandlerInterceptor</span></div>
 <dt>Specified by:</dt>
 <dd><code>afterCompletion</code>&nbsp;in interface&nbsp;<code>org.springframework.web.servlet.HandlerInterceptor</code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="autenticarSiHayToken(jakarta.servlet.http.HttpServletRequest)">
+<h3>autenticarSiHayToken</h3>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">autenticarSiHayToken</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletRequest&nbsp;request)</span></div>
+<div class="block">En una ruta pública el token es opcional: si no viene o no es válido, la petición sigue como anónima.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="registrarSesion(jakarta.servlet.http.HttpServletRequest,io.jsonwebtoken.Claims)">
+<h3>registrarSesion</h3>
+<div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type"><a href="../model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></span>&nbsp;<span class="element-name">registrarSesion</span><wbr><span class="parameters">(jakarta.servlet.http.HttpServletRequest&nbsp;request,
+ io.jsonwebtoken.Claims&nbsp;datos)</span></div>
+<div class="block">Deja el id y el rol del token como atributos de la petición y en el MDC de Logback.</div>
 </section>
 </li>
 <li>

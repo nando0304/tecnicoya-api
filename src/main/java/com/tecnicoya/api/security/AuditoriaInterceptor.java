@@ -40,7 +40,8 @@ public class AuditoriaInterceptor implements HandlerInterceptor {
         }
         Object usuario = Objects.requireNonNullElse(request.getAttribute(JwtInterceptor.ATRIBUTO_USUARIO), "anónimo");
         Object rol = Objects.requireNonNullElse(request.getAttribute(JwtInterceptor.ATRIBUTO_ROL), "-");
-        Auditoria.LOG.info("OPERACION {} {} -> {} usuario={} rol={} ({} ms)", request.getMethod(),
-                request.getRequestURI(), response.getStatus(), usuario, rol, cronometro.elapsed(TimeUnit.MILLISECONDS));
+        Auditoria.LOG.info("OPERACION {} {} -> {} usuario={} rol={} ({} ms)", Auditoria.limpiar(request.getMethod()),
+                Auditoria.limpiar(request.getRequestURI()), response.getStatus(), Auditoria.limpiar(usuario), Auditoria.limpiar(rol),
+                cronometro.elapsed(TimeUnit.MILLISECONDS));
     }
 }

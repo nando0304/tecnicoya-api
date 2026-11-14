@@ -10,6 +10,7 @@ import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Calificacion;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.CalificacionService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link CalificacionService}. */
+/**
+ * Implementación de {@link CalificacionService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): solo el cliente que solicitó el servicio puede
+ * calificarlo o editar su calificación.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,6 +33,7 @@ public class CalificacionServiceImpl implements CalificacionService {
 
     private final ICalificacionDao calificacionDao;
     private final IServicioDao servicioDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<CalificacionResponse> listar() {
@@ -42,6 +49,7 @@ public class CalificacionServiceImpl implements CalificacionService {
     @Transactional
     public CalificacionResponse crear(CalificacionRequest request) {
         Servicio servicio = buscarServicioFinalizado(request.servicioId());
+        controlAcceso.exigirPropietario("calificar un servicio que no solicitó", servicio.getCliente().getIdUsuario());
         if (calificacionDao.existePorServicio(servicio.getIdServicio())) {
             throw new ConflictoException("El servicio con id " + servicio.getIdServicio() + " ya fue calificado");
         }
@@ -58,7 +66,10 @@ public class CalificacionServiceImpl implements CalificacionService {
     @Transactional
     public CalificacionResponse actualizar(Long id, CalificacionRequest request) {
         Calificacion calificacion = buscar(id);
+        controlAcceso.exigirPropietario("modificar la calificación de otro cliente",
+                calificacion.getServicio().getCliente().getIdUsuario());
         if (!calificacion.getServicio().getIdServicio().equals(request.servicioId())) {
+            controlAcceso.exigirAdministrador("pasar una calificación a otro servicio");
             Servicio servicio = buscarServicioFinalizado(request.servicioId());
             if (calificacionDao.existePorServicioEnOtraCalificacion(servicio.getIdServicio(), id)) {
                 throw new ConflictoException("El servicio con id " + servicio.getIdServicio() + " ya fue calificado");

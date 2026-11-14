@@ -146,496 +146,501 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Datos duplicados o en conflicto con el estado actual (p. ej. correo ya registrado).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/CorsConfig.html" title="class in com.tecnicoya.api.config">CorsConfig</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Control de acceso a nivel de registro: evita que un usuario modifique datos que no le pertenecen
+ (OWASP Top 10 A01 - Broken Access Control, conocido como IDOR) o que se dé a sí mismo privilegios que no tiene.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/CorsConfig.html" title="class in com.tecnicoya.api.config">CorsConfig</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">CORS restringido a los orígenes del front-end definidos en <code>tecnicoya.cors.origenes</code> (por defecto, el
  servidor de desarrollo de Vite).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/CredencialesInvalidasException.html" title="class in com.tecnicoya.api.exception">CredencialesInvalidasException</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Correo o contraseña incorrectos, o cuenta que no puede iniciar sesión.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/CrudService.html" title="interface in com.tecnicoya.api.service">CrudService</a>&lt;<a href="com/tecnicoya/api/service/CrudService.html" title="type parameter in CrudService">Q</a>,<wbr><a href="com/tecnicoya/api/service/CrudService.html" title="type parameter in CrudService">R</a>&gt;</div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/CrudService.html" title="interface in com.tecnicoya.api.service">CrudService</a>&lt;<a href="com/tecnicoya/api/service/CrudService.html" title="type parameter in CrudService">Q</a>,<wbr><a href="com/tecnicoya/api/service/CrudService.html" title="type parameter in CrudService">R</a>&gt;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Operaciones CRUD comunes a todos los recursos de la API.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/DemasiadosIntentosException.html" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/DemasiadosIntentosException.html" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Se superó el número de intentos fallidos de inicio de sesión permitidos (protección contra ataques de fuerza
  bruta).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Día de la semana de una franja de disponibilidad.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Disponibilidad.html" title="class in com.tecnicoya.api.model">Disponibilidad</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Franja horaria semanal en la que atiende un técnico (tabla <code>disponibilidad</code>).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/DisponibilidadController.html" title="class in com.tecnicoya.api.controller">DisponibilidadController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/DisponibilidadController.html" title="class in com.tecnicoya.api.controller">DisponibilidadController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de franjas de disponibilidad de los técnicos, bajo <code>/api/disponibilidades</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/DisponibilidadDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">DisponibilidadDaoImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/DisponibilidadDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">DisponibilidadDaoImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao"><code>IDisponibilidadDao</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos de una franja de disponibilidad.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/DisponibilidadResponse.html" title="class in com.tecnicoya.api.dto.response">DisponibilidadResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/DisponibilidadResponse.html" title="class in com.tecnicoya.api.dto.response">DisponibilidadResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Franja de disponibilidad devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/DisponibilidadService.html" title="interface in com.tecnicoya.api.service">DisponibilidadService</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/DisponibilidadService.html" title="interface in com.tecnicoya.api.service">DisponibilidadService</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de franjas de disponibilidad de los técnicos.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/DisponibilidadService.html" title="interface in com.tecnicoya.api.service"><code>DisponibilidadService</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EstadisticasDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EstadisticasDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EstadisticasDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EstadisticasDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IEstadisticasDao.html" title="interface in com.tecnicoya.api.dao"><code>IEstadisticasDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Estado de un pago procesado por el proveedor de pagos.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoRegistro.html" title="enum class in com.tecnicoya.api.model.enums">EstadoRegistro</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Estado genérico activo/inactivo (disponibilidad y planes).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Ciclo de vida de un servicio solicitado.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Estado de la suscripción de un técnico a un plan.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Estado de la cuenta de un usuario.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoValidacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoValidacion</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Resultado de la revisión de una evidencia o comprobante.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Resultado de la verificación del perfil de un técnico.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Evidencia.html" title="class in com.tecnicoya.api.model">Evidencia</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Evidencia.html" title="class in com.tecnicoya.api.model">Evidencia</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Documento que respalda la idoneidad de un técnico: certificados, antecedentes, fotos de trabajos (tabla <code>evidencia</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/EvidenciaController.html" title="class in com.tecnicoya.api.controller">EvidenciaController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/EvidenciaController.html" title="class in com.tecnicoya.api.controller">EvidenciaController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de evidencias (documentos) de los técnicos, bajo <code>/api/evidencias</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EvidenciaDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EvidenciaDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EvidenciaDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EvidenciaDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IEvidenciaDao.html" title="interface in com.tecnicoya.api.dao"><code>IEvidenciaDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/EvidenciaPago.html" title="class in com.tecnicoya.api.model">EvidenciaPago</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Comprobante del pago de un servicio (tabla <code>evidencia_pago</code>).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/EvidenciaPagoController.html" title="class in com.tecnicoya.api.controller">EvidenciaPagoController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/EvidenciaPagoController.html" title="class in com.tecnicoya.api.controller">EvidenciaPagoController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de evidencias de pago de servicios, bajo <code>/api/evidencias-pago</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EvidenciaPagoDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EvidenciaPagoDaoImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/EvidenciaPagoDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">EvidenciaPagoDaoImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao"><code>IEvidenciaPagoDao</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Si no se envía <code>fechaPago</code> se registra la fecha y hora actual.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/EvidenciaPagoResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaPagoResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Evidencia de pago devuelta por la API, con el título del servicio.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/EvidenciaPagoService.html" title="interface in com.tecnicoya.api.service">EvidenciaPagoService</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/EvidenciaPagoService.html" title="interface in com.tecnicoya.api.service">EvidenciaPagoService</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de evidencias de pago de servicios.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/EvidenciaPagoService.html" title="interface in com.tecnicoya.api.service"><code>EvidenciaPagoService</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/EvidenciaRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaRequest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/EvidenciaRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaRequest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos para registrar o actualizar una evidencia de un técnico.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/EvidenciaResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/EvidenciaResponse.html" title="class in com.tecnicoya.api.dto.response">EvidenciaResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Evidencia devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/EvidenciaService.html" title="interface in com.tecnicoya.api.service">EvidenciaService</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/EvidenciaService.html" title="interface in com.tecnicoya.api.service">EvidenciaService</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de evidencias (documentos) de los técnicos.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/EvidenciaService.html" title="interface in com.tecnicoya.api.service"><code>EvidenciaService</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model">ExperienciaLaboral</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Empleo anterior o actual de un técnico (tabla <code>experiencia_laboral</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ExperienciaLaboralController.html" title="class in com.tecnicoya.api.controller">ExperienciaLaboralController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ExperienciaLaboralController.html" title="class in com.tecnicoya.api.controller">ExperienciaLaboralController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de experiencia laboral de los técnicos, bajo <code>/api/experiencias-laborales</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/ExperienciaLaboralDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">ExperienciaLaboralDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/ExperienciaLaboralDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">ExperienciaLaboralDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao"><code>IExperienciaLaboralDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/ExperienciaLaboralRequest.html" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/ExperienciaLaboralRequest.html" title="class in com.tecnicoya.api.dto.request">ExperienciaLaboralRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Si <code>actualidad</code> es true no debe enviarse <code>fechaFin</code>; si es false, es obligatoria.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/ExperienciaLaboralResponse.html" title="class in com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/ExperienciaLaboralResponse.html" title="class in com.tecnicoya.api.dto.response">ExperienciaLaboralResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Experiencia laboral devuelta por la API, con el nombre del técnico.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ExperienciaLaboralService.html" title="interface in com.tecnicoya.api.service">ExperienciaLaboralService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ExperienciaLaboralService.html" title="interface in com.tecnicoya.api.service">ExperienciaLaboralService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de experiencia laboral de los técnicos.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ExperienciaLaboralServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ExperienciaLaboralServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/ExperienciaLaboralService.html" title="interface in com.tecnicoya.api.service"><code>ExperienciaLaboralService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/util/FechaUtil.html" title="class in com.tecnicoya.api.util">FechaUtil</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/util/FechaUtil.html" title="class in com.tecnicoya.api.util">FechaUtil</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Utilidades de fecha y hora.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">GenericDaoImpl</a>&lt;<a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="type parameter in GenericDaoImpl">T</a>,<wbr><a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="type parameter in GenericDaoImpl">ID</a>&gt;</div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">GenericDaoImpl</a>&lt;<a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="type parameter in GenericDaoImpl">T</a>,<wbr><a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="type parameter in GenericDaoImpl">ID</a>&gt;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación base de <a href="com/tecnicoya/api/dao/IGenericDao.html" title="interface in com.tecnicoya.api.dao"><code>IGenericDao</code></a> con JPA.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/exception/GlobalExceptionHandler.html" title="class in com.tecnicoya.api.exception">GlobalExceptionHandler</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/exception/GlobalExceptionHandler.html" title="class in com.tecnicoya.api.exception">GlobalExceptionHandler</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Convierte cualquier excepción en un <a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response"><code>ApiErrorResponse</code></a> con mensaje en español.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Calificacion.html" title="class in com.tecnicoya.api.model"><code>Calificacion</code></a> (valoración del cliente a un servicio finalizado).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IDisponibilidadDao.html" title="interface in com.tecnicoya.api.dao">IDisponibilidadDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Disponibilidad.html" title="class in com.tecnicoya.api.model"><code>Disponibilidad</code></a> (franjas horarias de atención de un técnico).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEstadisticasDao.html" title="interface in com.tecnicoya.api.dao">IEstadisticasDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEstadisticasDao.html" title="interface in com.tecnicoya.api.dao">IEstadisticasDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de solo lectura con consultas agregadas (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) para los reportes.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEvidenciaDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEvidenciaDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Evidencia.html" title="class in com.tecnicoya.api.model"><code>Evidencia</code></a> (evidencias que sustentan la experiencia de un técnico).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IEvidenciaPagoDao.html" title="interface in com.tecnicoya.api.dao">IEvidenciaPagoDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/EvidenciaPago.html" title="class in com.tecnicoya.api.model"><code>EvidenciaPago</code></a> (comprobantes de pago de un servicio).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IExperienciaLaboralDao.html" title="interface in com.tecnicoya.api.dao">IExperienciaLaboralDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/ExperienciaLaboral.html" title="class in com.tecnicoya.api.model"><code>ExperienciaLaboral</code></a> (experiencia laboral de un técnico).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IGenericDao.html" title="interface in com.tecnicoya.api.dao">IGenericDao</a>&lt;<a href="com/tecnicoya/api/dao/IGenericDao.html" title="type parameter in IGenericDao">T</a>,<wbr><a href="com/tecnicoya/api/dao/IGenericDao.html" title="type parameter in IGenericDao">ID</a>&gt;</div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IGenericDao.html" title="interface in com.tecnicoya.api.dao">IGenericDao</a>&lt;<a href="com/tecnicoya/api/dao/IGenericDao.html" title="type parameter in IGenericDao">T</a>,<wbr><a href="com/tecnicoya/api/dao/IGenericDao.html" title="type parameter in IGenericDao">ID</a>&gt;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Contrato del patrón DAO (Data Access Object): operaciones básicas de persistencia comunes a todas las entidades.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/PagoSuscripcion.html" title="class in com.tecnicoya.api.model"><code>PagoSuscripcion</code></a> (pagos de las suscripciones).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao">IPlanSuscripcionDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model"><code>PlanSuscripcion</code></a> (planes que pueden contratar los técnicos).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Servicio.html" title="class in com.tecnicoya.api.model"><code>Servicio</code></a> (solicitudes de servicio de los clientes).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao">ISuscripcionDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Suscripcion.html" title="class in com.tecnicoya.api.model"><code>Suscripcion</code></a> (plan contratado por un técnico).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Tecnico.html" title="class in com.tecnicoya.api.model"><code>Tecnico</code></a> (perfil profesional de un usuario de tipo TECNICO).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">DAO de <a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model"><code>Usuario</code></a> (clientes, técnicos y administradores).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/JwtConfig.html" title="class in com.tecnicoya.api.config">JwtConfig</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/JwtConfig.html" title="class in com.tecnicoya.api.config">JwtConfig</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Registra los interceptores de seguridad en todas las rutas de la API, en este orden:
  
    <a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a>: exige el token y verifica el rol.
    <a href="com/tecnicoya/api/security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security"><code>AuditoriaInterceptor</code></a>: registra las operaciones que modifican datos.
  </div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Exige un token JWT válido, enviado en la cabecera <code>Authorization: Bearer &lt;token&gt;</code>, antes de que la petición
  llegue al controlador.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Genera y valida los tokens JWT de la API.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Arma un libro de Excel (<code>.xlsx</code>) con Apache POI.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Protección contra ataques de fuerza bruta en el inicio de sesión.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/LoginRequest.html" title="class in com.tecnicoya.api.dto.request">LoginRequest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Credenciales para iniciar sesión.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/LoginResponse.html" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/LoginResponse.html" title="class in com.tecnicoya.api.dto.response">LoginResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Respuesta del inicio de sesión.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Medio con el que se realizó un pago.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/NoAutenticadoException.html" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/NoAutenticadoException.html" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">La petición no trae un token JWT válido: falta, fue modificado o ya venció.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/PagoSuscripcion.html" title="class in com.tecnicoya.api.model">PagoSuscripcion</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/PagoSuscripcion.html" title="class in com.tecnicoya.api.model">PagoSuscripcion</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Pago de un técnico por su suscripción, procesado por el proveedor de pagos (tabla <code>pago_suscripcion</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/PagoSuscripcionController.html" title="class in com.tecnicoya.api.controller">PagoSuscripcionController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/PagoSuscripcionController.html" title="class in com.tecnicoya.api.controller">PagoSuscripcionController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de pagos de suscripción, bajo <code>/api/pagos-suscripcion</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/PagoSuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">PagoSuscripcionDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/PagoSuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">PagoSuscripcionDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" title="interface in com.tecnicoya.api.dao"><code>IPagoSuscripcionDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/PagoSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PagoSuscripcionRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/PagoSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PagoSuscripcionRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Si no se envía <code>fechaPago</code> se registra la fecha y hora actual.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/PagoSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/PagoSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PagoSuscripcionResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Pago de suscripción devuelto por la API, con el técnico y el nombre del plan.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/PagoSuscripcionService.html" title="interface in com.tecnicoya.api.service">PagoSuscripcionService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/PagoSuscripcionService.html" title="interface in com.tecnicoya.api.service">PagoSuscripcionService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de pagos de suscripción.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/PagoSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PagoSuscripcionServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/PagoSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PagoSuscripcionServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/PagoSuscripcionService.html" title="interface in com.tecnicoya.api.service"><code>PagoSuscripcionService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/PasswordConfig.html" title="class in com.tecnicoya.api.config">PasswordConfig</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/config/PasswordConfig.html" title="class in com.tecnicoya.api.config">PasswordConfig</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Define el <code>PasswordEncoder</code> (BCrypt) con el que se cifran y verifican las contraseñas.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/PlanSuscripcion.html" title="class in com.tecnicoya.api.model">PlanSuscripcion</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Plan que la plataforma ofrece a los técnicos: cobra <code>precioInicial</code> hasta <code>limiteClientes</code> clientes y <code>precioPosterior</code> a partir de ahí (tabla <code>plan_suscripcion</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/PlanSuscripcionController.html" title="class in com.tecnicoya.api.controller">PlanSuscripcionController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/PlanSuscripcionController.html" title="class in com.tecnicoya.api.controller">PlanSuscripcionController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de planes de suscripción, bajo <code>/api/planes-suscripcion</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/PlanSuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">PlanSuscripcionDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/PlanSuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">PlanSuscripcionDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IPlanSuscripcionDao.html" title="interface in com.tecnicoya.api.dao"><code>IPlanSuscripcionDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/PlanSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/PlanSuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">PlanSuscripcionRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos para registrar o actualizar un plan de suscripción.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/PlanSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/PlanSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Plan de suscripción devuelto por la API.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/PlanSuscripcionService.html" title="interface in com.tecnicoya.api.service">PlanSuscripcionService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/PlanSuscripcionService.html" title="interface in com.tecnicoya.api.service">PlanSuscripcionService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de planes de suscripción.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PlanSuscripcionServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PlanSuscripcionServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/PlanSuscripcionService.html" title="interface in com.tecnicoya.api.service"><code>PlanSuscripcionService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Urgencia con la que el cliente necesita el servicio.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/RecursoNoEncontradoException.html" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/RecursoNoEncontradoException.html" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Se traduce a HTTP 404.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/ReglaNegocioException.html" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/tecnicoya/api/exception/ReglaNegocioException.html" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">La solicitud es sintácticamente válida pero incumple una regla del negocio.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ReporteController.html" title="class in com.tecnicoya.api.controller">ReporteController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ReporteController.html" title="class in com.tecnicoya.api.controller">ReporteController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Descarga de reportes en Excel (<code>.xlsx</code>), bajo <code>/api/reportes</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service">ReporteService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service">ReporteService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Reportes en Excel (<code>.xlsx</code>) generados con Apache POI.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ReporteServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ReporteServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service"><code>ReporteService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab7"><a href="com/tecnicoya/api/security/RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">RequiereRol</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab7">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab7"><a href="com/tecnicoya/api/security/RequiereRol.html" title="annotation interface in com.tecnicoya.api.security">RequiereRol</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab7">
 <div class="block">Restringe un controlador o un endpoint a ciertos roles (principio de mínimo privilegio).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Atención que un cliente solicita y que realiza un técnico (tabla <code>servicio</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ServicioController.html" title="class in com.tecnicoya.api.controller">ServicioController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/ServicioController.html" title="class in com.tecnicoya.api.controller">ServicioController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de servicios solicitados por los clientes, bajo <code>/api/servicios</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/ServicioDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">ServicioDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/ServicioDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">ServicioDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao"><code>IServicioDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/ServicioRequest.html" title="class in com.tecnicoya.api.dto.request">ServicioRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/ServicioRequest.html" title="class in com.tecnicoya.api.dto.request">ServicioRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos de un servicio.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/ServicioResponse.html" title="class in com.tecnicoya.api.dto.response">ServicioResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/ServicioResponse.html" title="class in com.tecnicoya.api.dto.response">ServicioResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Servicio devuelto por la API, con los nombres del cliente y del técnico (<code>null</code> si aún no tiene).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ServicioService.html" title="interface in com.tecnicoya.api.service">ServicioService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/ServicioService.html" title="interface in com.tecnicoya.api.service">ServicioService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de servicios solicitados por los clientes.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/ServicioService.html" title="interface in com.tecnicoya.api.service"><code>ServicioService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab7"><a href="com/tecnicoya/api/validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">SinHtml</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab7">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab7"><a href="com/tecnicoya/api/validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation">SinHtml</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab7">
 <div class="block">Rechaza textos que contienen etiquetas HTML o código JavaScript, como <code>&lt;script&gt;</code>, <code>&lt;img onerror=...&gt;</code>
  o <code>javascript:</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/validation/SinHtmlValidator.html" title="class in com.tecnicoya.api.validation">SinHtmlValidator</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/validation/SinHtmlValidator.html" title="class in com.tecnicoya.api.validation">SinHtmlValidator</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Validador de <a href="com/tecnicoya/api/validation/SinHtml.html" title="annotation interface in com.tecnicoya.api.validation"><code>SinHtml</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Contratación de un plan por parte de un técnico durante un periodo (tabla <code>suscripcion</code>).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/SuscripcionController.html" title="class in com.tecnicoya.api.controller">SuscripcionController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/SuscripcionController.html" title="class in com.tecnicoya.api.controller">SuscripcionController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de suscripciones de técnicos a planes, bajo <code>/api/suscripciones</code>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/SuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">SuscripcionDaoImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/SuscripcionDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">SuscripcionDaoImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/ISuscripcionDao.html" title="interface in com.tecnicoya.api.dao"><code>ISuscripcionDao</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">La fecha de cancelación solo se acepta en estado CANCELADA (si se omite, se usa la fecha actual).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/SuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">SuscripcionResponse</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/SuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">SuscripcionResponse</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Suscripción devuelta por la API, con el nombre del técnico y del plan.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/SuscripcionService.html" title="interface in com.tecnicoya.api.service">SuscripcionService</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/SuscripcionService.html" title="interface in com.tecnicoya.api.service">SuscripcionService</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de suscripciones de técnicos a planes.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">SuscripcionServiceImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">SuscripcionServiceImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/SuscripcionService.html" title="interface in com.tecnicoya.api.service"><code>SuscripcionService</code></a>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Perfil profesional de un usuario de tipo <code>TECNICO</code>; relación 1 a 1 con <a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model"><code>Usuario</code></a> (tabla <code>tecnico</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/TecnicoController.html" title="class in com.tecnicoya.api.controller">TecnicoController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/TecnicoController.html" title="class in com.tecnicoya.api.controller">TecnicoController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de perfiles de técnico, bajo <code>/api/tecnicos</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/TecnicoDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">TecnicoDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/TecnicoDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">TecnicoDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao"><code>ITecnicoDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos para registrar o actualizar el perfil de técnico de un usuario.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/TecnicoResponse.html" title="class in com.tecnicoya.api.dto.response">TecnicoResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/TecnicoResponse.html" title="class in com.tecnicoya.api.dto.response">TecnicoResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Perfil de técnico devuelto por la API, junto con los datos de contacto de su usuario.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/TecnicoService.html" title="interface in com.tecnicoya.api.service">TecnicoService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/TecnicoService.html" title="interface in com.tecnicoya.api.service">TecnicoService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de perfiles de técnico.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">TecnicoServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">TecnicoServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/TecnicoService.html" title="interface in com.tecnicoya.api.service"><code>TecnicoService</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/TecnicoYaApiApplication.html" title="class in com.tecnicoya.api">TecnicoYaApiApplication</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/TecnicoYaApiApplication.html" title="class in com.tecnicoya.api">TecnicoYaApiApplication</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Punto de entrada de la aplicación Spring Boot.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/TipoEvidencia.html" title="enum class in com.tecnicoya.api.model.enums">TipoEvidencia</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/TipoEvidencia.html" title="enum class in com.tecnicoya.api.model.enums">TipoEvidencia</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Tipo de documento que respalda la idoneidad de un técnico.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab3">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab3"><a href="com/tecnicoya/api/model/enums/TipoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">TipoUsuario</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab3">
 <div class="block">Rol del usuario dentro de la plataforma.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Persona registrada en la plataforma: cliente, técnico o administrador (tabla <code>usuario</code>).</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/UsuarioController.html" title="class in com.tecnicoya.api.controller">UsuarioController</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/controller/UsuarioController.html" title="class in com.tecnicoya.api.controller">UsuarioController</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Endpoints REST de usuarios (clientes, técnicos y administradores), bajo <code>/api/usuarios</code>.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/UsuarioDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">UsuarioDaoImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/dao/impl/UsuarioDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">UsuarioDaoImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao"><code>IUsuarioDao</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/UsuarioRequest.html" title="class in com.tecnicoya.api.dto.request">UsuarioRequest</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/request/UsuarioRequest.html" title="class in com.tecnicoya.api.dto.request">UsuarioRequest</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Datos para registrar o actualizar un usuario.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/tecnicoya/api/dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Nunca incluye la contraseña.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/tecnicoya/api/service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Lógica de negocio de usuarios (clientes, técnicos y administradores).</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">UsuarioServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">UsuarioServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Implementación de <a href="com/tecnicoya/api/service/UsuarioService.html" title="interface in com.tecnicoya.api.service"><code>UsuarioService</code></a>.</div>
 </div>
 </div>

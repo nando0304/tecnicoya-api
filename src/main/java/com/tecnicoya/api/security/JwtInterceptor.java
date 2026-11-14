@@ -34,6 +34,9 @@ import java.util.Arrays;
  *   <li>{@code GET /api/archivos/{nombre}}: el navegador abre los archivos como enlaces o imágenes, sin cabeceras.</li>
  *   <li>Peticiones {@code OPTIONS} de CORS: el navegador las envía antes de la real y nunca llevan el token.</li>
  * </ul>
+ * En una ruta pública el token es opcional: si viene y es válido, también se leen el usuario y el rol. Así el
+ * administrador puede crear otros administradores con {@code POST /api/usuarios}, mientras que un registro
+ * anónimo no puede (lo comprueba {@link ControlAcceso}).
  */
 @Component
 @RequiredArgsConstructor
@@ -52,6 +55,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (esPublica(request)) {
+            autenticarSiHayToken(request);
             return true;
         }
         String cabecera = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -63,18 +67,13 @@ public class JwtInterceptor implements HandlerInterceptor {
         try {
             datos = jwtService.validarToken(cabecera.substring(PREFIJO.length()));
         } catch (JwtException | IllegalArgumentException ex) {
-            Auditoria.LOG.warn("TOKEN_RECHAZADO {} {} ip={}", request.getMethod(), request.getRequestURI(),
-                    request.getRemoteAddr());
+            Auditoria.LOG.warn("TOKEN_RECHAZADO {} {} ip={}", Auditoria.limpiar(request.getMethod()),
+                    Auditoria.limpiar(request.getRequestURI()), Auditoria.limpiar(request.getRemoteAddr()));
             throw new NoAutenticadoException("El token no es válido o ya venció; inicie sesión nuevamente");
         }
 
-        Long usuarioId = Long.valueOf(datos.getSubject());
-        TipoUsuario rol = TipoUsuario.valueOf(datos.get("rol", String.class));
-        request.setAttribute(ATRIBUTO_USUARIO, usuarioId);
-        request.setAttribute(ATRIBUTO_ROL, rol);
-        MDC.put(MDC_USUARIO, usuarioId + ":" + rol);
-
-        verificarRol(request, handler, usuarioId, rol);
+        TipoUsuario rol = registrarSesion(request, datos);
+        verificarRol(request, handler, (Long) request.getAttribute(ATRIBUTO_USUARIO), rol);
         return true;
     }
 
@@ -82,6 +81,29 @@ public class JwtInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 Exception ex) {
         MDC.remove(MDC_USUARIO);
+    }
+
+    /** En una ruta pública el token es opcional: si no viene o no es válido, la petición sigue como anónima. */
+    private void autenticarSiHayToken(HttpServletRequest request) {
+        String cabecera = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (cabecera == null || !cabecera.startsWith(PREFIJO)) {
+            return;
+        }
+        try {
+            registrarSesion(request, jwtService.validarToken(cabecera.substring(PREFIJO.length())));
+        } catch (JwtException | IllegalArgumentException ex) {
+            // Sigue como anónima: el token es opcional en esta ruta
+        }
+    }
+
+    /** Deja el id y el rol del token como atributos de la petición y en el MDC de Logback. */
+    private static TipoUsuario registrarSesion(HttpServletRequest request, Claims datos) {
+        Long usuarioId = Long.valueOf(datos.getSubject());
+        TipoUsuario rol = TipoUsuario.valueOf(datos.get("rol", String.class));
+        request.setAttribute(ATRIBUTO_USUARIO, usuarioId);
+        request.setAttribute(ATRIBUTO_ROL, rol);
+        MDC.put(MDC_USUARIO, usuarioId + ":" + rol);
+        return rol;
     }
 
     private static void verificarRol(HttpServletRequest request, Object handler, Long usuarioId, TipoUsuario rol) {
@@ -93,8 +115,8 @@ public class JwtInterceptor implements HandlerInterceptor {
             requerido = AnnotatedElementUtils.findMergedAnnotation(metodo.getBeanType(), RequiereRol.class);
         }
         if (requerido != null && Arrays.stream(requerido.value()).noneMatch(rol::equals)) {
-            Auditoria.LOG.warn("ACCESO_DENEGADO usuario={} rol={} {} {}", usuarioId, rol, request.getMethod(),
-                    request.getRequestURI());
+            Auditoria.LOG.warn("ACCESO_DENEGADO usuario={} rol={} {} {}", usuarioId, rol,
+                    Auditoria.limpiar(request.getMethod()), Auditoria.limpiar(request.getRequestURI()));
             throw new AccesoDenegadoException("Su rol (" + rol + ") no tiene permiso para usar este recurso");
         }
     }

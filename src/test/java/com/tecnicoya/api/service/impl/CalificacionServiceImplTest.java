@@ -8,6 +8,8 @@ import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Calificacion;
 import com.tecnicoya.api.model.enums.EstadoServicio;
 import com.tecnicoya.api.model.Servicio;
+import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -20,6 +22,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,10 +31,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CalificacionServiceImplTest {
 
+    private static final Long CLIENTE_ID = 2L;
+
     @Mock
     private ICalificacionDao calificacionDao;
     @Mock
     private IServicioDao servicioDao;
+    @Mock
+    private ControlAcceso controlAcceso;
     @InjectMocks
     private CalificacionServiceImpl calificacionService;
 
@@ -67,10 +75,23 @@ class CalificacionServiceImplTest {
         assertThat(guardada.getValue().getComentario()).isNull();
     }
 
+    @Test
+    void crear_verificaQueQuienCalificaSeaElClienteDelServicio() {
+        when(servicioDao.buscarPorId(4L)).thenReturn(Optional.of(servicio(EstadoServicio.FINALIZADO)));
+        when(calificacionDao.guardar(any(Calificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        calificacionService.crear(new CalificacionRequest(4L, 5, "Excelente"));
+
+        verify(controlAcceso).exigirPropietario(anyString(), eq(CLIENTE_ID));
+    }
+
     private static Servicio servicio(EstadoServicio estado) {
         Servicio servicio = new Servicio();
         servicio.setIdServicio(4L);
         servicio.setEstadoServicio(estado);
+        Usuario cliente = new Usuario();
+        cliente.setIdUsuario(CLIENTE_ID);
+        servicio.setCliente(cliente);
         return servicio;
     }
 }

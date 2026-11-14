@@ -85,7 +85,10 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">UsuarioServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></span></div>
-<div class="block">Implementación de <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service"><code>UsuarioService</code></a>. Registra en el log (Logback) las altas, bajas y cambios de contraseña.</div>
+<div class="block">Implementación de <a href="../UsuarioService.html" title="interface in com.tecnicoya.api.service"><code>UsuarioService</code></a>. Registra en el log (Logback) las altas, bajas y cambios de contraseña.
+
+ <p>Control de acceso (<a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>): cada usuario solo ve y edita su propia cuenta, y solo un
+ administrador puede crear administradores, cambiar el tipo de un usuario o su estado.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -98,15 +101,18 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private final org.springframework.security.crypto.password.PasswordEncoder</code></div>
-<div class="col-second even-row-color"><code><a href="#passwordEncoder" class="member-name-link">passwordEncoder</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></code></div>
+<div class="col-second even-row-color"><code><a href="#controlAcceso" class="member-name-link">controlAcceso</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
+<div class="col-first odd-row-color"><code>private final org.springframework.security.crypto.password.PasswordEncoder</code></div>
+<div class="col-second odd-row-color"><code><a href="#passwordEncoder" class="member-name-link">passwordEncoder</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -209,6 +215,12 @@ implements <a href="../UsuarioService.html" title="interface in com.tecnicoya.ap
 <section class="detail" id="passwordEncoder">
 <h3>passwordEncoder</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">org.springframework.security.crypto.password.PasswordEncoder</span>&nbsp;<span class="element-name">passwordEncoder</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="controlAcceso">
+<h3>controlAcceso</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></span>&nbsp;<span class="element-name">controlAcceso</span></div>
 </section>
 </li>
 </ul>

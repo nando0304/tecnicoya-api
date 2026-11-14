@@ -85,7 +85,11 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">ServicioServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../ServicioService.html" title="interface in com.tecnicoya.api.service">ServicioService</a></span></div>
-<div class="block">Implementación de <a href="../ServicioService.html" title="interface in com.tecnicoya.api.service"><code>ServicioService</code></a>.</div>
+<div class="block">Implementación de <a href="../ServicioService.html" title="interface in com.tecnicoya.api.service"><code>ServicioService</code></a>.
+
+ <p>Control de acceso (<a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>): un cliente solo solicita servicios a su nombre y solo edita los
+ suyos; un técnico solo edita los servicios que tiene asignados o acepta uno libre. Solo el técnico asignado
+ marca el trabajo como EN_PROCESO o FINALIZADO (así un cliente no puede cerrar un servicio y calificarlo).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -98,23 +102,36 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private static final com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#ESTADOS_CERRADOS" class="member-name-link">ESTADOS_CERRADOS</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></code></div>
+<div class="col-second even-row-color"><code><a href="#controlAcceso" class="member-name-link">controlAcceso</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>private static final com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#ESTADOS_CON_TECNICO" class="member-name-link">ESTADOS_CON_TECNICO</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-second odd-row-color"><code><a href="#ESTADOS_CERRADOS" class="member-name-link">ESTADOS_CERRADOS</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>private static final com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#ESTADOS_CON_TECNICO" class="member-name-link">ESTADOS_CON_TECNICO</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Conjuntos inmutables de Google Guava (respaldados internamente por un EnumSet).</div>
 </div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
+<div class="col-first odd-row-color"><code>private static final com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#ESTADOS_DEL_TECNICO" class="member-name-link">ESTADOS_DEL_TECNICO</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Estados que solo marca el técnico asignado (o el administrador).</div>
+</div>
+<div class="col-first even-row-color"><code>private static final com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#ESTADOS_INICIALES" class="member-name-link">ESTADOS_INICIALES</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Estados con los que un cliente puede registrar una solicitud.</div>
+</div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
-<div class="col-second even-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#tecnicoDao" class="member-name-link">tecnicoDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>private final <a href="../../dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao">IUsuarioDao</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#usuarioDao" class="member-name-link">usuarioDao</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -136,7 +153,7 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -181,9 +198,16 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Busca un registro por su id.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#validarEstadoYFechas(com.tecnicoya.api.model.Servicio,java.time.LocalDateTime)" class="member-name-link">validarEstadoYFechas</a><wbr>(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>private static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#usuarioDe(com.tecnicoya.api.model.Tecnico)" class="member-name-link">usuarioDe</a><wbr>(<a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a>&nbsp;tecnico)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#validarEstadoYFechas(com.tecnicoya.api.model.Servicio,java.time.LocalDateTime)" class="member-name-link">validarEstadoYFechas</a><wbr>(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;fechaCierreSolicitada)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#verificarPermisoDeEdicion(com.tecnicoya.api.model.Servicio,com.tecnicoya.api.dto.request.ServicioRequest)" class="member-name-link">verificarPermisoDeEdicion</a><wbr>(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio,
+ <a href="../../dto/request/ServicioRequest.html" title="class in com.tecnicoya.api.dto.request">ServicioRequest</a>&nbsp;request)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -216,6 +240,20 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 </section>
 </li>
 <li>
+<section class="detail" id="ESTADOS_INICIALES">
+<h3>ESTADOS_INICIALES</h3>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type">com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</span>&nbsp;<span class="element-name">ESTADOS_INICIALES</span></div>
+<div class="block">Estados con los que un cliente puede registrar una solicitud.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="ESTADOS_DEL_TECNICO">
+<h3>ESTADOS_DEL_TECNICO</h3>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type">com.google.common.collect.ImmutableSet&lt;<a href="../../model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a>&gt;</span>&nbsp;<span class="element-name">ESTADOS_DEL_TECNICO</span></div>
+<div class="block">Estados que solo marca el técnico asignado (o el administrador).</div>
+</section>
+</li>
+<li>
 <section class="detail" id="servicioDao">
 <h3>servicioDao</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></span>&nbsp;<span class="element-name">servicioDao</span></div>
@@ -231,6 +269,12 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 <section class="detail" id="tecnicoDao">
 <h3>tecnicoDao</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/ITecnicoDao.html" title="interface in com.tecnicoya.api.dao">ITecnicoDao</a></span>&nbsp;<span class="element-name">tecnicoDao</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="controlAcceso">
+<h3>controlAcceso</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></span>&nbsp;<span class="element-name">controlAcceso</span></div>
 </section>
 </li>
 </ul>
@@ -342,6 +386,19 @@ implements <a href="../ServicioService.html" title="interface in com.tecnicoya.a
 <section class="detail" id="buscar(java.lang.Long)">
 <h3>buscar</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a></span>&nbsp;<span class="element-name">buscar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="verificarPermisoDeEdicion(com.tecnicoya.api.model.Servicio,com.tecnicoya.api.dto.request.ServicioRequest)">
+<h3>verificarPermisoDeEdicion</h3>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">verificarPermisoDeEdicion</span><wbr><span class="parameters">(<a href="../../model/Servicio.html" title="class in com.tecnicoya.api.model">Servicio</a>&nbsp;servicio,
+ <a href="../../dto/request/ServicioRequest.html" title="class in com.tecnicoya.api.dto.request">ServicioRequest</a>&nbsp;request)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="usuarioDe(com.tecnicoya.api.model.Tecnico)">
+<h3>usuarioDe</h3>
+<div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></span>&nbsp;<span class="element-name">usuarioDe</span><wbr><span class="parameters">(<a href="../../model/Tecnico.html" title="class in com.tecnicoya.api.model">Tecnico</a>&nbsp;tecnico)</span></div>
 </section>
 </li>
 <li>

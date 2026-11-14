@@ -219,7 +219,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html#%3Cinit%3E(java.time.LocalDateTime,int,java.lang.String,java.lang.String,java.lang.String,java.util.Map)" class="member-name-link">ApiErrorResponse(LocalDateTime, int, String, String, String, Map&lt;String, String&gt;)</a> - Constructor for record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></dt>
 <dd>
-<div class="block">Creates an instance of a <code>ApiErrorResponse</code> record class.</div>
+<div class="block">Copia defensiva e inmutable de los errores por campo (conserva el orden en que se detectaron).</div>
 </dd>
 <dt><a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html#aplicarDatos(com.tecnicoya.api.dto.request.DisponibilidadRequest,com.tecnicoya.api.model.Disponibilidad)" class="member-name-link">aplicarDatos(DisponibilidadRequest, Disponibilidad)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a></dt>
 <dd>&nbsp;</dd>
@@ -321,6 +321,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/service/UsuarioService.html#autenticar(com.tecnicoya.api.dto.request.LoginRequest)" class="member-name-link">autenticar(LoginRequest)</a> - Method in interface com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/UsuarioService.html" title="interface in com.tecnicoya.api.service">UsuarioService</a></dt>
 <dd>
 <div class="block">Valida las credenciales de inicio de sesión.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#autenticarSiHayToken(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">autenticarSiHayToken(HttpServletRequest)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
+<dd>
+<div class="block">En una ruta pública el token es opcional: si no viene o no es válido, la petición sigue como anónima.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/controller/AuthController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">AuthController</a> - Class in <a href="com/tecnicoya/api/controller/package-summary.html">com.tecnicoya.api.controller</a></dt>
 <dd>
@@ -717,6 +721,33 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>contrasena</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/service/impl/CalificacionServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/CalificacionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">CalificacionServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ExperienciaLaboralServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/PagoSuscripcionServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/PagoSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PagoSuscripcionServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">SuscripcionServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">TecnicoServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html#controlAcceso" class="member-name-link">controlAcceso</a> - Variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">UsuarioServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html" class="type-name-link" title="class in com.tecnicoya.api.security">ControlAcceso</a> - Class in <a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a></dt>
+<dd>
+<div class="block">Control de acceso a nivel de registro: evita que un usuario modifique datos que no le pertenecen
+ (OWASP Top 10 A01 - Broken Access Control, conocido como IDOR) o que se dé a sí mismo privilegios que no tiene.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#%3Cinit%3E()" class="member-name-link">ControlAcceso()</a> - Constructor for class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html#copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.model.EvidenciaPago)" class="member-name-link">copiarDatos(EvidenciaPagoRequest, EvidenciaPago)</a> - Static method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html#copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.model.PlanSuscripcion,java.lang.String)" class="member-name-link">copiarDatos(PlanSuscripcionRequest, PlanSuscripcion, String)</a> - Static method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PlanSuscripcionServiceImpl</a></dt>
@@ -855,6 +886,8 @@ loadScripts(document, 'script');</script>
  bruta).</div>
 </dd>
 <dt><a href="com/tecnicoya/api/exception/DemasiadosIntentosException.html#%3Cinit%3E(java.lang.String,java.time.Duration)" class="member-name-link">DemasiadosIntentosException(String, Duration)</a> - Constructor for exception com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/DemasiadosIntentosException.html" title="class in com.tecnicoya.api.exception">DemasiadosIntentosException</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#denegar(java.lang.String)" class="member-name-link">denegar(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/controller/ArchivoController.html#descargar(java.lang.String)" class="member-name-link">descargar(String)</a> - Method in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/ArchivoController.html" title="class in com.tecnicoya.api.controller">ArchivoController</a></dt>
 <dd>
@@ -1286,6 +1319,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>errores</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#esAdministrador()" class="member-name-link">esAdministrador()</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html#escribir(org.apache.poi.ss.usermodel.Cell,java.lang.Object)" class="member-name-link">escribir(Cell, Object)</a> - Method in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></dt>
 <dd>
 <div class="block">Escribe el valor con el tipo y estilo que le corresponde y devuelve su largo aproximado en caracteres.</div>
@@ -1419,6 +1454,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#ESTADOS_CON_TECNICO" class="member-name-link">ESTADOS_CON_TECNICO</a> - Static variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
 <dd>
 <div class="block">Conjuntos inmutables de Google Guava (respaldados internamente por un EnumSet).</div>
+</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#ESTADOS_DEL_TECNICO" class="member-name-link">ESTADOS_DEL_TECNICO</a> - Static variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
+<dd>
+<div class="block">Estados que solo marca el técnico asignado (o el administrador).</div>
+</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#ESTADOS_INICIALES" class="member-name-link">ESTADOS_INICIALES</a> - Static variable in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
+<dd>
+<div class="block">Estados con los que un cliente puede registrar una solicitud.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/request/ServicioRequest.html#estadoServicio" class="member-name-link">estadoServicio</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ServicioRequest.html" title="class in com.tecnicoya.api.dto.request">ServicioRequest</a></dt>
 <dd>
@@ -1656,6 +1699,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html#%3Cinit%3E()" class="member-name-link">EvidenciaServiceImpl()</a> - Constructor for class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#exigirAdministrador(java.lang.String)" class="member-name-link">exigirAdministrador(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>
+<div class="block">Permite continuar solo si el usuario autenticado es administrador; si no, responde 403.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#exigirPropietario(java.lang.String,java.lang.Long...)" class="member-name-link">exigirPropietario(String, Long...)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>
+<div class="block">Permite continuar solo si el usuario autenticado es uno de los dueños indicados o es administrador.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html#existe(jakarta.persistence.TypedQuery)" class="member-name-link">existe(TypedQuery&lt;Long&gt;)</a> - Static method in class com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/GenericDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">GenericDaoImpl</a></dt>
 <dd>
 <div class="block">Ejecuta una consulta <code>SELECT COUNT(...)</code> y devuelve si encontró al menos un registro.</div>
@@ -2397,6 +2448,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#leer(java.lang.String)" class="member-name-link">leer(String)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html#libro" class="member-name-link">libro</a> - Variable in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html" class="type-name-link" title="class in com.tecnicoya.api.util">LibroExcel</a> - Class in <a href="com/tecnicoya/api/util/package-summary.html">com.tecnicoya.api.util</a></dt>
@@ -2434,6 +2487,11 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#%3Cinit%3E(int,java.time.Duration,com.google.common.base.Ticker)" class="member-name-link">LimiteIntentosLogin(int, Duration, Ticker)</a> - Constructor for class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>
 <div class="block">Permite a las pruebas controlar el paso del tiempo con un <code>Ticker</code> propio.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/util/Auditoria.html#limpiar(java.lang.Object)" class="member-name-link">limpiar(Object)</a> - Static method in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/Auditoria.html" title="class in com.tecnicoya.api.util">Auditoria</a></dt>
+<dd>
+<div class="block">Neutraliza los saltos de línea de un dato antes de registrarlo: un atacante no puede cerrar la línea
+ actual y escribir una entrada falsa (por ejemplo, un LOGIN_EXITOSO inventado).</div>
 </dd>
 <dt><a href="com/tecnicoya/api/controller/CalificacionController.html#listar()" class="member-name-link">listar()</a> - Method in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/CalificacionController.html" title="class in com.tecnicoya.api.controller">CalificacionController</a></dt>
 <dd>
@@ -3147,6 +3205,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#registrarFallo(java.lang.String)" class="member-name-link">registrarFallo(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>
 <div class="block">Suma un intento fallido.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#registrarSesion(jakarta.servlet.http.HttpServletRequest,io.jsonwebtoken.Claims)" class="member-name-link">registrarSesion(HttpServletRequest, Claims)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
+<dd>
+<div class="block">Deja el id y el rol del token como atributos de la petición y en el MDC de Logback.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/exception/ReglaNegocioException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a> - Exception in <a href="com/tecnicoya/api/exception/package-summary.html">com.tecnicoya.api.exception</a></dt>
 <dd>
@@ -3971,6 +4033,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/tecnicoya/api/model/Usuario.html#%3Cinit%3E()" class="member-name-link">Usuario()</a> - Constructor for class com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/ControlAcceso.html#usuarioActual()" class="member-name-link">usuarioActual()</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/controller/UsuarioController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">UsuarioController</a> - Class in <a href="com/tecnicoya/api/controller/package-summary.html">com.tecnicoya.api.controller</a></dt>
 <dd>
 <div class="block">Endpoints REST de usuarios (clientes, técnicos y administradores), bajo <code>/api/usuarios</code>.</div>
@@ -3990,6 +4054,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Implementación JPA de <a href="com/tecnicoya/api/dao/IUsuarioDao.html" title="interface in com.tecnicoya.api.dao"><code>IUsuarioDao</code></a>.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dao/impl/UsuarioDaoImpl.html#%3Cinit%3E()" class="member-name-link">UsuarioDaoImpl()</a> - Constructor for class com.tecnicoya.api.dao.impl.<a href="com/tecnicoya/api/dao/impl/UsuarioDaoImpl.html" title="class in com.tecnicoya.api.dao.impl">UsuarioDaoImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#usuarioDe(com.tecnicoya.api.model.Tecnico)" class="member-name-link">usuarioDe(Tecnico)</a> - Static method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/request/TecnicoRequest.html#usuarioId" class="member-name-link">usuarioId</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/TecnicoRequest.html" title="class in com.tecnicoya.api.dto.request">TecnicoRequest</a></dt>
 <dd>
@@ -4171,6 +4237,18 @@ the order they are declared.</div>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#verificar(java.lang.String)" class="member-name-link">verificar(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>
 <div class="block">Rechaza el intento si la clave está bloqueada.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html#verificarDueno(com.tecnicoya.api.model.Disponibilidad)" class="member-name-link">verificarDueno(Disponibilidad)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/DisponibilidadServiceImpl.html" title="class in com.tecnicoya.api.service.impl">DisponibilidadServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html#verificarDueno(com.tecnicoya.api.model.Evidencia)" class="member-name-link">verificarDueno(Evidencia)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html#verificarDueno(com.tecnicoya.api.model.ExperienciaLaboral)" class="member-name-link">verificarDueno(ExperienciaLaboral)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ExperienciaLaboralServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ExperienciaLaboralServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#verificarPermisoDeEdicion(com.tecnicoya.api.model.Servicio,com.tecnicoya.api.dto.request.ServicioRequest)" class="member-name-link">verificarPermisoDeEdicion(Servicio, ServicioRequest)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html#verificarPermisoDeEdicion(com.tecnicoya.api.model.Suscripcion,com.tecnicoya.api.dto.request.SuscripcionRequest)" class="member-name-link">verificarPermisoDeEdicion(Suscripcion, SuscripcionRequest)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/SuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">SuscripcionServiceImpl</a></dt>
+<dd>
+<div class="block">El técnico dueño solo puede cancelar; cualquier otro cambio lo hace el administrador.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#verificarRol(jakarta.servlet.http.HttpServletRequest,java.lang.Object,java.lang.Long,com.tecnicoya.api.model.enums.TipoUsuario)" class="member-name-link">verificarRol(HttpServletRequest, Object, Long, TipoUsuario)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
 <dd>&nbsp;</dd>

@@ -12,6 +12,7 @@ import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.enums.EstadoUsuario;
 import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.UsuarioService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Locale;
 
-/** Implementación de {@link UsuarioService}. Registra en el log (Logback) las altas, bajas y cambios de contraseña. */
+/**
+ * Implementación de {@link UsuarioService}. Registra en el log (Logback) las altas, bajas y cambios de contraseña.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): cada usuario solo ve y edita su propia cuenta, y solo un
+ * administrador puede crear administradores, cambiar el tipo de un usuario o su estado.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -34,6 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final IUsuarioDao usuarioDao;
     private final ITecnicoDao tecnicoDao;
     private final PasswordEncoder passwordEncoder;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<UsuarioResponse> listar() {
@@ -42,6 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioResponse obtenerPorId(Long id) {
+        controlAcceso.exigirPropietario("ver los datos de otro usuario", id);
         return UsuarioResponse.desde(buscar(id));
     }
 
@@ -64,6 +72,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (StringUtils.isBlank(request.contrasena())) {
             throw new ReglaNegocioException("La contraseña es obligatoria al registrar un usuario");
         }
+        // Registro público: nadie puede crearse una cuenta de administrador ni elegir otro estado que ACTIVO
+        if (request.tipoUsuario() == TipoUsuario.ADMINISTRADOR) {
+            controlAcceso.exigirAdministrador("registrar un usuario ADMINISTRADOR");
+        }
+        if (request.estado() != null && request.estado() != EstadoUsuario.ACTIVO) {
+            controlAcceso.exigirAdministrador("registrar un usuario en estado " + request.estado());
+        }
         String correo = normalizarCorreo(request.correo());
         if (usuarioDao.existeCorreo(correo)) {
             throw new ConflictoException("Ya existe un usuario registrado con el correo " + correo);
@@ -82,7 +97,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public UsuarioResponse actualizar(Long id, UsuarioRequest request) {
+        controlAcceso.exigirPropietario("modificar los datos de otro usuario", id);
         Usuario usuario = buscar(id);
+        if (request.tipoUsuario() != usuario.getTipoUsuario()) {
+            controlAcceso.exigirAdministrador("cambiar el tipo de usuario a " + request.tipoUsuario());
+        }
+        if (request.estado() != null && request.estado() != usuario.getEstado()) {
+            controlAcceso.exigirAdministrador("cambiar el estado de la cuenta a " + request.estado());
+        }
         String correo = normalizarCorreo(request.correo());
         if (usuarioDao.existeCorreoEnOtroUsuario(correo, id)) {
             throw new ConflictoException("Ya existe otro usuario registrado con el correo " + correo);

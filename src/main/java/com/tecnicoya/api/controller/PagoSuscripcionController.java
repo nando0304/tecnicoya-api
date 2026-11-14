@@ -2,6 +2,8 @@ package com.tecnicoya.api.controller;
 
 import com.tecnicoya.api.dto.request.PagoSuscripcionRequest;
 import com.tecnicoya.api.dto.response.PagoSuscripcionResponse;
+import com.tecnicoya.api.model.enums.TipoUsuario;
+import com.tecnicoya.api.security.RequiereRol;
 import com.tecnicoya.api.service.PagoSuscripcionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +71,7 @@ public class PagoSuscripcionController {
      * @param request nuevos datos
      * @return 200 con el registro actualizado; 400, 404 o 409 en los mismos casos que {@link #crear}
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @PutMapping("/{id}")
     public PagoSuscripcionResponse actualizar(@PathVariable Long id, @Valid @RequestBody PagoSuscripcionRequest request) {
         return pagoSuscripcionService.actualizar(id, request);
@@ -80,6 +83,7 @@ public class PagoSuscripcionController {
      *
      * @param id id del registro
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {

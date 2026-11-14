@@ -85,7 +85,10 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">CalificacionServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../CalificacionService.html" title="interface in com.tecnicoya.api.service">CalificacionService</a></span></div>
-<div class="block">Implementación de <a href="../CalificacionService.html" title="interface in com.tecnicoya.api.service"><code>CalificacionService</code></a>.</div>
+<div class="block">Implementación de <a href="../CalificacionService.html" title="interface in com.tecnicoya.api.service"><code>CalificacionService</code></a>.
+
+ <p>Control de acceso (<a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security"><code>ControlAcceso</code></a>): solo el cliente que solicitó el servicio puede
+ calificarlo o editar su calificación.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -101,9 +104,12 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <div class="col-first even-row-color"><code>private final <a href="../../dao/ICalificacionDao.html" title="interface in com.tecnicoya.api.dao">ICalificacionDao</a></code></div>
 <div class="col-second even-row-color"><code><a href="#calificacionDao" class="member-name-link">calificacionDao</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
+<div class="col-first odd-row-color"><code>private final <a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#controlAcceso" class="member-name-link">controlAcceso</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>private final <a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></code></div>
+<div class="col-second even-row-color"><code><a href="#servicioDao" class="member-name-link">servicioDao</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -190,6 +196,12 @@ implements <a href="../CalificacionService.html" title="interface in com.tecnico
 <section class="detail" id="servicioDao">
 <h3>servicioDao</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../dao/IServicioDao.html" title="interface in com.tecnicoya.api.dao">IServicioDao</a></span>&nbsp;<span class="element-name">servicioDao</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="controlAcceso">
+<h3>controlAcceso</h3>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></span>&nbsp;<span class="element-name">controlAcceso</span></div>
 </section>
 </li>
 </ul>

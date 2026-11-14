@@ -10,6 +10,7 @@ import com.tecnicoya.api.exception.ReglaNegocioException;
 import com.tecnicoya.api.model.Disponibilidad;
 import com.tecnicoya.api.model.enums.EstadoRegistro;
 import com.tecnicoya.api.model.Tecnico;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.DisponibilidadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link DisponibilidadService}. */
+/**
+ * Implementación de {@link DisponibilidadService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina la disponibilidad
+ * de su propio perfil.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -25,6 +31,7 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
 
     private final IDisponibilidadDao disponibilidadDao;
     private final ITecnicoDao tecnicoDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<DisponibilidadResponse> listar() {
@@ -49,6 +56,7 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
     @Transactional
     public DisponibilidadResponse actualizar(Long id, DisponibilidadRequest request) {
         Disponibilidad disponibilidad = buscar(id);
+        verificarDueno(disponibilidad);
         if (request.estado() != null) {
             disponibilidad.setEstado(request.estado());
         }
@@ -59,7 +67,14 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
     @Override
     @Transactional
     public void eliminar(Long id) {
-        disponibilidadDao.eliminar(buscar(id));
+        Disponibilidad disponibilidad = buscar(id);
+        verificarDueno(disponibilidad);
+        disponibilidadDao.eliminar(disponibilidad);
+    }
+
+    private void verificarDueno(Disponibilidad disponibilidad) {
+        controlAcceso.exigirPropietario("gestionar la disponibilidad de otro técnico",
+                disponibilidad.getTecnico().getUsuario().getIdUsuario());
     }
 
     private Disponibilidad buscar(Long id) {
@@ -73,6 +88,8 @@ public class DisponibilidadServiceImpl implements DisponibilidadService {
         }
         Tecnico tecnico = tecnicoDao.buscarPorId(request.tecnicoId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("el técnico", request.tecnicoId()));
+        controlAcceso.exigirPropietario("gestionar la disponibilidad de otro técnico",
+                tecnico.getUsuario().getIdUsuario());
 
         long cruces = disponibilidadDao.contarCrucesDeHorario(tecnico.getIdTecnico(), request.diaSemana(),
                 request.horaInicio(), request.horaFin(), disponibilidad.getIdDisponibilidad());

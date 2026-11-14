@@ -17,6 +17,7 @@ import com.tecnicoya.api.model.enums.TipoUsuario;
 import com.tecnicoya.api.model.Servicio;
 import com.tecnicoya.api.model.Tecnico;
 import com.tecnicoya.api.model.Usuario;
+import com.tecnicoya.api.security.ControlAcceso;
 import com.tecnicoya.api.service.ServicioService;
 import com.tecnicoya.api.util.FechaUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/** Implementación de {@link ServicioService}. */
+/**
+ * Implementación de {@link ServicioService}.
+ *
+ * <p>Control de acceso ({@link ControlAcceso}): un cliente solo solicita servicios a su nombre y solo edita los
+ * suyos; un técnico solo edita los servicios que tiene asignados o acepta uno libre. Solo el técnico asignado
+ * marca el trabajo como EN_PROCESO o FINALIZADO (así un cliente no puede cerrar un servicio y calificarlo).
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -38,10 +45,17 @@ public class ServicioServiceImpl implements ServicioService {
             Sets.immutableEnumSet(EstadoServicio.ASIGNADO, EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
     private static final ImmutableSet<EstadoServicio> ESTADOS_CERRADOS =
             Sets.immutableEnumSet(EstadoServicio.FINALIZADO, EstadoServicio.CANCELADO);
+    /** Estados con los que un cliente puede registrar una solicitud. */
+    private static final ImmutableSet<EstadoServicio> ESTADOS_INICIALES =
+            Sets.immutableEnumSet(EstadoServicio.PENDIENTE, EstadoServicio.ASIGNADO);
+    /** Estados que solo marca el técnico asignado (o el administrador). */
+    private static final ImmutableSet<EstadoServicio> ESTADOS_DEL_TECNICO =
+            Sets.immutableEnumSet(EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
 
     private final IServicioDao servicioDao;
     private final IUsuarioDao usuarioDao;
     private final ITecnicoDao tecnicoDao;
+    private final ControlAcceso controlAcceso;
 
     @Override
     public List<ServicioResponse> listar() {
@@ -56,6 +70,10 @@ public class ServicioServiceImpl implements ServicioService {
     @Override
     @Transactional
     public ServicioResponse crear(ServicioRequest request) {
+        controlAcceso.exigirPropietario("solicitar un servicio a nombre de otro cliente", request.clienteId());
+        if (request.estadoServicio() != null && !ESTADOS_INICIALES.contains(request.estadoServicio())) {
+            controlAcceso.exigirAdministrador("registrar un servicio en estado " + request.estadoServicio());
+        }
         Servicio servicio = new Servicio();
         servicio.setFechaSolicitud(FechaUtil.ahora());
         if (request.estadoServicio() != null) {
@@ -73,6 +91,7 @@ public class ServicioServiceImpl implements ServicioService {
     @Transactional
     public ServicioResponse actualizar(Long id, ServicioRequest request) {
         Servicio servicio = buscar(id);
+        verificarPermisoDeEdicion(servicio, request);
         if (request.estadoServicio() != null) {
             servicio.setEstadoServicio(request.estadoServicio());
         }
@@ -93,6 +112,31 @@ public class ServicioServiceImpl implements ServicioService {
     private Servicio buscar(Long id) {
         return servicioDao.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("el servicio", id));
+    }
+
+    private void verificarPermisoDeEdicion(Servicio servicio, ServicioRequest request) {
+        Long cliente = servicio.getCliente().getIdUsuario();
+        Long tecnicoAsignado = usuarioDe(servicio.getTecnico());
+        Long tecnicoSolicitado = request.tecnicoId() == null ? null
+                : tecnicoDao.buscarPorId(request.tecnicoId()).map(ServicioServiceImpl::usuarioDe).orElse(null);
+        // Un técnico puede tomar un servicio que no tiene técnico (aceptar la solicitud)
+        Long tecnicoQueAcepta = servicio.getTecnico() == null ? tecnicoSolicitado : null;
+
+        controlAcceso.exigirPropietario("modificar un servicio de otro usuario",
+                cliente, tecnicoAsignado, tecnicoQueAcepta);
+        if (!cliente.equals(request.clienteId())) {
+            controlAcceso.exigirAdministrador("cambiar el cliente de un servicio");
+        }
+        EstadoServicio nuevoEstado = request.estadoServicio();
+        boolean cambiaEstado = nuevoEstado != null && nuevoEstado != servicio.getEstadoServicio();
+        if (cambiaEstado && ESTADOS_DEL_TECNICO.contains(nuevoEstado)) {
+            controlAcceso.exigirPropietario(
+                    "marcar el servicio como " + nuevoEstado + "; solo lo hace el técnico asignado", tecnicoSolicitado);
+        }
+    }
+
+    private static Long usuarioDe(Tecnico tecnico) {
+        return tecnico == null ? null : tecnico.getUsuario().getIdUsuario();
     }
 
     private void aplicarDatos(ServicioRequest request, Servicio servicio) {

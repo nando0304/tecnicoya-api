@@ -2,6 +2,8 @@ package com.tecnicoya.api.controller;
 
 import com.tecnicoya.api.dto.request.UsuarioRequest;
 import com.tecnicoya.api.dto.response.UsuarioResponse;
+import com.tecnicoya.api.model.enums.TipoUsuario;
+import com.tecnicoya.api.security.RequiereRol;
 import com.tecnicoya.api.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class UsuarioController {
      *
      * @return 200 con la lista (vacía si no hay registros)
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @GetMapping
     public List<UsuarioResponse> listar() {
         return usuarioService.listar();
@@ -80,6 +83,7 @@ public class UsuarioController {
      *
      * @param id id del registro
      */
+    @RequiereRol(TipoUsuario.ADMINISTRADOR)
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {
