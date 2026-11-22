@@ -126,6 +126,30 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- ===== Monitoreo (observabilidad). Guía completa en docs/monitoreo.md ===== -->
+        <!-- Actuator: endpoints /actuator/health, /actuator/metrics, /actuator/loggers, etc. Incluye Micrometer,
+             que mide tiempos de respuesta (APM), errores, CPU, memoria de la JVM, disco y el pool de conexiones -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- Publica las métricas en formato Prometheus (/actuator/prometheus) para graficarlas en Grafana -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!-- Métricas de Hibernate: consultas ejecutadas, entidades cargadas, transacciones (monitoreo de la BD) -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-micrometer</artifactId>
+        </dependency>
+        <!-- OSHI: lee del sistema operativo la memoria RAM y el tráfico de red, que la JVM no expone -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>7.7.3</version>
+        </dependency>
     </dependencies>
 
     <build>

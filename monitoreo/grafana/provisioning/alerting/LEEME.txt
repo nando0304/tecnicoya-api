@@ -1,0 +1,1 @@
+# Carpeta vacía a propósito: Grafana la busca al iniciar. Las alertas están en prometheus/alertas.yml

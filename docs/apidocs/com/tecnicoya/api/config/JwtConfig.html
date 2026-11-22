@@ -88,7 +88,10 @@ implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer</s
  <ol>
    <li><a href="../security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a>: exige el token y verifica el rol.</li>
    <li><a href="../security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security"><code>AuditoriaInterceptor</code></a>: registra las operaciones que modifican datos.</li>
- </ol></div>
+ </ol>
+ La ruta pública de reporte de errores del front-end (<a href="../controller/MonitoreoController.html#RUTA_ERRORES_FRONTEND"><code>MonitoreoController.RUTA_ERRORES_FRONTEND</code></a>) queda
+ fuera de ambos: no pide token y no se audita como operación. Los endpoints de <code>/actuator</code> los protege
+ <a href="../security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security"><code>MonitoreoSeguridadFilter</code></a>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">

@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "181da699-b03f-4bed-9111-85d9402cb6bf",
     "name": "TécnicoYa API",
-    "description": "Pruebas de los 60 endpoints de la API de TécnicoYa: inicio de sesión, 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id} y 4 reportes Excel (solo administrador).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: la colección inicia sesión automáticamente (script de colección) cuando falta un token o ya venció: como ADMINISTRADOR ({{token}}, el que usan por defecto las carpetas 01 a 13), como CLIENTE ({{tokenCliente}}) y como TECNICO ({{tokenTecnico}}). Por eso cualquier carpeta se puede ejecutar suelta. \"00 - Autenticación > Iniciar sesión\" prueba el login en sí.\nSeguridad: la carpeta 14 ejecuta 18 ataques (escalada de privilegios, IDOR, JWT falsificado, inyección SQL, XSS, path traversal, fuerza bruta) y verifica que todos sean bloqueados.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
+    "description": "Pruebas de los 60 endpoints de la API de TécnicoYa: inicio de sesión, 11 recursos × GET, GET/{id}, POST, PUT/{id}, DELETE/{id} y 4 reportes Excel (solo administrador).\n\nRequisitos: la API corriendo en http://localhost:8080 y la BD cargada con database/schema.sql y database/data.sql.\n\nAutenticación: la colección inicia sesión automáticamente (script de colección) cuando falta un token o ya venció: como ADMINISTRADOR ({{token}}, el que usan por defecto las carpetas 01 a 13), como CLIENTE ({{tokenCliente}}) y como TECNICO ({{tokenTecnico}}). Por eso cualquier carpeta se puede ejecutar suelta. \"00 - Autenticación > Iniciar sesión\" prueba el login en sí.\nMonitoreo: la carpeta 15 prueba la salud, las métricas (APM, base de datos, sistema operativo), el cambio de nivel de los logs y el rastreo de errores del front-end (docs/monitoreo.md).\nSeguridad: la carpeta 14 ejecuta 18 ataques (escalada de privilegios, IDOR, JWT falsificado, inyección SQL, XSS, path traversal, fuerza bruta) y verifica que todos sean bloqueados.\n\nUso: ejecute la colección completa con el Collection Runner, o cada carpeta en orden.\nCada POST guarda el id creado en una variable de colección que usan los GET, PUT y DELETE siguientes.\nTodo lo que se crea se elimina al final de su carpeta, así que los datos de ejemplo no cambian.\nLas peticiones marcadas [Error] verifican las validaciones y reglas de negocio.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -66,6 +66,10 @@
     {
       "key": "baseUrl",
       "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "actuatorUrl",
+      "value": "http://localhost:8080/actuator"
     },
     {
       "key": "token",
@@ -4051,6 +4055,546 @@
               "mode": "raw",
               "raw": "{\n  \"correo\": \"fuerza.bruta@correo.example\",\n  \"contrasena\": \"Clave6Erronea\"\n}"
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "15 - Monitoreo",
+      "description": "Observabilidad (docs/monitoreo.md): salud de la API, métricas de rendimiento (APM), base de datos y sistema operativo con Spring Boot Actuator, cambio del nivel de los logs en caliente y rastreo de errores del front-end. /actuator/health es público; el resto exige el token de ADMINISTRADOR ({{token}}).",
+      "item": [
+        {
+          "name": "M01 Salud pública (sin token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('status = UP', () => pm.expect(json.status).to.eql('UP'));",
+                  "pm.test('Un anónimo no ve el detalle (BD, disco)', () => pm.expect(json).to.not.have.property('components'));",
+                  "pm.test('Trae el id de la petición (X-Request-Id)', () => pm.response.to.have.header('X-Request-Id'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/health",
+            "description": "Lo usan Docker o un balanceador para saber si la API está viva. Solo dice UP o DOWN.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "M02 Salud con detalle (administrador)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('MySQL conectado (db = UP)', () => pm.expect(json.components.db.status).to.eql('UP'));",
+                  "pm.test('Espacio en disco suficiente (diskSpace = UP)', () => pm.expect(json.components.diskSpace.status).to.eql('UP'));",
+                  "pm.test('Informa los bytes libres del disco', () => pm.expect(json.components.diskSpace.details.free).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/health",
+            "description": "El administrador ve el estado de cada componente: base de datos, disco, ping."
+          }
+        },
+        {
+          "name": "M03 Métricas sin token: 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Mensaje en español', () => pm.expect(pm.response.json().mensaje).to.include('solo para administradores'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "M04 Métricas con token de cliente: 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Indica el rol rechazado', () => pm.expect(pm.response.json().mensaje).to.include('CLIENTE'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "M05 Actuator no publica env (datos internos)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 404 aunque sea administrador', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/env",
+            "description": "Solo se publican health, info, metrics, prometheus y loggers (management.endpoints.web.exposure.include)."
+          }
+        },
+        {
+          "name": "M06 APM: tiempos de respuesta de la API",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica http.server.requests', () => pm.expect(json.name).to.eql('http.server.requests'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));",
+                  "pm.test('Mide el tiempo total', () => pm.expect(json.measurements.map(m => m.statistic)).to.include('TOTAL_TIME'));",
+                  "pm.test('Se puede filtrar por endpoint (uri)', () => pm.expect(json.availableTags.map(t => t.tag)).to.include('uri'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/http.server.requests"
+          }
+        },
+        {
+          "name": "M07 Base de datos: conexiones en uso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica hikaricp.connections.active', () => pm.expect(json.name).to.eql('hikaricp.connections.active'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/hikaricp.connections.active"
+          }
+        },
+        {
+          "name": "M08 Base de datos: consultas ejecutadas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica hibernate.query.executions', () => pm.expect(json.name).to.eql('hibernate.query.executions'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/hibernate.query.executions"
+          }
+        },
+        {
+          "name": "M09 Sistema operativo: uso de CPU",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica system.cpu.usage', () => pm.expect(json.name).to.eql('system.cpu.usage'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));",
+                  "pm.test('Valor entre 0 y 1', () => pm.expect(json.measurements[0].value).to.be.within(0, 1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/system.cpu.usage"
+          }
+        },
+        {
+          "name": "M10 Sistema operativo: RAM disponible",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica sistema.memoria.disponible', () => pm.expect(json.name).to.eql('sistema.memoria.disponible'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));",
+                  "pm.test('En bytes', () => pm.expect(json.baseUnit).to.eql('bytes'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/sistema.memoria.disponible"
+          }
+        },
+        {
+          "name": "M11 Sistema operativo: espacio libre en disco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica disk.free', () => pm.expect(json.name).to.eql('disk.free'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/disk.free"
+          }
+        },
+        {
+          "name": "M12 Sistema operativo: tráfico de red",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Es la métrica sistema.red.trafico', () => pm.expect(json.name).to.eql('sistema.red.trafico'));",
+                  "pm.test('Tiene mediciones', () => pm.expect(json.measurements.length).to.be.above(0));",
+                  "pm.test('Separado en recibido y enviado', () => pm.expect(json.availableTags.find(t => t.tag === 'sentido').values).to.have.members(['recibido', 'enviado']));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/metrics/sistema.red.trafico"
+          }
+        },
+        {
+          "name": "M13 Prometheus: todas las métricas en texto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Incluye los tiempos de respuesta', () => pm.expect(pm.response.text()).to.include('http_server_requests_seconds_count'));",
+                  "pm.test('Incluye la RAM del servidor', () => pm.expect(pm.response.text()).to.include('sistema_memoria_total_bytes'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/prometheus",
+            "description": "Lo que lee Prometheus cada 15 s para graficarlo en Grafana (monitoreo/docker-compose.yml)."
+          }
+        },
+        {
+          "name": "M14 Log: subir com.tecnicoya.api a DEBUG sin reiniciar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuredLevel\": \"DEBUG\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Niveles de log: TRACE < DEBUG < INFO < WARN < ERROR."
+          }
+        },
+        {
+          "name": "M15 Log: comprobar el nivel DEBUG",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Nivel efectivo = DEBUG', () => pm.expect(pm.response.json().effectiveLevel).to.eql('DEBUG'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api"
+          }
+        },
+        {
+          "name": "M16 Log: volver a INFO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 204', () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuredLevel\": \"INFO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "M17 Log: un cliente no puede cambiar el nivel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuredLevel\": \"TRACE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenCliente}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "M18 Rastreo: reportar un error del front-end",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 202 (aceptado)', () => pm.response.to.have.status(202));",
+                  "pm.test('Devuelve el id de la petición para buscarlo en el log', () => pm.response.to.have.header('X-Request-Id'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/monitoreo/errores-frontend",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mensaje\": \"TypeError: Cannot read properties of undefined (reading 'nombre')\",\n  \"pila\": \"TypeError: Cannot read properties of undefined\\n    at PerfilTecnico (perfil.tsx:42)\",\n  \"url\": \"http://localhost:5173/tecnicos/7\",\n  \"navegador\": \"Postman\",\n  \"tipo\": \"error\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Ruta pública: el front-end la llama cuando ocurre un error de JavaScript. Queda en logs/tecnicoya-api.json (logger FRONTEND) y suma la métrica tecnicoya.errores.frontend.",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "M19 Rastreo: reporte sin mensaje: 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Responde 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Indica el campo', () => pm.expect(pm.response.json().errores.mensaje).to.eql('El mensaje del error es obligatorio'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/monitoreo/errores-frontend",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"http://localhost:5173/\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "M20 Rastreo: la API reutiliza un X-Request-Id válido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Devuelve el mismo id', () => pm.expect(pm.response.headers.get('X-Request-Id')).to.eql('postman-demo-0001'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Request-Id",
+                "value": "postman-demo-0001"
+              }
+            ],
+            "url": "{{baseUrl}}/planes-suscripcion",
+            "description": "Permite seguir una misma petición desde el front-end hasta el log de la API."
           }
         }
       ]

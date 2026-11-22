@@ -339,6 +339,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/MetodoPago.html#BILLETERA_DIGITAL" class="member-name-link">BILLETERA_DIGITAL</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/MetodoPago.html" title="enum class in com.tecnicoya.api.model.enums">MetodoPago</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#bindTo(io.micrometer.core.instrument.MeterRegistry)" class="member-name-link">bindTo(MeterRegistry)</a> - Method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoUsuario.html#BLOQUEADO" class="member-name-link">BLOQUEADO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoUsuario.html" title="enum class in com.tecnicoya.api.model.enums">EstadoUsuario</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#bloqueo" class="member-name-link">bloqueo</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
@@ -393,9 +395,29 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html#buscarUsuarioTecnico(java.lang.Long)" class="member-name-link">buscarUsuarioTecnico(Long)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/TecnicoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">TecnicoServiceImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#bytesEnviados" class="member-name-link">bytesEnviados</a> - Variable in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">The field for the <code>bytesEnviados</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#bytesEnviados()" class="member-name-link">bytesEnviados()</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>bytesEnviados</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#bytesRecibidos" class="member-name-link">bytesRecibidos</a> - Variable in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">The field for the <code>bytesRecibidos</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#bytesRecibidos()" class="member-name-link">bytesRecibidos()</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>bytesRecibidos</code> record component.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#CABECERA" class="member-name-link">CABECERA</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>
+<div class="block">Cabecera HTTP con el id de la petición, en la solicitud (opcional) y en la respuesta.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/CabecerasSeguridadFilter.html" class="type-name-link" title="class in com.tecnicoya.api.security">CabecerasSeguridadFilter</a> - Class in <a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a></dt>
 <dd>
 <div class="block">Agrega a todas las respuestas cabeceras HTTP de seguridad recomendadas por OWASP:
@@ -581,6 +603,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Valores permitidos de los campos de tipo y estado; coinciden con las columnas <code>ENUM</code> de MySQL.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a> - package com.tecnicoya.api.monitoreo</dt>
+<dd>
+<div class="block">Monitoreo (observabilidad) de la API: id de correlación de cada petición
+ (<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo"><code>IdPeticionFilter</code></a>), métricas del sistema operativo
+ (<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo"><code>MetricasSistemaOperativo</code></a>) y rastreo de errores del front-end
+ (<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo"><code>RegistroErroresFrontend</code></a>).</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a> - package com.tecnicoya.api.security</dt>
 <dd>
 <div class="block">Autenticación con token JWT: <a href="com/tecnicoya/api/security/JwtService.html" title="class in com.tecnicoya.api.security"><code>JwtService</code></a> lo genera al iniciar sesión y
@@ -677,6 +706,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Trae el usuario de cada técnico en la misma consulta (evita el problema N+1).</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#contador" class="member-name-link">contador</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dao/IGenericDao.html#contar()" class="member-name-link">contar()</a> - Method in interface com.tecnicoya.api.dao.<a href="com/tecnicoya/api/dao/IGenericDao.html" title="interface in com.tecnicoya.api.dao">IGenericDao</a></dt>
 <dd>
 <div class="block">Cuenta los registros de la entidad.</div>
@@ -748,6 +779,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/tecnicoya/api/security/ControlAcceso.html#%3Cinit%3E()" class="member-name-link">ControlAcceso()</a> - Constructor for class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#conUsuario(jakarta.servlet.http.HttpServletRequest,java.lang.String,java.lang.String)" class="member-name-link">conUsuario(HttpServletRequest, String, String)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>
+<div class="block">Presenta la petición como hecha por un usuario con ese rol: Actuator lo consulta para decidir si muestra el
+ detalle de <code>/actuator/health</code> (<code>management.endpoint.health.roles</code>).</div>
+</dd>
 <dt><a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html#copiarDatos(com.tecnicoya.api.dto.request.EvidenciaPagoRequest,com.tecnicoya.api.model.EvidenciaPago)" class="member-name-link">copiarDatos(EvidenciaPagoRequest, EvidenciaPago)</a> - Static method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/EvidenciaPagoServiceImpl.html" title="class in com.tecnicoya.api.service.impl">EvidenciaPagoServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html#copiarDatos(com.tecnicoya.api.dto.request.PlanSuscripcionRequest,com.tecnicoya.api.model.PlanSuscripcion,java.lang.String)" class="member-name-link">copiarDatos(PlanSuscripcionRequest, PlanSuscripcion, String)</a> - Static method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/PlanSuscripcionServiceImpl.html" title="class in com.tecnicoya.api.service.impl">PlanSuscripcionServiceImpl</a></dt>
@@ -1085,7 +1121,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/TipoEvidencia.html#DOCUMENTO_IDENTIDAD" class="member-name-link">DOCUMENTO_IDENTIDAD</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/TipoEvidencia.html" title="enum class in com.tecnicoya.api.model.enums">TipoEvidencia</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/CabecerasSeguridadFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/CabecerasSeguridadFilter.html" title="class in com.tecnicoya.api.security">CabecerasSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/DiaSemana.html#DOMINGO" class="member-name-link">DOMINGO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></dt>
 <dd>&nbsp;</dd>
@@ -1203,6 +1243,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
@@ -1299,6 +1343,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/service/ArchivoAlmacenado.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ArchivoAlmacenado.html" title="class in com.tecnicoya.api.service">ArchivoAlmacenado</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
@@ -1315,9 +1363,25 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The field for the <code>errores</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#errores" class="member-name-link">errores</a> - Variable in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">The field for the <code>errores</code> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html#errores()" class="member-name-link">errores()</a> - Method in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>errores</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#errores()" class="member-name-link">errores()</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>errores</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" class="type-name-link" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a> - Record Class in <a href="com/tecnicoya/api/dto/request/package-summary.html">com.tecnicoya.api.dto.request</a></dt>
+<dd>
+<div class="block">Error de JavaScript ocurrido en el navegador, que el front-end reporta para rastrearlo.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">ErrorFrontendRequest(String, String, String, String, String)</a> - Constructor for record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>ErrorFrontendRequest</code> record class.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/security/ControlAcceso.html#esAdministrador()" class="member-name-link">esAdministrador()</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
 <dd>&nbsp;</dd>
@@ -1598,6 +1662,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html#estiloTexto" class="member-name-link">estiloTexto</a> - Variable in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html#estiloTitulo" class="member-name-link">estiloTitulo</a> - Variable in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#esTokenMonitoreo(java.lang.String)" class="member-name-link">esTokenMonitoreo(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/validation/SinHtmlValidator.html#ETIQUETA_HTML" class="member-name-link">ETIQUETA_HTML</a> - Static variable in class com.tecnicoya.api.validation.<a href="com/tecnicoya/api/validation/SinHtmlValidator.html" title="class in com.tecnicoya.api.validation">SinHtmlValidator</a></dt>
 <dd>
@@ -2040,6 +2106,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoServicio.html#FINALIZADO" class="member-name-link">FINALIZADO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoServicio.html" title="enum class in com.tecnicoya.api.model.enums">EstadoServicio</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#FORMATO_SEGURO" class="member-name-link">FORMATO_SEGURO</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/TipoEvidencia.html#FOTO_TRABAJO" class="member-name-link">FOTO_TRABAJO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/TipoEvidencia.html" title="enum class in com.tecnicoya.api.model.enums">TipoEvidencia</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -2092,11 +2160,17 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#hardware" class="member-name-link">hardware</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/request/CalificacionRequest.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/CalificacionRequest.html" title="class in com.tecnicoya.api.dto.request">CalificacionRequest</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -2193,6 +2267,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/response/UsuarioResponse.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/UsuarioResponse.html" title="class in com.tecnicoya.api.dto.response">UsuarioResponse</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -2307,6 +2385,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>idPagoSuscripcion</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" class="type-name-link" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a> - Class in <a href="com/tecnicoya/api/monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a></dt>
+<dd>
+<div class="block">Da a cada petición un identificador único (id de correlación) para rastrear errores de punta a punta.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#%3Cinit%3E()" class="member-name-link">IdPeticionFilter()</a> - Constructor for class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/response/PlanSuscripcionResponse.html#idPlan" class="member-name-link">idPlan</a> - Variable in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/PlanSuscripcionResponse.html" title="class in com.tecnicoya.api.dto.response">PlanSuscripcionResponse</a></dt>
 <dd>
 <div class="block">The field for the <code>idPlan</code> record component.</div>
@@ -2357,6 +2441,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>idUsuario</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#idValido(java.lang.String)" class="member-name-link">idValido(String)</a> - Static method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dao/IEstadisticasDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IEstadisticasDao</a> - Interface in <a href="com/tecnicoya/api/dao/package-summary.html">com.tecnicoya.api.dao</a></dt>
 <dd>
 <div class="block">DAO de solo lectura con consultas agregadas (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>) para los reportes.</div>
@@ -2384,6 +2470,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html#indicadores()" class="member-name-link">indicadores()</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ReporteServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#intentosFallidos" class="member-name-link">intentosFallidos</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#interfaces" class="member-name-link">interfaces</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dao/IPagoSuscripcionDao.html" class="type-name-link" title="interface in com.tecnicoya.api.dao">IPagoSuscripcionDao</a> - Interface in <a href="com/tecnicoya/api/dao/package-summary.html">com.tecnicoya.api.dao</a></dt>
 <dd>
@@ -2422,7 +2510,9 @@ loadScripts(document, 'script');</script>
  
    <a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security"><code>JwtInterceptor</code></a>: exige el token y verifica el rol.
    <a href="com/tecnicoya/api/security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security"><code>AuditoriaInterceptor</code></a>: registra las operaciones que modifican datos.
- </div>
+ 
+ La ruta pública de reporte de errores del front-end (<a href="com/tecnicoya/api/controller/MonitoreoController.html#RUTA_ERRORES_FRONTEND"><code>MonitoreoController.RUTA_ERRORES_FRONTEND</code></a>) queda
+ fuera de ambos: no pide token y no se audita como operación.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/config/JwtConfig.html#%3Cinit%3E()" class="member-name-link">JwtConfig()</a> - Constructor for class com.tecnicoya.api.config.<a href="com/tecnicoya/api/config/JwtConfig.html" title="class in com.tecnicoya.api.config">JwtConfig</a></dt>
 <dd>&nbsp;</dd>
@@ -2439,6 +2529,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#jwtService" class="member-name-link">jwtService</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#jwtService" class="member-name-link">jwtService</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/JwtService.html" class="type-name-link" title="class in com.tecnicoya.api.security">JwtService</a> - Class in <a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a></dt>
 <dd>
 <div class="block">Genera y valida los tokens JWT de la API.</div>
@@ -2448,7 +2540,21 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#LARGO_PILA" class="member-name-link">LARGO_PILA</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#LARGO_TEXTO" class="member-name-link">LARGO_TEXTO</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#%3Cinit%3E(long,long,long)" class="member-name-link">LecturaRed(long, long, long)</a> - Constructor for record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>LecturaRed</code> record class.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/ControlAcceso.html#leer(java.lang.String)" class="member-name-link">leer(String)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#leerRed()" class="member-name-link">leerRed()</a> - Method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>
+<div class="block">Suma los contadores de todas las interfaces de red físicas (sin la interfaz local o loopback).</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#leerToken(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">leerToken(HttpServletRequest)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/util/LibroExcel.html#libro" class="member-name-link">libro</a> - Variable in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/LibroExcel.html" title="class in com.tecnicoya.api.util">LibroExcel</a></dt>
 <dd>&nbsp;</dd>
@@ -2492,6 +2598,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Neutraliza los saltos de línea de un dato antes de registrarlo: un atacante no puede cerrar la línea
  actual y escribir una entrada falsa (por ejemplo, un LOGIN_EXITOSO inventado).</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#limpiar(java.lang.String,int)" class="member-name-link">limpiar(String, int)</a> - Static method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>
+<div class="block">Recorta el texto y escapa los saltos de línea (como <code>Auditoria.limpiar</code>, pero con largo variable).</div>
 </dd>
 <dt><a href="com/tecnicoya/api/controller/CalificacionController.html#listar()" class="member-name-link">listar()</a> - Method in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/CalificacionController.html" title="class in com.tecnicoya.api.controller">CalificacionController</a></dt>
 <dd>
@@ -2569,6 +2679,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html#listar()" class="member-name-link">listar()</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/UsuarioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">UsuarioServiceImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#LOG" class="member-name-link">LOG</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>
+<div class="block">Logger de los errores reportados por el front-end.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/util/Auditoria.html#LOG" class="member-name-link">LOG</a> - Static variable in class com.tecnicoya.api.util.<a href="com/tecnicoya/api/util/Auditoria.html" title="class in com.tecnicoya.api.util">Auditoria</a></dt>
 <dd>
 <div class="block">Logger SLF4J de la categoría <code>AUDITORIA</code> (implementado por Logback).</div>
@@ -2652,15 +2766,37 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Tope de entradas en memoria, para que un atacante no pueda agotarla con miles de correos distintos.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#MAXIMO_IPS" class="member-name-link">MAXIMO_IPS</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#MAXIMO_POR_MINUTO" class="member-name-link">MAXIMO_POR_MINUTO</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>
+<div class="block">Reportes permitidos por IP en un minuto.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#maxIntentos" class="member-name-link">maxIntentos</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#MDC_ID_PETICION" class="member-name-link">MDC_ID_PETICION</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></dt>
+<dd>
+<div class="block">Clave del MDC de Logback con el id de la petición.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#MDC_USUARIO" class="member-name-link">MDC_USUARIO</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#MDC_USUARIO" class="member-name-link">MDC_USUARIO</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/Prioridad.html#MEDIA" class="member-name-link">MEDIA</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#memoria" class="member-name-link">memoria</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#mensaje" class="member-name-link">mensaje</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">The field for the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-mensaje"><code>mensaje</code></a> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html#mensaje" class="member-name-link">mensaje</a> - Variable in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></dt>
 <dd>
 <div class="block">The field for the <code>mensaje</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#mensaje()" class="member-name-link">mensaje()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-mensaje"><code>mensaje</code></a> record component.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html#mensaje()" class="member-name-link">mensaje()</a> - Method in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></dt>
 <dd>
@@ -2712,7 +2848,40 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/AuditoriaInterceptor.html#METODOS_AUDITADOS" class="member-name-link">METODOS_AUDITADOS</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security">AuditoriaInterceptor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" class="type-name-link" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a> - Class in <a href="com/tecnicoya/api/monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a></dt>
+<dd>
+<div class="block">Métricas de salud del sistema operativo que la JVM no expone por sí sola, leídas con la librería OSHI.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#%3Cinit%3E()" class="member-name-link">MetricasSistemaOperativo()</a> - Constructor for class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>
+<div class="block">Lee el hardware real del servidor.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#%3Cinit%3E(oshi.hardware.HardwareAbstractionLayer,java.util.function.LongSupplier)" class="member-name-link">MetricasSistemaOperativo(HardwareAbstractionLayer, LongSupplier)</a> - Constructor for class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>
+<div class="block">Permite a las pruebas usar un hardware simulado y controlar el paso del tiempo.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" class="type-name-link" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a> - Record Class in <a href="com/tecnicoya/api/monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a></dt>
+<dd>
+<div class="block">Totales acumulados de las interfaces de red en una lectura.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/model/enums/DiaSemana.html#MIERCOLES" class="member-name-link">MIERCOLES</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#momentoListaInterfaces" class="member-name-link">momentoListaInterfaces</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#momentoUltimaLectura" class="member-name-link">momentoUltimaLectura</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/controller/MonitoreoController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">MonitoreoController</a> - Class in <a href="com/tecnicoya/api/controller/package-summary.html">com.tecnicoya.api.controller</a></dt>
+<dd>
+<div class="block">Rastreo de errores del front-end: el navegador reporta aquí los errores de JavaScript que le ocurren al usuario.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/controller/MonitoreoController.html#%3Cinit%3E()" class="member-name-link">MonitoreoController()</a> - Constructor for class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/MonitoreoController.html" title="class in com.tecnicoya.api.controller">MonitoreoController</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" class="type-name-link" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a> - Class in <a href="com/tecnicoya/api/security/package-summary.html">com.tecnicoya.api.security</a></dt>
+<dd>
+<div class="block">Protege los endpoints de monitoreo de Spring Boot Actuator (<code>/actuator/**</code>), que muestran métricas internas
+ del servidor y permiten cambiar el nivel de los logs.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#%3Cinit%3E(com.tecnicoya.api.security.JwtService,org.springframework.web.servlet.HandlerExceptionResolver,java.lang.String)" class="member-name-link">MonitoreoSeguridadFilter(JwtService, HandlerExceptionResolver, String)</a> - Constructor for class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html#monto" class="member-name-link">monto</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/EvidenciaPagoRequest.html" title="class in com.tecnicoya.api.dto.request">EvidenciaPagoRequest</a></dt>
 <dd>
@@ -2759,6 +2928,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#navegador" class="member-name-link">navegador</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">The field for the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-navegador"><code>navegador</code></a> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#navegador()" class="member-name-link">navegador()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-navegador"><code>navegador</code></a> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/exception/NoAutenticadoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">NoAutenticadoException</a> - Exception in <a href="com/tecnicoya/api/exception/package-summary.html">com.tecnicoya.api.exception</a></dt>
 <dd>
 <div class="block">La petición no trae un token JWT válido: falta, fue modificado o ya venció.</div>
@@ -3025,6 +3202,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html#PENDIENTE" class="member-name-link">PENDIENTE</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#pila" class="member-name-link">pila</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">The field for the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-pila"><code>pila</code></a> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#pila()" class="member-name-link">pila()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-pila"><code>pila</code></a> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/model/Suscripcion.html#plan" class="member-name-link">plan</a> - Variable in class com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Suscripcion.html" title="class in com.tecnicoya.api.model">Suscripcion</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/request/SuscripcionRequest.html#planId" class="member-name-link">planId</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/SuscripcionRequest.html" title="class in com.tecnicoya.api.dto.request">SuscripcionRequest</a></dt>
@@ -3131,6 +3316,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#PREFIJO" class="member-name-link">PREFIJO</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#PREFIJO_ACTUATOR" class="member-name-link">PREFIJO_ACTUATOR</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#PREFIJO_TOKEN" class="member-name-link">PREFIJO_TOKEN</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/AuditoriaInterceptor.html#preHandle(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,java.lang.Object)" class="member-name-link">preHandle(HttpServletRequest, HttpServletResponse, Object)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/AuditoriaInterceptor.html" title="class in com.tecnicoya.api.security">AuditoriaInterceptor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#preHandle(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,java.lang.Object)" class="member-name-link">preHandle(HttpServletRequest, HttpServletResponse, Object)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
@@ -3192,6 +3381,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html#RECHAZADO" class="member-name-link">RECHAZADO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#rechazar(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,java.lang.RuntimeException,java.lang.String)" class="member-name-link">rechazar(HttpServletRequest, HttpServletResponse, RuntimeException, String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/exception/RecursoNoEncontradoException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">RecursoNoEncontradoException</a> - Exception in <a href="com/tecnicoya/api/exception/package-summary.html">com.tecnicoya.api.exception</a></dt>
 <dd>
 <div class="block">Se traduce a HTTP 404.</div>
@@ -3202,6 +3393,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoPago.html#REEMBOLSADO" class="member-name-link">REEMBOLSADO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoPago.html" title="enum class in com.tecnicoya.api.model.enums">EstadoPago</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#registrar(com.tecnicoya.api.dto.request.ErrorFrontendRequest,java.lang.String)" class="member-name-link">registrar(ErrorFrontendRequest, String)</a> - Method in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>
+<div class="block">Registra un error del front-end en el log y en la métrica.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#registrarFallo(java.lang.String)" class="member-name-link">registrarFallo(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>
 <div class="block">Suma un intento fallido.</div>
@@ -3209,6 +3404,19 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/security/JwtInterceptor.html#registrarSesion(jakarta.servlet.http.HttpServletRequest,io.jsonwebtoken.Claims)" class="member-name-link">registrarSesion(HttpServletRequest, Claims)</a> - Static method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtInterceptor.html" title="class in com.tecnicoya.api.security">JwtInterceptor</a></dt>
 <dd>
 <div class="block">Deja el id y el rol del token como atributos de la petición y en el MDC de Logback.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/controller/MonitoreoController.html#registroErrores" class="member-name-link">registroErrores</a> - Variable in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/MonitoreoController.html" title="class in com.tecnicoya.api.controller">MonitoreoController</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" class="type-name-link" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a> - Class in <a href="com/tecnicoya/api/monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a></dt>
+<dd>
+<div class="block">Rastreo de errores del front-end: registra en el log los errores de JavaScript que ocurren en el navegador de los
+ usuarios (que de otro modo nadie vería) y los cuenta en la métrica <code>tecnicoya.errores.frontend</code>.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#%3Cinit%3E(io.micrometer.core.instrument.MeterRegistry)" class="member-name-link">RegistroErroresFrontend(MeterRegistry)</a> - Constructor for class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#%3Cinit%3E(io.micrometer.core.instrument.MeterRegistry,com.google.common.base.Ticker)" class="member-name-link">RegistroErroresFrontend(MeterRegistry, Ticker)</a> - Constructor for class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>
+<div class="block">Permite a las pruebas controlar el paso del tiempo con un <code>Ticker</code> propio.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/exception/ReglaNegocioException.html" class="type-name-link" title="class in com.tecnicoya.api.exception">ReglaNegocioException</a> - Exception in <a href="com/tecnicoya/api/exception/package-summary.html">com.tecnicoya.api.exception</a></dt>
 <dd>
@@ -3219,6 +3427,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#reiniciar(java.lang.String)" class="member-name-link">reiniciar(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
 <dd>
 <div class="block">Borra el contador tras un inicio de sesión correcto.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#relojNanos" class="member-name-link">relojNanos</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/controller/MonitoreoController.html#reportarErrorFrontend(com.tecnicoya.api.dto.request.ErrorFrontendRequest,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">reportarErrorFrontend(ErrorFrontendRequest, HttpServletRequest)</a> - Method in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/MonitoreoController.html" title="class in com.tecnicoya.api.controller">MonitoreoController</a></dt>
+<dd>
+<div class="block"><code>POST /api/monitoreo/errores-frontend</code>: registra un error de JavaScript del navegador.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/controller/ReporteController.html" class="type-name-link" title="class in com.tecnicoya.api.controller">ReporteController</a> - Class in <a href="com/tecnicoya/api/controller/package-summary.html">com.tecnicoya.api.controller</a></dt>
 <dd>
@@ -3251,6 +3465,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Listado de servicios con cliente, técnico, prioridad, estado y fechas.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#reportesPorIp" class="member-name-link">reportesPorIp</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html#reporteTecnicos()" class="member-name-link">reporteTecnicos()</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ReporteServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ReporteServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/ReporteService.html#reporteTecnicos()" class="member-name-link">reporteTecnicos()</a> - Method in interface com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service">ReporteService</a></dt>
@@ -3267,6 +3483,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Restringe un controlador o un endpoint a ciertos roles (principio de mínimo privilegio).</div>
 </dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#resolverErrores" class="member-name-link">resolverErrores</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html#ruta" class="member-name-link">ruta</a> - Variable in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ApiErrorResponse.html" title="class in com.tecnicoya.api.dto.response">ApiErrorResponse</a></dt>
 <dd>
 <div class="block">The field for the <code>ruta</code> record component.</div>
@@ -3275,6 +3493,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>ruta</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/controller/MonitoreoController.html#RUTA_ERRORES_FRONTEND" class="member-name-link">RUTA_ERRORES_FRONTEND</a> - Static variable in class com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/MonitoreoController.html" title="class in com.tecnicoya.api.controller">MonitoreoController</a></dt>
+<dd>
+<div class="block">Ruta pública que recibe los errores del front-end.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#RUTA_SALUD" class="member-name-link">RUTA_SALUD</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
@@ -3406,6 +3630,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/tecnicoya/api/service/ArchivoAlmacenado.html#param-sha256"><code>sha256</code></a> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#shouldNotFilter(jakarta.servlet.http.HttpServletRequest)" class="member-name-link">shouldNotFilter(HttpServletRequest)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/validation/SinHtml.html" class="type-name-link" title="annotation interface in com.tecnicoya.api.validation">SinHtml</a> - Annotation Interface in <a href="com/tecnicoya/api/validation/package-summary.html">com.tecnicoya.api.validation</a></dt>
 <dd>
 <div class="block">Rechaza textos que contienen etiquetas HTML o código JavaScript, como <code>&lt;script&gt;</code>, <code>&lt;img onerror=...&gt;</code>
@@ -3794,6 +4020,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>timestamp</code> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#tipo" class="member-name-link">tipo</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">The field for the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-tipo"><code>tipo</code></a> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#tipo()" class="member-name-link">tipo()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-tipo"><code>tipo</code></a> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/service/ReporteService.html#TIPO_XLSX" class="member-name-link">TIPO_XLSX</a> - Static variable in interface com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ReporteService.html" title="interface in com.tecnicoya.api.service">ReporteService</a></dt>
 <dd>
 <div class="block">Tipo MIME de los archivos <code>.xlsx</code>.</div>
@@ -3876,11 +4110,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/response/LoginResponse.html#param-token"><code>token</code></a> record component.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#tokenMonitoreo" class="member-name-link">tokenMonitoreo</a> - Variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/dto/request/CalificacionRequest.html#toString()" class="member-name-link">toString()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/CalificacionRequest.html" title="class in com.tecnicoya.api.dto.request">CalificacionRequest</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html#toString()" class="member-name-link">toString()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/DisponibilidadRequest.html" title="class in com.tecnicoya.api.dto.request">DisponibilidadRequest</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#toString()" class="member-name-link">toString()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
@@ -3980,6 +4220,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html#toString()" class="member-name-link">toString()</a> - Method in record class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.LecturaRed.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo.LecturaRed</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/service/ArchivoAlmacenado.html#toString()" class="member-name-link">toString()</a> - Method in record class com.tecnicoya.api.service.<a href="com/tecnicoya/api/service/ArchivoAlmacenado.html" title="class in com.tecnicoya.api.service">ArchivoAlmacenado</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -3989,11 +4233,21 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#ultimaLectura" class="member-name-link">ultimaLectura</a> - Variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/Prioridad.html#URGENTE" class="member-name-link">URGENTE</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/Prioridad.html" title="enum class in com.tecnicoya.api.model.enums">Prioridad</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#url" class="member-name-link">url</a> - Variable in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">The field for the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-url"><code>url</code></a> record component.</div>
+</dd>
 <dt><a href="com/tecnicoya/api/dto/response/ArchivoResponse.html#url" class="member-name-link">url</a> - Variable in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ArchivoResponse.html" title="class in com.tecnicoya.api.dto.response">ArchivoResponse</a></dt>
 <dd>
 <div class="block">The field for the <code>url</code> record component.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#url()" class="member-name-link">url()</a> - Method in record class com.tecnicoya.api.dto.request.<a href="com/tecnicoya/api/dto/request/ErrorFrontendRequest.html" title="class in com.tecnicoya.api.dto.request">ErrorFrontendRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/tecnicoya/api/dto/request/ErrorFrontendRequest.html#param-url"><code>url</code></a> record component.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/dto/response/ArchivoResponse.html#url()" class="member-name-link">url()</a> - Method in record class com.tecnicoya.api.dto.response.<a href="com/tecnicoya/api/dto/response/ArchivoResponse.html" title="class in com.tecnicoya.api.dto.response">ArchivoResponse</a></dt>
 <dd>
@@ -4032,6 +4286,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Persona registrada en la plataforma: cliente, técnico o administrador (tabla <code>usuario</code>).</div>
 </dd>
 <dt><a href="com/tecnicoya/api/model/Usuario.html#%3Cinit%3E()" class="member-name-link">Usuario()</a> - Constructor for class com.tecnicoya.api.model.<a href="com/tecnicoya/api/model/Usuario.html" title="class in com.tecnicoya.api.model">Usuario</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#USUARIO_PROMETHEUS" class="member-name-link">USUARIO_PROMETHEUS</a> - Static variable in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/ControlAcceso.html#usuarioActual()" class="member-name-link">usuarioActual()</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/ControlAcceso.html" title="class in com.tecnicoya.api.security">ControlAcceso</a></dt>
 <dd>&nbsp;</dd>
@@ -4110,6 +4366,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
+<dt><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#validar(java.lang.String)" class="member-name-link">validar(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html#validarEstadoYFechas(com.tecnicoya.api.model.Servicio,java.time.LocalDateTime)" class="member-name-link">validarEstadoYFechas(Servicio, LocalDateTime)</a> - Method in class com.tecnicoya.api.service.impl.<a href="com/tecnicoya/api/service/impl/ServicioServiceImpl.html" title="class in com.tecnicoya.api.service.impl">ServicioServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/JwtService.html#validarToken(java.lang.String)" class="member-name-link">validarToken(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/JwtService.html" title="class in com.tecnicoya.api.security">JwtService</a></dt>
@@ -4232,6 +4490,8 @@ the order they are declared.</div>
 </dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoSuscripcion.html#VENCIDA" class="member-name-link">VENCIDA</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoSuscripcion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoSuscripcion</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#VENTANA" class="member-name-link">VENTANA</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html#VERIFICADO" class="member-name-link">VERIFICADO</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/EstadoVerificacion.html" title="enum class in com.tecnicoya.api.model.enums">EstadoVerificacion</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#verificar(java.lang.String)" class="member-name-link">verificar(String)</a> - Method in class com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/LimiteIntentosLogin.html" title="class in com.tecnicoya.api.security">LimiteIntentosLogin</a></dt>
@@ -4254,6 +4514,14 @@ the order they are declared.</div>
 <dd>&nbsp;</dd>
 <dt><a href="com/tecnicoya/api/model/enums/DiaSemana.html#VIERNES" class="member-name-link">VIERNES</a> - Enum constant in enum class com.tecnicoya.api.model.enums.<a href="com/tecnicoya/api/model/enums/DiaSemana.html" title="enum class in com.tecnicoya.api.model.enums">DiaSemana</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#VIGENCIA_LECTURA_RED_MS" class="member-name-link">VIGENCIA_LECTURA_RED_MS</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>
+<div class="block">Tiempo durante el que se reutiliza la última lectura de las interfaces de red.</div>
+</dd>
+<dt><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#VIGENCIA_LISTA_INTERFACES_MS" class="member-name-link">VIGENCIA_LISTA_INTERFACES_MS</a> - Static variable in class com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></dt>
+<dd>
+<div class="block">Tiempo durante el que se reutiliza la lista de interfaces de red (detecta una VPN o un cable nuevo).</div>
+</dd>
 </dl>
 <h2 class="title" id="I:X">X</h2>
 <dl class="index">

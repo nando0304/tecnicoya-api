@@ -77,4 +77,17 @@
         <Method name="manejarGeneral"/>
         <Bug pattern="CRLF_INJECTION_LOGS"/>
     </Match>
+
+    <!-- Monitoreo. Las cabeceras vienen del cliente, pero no se confía en ellas:
+         - MonitoreoSeguridadFilter: el token de Authorization se valida con su firma (JwtService.validarToken) o se
+           compara en tiempo constante con el token de monitoreo antes de dar acceso a /actuator.
+         - IdPeticionFilter: X-Request-Id solo se reutiliza si cumple [A-Za-z0-9-]{8,64}; si no, se genera un UUID.
+           Así no puede llevar saltos de línea al log ni a la cabecera de la respuesta. -->
+    <Match>
+        <Or>
+            <Class name="com.tecnicoya.api.security.MonitoreoSeguridadFilter"/>
+            <Class name="com.tecnicoya.api.monitoreo.IdPeticionFilter"/>
+        </Or>
+        <Bug pattern="SERVLET_HEADER"/>
+    </Match>
 </FindBugsFilter>

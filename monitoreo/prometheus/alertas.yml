@@ -1,0 +1,93 @@
+# Alertas de TécnicoYa. Se ven en http://localhost:9090/alerts (inactiva / pendiente / disparada).
+# "for" es cuánto tiempo debe cumplirse la condición antes de disparar, para no alertar por un pico aislado.
+groups:
+  - name: tecnicoya-api
+    rules:
+      # ---------- Disponibilidad ----------
+      - alert: ApiCaida
+        expr: up{job="tecnicoya-api"} == 0
+        for: 1m
+        labels: { severidad: critica }
+        annotations:
+          resumen: "La API no responde a Prometheus desde hace más de 1 minuto"
+
+      # ---------- Rendimiento (APM) ----------
+      - alert: TasaDeErrores5xxAlta
+        expr: |
+          sum(rate(http_server_requests_seconds_count{status=~"5..", uri!~"/actuator.*"}[5m]))
+            / sum(rate(http_server_requests_seconds_count{uri!~"/actuator.*"}[5m])) > 0.05
+        for: 5m
+        labels: { severidad: critica }
+        annotations:
+          resumen: "Más del 5% de las peticiones terminan en error 500"
+
+      - alert: RespuestasLentas
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(http_server_requests_seconds_bucket{uri!~"/actuator.*"}[5m]))) > 1
+        for: 5m
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "El 5% más lento de las peticiones tarda más de 1 segundo (p95 > 1 s)"
+
+      # ---------- Base de datos ----------
+      - alert: ConexionesBDAgotadas
+        expr: hikaricp_connections_pending > 0
+        for: 2m
+        labels: { severidad: critica }
+        annotations:
+          resumen: "Hay peticiones esperando una conexión libre a MySQL (pool de Hikari lleno)"
+
+      - alert: BaseDeDatosCaida
+        expr: increase(hikaricp_connections_timeout_total[5m]) > 0
+        labels: { severidad: critica }
+        annotations:
+          resumen: "No se pudo obtener una conexión a MySQL a tiempo en los últimos 5 minutos"
+
+      # ---------- Sistema operativo ----------
+      - alert: CpuAlta
+        expr: system_cpu_usage > 0.85
+        for: 5m
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "El CPU del servidor está por encima del 85% desde hace 5 minutos"
+
+      - alert: MemoriaRamBaja
+        expr: sistema_memoria_disponible_bytes / sistema_memoria_total_bytes < 0.10
+        for: 5m
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "Queda menos del 10% de memoria RAM libre en el servidor"
+
+      - alert: MemoriaJvmAlta
+        expr: sum(jvm_memory_used_bytes{area="heap"}) / sum(jvm_memory_max_bytes{area="heap"} > 0) > 0.90
+        for: 5m
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "La memoria heap de Java está por encima del 90%"
+
+      - alert: DiscoCasiLleno
+        expr: disk_free_bytes / disk_total_bytes < 0.10
+        for: 5m
+        labels: { severidad: critica }
+        annotations:
+          resumen: "Queda menos del 10% de espacio en el disco de la API (logs y archivos subidos)"
+
+      - alert: ErroresDeRed
+        expr: increase(sistema_red_errores_total[5m]) > 100
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "Más de 100 paquetes de red con error en 5 minutos"
+
+      # ---------- Errores y logs ----------
+      - alert: ErroresEnElLog
+        expr: increase(logback_events_total{level="error"}[5m]) > 5
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "La API registró más de 5 errores (nivel ERROR) en 5 minutos"
+
+      - alert: ErroresDelFrontend
+        expr: increase(tecnicoya_errores_frontend_total[10m]) > 10
+        labels: { severidad: advertencia }
+        annotations:
+          resumen: "El front-end reportó más de 10 errores de JavaScript en 10 minutos"

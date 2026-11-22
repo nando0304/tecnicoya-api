@@ -1,0 +1,9 @@
+# Carga los paneles (dashboards) de la carpeta /var/lib/grafana/dashboards.
+apiVersion: 1
+providers:
+  - name: TecnicoYa
+    folder: TécnicoYa
+    type: file
+    disableDeletion: true
+    options:
+      path: /var/lib/grafana/dashboards

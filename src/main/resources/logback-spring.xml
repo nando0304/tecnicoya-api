@@ -2,7 +2,7 @@
 <!--
   Configuración de Logback, la librería de logging que Spring Boot usa por defecto (a través de SLF4J).
 
-  Destinos (appenders):
+  Destinos (appenders; el log JSON estructurado se explica junto a su appender, más abajo):
     CONSOLA    -> la terminal, con colores.
     ARCHIVO    -> logs/tecnicoya-api.log: log general. Rota cada día o al llegar a 10 MB; guarda 30 días comprimidos.
                   Se escribe de forma asíncrona (ASYNC_ARCHIVO) para no frenar las peticiones.
@@ -71,14 +71,51 @@
         </encoder>
     </appender>
 
-    <!-- Eventos de seguridad (ver com.tecnicoya.api.util.Auditoria): a su archivo propio y a la consola -->
+    <!--
+      JSON -> logs/tecnicoya-api.json: logs ESTRUCTURADOS. Recibe todos los eventos (generales y de auditoría), uno
+      por línea, en formato ECS (Elastic Common Schema). Cada evento es un objeto JSON con campos separados:
+      @timestamp, log.level, log.logger, message, process.thread.name, service.name, usuario, idPeticion y, si hubo
+      un error, error.type, error.message y error.stack_trace. Herramientas como Kibana, Grafana Loki o Datadog lo
+      leen y filtran por campo (p. ej. log.level = ERROR) sin configurar patrones. El codificador lo trae Spring Boot.
+      Los archivos de texto de arriba se mantienen para leerlos a simple vista.
+    -->
+    <appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/tecnicoya-api.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/historial/tecnicoya-api.%d{yyyy-MM-dd}.%i.json.gz</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="org.springframework.boot.logging.logback.StructuredLogEncoder">
+            <format>ecs</format>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_JSON" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="JSON"/>
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+
+    <!-- Eventos de seguridad (ver com.tecnicoya.api.util.Auditoria): a su archivo propio, a la consola y al JSON -->
     <logger name="AUDITORIA" level="INFO" additivity="false">
         <appender-ref ref="AUDITORIA"/>
         <appender-ref ref="CONSOLA"/>
+        <appender-ref ref="ASYNC_JSON"/>
     </logger>
 
+    <!--
+      Niveles: además de los de aquí, el administrador puede cambiar el nivel de un logger SIN reiniciar la API con
+      POST /actuator/loggers/{logger}  {"configuredLevel": "DEBUG"}  (ver docs/monitoreo.md).
+    -->
     <logger name="com.tecnicoya.api" level="INFO"/>
     <logger name="org.apache.poi" level="WARN"/>
+    <!-- Consultas SQL más lentas que SQL_LENTA_MS milisegundos (Hibernate las avisa en este logger) -->
+    <logger name="org.hibernate.SQL_SLOW" level="INFO"/>
+    <!-- Con las estadísticas de Hibernate activas, evita un resumen "Session Metrics" por cada petición -->
+    <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="WARN"/>
 
     <springProfile name="dev">
         <logger name="com.tecnicoya.api" level="DEBUG"/>
@@ -88,5 +125,6 @@
     <root level="INFO">
         <appender-ref ref="CONSOLA"/>
         <appender-ref ref="ASYNC_ARCHIVO"/>
+        <appender-ref ref="ASYNC_JSON"/>
     </root>
 </configuration>

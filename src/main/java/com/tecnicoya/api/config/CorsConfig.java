@@ -28,7 +28,8 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns(origenes)
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .exposedHeaders("Location", "Content-Disposition")
+                // X-Request-Id: id de la petición (IdPeticionFilter), para que el front-end lo muestre si algo falla
+                .exposedHeaders("Location", "Content-Disposition", "X-Request-Id")
                 .maxAge(3600);
     }
 }

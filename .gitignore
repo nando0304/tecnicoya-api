@@ -39,3 +39,6 @@ uploads/
 
 ### Logs de la API (Logback) ###
 logs/
+
+### Token de Prometheus (monitoreo/prometheus/token.txt) ###
+monitoreo/prometheus/token.txt

@@ -58,12 +58,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Capa web: controladores REST bajo <code>/api</code>.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.monitoreo">com.tecnicoya.api.monitoreo</a></div>
 <div class="col-last odd-row-color">
+<div class="block">Monitoreo (observabilidad) de la API: id de correlación de cada petición
+ (<a href="../../monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo"><code>IdPeticionFilter</code></a>), métricas del sistema operativo
+ (<a href="../../monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo"><code>MetricasSistemaOperativo</code></a>) y rastreo de errores del front-end
+ (<a href="../../monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo"><code>RegistroErroresFrontend</code></a>).</div>
+</div>
+<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service">com.tecnicoya.api.service</a></div>
+<div class="col-last even-row-color">
 <div class="block">Contratos de la lógica de negocio; cada interfaz documenta las reglas de su recurso.</div>
 </div>
-<div class="col-first even-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#com.tecnicoya.api.service.impl">com.tecnicoya.api.service.impl</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementaciones transaccionales de los servicios.</div>
 </div>
 </div>
@@ -83,45 +90,62 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Datos de una franja de disponibilidad.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/EvidenciaPagoRequest.html#com.tecnicoya.api.controller">EvidenciaPagoRequest</a></div>
+<div class="col-first even-row-color"><a href="class-use/ErrorFrontendRequest.html#com.tecnicoya.api.controller">ErrorFrontendRequest</a></div>
 <div class="col-last even-row-color">
+<div class="block">Error de JavaScript ocurrido en el navegador, que el front-end reporta para rastrearlo.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/EvidenciaPagoRequest.html#com.tecnicoya.api.controller">EvidenciaPagoRequest</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Si no se envía <code>fechaPago</code> se registra la fecha y hora actual.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/EvidenciaRequest.html#com.tecnicoya.api.controller">EvidenciaRequest</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/EvidenciaRequest.html#com.tecnicoya.api.controller">EvidenciaRequest</a></div>
+<div class="col-last even-row-color">
 <div class="block">Datos para registrar o actualizar una evidencia de un técnico.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ExperienciaLaboralRequest.html#com.tecnicoya.api.controller">ExperienciaLaboralRequest</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ExperienciaLaboralRequest.html#com.tecnicoya.api.controller">ExperienciaLaboralRequest</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Si <code>actualidad</code> es true no debe enviarse <code>fechaFin</code>; si es false, es obligatoria.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/LoginRequest.html#com.tecnicoya.api.controller">LoginRequest</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/LoginRequest.html#com.tecnicoya.api.controller">LoginRequest</a></div>
+<div class="col-last even-row-color">
 <div class="block">Credenciales para iniciar sesión.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/PagoSuscripcionRequest.html#com.tecnicoya.api.controller">PagoSuscripcionRequest</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/PagoSuscripcionRequest.html#com.tecnicoya.api.controller">PagoSuscripcionRequest</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Si no se envía <code>fechaPago</code> se registra la fecha y hora actual.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/PlanSuscripcionRequest.html#com.tecnicoya.api.controller">PlanSuscripcionRequest</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/PlanSuscripcionRequest.html#com.tecnicoya.api.controller">PlanSuscripcionRequest</a></div>
+<div class="col-last even-row-color">
 <div class="block">Datos para registrar o actualizar un plan de suscripción.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ServicioRequest.html#com.tecnicoya.api.controller">ServicioRequest</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ServicioRequest.html#com.tecnicoya.api.controller">ServicioRequest</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Datos de un servicio.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/SuscripcionRequest.html#com.tecnicoya.api.controller">SuscripcionRequest</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/SuscripcionRequest.html#com.tecnicoya.api.controller">SuscripcionRequest</a></div>
+<div class="col-last even-row-color">
 <div class="block">La fecha de cancelación solo se acepta en estado CANCELADA (si se omite, se usa la fecha actual).</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/TecnicoRequest.html#com.tecnicoya.api.controller">TecnicoRequest</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/TecnicoRequest.html#com.tecnicoya.api.controller">TecnicoRequest</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Datos para registrar o actualizar el perfil de técnico de un usuario.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/UsuarioRequest.html#com.tecnicoya.api.controller">UsuarioRequest</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/UsuarioRequest.html#com.tecnicoya.api.controller">UsuarioRequest</a></div>
+<div class="col-last even-row-color">
 <div class="block">Datos para registrar o actualizar un usuario.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="com.tecnicoya.api.monitoreo">
+<div class="caption"><span>Classes in <a href="package-summary.html">com.tecnicoya.api.dto.request</a> used by <a href="../../monitoreo/package-summary.html">com.tecnicoya.api.monitoreo</a></span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/ErrorFrontendRequest.html#com.tecnicoya.api.monitoreo">ErrorFrontendRequest</a></div>
+<div class="col-last even-row-color">
+<div class="block">Error de JavaScript ocurrido en el navegador, que el front-end reporta para rastrearlo.</div>
 </div>
 </div>
 </section>

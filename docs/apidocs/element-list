@@ -9,6 +9,7 @@ com.tecnicoya.api.dto.response
 com.tecnicoya.api.exception
 com.tecnicoya.api.model
 com.tecnicoya.api.model.enums
+com.tecnicoya.api.monitoreo
 com.tecnicoya.api.security
 com.tecnicoya.api.service
 com.tecnicoya.api.service.impl

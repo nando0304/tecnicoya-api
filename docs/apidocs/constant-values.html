@@ -56,8 +56,21 @@ loadScripts(document, 'script');</script>
 </ul>
 </section>
 </div>
-<section class="constants-summary" id="com.tecnicoya.api.exception">
+<section class="constants-summary" id="com.tecnicoya.api.controller">
 <h2 title="com.tecnicoya">com.tecnicoya.*</h2>
+<ul class="block-list">
+<li>
+<div class="caption"><span>com.tecnicoya.api.controller.<a href="com/tecnicoya/api/controller/MonitoreoController.html" title="class in com.tecnicoya.api.controller">MonitoreoController</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.controller.MonitoreoController.RUTA_ERRORES_FRONTEND">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/controller/MonitoreoController.html#RUTA_ERRORES_FRONTEND">RUTA_ERRORES_FRONTEND</a></code></div>
+<div class="col-last even-row-color"><code>"/api/monitoreo/errores-frontend"</code></div>
+</div>
+</li>
+</ul>
 <ul class="block-list">
 <li>
 <div class="caption"><span>com.tecnicoya.api.exception.<a href="com/tecnicoya/api/exception/GlobalExceptionHandler.html" title="class in com.tecnicoya.api.exception">GlobalExceptionHandler</a></span></div>
@@ -74,6 +87,56 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code id="com.tecnicoya.api.exception.GlobalExceptionHandler.MYSQL_REGISTRO_REFERENCIADO">private&nbsp;static&nbsp;final&nbsp;int</code></div>
 <div class="col-second even-row-color"><code><a href="com/tecnicoya/api/exception/GlobalExceptionHandler.html#MYSQL_REGISTRO_REFERENCIADO">MYSQL_REGISTRO_REFERENCIADO</a></code></div>
 <div class="col-last even-row-color"><code>1451</code></div>
+</div>
+</li>
+</ul>
+<ul class="block-list">
+<li>
+<div class="caption"><span>com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html" title="class in com.tecnicoya.api.monitoreo">IdPeticionFilter</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.monitoreo.IdPeticionFilter.CABECERA">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#CABECERA">CABECERA</a></code></div>
+<div class="col-last even-row-color"><code>"X-Request-Id"</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.monitoreo.IdPeticionFilter.MDC_ID_PETICION">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/monitoreo/IdPeticionFilter.html#MDC_ID_PETICION">MDC_ID_PETICION</a></code></div>
+<div class="col-last odd-row-color"><code>"idPeticion"</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html" title="class in com.tecnicoya.api.monitoreo">MetricasSistemaOperativo</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.monitoreo.MetricasSistemaOperativo.VIGENCIA_LECTURA_RED_MS">static&nbsp;final&nbsp;long</code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#VIGENCIA_LECTURA_RED_MS">VIGENCIA_LECTURA_RED_MS</a></code></div>
+<div class="col-last even-row-color"><code>5000L</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.monitoreo.MetricasSistemaOperativo.VIGENCIA_LISTA_INTERFACES_MS">static&nbsp;final&nbsp;long</code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/monitoreo/MetricasSistemaOperativo.html#VIGENCIA_LISTA_INTERFACES_MS">VIGENCIA_LISTA_INTERFACES_MS</a></code></div>
+<div class="col-last odd-row-color"><code>60000L</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>com.tecnicoya.api.monitoreo.<a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html" title="class in com.tecnicoya.api.monitoreo">RegistroErroresFrontend</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.monitoreo.RegistroErroresFrontend.LARGO_PILA">private&nbsp;static&nbsp;final&nbsp;int</code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#LARGO_PILA">LARGO_PILA</a></code></div>
+<div class="col-last even-row-color"><code>2000</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.monitoreo.RegistroErroresFrontend.LARGO_TEXTO">private&nbsp;static&nbsp;final&nbsp;int</code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#LARGO_TEXTO">LARGO_TEXTO</a></code></div>
+<div class="col-last odd-row-color"><code>300</code></div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.monitoreo.RegistroErroresFrontend.MAXIMO_IPS">private&nbsp;static&nbsp;final&nbsp;long</code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#MAXIMO_IPS">MAXIMO_IPS</a></code></div>
+<div class="col-last even-row-color"><code>10000L</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.monitoreo.RegistroErroresFrontend.MAXIMO_POR_MINUTO">static&nbsp;final&nbsp;int</code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/monitoreo/RegistroErroresFrontend.html#MAXIMO_POR_MINUTO">MAXIMO_POR_MINUTO</a></code></div>
+<div class="col-last odd-row-color"><code>30</code></div>
 </div>
 </li>
 </ul>
@@ -107,6 +170,29 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code id="com.tecnicoya.api.security.LimiteIntentosLogin.MAXIMO_ENTRADAS">private&nbsp;static&nbsp;final&nbsp;long</code></div>
 <div class="col-second even-row-color"><code><a href="com/tecnicoya/api/security/LimiteIntentosLogin.html#MAXIMO_ENTRADAS">MAXIMO_ENTRADAS</a></code></div>
 <div class="col-last even-row-color"><code>10000L</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>com.tecnicoya.api.security.<a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html" title="class in com.tecnicoya.api.security">MonitoreoSeguridadFilter</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.security.MonitoreoSeguridadFilter.MDC_USUARIO">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#MDC_USUARIO">MDC_USUARIO</a></code></div>
+<div class="col-last even-row-color"><code>"usuario"</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.security.MonitoreoSeguridadFilter.PREFIJO_ACTUATOR">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#PREFIJO_ACTUATOR">PREFIJO_ACTUATOR</a></code></div>
+<div class="col-last odd-row-color"><code>"/actuator"</code></div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.security.MonitoreoSeguridadFilter.PREFIJO_TOKEN">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#PREFIJO_TOKEN">PREFIJO_TOKEN</a></code></div>
+<div class="col-last even-row-color"><code>"Bearer "</code></div>
+<div class="col-first odd-row-color"><code id="com.tecnicoya.api.security.MonitoreoSeguridadFilter.RUTA_SALUD">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#RUTA_SALUD">RUTA_SALUD</a></code></div>
+<div class="col-last odd-row-color"><code>"/actuator/health"</code></div>
+<div class="col-first even-row-color"><code id="com.tecnicoya.api.security.MonitoreoSeguridadFilter.USUARIO_PROMETHEUS">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="com/tecnicoya/api/security/MonitoreoSeguridadFilter.html#USUARIO_PROMETHEUS">USUARIO_PROMETHEUS</a></code></div>
+<div class="col-last even-row-color"><code>"monitoreo"</code></div>
 </div>
 </li>
 </ul>
