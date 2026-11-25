@@ -4369,7 +4369,7 @@
           }
         },
         {
-          "name": "M14 Log: subir com.tecnicoya.api a DEBUG sin reiniciar",
+          "name": "M14 Log: mostrar el SQL en la terminal (DEBUG) sin reiniciar",
           "event": [
             {
               "listen": "test",
@@ -4389,7 +4389,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "url": "{{actuatorUrl}}/loggers/org.hibernate.SQL",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"configuredLevel\": \"DEBUG\"\n}",
@@ -4399,11 +4399,11 @@
                 }
               }
             },
-            "description": "Niveles de log: TRACE < DEBUG < INFO < WARN < ERROR."
+            "description": "Niveles de log: TRACE < DEBUG < INFO < WARN < ERROR. Sube a DEBUG el logger org.hibernate.SQL sin reiniciar la API. Después usa la web y mira la terminal donde corre la API: aparece cada consulta SQL (DEBUG ... org.hibernate.SQL : select ...). M16 lo devuelve a INFO."
           }
         },
         {
-          "name": "M15 Log: comprobar el nivel DEBUG",
+          "name": "M15 Log: comprobar el nivel DEBUG del SQL",
           "event": [
             {
               "listen": "test",
@@ -4418,11 +4418,11 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api"
+            "url": "{{actuatorUrl}}/loggers/org.hibernate.SQL"
           }
         },
         {
-          "name": "M16 Log: volver a INFO",
+          "name": "M16 Log: volver el SQL a INFO",
           "event": [
             {
               "listen": "test",
@@ -4442,7 +4442,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "url": "{{actuatorUrl}}/loggers/org.hibernate.SQL",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"configuredLevel\": \"INFO\"\n}",
@@ -4475,7 +4475,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "{{actuatorUrl}}/loggers/com.tecnicoya.api",
+            "url": "{{actuatorUrl}}/loggers/org.hibernate.SQL",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"configuredLevel\": \"TRACE\"\n}",
