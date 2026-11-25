@@ -4,10 +4,8 @@ import com.tecnicoya.api.dao.IPlanSuscripcionDao;
 import com.tecnicoya.api.model.PlanSuscripcion;
 import org.springframework.stereotype.Repository;
 
-/** Implementación JPA de {@link IPlanSuscripcionDao}. */
 @Repository
 public class PlanSuscripcionDaoImpl extends GenericDaoImpl<PlanSuscripcion, Long> implements IPlanSuscripcionDao {
-
     public PlanSuscripcionDaoImpl() {
         super(PlanSuscripcion.class);
     }

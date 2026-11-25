@@ -35,36 +35,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * Convierte cualquier excepción en un {@link ApiErrorResponse} con mensaje en español.
- *
- * <ul>
- *   <li>400: {@link ReglaNegocioException}, datos inválidos, JSON mal formado, parámetro con tipo incorrecto
- *       o archivo faltante o ilegible.</li>
- *   <li>401: {@link CredencialesInvalidasException} o {@link NoAutenticadoException} (falta el token o no es
- *       válido).</li>
- *   <li>403: {@link AccesoDenegadoException} (el rol del usuario no tiene permiso).</li>
- *   <li>404: {@link RecursoNoEncontradoException} o ruta inexistente.</li>
- *   <li>405 y 415: método HTTP o tipo de contenido no soportado.</li>
- *   <li>409: {@link ConflictoException} o violación de una restricción de la base de datos (FK, UNIQUE).</li>
- *   <li>413: archivo más grande que {@code spring.servlet.multipart.max-file-size}.</li>
- *   <li>429: {@link DemasiadosIntentosException} (bloqueo temporal por intentos fallidos de inicio de sesión).</li>
- *   <li>500: cualquier otro error, que además se registra en el log.</li>
- * </ul>
- */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     private static final int MYSQL_REGISTRO_DUPLICADO = 1062;
     private static final int MYSQL_REGISTRO_REFERENCIADO = 1451;
     private static final int MYSQL_REFERENCIA_INEXISTENTE = 1452;
 
     private final DataSize tamanoMaximoArchivo;
 
-    /**
-     * @param tamanoMaximoArchivo límite de subida configurado, para indicarlo en el mensaje de error 413
-     */
     public GlobalExceptionHandler(
             @Value("${spring.servlet.multipart.max-file-size:1MB}") DataSize tamanoMaximoArchivo) {
         this.tamanoMaximoArchivo = tamanoMaximoArchivo;
@@ -93,21 +72,18 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
     }
 
-    /** Lanzada por {@link com.tecnicoya.api.security.JwtInterceptor} antes de llegar al controlador. */
     @ExceptionHandler(NoAutenticadoException.class)
     public ResponseEntity<ApiErrorResponse> manejarNoAutenticado(NoAutenticadoException ex,
                                                                  HttpServletRequest request) {
         return construir(HttpStatus.UNAUTHORIZED, ex.getMessage(), request, null);
     }
 
-    /** El rol del usuario no está entre los permitidos por {@link com.tecnicoya.api.security.RequiereRol}. */
     @ExceptionHandler(AccesoDenegadoException.class)
     public ResponseEntity<ApiErrorResponse> manejarAccesoDenegado(AccesoDenegadoException ex,
                                                                   HttpServletRequest request) {
         return construir(HttpStatus.FORBIDDEN, ex.getMessage(), request, null);
     }
 
-    /** Bloqueo temporal por intentos fallidos de inicio de sesión; indica en {@code Retry-After} cuánto esperar. */
     @ExceptionHandler(DemasiadosIntentosException.class)
     public ResponseEntity<ApiErrorResponse> manejarDemasiadosIntentos(DemasiadosIntentosException ex,
                                                                       HttpServletRequest request) {
@@ -188,7 +164,6 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.BAD_REQUEST, mensaje, request, null);
     }
 
-    /** Cuerpo multipart mal formado o cortado (las subidas demasiado grandes las atiende {@link #manejarArchivoGrande}). */
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<ApiErrorResponse> manejarMultipartIlegible(MultipartException ex,
                                                                      HttpServletRequest request) {
@@ -201,7 +176,6 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.NOT_FOUND, "La ruta solicitada no existe", request, null);
     }
 
-    /** Respaldo para restricciones de la BD (FK, UNIQUE) que no se hayan validado antes en el servicio. */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiErrorResponse> manejarIntegridad(DataIntegrityViolationException ex,
                                                               HttpServletRequest request) {
@@ -220,7 +194,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> manejarGeneral(Exception ex, HttpServletRequest request) {
-        // Otras excepciones propias de Spring MVC ya traen su código HTTP (406, 400, etc.)
         if (ex instanceof ErrorResponse errorSpring) {
             HttpStatus status = Objects.requireNonNullElse(
                     HttpStatus.resolve(errorSpring.getStatusCode().value()), HttpStatus.BAD_REQUEST);

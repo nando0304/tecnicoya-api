@@ -7,7 +7,6 @@ import com.tecnicoya.api.model.enums.MetodoPago;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/** Pago de suscripción devuelto por la API, con el técnico y el nombre del plan. */
 public record PagoSuscripcionResponse(
         Long idPagoSuscripcion,
         Long suscripcionId,

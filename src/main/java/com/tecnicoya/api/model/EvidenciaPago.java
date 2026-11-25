@@ -10,14 +10,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/** Comprobante del pago de un servicio (tabla {@code evidencia_pago}). */
 @Entity
 @Table(name = "evidencia_pago")
 @Getter
 @Setter
 @NoArgsConstructor
 public class EvidenciaPago {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEvidenciaPago")

@@ -10,14 +10,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/** Pago de un técnico por su suscripción, procesado por el proveedor de pagos (tabla {@code pago_suscripcion}). */
 @Entity
 @Table(name = "pago_suscripcion")
 @Getter
 @Setter
 @NoArgsConstructor
 public class PagoSuscripcion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idPagoSuscripcion")

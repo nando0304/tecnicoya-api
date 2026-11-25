@@ -19,32 +19,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Arrays;
 
-/**
- * Exige un token JWT válido, enviado en la cabecera {@code Authorization: Bearer <token>}, antes de que la petición
- * llegue al controlador. Si falta o no es válido, responde 401.
- *
- * <p>Con el token válido, deja el id y el rol del usuario como atributos de la petición ({@link #ATRIBUTO_USUARIO},
- * {@link #ATRIBUTO_ROL}) y en el MDC de Logback, para que aparezcan en cada línea de log. Si el endpoint está
- * anotado con {@link RequiereRol} y el rol del usuario no está permitido, responde 403.
- *
- * <p>Rutas públicas, que no piden token:
- * <ul>
- *   <li>{@code POST /api/auth/login}: es donde se obtiene el token.</li>
- *   <li>{@code POST /api/usuarios}: registro de una cuenta nueva.</li>
- *   <li>{@code GET /api/archivos/{nombre}}: el navegador abre los archivos como enlaces o imágenes, sin cabeceras.</li>
- *   <li>Peticiones {@code OPTIONS} de CORS: el navegador las envía antes de la real y nunca llevan el token.</li>
- * </ul>
- * En una ruta pública el token es opcional: si viene y es válido, también se leen el usuario y el rol. Así el
- * administrador puede crear otros administradores con {@code POST /api/usuarios}, mientras que un registro
- * anónimo no puede (lo comprueba {@link ControlAcceso}).
- */
 @Component
 @RequiredArgsConstructor
 public class JwtInterceptor implements HandlerInterceptor {
-
-    /** Atributo de la petición con el id ({@code Long}) del usuario autenticado. */
     public static final String ATRIBUTO_USUARIO = "tecnicoya.usuarioId";
-    /** Atributo de la petición con el rol ({@link TipoUsuario}) del usuario autenticado. */
+
     public static final String ATRIBUTO_ROL = "tecnicoya.rol";
 
     private static final String PREFIJO = "Bearer ";
@@ -83,7 +62,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         MDC.remove(MDC_USUARIO);
     }
 
-    /** En una ruta pública el token es opcional: si no viene o no es válido, la petición sigue como anónima. */
     private void autenticarSiHayToken(HttpServletRequest request) {
         String cabecera = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (cabecera == null || !cabecera.startsWith(PREFIJO)) {
@@ -92,11 +70,9 @@ public class JwtInterceptor implements HandlerInterceptor {
         try {
             registrarSesion(request, jwtService.validarToken(cabecera.substring(PREFIJO.length())));
         } catch (JwtException | IllegalArgumentException ex) {
-            // Sigue como anónima: el token es opcional en esta ruta
         }
     }
 
-    /** Deja el id y el rol del token como atributos de la petición y en el MDC de Logback. */
     private static TipoUsuario registrarSesion(HttpServletRequest request, Claims datos) {
         Long usuarioId = Long.valueOf(datos.getSubject());
         TipoUsuario rol = TipoUsuario.valueOf(datos.get("rol", String.class));

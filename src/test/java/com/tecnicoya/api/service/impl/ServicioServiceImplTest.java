@@ -39,7 +39,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ServicioServiceImplTest {
-
     @Mock
     private IServicioDao servicioDao;
     @Mock
@@ -136,7 +135,7 @@ class ServicioServiceImplTest {
         existente.setFechaSolicitud(LocalDateTime.now().minusDays(1));
         when(servicioDao.buscarPorId(9L)).thenReturn(Optional.of(existente));
         when(tecnicoDao.buscarPorId(1L)).thenReturn(Optional.of(existente.getTecnico()));
-        // La primera verificación (participantes del servicio) pasa; la segunda pide al técnico asignado (usuario 5)
+
         lenient().doThrow(new AccesoDenegadoException("solo lo hace el técnico asignado"))
                 .when(controlAcceso).exigirPropietario(startsWith("marcar el servicio"), eq(5L));
 

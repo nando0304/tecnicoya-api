@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Configuración de Logback, la librería de logging que Spring Boot usa por defecto (a través de SLF4J).
 
-  Destinos (appenders; el log JSON estructurado se explica junto a su appender, más abajo):
-    CONSOLA    -> la terminal, con colores.
-    ARCHIVO    -> logs/tecnicoya-api.log: log general. Rota cada día o al llegar a 10 MB; guarda 30 días comprimidos.
-                  Se escribe de forma asíncrona (ASYNC_ARCHIVO) para no frenar las peticiones.
-    AUDITORIA  -> logs/auditoria.log: solo eventos de seguridad (logins, bloqueos, accesos denegados y operaciones
-                  que modifican datos). Rota cada día y guarda 90 días.
-
-  Niveles, de más a menos detallado: TRACE < DEBUG < INFO < WARN < ERROR.
-  La carpeta se cambia con la propiedad tecnicoya.logs.directorio (variable de entorno LOGS_DIR).
-  Con el perfil "dev" (SPRING_PROFILES_ACTIVE=dev) se activa el nivel DEBUG y se muestran las consultas SQL.
--->
 <configuration>
 
-    <!-- Conversores de Spring Boot (%clr para colores, %wEx para excepciones) -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <springProperty scope="context" name="LOG_DIR" source="tecnicoya.logs.directorio" defaultValue="logs"/>
 
-    <!--
-      %X{usuario} muestra el usuario autenticado (id:rol) que JwtInterceptor deja en el MDC.
-      %replace(%msg) cambia los saltos de línea por espacios: evita la "inyección en logs" (CRLF injection), en la que un
-      usuario malicioso escribe saltos de línea en un campo para falsificar líneas del log.
-    -->
     <property name="MENSAJE_SEGURO" value="%replace(%msg){'[\r\n]+', ' '}"/>
     <property name="PATRON_ARCHIVO"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{usuario:-anonimo}] %logger{40} - ${MENSAJE_SEGURO}%n%wEx"/>
@@ -52,7 +33,6 @@
         </encoder>
     </appender>
 
-    <!-- Escribe en ARCHIVO desde otro hilo; nunca descarta mensajes WARN ni ERROR -->
     <appender name="ASYNC_ARCHIVO" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="ARCHIVO"/>
         <queueSize>1024</queueSize>
@@ -71,14 +51,6 @@
         </encoder>
     </appender>
 
-    <!--
-      JSON -> logs/tecnicoya-api.json: logs ESTRUCTURADOS. Recibe todos los eventos (generales y de auditoría), uno
-      por línea, en formato ECS (Elastic Common Schema). Cada evento es un objeto JSON con campos separados:
-      @timestamp, log.level, log.logger, message, process.thread.name, service.name, usuario, idPeticion y, si hubo
-      un error, error.type, error.message y error.stack_trace. Herramientas como Kibana, Grafana Loki o Datadog lo
-      leen y filtran por campo (p. ej. log.level = ERROR) sin configurar patrones. El codificador lo trae Spring Boot.
-      Los archivos de texto de arriba se mantienen para leerlos a simple vista.
-    -->
     <appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/tecnicoya-api.json</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -99,22 +71,17 @@
         <discardingThreshold>0</discardingThreshold>
     </appender>
 
-    <!-- Eventos de seguridad (ver com.tecnicoya.api.util.Auditoria): a su archivo propio, a la consola y al JSON -->
     <logger name="AUDITORIA" level="INFO" additivity="false">
         <appender-ref ref="AUDITORIA"/>
         <appender-ref ref="CONSOLA"/>
         <appender-ref ref="ASYNC_JSON"/>
     </logger>
 
-    <!--
-      Niveles: además de los de aquí, el administrador puede cambiar el nivel de un logger SIN reiniciar la API con
-      POST /actuator/loggers/{logger}  {"configuredLevel": "DEBUG"}  (ver docs/monitoreo.md).
-    -->
     <logger name="com.tecnicoya.api" level="INFO"/>
     <logger name="org.apache.poi" level="WARN"/>
-    <!-- Consultas SQL más lentas que SQL_LENTA_MS milisegundos (Hibernate las avisa en este logger) -->
+
     <logger name="org.hibernate.SQL_SLOW" level="INFO"/>
-    <!-- Con las estadísticas de Hibernate activas, evita un resumen "Session Metrics" por cada petición -->
+
     <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="WARN"/>
 
     <springProfile name="dev">

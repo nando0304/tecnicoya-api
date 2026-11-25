@@ -25,18 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Implementación de {@link UsuarioService}. Registra en el log (Logback) las altas, bajas y cambios de contraseña.
- *
- * <p>Control de acceso ({@link ControlAcceso}): cada usuario solo ve y edita su propia cuenta, y solo un
- * administrador puede crear administradores, cambiar el tipo de un usuario o su estado.
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UsuarioServiceImpl implements UsuarioService {
-
     private final IUsuarioDao usuarioDao;
     private final ITecnicoDao tecnicoDao;
     private final PasswordEncoder passwordEncoder;
@@ -53,7 +46,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         return UsuarioResponse.desde(buscar(id));
     }
 
-    /** Mismo mensaje para correo inexistente y contraseña errónea: no revela qué correos están registrados. */
     @Override
     public UsuarioResponse autenticar(LoginRequest request) {
         Usuario usuario = usuarioDao.buscarPorCorreo(normalizarCorreo(request.correo()))
@@ -72,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (StringUtils.isBlank(request.contrasena())) {
             throw new ReglaNegocioException("La contraseña es obligatoria al registrar un usuario");
         }
-        // Registro público: nadie puede crearse una cuenta de administrador ni elegir otro estado que ACTIVO
+
         if (request.tipoUsuario() == TipoUsuario.ADMINISTRADOR) {
             controlAcceso.exigirAdministrador("registrar un usuario ADMINISTRADOR");
         }

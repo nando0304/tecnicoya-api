@@ -24,22 +24,16 @@ import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-/** Implementación de {@link ArchivoService} que guarda los archivos en una carpeta del servidor. */
 @Service
 public final class ArchivoServiceImpl implements ArchivoService {
-
-    /** Lista inmutable de Google Guava: nadie puede agregar extensiones en tiempo de ejecución. */
     private static final ImmutableList<String> EXTENSIONES_PERMITIDAS =
             ImmutableList.of("pdf", "jpg", "jpeg", "png", "webp");
-    /** Nombre de un archivo guardado: 64 dígitos hexadecimales (SHA-256) y una extensión permitida. */
+
     private static final Pattern NOMBRE_ALMACENADO =
             Pattern.compile("[0-9a-f]{64}\\.(?:" + String.join("|", EXTENSIONES_PERMITIDAS) + ")");
 
     private final Path directorio;
 
-    /**
-     * @param directorio carpeta donde se guardan los archivos; se crea si no existe
-     */
     public ArchivoServiceImpl(@Value("${tecnicoya.archivos.directorio}") String directorio) {
         this.directorio = Path.of(directorio).toAbsolutePath().normalize();
         try {
@@ -57,7 +51,6 @@ public final class ArchivoServiceImpl implements ArchivoService {
             nombre = FilenameUtils.getName(nombreOriginal);
             extension = StringUtils.lowerCase(FilenameUtils.getExtension(nombre), Locale.ROOT);
         } catch (IllegalArgumentException ex) {
-            // FilenameUtils rechaza nombres con bytes nulos y, en Windows, con ':' (flujos alternos de NTFS)
             throw new ReglaNegocioException("El nombre del archivo no es válido");
         }
         if (extension == null || !EXTENSIONES_PERMITIDAS.contains(extension)) {
@@ -68,7 +61,7 @@ public final class ArchivoServiceImpl implements ArchivoService {
         try {
             String sha256;
             long tamano;
-            // Primera lectura: huella y tamaño, sin cargar el archivo en memoria
+
             try (BoundedInputStream entrada = BoundedInputStream.builder()
                     .setInputStream(contenido.getInputStream()).get()) {
                 sha256 = DigestUtils.sha256Hex(entrada);
@@ -91,7 +84,6 @@ public final class ArchivoServiceImpl implements ArchivoService {
 
     @Override
     public Resource cargar(String nombre) {
-        // El patrón se valida antes de construir la ruta, así no se puede salir de la carpeta con "../"
         if (nombre == null || !NOMBRE_ALMACENADO.matcher(nombre).matches()
                 || !Files.isRegularFile(directorio.resolve(nombre))) {
             throw new RecursoNoEncontradoException("No se encontró el archivo " + nombre);
@@ -99,7 +91,6 @@ public final class ArchivoServiceImpl implements ArchivoService {
         return new FileSystemResource(directorio.resolve(nombre));
     }
 
-    /** Escribe primero en un temporal y luego lo renombra, para que nunca se sirva un archivo a medio escribir. */
     private void escribir(InputStreamSource contenido, Path destino) throws IOException {
         Path temporal = Files.createTempFile(directorio, "subida-", ".tmp");
         try (InputStream entrada = contenido.getInputStream()) {

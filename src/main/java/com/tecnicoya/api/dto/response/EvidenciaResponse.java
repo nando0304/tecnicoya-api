@@ -6,7 +6,6 @@ import com.tecnicoya.api.model.enums.TipoEvidencia;
 
 import java.time.LocalDateTime;
 
-/** Evidencia devuelta por la API, con el nombre del técnico. */
 public record EvidenciaResponse(
         Long idEvidencia,
         Long tecnicoId,

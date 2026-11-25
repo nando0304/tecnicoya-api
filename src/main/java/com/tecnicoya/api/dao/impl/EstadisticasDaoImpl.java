@@ -15,10 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** Implementación JPA de {@link IEstadisticasDao}. */
 @Repository
 public class EstadisticasDaoImpl implements IEstadisticasDao {
-
     @PersistenceContext
     private EntityManager em;
 
@@ -54,10 +52,6 @@ public class EstadisticasDaoImpl implements IEstadisticasDao {
         return Objects.requireNonNullElse(promedio, 0.0);
     }
 
-    /**
-     * Convierte las filas {@code [valorEnum, cantidad]} de un {@code GROUP BY} en un mapa con todos los valores del
-     * enum, para que los que no tienen registros aparezcan con 0. Devuelve un mapa inmutable de Guava.
-     */
     private static <E extends Enum<E>> Map<E, Long> completarConCeros(Class<E> tipo, List<Object[]> filas) {
         EnumMap<E, Long> conteo = new EnumMap<>(tipo);
         for (E valor : tipo.getEnumConstants()) {

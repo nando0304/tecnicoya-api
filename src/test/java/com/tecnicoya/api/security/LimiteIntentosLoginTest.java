@@ -11,9 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-/** Prueba el bloqueo por fuerza bruta con un reloj falso, sin esperar los minutos reales. */
 class LimiteIntentosLoginTest {
-
     private static final String CLAVE = LimiteIntentosLogin.clave(" Maria@Correo.example ", "10.0.0.1");
 
     private final RelojFalso reloj = new RelojFalso();
@@ -67,7 +65,6 @@ class LimiteIntentosLoginTest {
         assertThatCode(() -> limite.verificar(otraIp)).doesNotThrowAnyException();
     }
 
-    /** {@link Ticker} de Guava controlado por la prueba. */
     private static final class RelojFalso extends Ticker {
         private final AtomicLong nanos = new AtomicLong();
 

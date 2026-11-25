@@ -7,14 +7,12 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-/** Empleo anterior o actual de un técnico (tabla {@code experiencia_laboral}). */
 @Entity
 @Table(name = "experiencia_laboral")
 @Getter
 @Setter
 @NoArgsConstructor
 public class ExperienciaLaboral {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idExperiencia")
@@ -36,7 +34,6 @@ public class ExperienciaLaboral {
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
-    /** Nulo cuando el técnico aún trabaja allí (actualidad = true). */
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 

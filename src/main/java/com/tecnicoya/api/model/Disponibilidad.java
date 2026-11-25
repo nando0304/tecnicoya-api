@@ -9,14 +9,12 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
-/** Franja horaria semanal en la que atiende un técnico (tabla {@code disponibilidad}). */
 @Entity
 @Table(name = "disponibilidad")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Disponibilidad {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idDisponibilidad")

@@ -17,9 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Rastreo de errores del front-end: se registran, se validan y se limitan por IP. */
 class MonitoreoControllerTest {
-
     private static final String ERROR_VALIDO = """
             {"mensaje": "Cannot read properties of undefined (reading 'nombre')",
              "pila": "TypeError: Cannot read properties of undefined\\n    at PerfilTecnico (perfil.tsx:42)",

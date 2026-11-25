@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-/** La fecha de cancelación solo se acepta en estado CANCELADA (si se omite, se usa la fecha actual). */
 public record SuscripcionRequest(
-
         @NotNull(message = "El id del técnico es obligatorio")
         Long tecnicoId,
 

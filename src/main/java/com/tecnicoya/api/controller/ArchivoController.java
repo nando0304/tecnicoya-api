@@ -21,26 +21,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.Duration;
 
-/**
- * Subida y descarga de archivos (certificados, fotos de trabajos y comprobantes de pago), bajo {@code /api/archivos}.
- *
- * <p>El front-end sube primero el archivo y guarda la {@code url} devuelta en la evidencia o en el comprobante.
- * Las reglas se aplican en {@link ArchivoService}.
- */
 @RestController
 @RequestMapping("/api/archivos")
 @RequiredArgsConstructor
 public class ArchivoController {
-
     private final ArchivoService archivoService;
 
-    /**
-     * {@code POST /api/archivos}: sube un archivo enviado como {@code multipart/form-data} en el campo {@code archivo}.
-     *
-     * @param archivo PDF o imagen JPG, PNG o WEBP
-     * @return 201 con la URL del archivo y la cabecera {@code Location};
-     *         400 si falta, está vacío o su tipo no está permitido; 413 si supera el tamaño máximo
-     */
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ArchivoResponse> subir(@RequestParam("archivo") MultipartFile archivo) {
         ArchivoAlmacenado guardado = archivoService.guardar(archivo.getOriginalFilename(), archivo);
@@ -49,15 +35,6 @@ public class ArchivoController {
         return ResponseEntity.created(url).body(ArchivoResponse.desde(guardado, url));
     }
 
-    /**
-     * {@code GET /api/archivos/{nombre}}: descarga un archivo subido.
-     *
-     * <p>Como el nombre es la huella del contenido, el archivo nunca cambia y el navegador puede guardarlo en caché
-     * sin volver a pedirlo.
-     *
-     * @param nombre nombre devuelto al subirlo
-     * @return 200 con el archivo; 404 si no existe
-     */
     @GetMapping("/{nombre}")
     public ResponseEntity<Resource> descargar(@PathVariable String nombre) {
         Resource archivo = archivoService.cargar(nombre);

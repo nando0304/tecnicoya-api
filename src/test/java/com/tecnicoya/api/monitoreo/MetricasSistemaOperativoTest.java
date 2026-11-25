@@ -18,9 +18,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/** Memoria RAM y tráfico de red del sistema operativo, con un hardware simulado. */
 class MetricasSistemaOperativoTest {
-
     private static final long GB = 1024L * 1024 * 1024;
 
     private final HardwareAbstractionLayer hardware = mock(HardwareAbstractionLayer.class);
@@ -67,7 +65,7 @@ class MetricasSistemaOperativoTest {
         relojNanos.addAndGet(TimeUnit.MILLISECONDS.toNanos(MetricasSistemaOperativo.VIGENCIA_LECTURA_RED_MS));
         trafico("recibido");
         verify(wifi, times(2)).updateAttributes();
-        // La lista de interfaces (lo más lento de leer) se pidió una sola vez
+
         verify(hardware, times(1)).getNetworkIFs(false);
     }
 

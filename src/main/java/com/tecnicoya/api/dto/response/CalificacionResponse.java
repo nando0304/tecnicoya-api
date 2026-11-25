@@ -6,7 +6,6 @@ import com.tecnicoya.api.model.Tecnico;
 
 import java.time.LocalDateTime;
 
-/** Calificación devuelta por la API, con el título del servicio y el técnico calificado. */
 public record CalificacionResponse(
         Long idCalificacion,
         Long servicioId,

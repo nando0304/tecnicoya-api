@@ -19,17 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link EvidenciaPagoService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): solo el cliente o el técnico del servicio
- * registran su pago, y siempre queda PENDIENTE; el administrador lo valida, edita o elimina.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class EvidenciaPagoServiceImpl implements EvidenciaPagoService {
-
     private final IEvidenciaPagoDao evidenciaPagoDao;
     private final IServicioDao servicioDao;
     private final ControlAcceso controlAcceso;

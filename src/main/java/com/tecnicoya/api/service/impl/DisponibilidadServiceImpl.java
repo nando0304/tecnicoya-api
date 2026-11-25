@@ -18,17 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link DisponibilidadService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina la disponibilidad
- * de su propio perfil.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class DisponibilidadServiceImpl implements DisponibilidadService {
-
     private final IDisponibilidadDao disponibilidadDao;
     private final ITecnicoDao tecnicoDao;
     private final ControlAcceso controlAcceso;

@@ -8,9 +8,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-/** Si {@code actualidad} es true no debe enviarse {@code fechaFin}; si es false, es obligatoria. */
 public record ExperienciaLaboralRequest(
-
         @NotNull(message = "El id del técnico es obligatorio")
         Long tecnicoId,
 

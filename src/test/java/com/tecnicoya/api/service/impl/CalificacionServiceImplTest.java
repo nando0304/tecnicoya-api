@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CalificacionServiceImplTest {
-
     private static final Long CLIENTE_ID = 2L;
 
     @Mock

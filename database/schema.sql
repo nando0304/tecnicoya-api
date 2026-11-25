@@ -1,21 +1,3 @@
--- =====================================================================
---  TécnicoYa - Esquema de base de datos (MySQL 8.0.16 o superior)
--- ---------------------------------------------------------------------
---  Crea la base de datos tecnicoya_db y sus 11 tablas.
---  ATENCIÓN: el script es re-ejecutable y BORRA las tablas existentes
---  (y sus datos) antes de crearlas de nuevo. Úselo solo en desarrollo.
---
---  Convenciones de integridad referencial:
---    * ON DELETE CASCADE  -> datos "propiedad" del padre (perfil técnico,
---                            disponibilidad, evidencias, experiencia,
---                            calificación del servicio).
---    * ON DELETE RESTRICT -> datos históricos o financieros (servicios,
---                            pagos, suscripciones): no se pierden al borrar
---                            al padre; primero debe desactivarse o limpiarse.
---    * ON UPDATE CASCADE  -> en todas las FK (las PK son AUTO_INCREMENT y en
---                            la práctica no cambian).
--- =====================================================================
-
 SET NAMES utf8mb4;
 
 CREATE DATABASE IF NOT EXISTS tecnicoya_db
@@ -24,7 +6,6 @@ CREATE DATABASE IF NOT EXISTS tecnicoya_db
 
 USE tecnicoya_db;
 
--- Orden inverso a las dependencias de las FK
 DROP TABLE IF EXISTS pago_suscripcion;
 DROP TABLE IF EXISTS suscripcion;
 DROP TABLE IF EXISTS plan_suscripcion;
@@ -37,9 +18,6 @@ DROP TABLE IF EXISTS servicio;
 DROP TABLE IF EXISTS tecnico;
 DROP TABLE IF EXISTS usuario;
 
--- ---------------------------------------------------------------------
--- USUARIO: toda persona que accede a la plataforma
--- ---------------------------------------------------------------------
 CREATE TABLE usuario (
     idUsuario       BIGINT        NOT NULL AUTO_INCREMENT,
     nombres         VARCHAR(100)  NOT NULL,
@@ -54,9 +32,6 @@ CREATE TABLE usuario (
     CONSTRAINT uq_usuario_correo UNIQUE (correo)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- TECNICO: perfil profesional (1 a 1 con un USUARIO de tipo TECNICO)
--- ---------------------------------------------------------------------
 CREATE TABLE tecnico (
     idTecnico            BIGINT         NOT NULL AUTO_INCREMENT,
     usuario_id           BIGINT         NOT NULL,
@@ -70,9 +45,6 @@ CREATE TABLE tecnico (
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- SERVICIO: solicitud de un cliente, atendida por un técnico
--- ---------------------------------------------------------------------
 CREATE TABLE servicio (
     idServicio            BIGINT         NOT NULL AUTO_INCREMENT,
     cliente_id            BIGINT         NOT NULL,
@@ -97,9 +69,6 @@ CREATE TABLE servicio (
 
 CREATE INDEX idx_servicio_estado ON servicio (estado_servicio);
 
--- ---------------------------------------------------------------------
--- DISPONIBILIDAD: franjas horarias semanales del técnico
--- ---------------------------------------------------------------------
 CREATE TABLE disponibilidad (
     idDisponibilidad  BIGINT  NOT NULL AUTO_INCREMENT,
     tecnico_id        BIGINT  NOT NULL,
@@ -115,9 +84,6 @@ CREATE TABLE disponibilidad (
     CONSTRAINT chk_disponibilidad_horas CHECK (hora_fin > hora_inicio)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- EVIDENCIA: documentos que respaldan la idoneidad del técnico
--- ---------------------------------------------------------------------
 CREATE TABLE evidencia (
     idEvidencia        BIGINT        NOT NULL AUTO_INCREMENT,
     tecnico_id         BIGINT        NOT NULL,
@@ -132,9 +98,6 @@ CREATE TABLE evidencia (
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- EXPERIENCIA_LABORAL: historial laboral del técnico
--- ---------------------------------------------------------------------
 CREATE TABLE experiencia_laboral (
     idExperiencia  BIGINT         NOT NULL AUTO_INCREMENT,
     tecnico_id     BIGINT         NOT NULL,
@@ -153,9 +116,6 @@ CREATE TABLE experiencia_laboral (
                                               OR (actualidad = FALSE AND fecha_fin IS NOT NULL))
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- CALIFICACION: valoración del cliente (máximo una por servicio)
--- ---------------------------------------------------------------------
 CREATE TABLE calificacion (
     idCalificacion      BIGINT        NOT NULL AUTO_INCREMENT,
     servicio_id         BIGINT        NOT NULL,
@@ -170,9 +130,6 @@ CREATE TABLE calificacion (
     CONSTRAINT chk_calificacion_puntuacion CHECK (puntuacion BETWEEN 1 AND 5)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- EVIDENCIA_PAGO: comprobante del pago de un servicio
--- ---------------------------------------------------------------------
 CREATE TABLE evidencia_pago (
     idEvidenciaPago    BIGINT         NOT NULL AUTO_INCREMENT,
     servicio_id        BIGINT         NOT NULL,
@@ -188,9 +145,6 @@ CREATE TABLE evidencia_pago (
     CONSTRAINT chk_evidencia_pago_monto CHECK (monto > 0)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- PLAN_SUSCRIPCION: planes que ofrece la plataforma a los técnicos
--- ---------------------------------------------------------------------
 CREATE TABLE plan_suscripcion (
     idPlan            BIGINT         NOT NULL AUTO_INCREMENT,
     nombre_plan       VARCHAR(100)   NOT NULL,
@@ -206,9 +160,6 @@ CREATE TABLE plan_suscripcion (
     CONSTRAINT chk_plan_limite_clientes  CHECK (limite_clientes > 0)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- SUSCRIPCION: contratación de un plan por parte de un técnico
--- ---------------------------------------------------------------------
 CREATE TABLE suscripcion (
     idSuscripcion       BIGINT  NOT NULL AUTO_INCREMENT,
     tecnico_id          BIGINT  NOT NULL,
@@ -227,9 +178,6 @@ CREATE TABLE suscripcion (
     CONSTRAINT chk_suscripcion_fechas CHECK (fecha_fin > fecha_inicio)
 ) ENGINE = InnoDB;
 
--- ---------------------------------------------------------------------
--- PAGO_SUSCRIPCION: pagos que realiza el técnico por su suscripción
--- ---------------------------------------------------------------------
 CREATE TABLE pago_suscripcion (
     idPagoSuscripcion  BIGINT         NOT NULL AUTO_INCREMENT,
     suscripcion_id     BIGINT         NOT NULL,

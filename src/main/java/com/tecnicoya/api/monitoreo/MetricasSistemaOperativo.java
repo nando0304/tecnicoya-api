@@ -16,28 +16,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.LongSupplier;
 
-/**
- * Métricas de salud del sistema operativo que la JVM no expone por sí sola, leídas con la librería OSHI.
- *
- * <p>Spring Boot Actuator ya publica el uso de CPU ({@code system.cpu.usage}, {@code process.cpu.usage}), la memoria
- * de la JVM ({@code jvm.memory.used}) y el espacio en disco ({@code disk.free}, {@code disk.total}). Esta clase
- * completa el cuadro con:
- * <ul>
- *   <li>{@code sistema.memoria.total} y {@code sistema.memoria.disponible}: memoria RAM física del servidor.</li>
- *   <li>{@code sistema.red.trafico} (etiqueta {@code sentido} = recibido | enviado): bytes que pasaron por las
- *       interfaces de red del servidor.</li>
- *   <li>{@code sistema.red.errores}: paquetes con error en esas interfaces.</li>
- * </ul>
- * Spring Boot registra automáticamente todo {@link MeterBinder} que sea un bean. Leer las interfaces de red cuesta
- * algo de tiempo, así que los contadores se reutilizan durante {@link #VIGENCIA_LECTURA_RED_MS} milisegundos y la
- * lista de interfaces durante {@link #VIGENCIA_LISTA_INTERFACES_MS}.
- */
 @Component
 public class MetricasSistemaOperativo implements MeterBinder {
-
-    /** Tiempo durante el que se reutiliza la última lectura de las interfaces de red. */
     static final long VIGENCIA_LECTURA_RED_MS = 5_000;
-    /** Tiempo durante el que se reutiliza la lista de interfaces de red (detecta una VPN o un cable nuevo). */
+
     static final long VIGENCIA_LISTA_INTERFACES_MS = 60_000;
 
     private final HardwareAbstractionLayer hardware;
@@ -49,12 +31,10 @@ public class MetricasSistemaOperativo implements MeterBinder {
     private LecturaRed ultimaLectura;
     private long momentoUltimaLectura;
 
-    /** Lee el hardware real del servidor. */
     public MetricasSistemaOperativo() {
         this(new SystemInfo().getHardware(), System::nanoTime);
     }
 
-    /** Permite a las pruebas usar un hardware simulado y controlar el paso del tiempo. */
     @VisibleForTesting
     MetricasSistemaOperativo(HardwareAbstractionLayer hardware, LongSupplier relojNanos) {
         this.hardware = hardware;
@@ -87,14 +67,13 @@ public class MetricasSistemaOperativo implements MeterBinder {
                 .register(registry);
     }
 
-    /** Suma los contadores de todas las interfaces de red físicas (sin la interfaz local o loopback). */
     synchronized LecturaRed leerRed() {
         long ahora = relojNanos.getAsLong();
         if (ultimaLectura != null
                 && TimeUnit.NANOSECONDS.toMillis(ahora - momentoUltimaLectura) < VIGENCIA_LECTURA_RED_MS) {
             return ultimaLectura;
         }
-        // Enumerar las interfaces es lo más lento (en Windows, medio segundo): se repite solo una vez por minuto
+
         if (interfaces == null
                 || TimeUnit.NANOSECONDS.toMillis(ahora - momentoListaInterfaces) >= VIGENCIA_LISTA_INTERFACES_MS) {
             interfaces = hardware.getNetworkIFs(false);
@@ -114,7 +93,6 @@ public class MetricasSistemaOperativo implements MeterBinder {
         return ultimaLectura;
     }
 
-    /** Totales acumulados de las interfaces de red en una lectura. */
     record LecturaRed(long bytesRecibidos, long bytesEnviados, long errores) {
     }
 }

@@ -28,9 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Los reportes solo los descarga un administrador (principio de mínimo privilegio, {@code @RequiereRol}). */
 class ReporteControllerTest {
-
     private final JwtService jwtService = new JwtService("clave-de-prueba-con-mas-de-32-caracteres", 8);
     private final ReporteService reporteService = mock(ReporteService.class);
     private MockMvc mockMvc;

@@ -6,7 +6,6 @@ import com.tecnicoya.api.model.enums.TipoUsuario;
 
 import java.time.LocalDateTime;
 
-/** Nunca incluye la contraseña. */
 public record UsuarioResponse(
         Long idUsuario,
         String nombres,

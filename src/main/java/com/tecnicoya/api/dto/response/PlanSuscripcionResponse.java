@@ -5,7 +5,6 @@ import com.tecnicoya.api.model.enums.EstadoRegistro;
 
 import java.math.BigDecimal;
 
-/** Plan de suscripción devuelto por la API. */
 public record PlanSuscripcionResponse(
         Long idPlan,
         String nombrePlan,

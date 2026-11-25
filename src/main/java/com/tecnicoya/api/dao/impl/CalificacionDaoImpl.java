@@ -4,15 +4,12 @@ import com.tecnicoya.api.dao.ICalificacionDao;
 import com.tecnicoya.api.model.Calificacion;
 import org.springframework.stereotype.Repository;
 
-/** Implementación JPA de {@link ICalificacionDao}. */
 @Repository
 public class CalificacionDaoImpl extends GenericDaoImpl<Calificacion, Long> implements ICalificacionDao {
-
     public CalificacionDaoImpl() {
         super(Calificacion.class);
     }
 
-    /** Trae el servicio y, si lo hay, su técnico en la misma consulta (evita el problema N+1). */
     @Override
     protected String consultaListar() {
         return """

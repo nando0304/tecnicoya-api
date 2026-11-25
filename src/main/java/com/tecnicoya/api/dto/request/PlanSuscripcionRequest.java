@@ -11,9 +11,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-/** Datos para registrar o actualizar un plan de suscripción. */
 public record PlanSuscripcionRequest(
-
         @NotBlank(message = "El nombre del plan es obligatorio")
         @Size(max = 100, message = "El nombre del plan no debe superar los 100 caracteres")
         @SinHtml

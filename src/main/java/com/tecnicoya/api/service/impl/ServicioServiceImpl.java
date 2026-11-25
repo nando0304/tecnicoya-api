@@ -28,27 +28,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Implementación de {@link ServicioService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un cliente solo solicita servicios a su nombre y solo edita los
- * suyos; un técnico solo edita los servicios que tiene asignados o acepta uno libre. Solo el técnico asignado
- * marca el trabajo como EN_PROCESO o FINALIZADO (así un cliente no puede cerrar un servicio y calificarlo).
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ServicioServiceImpl implements ServicioService {
-
-    /** Conjuntos inmutables de Google Guava (respaldados internamente por un EnumSet). */
     private static final ImmutableSet<EstadoServicio> ESTADOS_CON_TECNICO =
             Sets.immutableEnumSet(EstadoServicio.ASIGNADO, EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
     private static final ImmutableSet<EstadoServicio> ESTADOS_CERRADOS =
             Sets.immutableEnumSet(EstadoServicio.FINALIZADO, EstadoServicio.CANCELADO);
-    /** Estados con los que un cliente puede registrar una solicitud. */
+
     private static final ImmutableSet<EstadoServicio> ESTADOS_INICIALES =
             Sets.immutableEnumSet(EstadoServicio.PENDIENTE, EstadoServicio.ASIGNADO);
-    /** Estados que solo marca el técnico asignado (o el administrador). */
+
     private static final ImmutableSet<EstadoServicio> ESTADOS_DEL_TECNICO =
             Sets.immutableEnumSet(EstadoServicio.EN_PROCESO, EstadoServicio.FINALIZADO);
 
@@ -119,7 +110,7 @@ public class ServicioServiceImpl implements ServicioService {
         Long tecnicoAsignado = usuarioDe(servicio.getTecnico());
         Long tecnicoSolicitado = request.tecnicoId() == null ? null
                 : tecnicoDao.buscarPorId(request.tecnicoId()).map(ServicioServiceImpl::usuarioDe).orElse(null);
-        // Un técnico puede tomar un servicio que no tiene técnico (aceptar la solicitud)
+
         Long tecnicoQueAcepta = servicio.getTecnico() == null ? tecnicoSolicitado : null;
 
         controlAcceso.exigirPropietario("modificar un servicio de otro usuario",
@@ -140,7 +131,6 @@ public class ServicioServiceImpl implements ServicioService {
     }
 
     private void aplicarDatos(ServicioRequest request, Servicio servicio) {
-        // El cliente y el técnico solo se revalidan cuando cambian
         if (servicio.getCliente() == null || !servicio.getCliente().getIdUsuario().equals(request.clienteId())) {
             servicio.setCliente(buscarClienteActivo(request.clienteId()));
         }

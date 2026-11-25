@@ -25,9 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Protección contra fuerza bruta en el login: tras 3 fallos el cuarto intento recibe 429. */
 class AuthControllerTest {
-
     private final UsuarioService usuarioService = mock(UsuarioService.class);
     private MockMvc mockMvc;
 
@@ -51,7 +49,7 @@ class AuthControllerTest {
         login().andExpect(status().isTooManyRequests())
                 .andExpect(header().string(HttpHeaders.RETRY_AFTER, "900"))
                 .andExpect(jsonPath("$.error").value("Demasiadas solicitudes"));
-        // El intento bloqueado ni siquiera llega a consultar la base de datos
+
         verify(usuarioService, times(3)).autenticar(any(LoginRequest.class));
     }
 

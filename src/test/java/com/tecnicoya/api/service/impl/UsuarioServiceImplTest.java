@@ -36,7 +36,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UsuarioServiceImplTest {
-
     private static final String CORREO_NORMALIZADO = "ana.paredes@correo.example";
 
     @Mock

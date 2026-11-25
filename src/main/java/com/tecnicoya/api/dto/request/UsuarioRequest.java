@@ -9,12 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-/**
- * Datos para registrar o actualizar un usuario.
- * La contraseña es obligatoria al crear; al actualizar, si se omite se conserva la actual.
- */
 public record UsuarioRequest(
-
         @NotBlank(message = "Los nombres son obligatorios")
         @Size(max = 100, message = "Los nombres no deben superar los 100 caracteres")
         @SinHtml

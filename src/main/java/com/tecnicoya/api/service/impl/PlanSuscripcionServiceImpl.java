@@ -15,12 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/** Implementación de {@link PlanSuscripcionService}. */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PlanSuscripcionServiceImpl implements PlanSuscripcionService {
-
     private final IPlanSuscripcionDao planSuscripcionDao;
 
     @Override

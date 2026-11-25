@@ -11,9 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-/** Control de acceso por registro (IDOR): cada usuario solo toca lo suyo; el administrador, todo. */
 class ControlAccesoTest {
-
     private final ControlAcceso controlAcceso = new ControlAcceso();
 
     @AfterEach
@@ -41,7 +39,6 @@ class ControlAccesoTest {
     void conVariosDuenos_bastaConSerUnoDeEllos() {
         sesion(5L, TipoUsuario.TECNICO);
 
-        // Servicio sin técnico: el segundo dueño es null y se ignora
         assertThatCode(() -> controlAcceso.exigirPropietario("editar", 2L, null, 5L)).doesNotThrowAnyException();
     }
 
@@ -71,7 +68,6 @@ class ControlAccesoTest {
                 .isInstanceOf(AccesoDenegadoException.class);
     }
 
-    /** Simula lo que deja {@link JwtInterceptor} en la petición tras validar el token. */
     private static void sesion(Long usuarioId, TipoUsuario rol) {
         MockHttpServletRequest peticion = new MockHttpServletRequest();
         peticion.setAttribute(JwtInterceptor.ATRIBUTO_USUARIO, usuarioId);

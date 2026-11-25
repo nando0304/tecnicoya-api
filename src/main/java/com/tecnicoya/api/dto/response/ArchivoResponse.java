@@ -4,10 +4,6 @@ import com.tecnicoya.api.service.ArchivoAlmacenado;
 
 import java.net.URI;
 
-/**
- * Archivo subido. La {@code url} es la que se envía después en {@code urlArchivo} (evidencias)
- * o en {@code archivoEvidencia} (evidencias de pago).
- */
 public record ArchivoResponse(
         String url,
         String nombre,

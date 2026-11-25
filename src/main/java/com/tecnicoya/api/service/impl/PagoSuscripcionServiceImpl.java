@@ -19,17 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link PagoSuscripcionService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo registra pagos de sus propias
- * suscripciones y siempre quedan PENDIENTES; el administrador los aprueba, edita o elimina.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PagoSuscripcionServiceImpl implements PagoSuscripcionService {
-
     private final IPagoSuscripcionDao pagoSuscripcionDao;
     private final ISuscripcionDao suscripcionDao;
     private final ControlAcceso controlAcceso;

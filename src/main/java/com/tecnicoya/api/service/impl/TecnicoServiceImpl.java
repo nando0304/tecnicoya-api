@@ -20,17 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link TecnicoService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea y edita su propio perfil, y solo el
- * administrador cambia el estado de verificación (un técnico no puede autoverificarse).
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class TecnicoServiceImpl implements TecnicoService {
-
     private final ITecnicoDao tecnicoDao;
     private final IUsuarioDao usuarioDao;
     private final ControlAcceso controlAcceso;

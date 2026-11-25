@@ -22,17 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Implementación de {@link SuscripcionService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo solicita y cancela sus propias
- * suscripciones. Solo el administrador las activa (al confirmar el pago), cambia el plan o las fechas.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class SuscripcionServiceImpl implements SuscripcionService {
-
     private final ISuscripcionDao suscripcionDao;
     private final ITecnicoDao tecnicoDao;
     private final IPlanSuscripcionDao planSuscripcionDao;
@@ -91,7 +84,6 @@ public class SuscripcionServiceImpl implements SuscripcionService {
         suscripcionDao.eliminar(buscar(id));
     }
 
-    /** El técnico dueño solo puede cancelar; cualquier otro cambio lo hace el administrador. */
     private void verificarPermisoDeEdicion(Suscripcion suscripcion, SuscripcionRequest request) {
         controlAcceso.exigirPropietario("modificar la suscripción de otro técnico",
                 suscripcion.getTecnico().getUsuario().getIdUsuario());

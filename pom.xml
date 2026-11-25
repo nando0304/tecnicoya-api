@@ -18,7 +18,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <!-- Spring Boot no gestiona la versión de Commons IO (sí las de Commons Lang y Commons Codec) -->
+
         <commons-io.version>2.22.0</commons-io.version>
         <jjwt.version>0.13.0</jjwt.version>
         <guava.version>33.4.8-jre</guava.version>
@@ -30,7 +30,7 @@
     </properties>
 
     <dependencies>
-        <!-- En Spring Boot 4 este starter reemplaza a spring-boot-starter-web (deprecado) -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
@@ -43,12 +43,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <!-- Solo el módulo de cifrado (BCrypt); no activa Spring Security ni protege endpoints -->
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
-        <!-- JJWT: genera y valida el token JWT que se entrega al iniciar sesión -->
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -67,48 +67,39 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Apache Commons -->
-        <!-- Lang: normalización de los textos que llegan en las solicitudes (StringUtils) -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!-- Codec: huella SHA-256 de los archivos subidos, que se usa como su nombre -->
+
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
-        <!-- IO: nombre y extensión seguros de los archivos subidos (FilenameUtils) -->
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
 
-        <!-- Collections: utilidades null-safe para listas y mapas (CollectionUtils, MapUtils) en los reportes -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections4.version}</version>
         </dependency>
 
-        <!-- Google Guava: caché del límite de intentos de login (CacheBuilder), validaciones (Preconditions),
-             colecciones inmutables (ImmutableList, ImmutableMap) y agrupaciones (Multimap) -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- Apache POI: generación de los reportes en Excel (.xlsx) -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
-
-        <!-- Logback: viene incluido en los starters de Spring Boot (spring-boot-starter-logging);
-             su configuración está en src/main/resources/logback-spring.xml -->
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -127,24 +118,21 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ===== Monitoreo (observabilidad). Guía completa en docs/monitoreo.md ===== -->
-        <!-- Actuator: endpoints /actuator/health, /actuator/metrics, /actuator/loggers, etc. Incluye Micrometer,
-             que mide tiempos de respuesta (APM), errores, CPU, memoria de la JVM, disco y el pool de conexiones -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- Publica las métricas en formato Prometheus (/actuator/prometheus) para graficarlas en Grafana -->
+
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
-        <!-- Métricas de Hibernate: consultas ejecutadas, entidades cargadas, transacciones (monitoreo de la BD) -->
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-micrometer</artifactId>
         </dependency>
-        <!-- OSHI: lee del sistema operativo la memoria RAM y el tráfico de red, que la JVM no expone -->
+
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
@@ -167,7 +155,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <!-- Documentación HTML del código: ./mvnw javadoc:javadoc  ->  docs/apidocs/index.html -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -181,16 +169,13 @@
                     <doctitle>TécnicoYa API ${project.version}</doctitle>
                     <windowtitle>TécnicoYa API</windowtitle>
                     <outputDirectory>${project.basedir}/docs</outputDirectory>
-                    <!-- Sin esto, en Windows javadoc lee sus opciones en Cp1252 y rompe los acentos del título -->
+
                     <additionalJOptions>
                         <additionalJOption>-J-Dfile.encoding=UTF-8</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>
-            <!-- OWASP Dependency-Check: busca vulnerabilidades conocidas (CVE) en las librerías del proyecto.
-                 No corre en cada build; ejecútelo a mano con  ./mvnw dependency-check:check
-                 (la primera vez descarga la base de datos NVD y demora varios minutos).
-                 El reporte queda en target/dependency-check-report.html -->
+
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -200,29 +185,23 @@
                         <format>HTML</format>
                         <format>JSON</format>
                     </formats>
-                    <!-- Falla si alguna librería tiene una vulnerabilidad de severidad alta (CVSS >= 7) -->
+
                     <failBuildOnCVSS>7</failBuildOnCVSS>
-                    <!-- Opcional: con una clave gratuita de https://nvd.nist.gov/developers/request-an-api-key
-                         en la variable de entorno NVD_API_KEY la descarga es mucho más rápida -->
+
                     <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
                 </configuration>
             </plugin>
-            <!-- SAST (análisis estático de seguridad): SpotBugs revisa el bytecode compilado en busca de errores
-                 y el complemento FindSecBugs agrega reglas de seguridad (inyección SQL/JPQL, XSS, path traversal,
-                 criptografía débil, secretos en el código, etc.; más de 140 tipos de vulnerabilidad).
-                 Ejecútelo a mano con  ./mvnw compile spotbugs:check   (falla si encuentra algún problema)
-                 o con  ./mvnw compile spotbugs:gui  para ver los hallazgos en una ventana.
-                 El detalle queda en target/spotbugsXml.xml -->
+
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${spotbugs-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
-                    <!-- Low: informa también los hallazgos de prioridad baja -->
+
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
-                    <!-- Hallazgos revisados y justificados como falsos positivos -->
+
                     <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
                     <plugins>
                         <plugin>

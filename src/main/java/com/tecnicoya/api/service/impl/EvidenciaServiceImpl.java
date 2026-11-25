@@ -18,17 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link EvidenciaService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina las evidencias
- * de su propio perfil. Solo el administrador aprueba o rechaza una evidencia.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class EvidenciaServiceImpl implements EvidenciaService {
-
     private final IEvidenciaDao evidenciaDao;
     private final ITecnicoDao tecnicoDao;
     private final ControlAcceso controlAcceso;

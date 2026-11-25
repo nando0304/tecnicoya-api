@@ -7,7 +7,6 @@ import com.tecnicoya.api.model.enums.Prioridad;
 
 import java.time.LocalDateTime;
 
-/** Servicio devuelto por la API, con los nombres del cliente y del técnico ({@code null} si aún no tiene). */
 public record ServicioResponse(
         Long idServicio,
         Long clienteId,

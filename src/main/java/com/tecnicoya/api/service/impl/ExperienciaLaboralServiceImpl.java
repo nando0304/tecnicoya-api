@@ -17,17 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link ExperienciaLaboralService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): un técnico solo crea, edita y elimina la experiencia laboral
- * de su propio perfil.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ExperienciaLaboralServiceImpl implements ExperienciaLaboralService {
-
     private final IExperienciaLaboralDao experienciaLaboralDao;
     private final ITecnicoDao tecnicoDao;
     private final ControlAcceso controlAcceso;

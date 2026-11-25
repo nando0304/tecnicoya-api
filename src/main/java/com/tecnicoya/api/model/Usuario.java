@@ -9,14 +9,12 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/** Persona registrada en la plataforma: cliente, técnico o administrador (tabla {@code usuario}). */
 @Entity
 @Table(name = "usuario")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUsuario")
@@ -31,7 +29,6 @@ public class Usuario {
     @Column(name = "correo", nullable = false, unique = true, length = 150)
     private String correo;
 
-    /** Hash BCrypt; la contraseña nunca se guarda en texto plano. */
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
 

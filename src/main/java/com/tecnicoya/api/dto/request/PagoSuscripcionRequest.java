@@ -10,9 +10,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/** Si no se envía {@code fechaPago} se registra la fecha y hora actual. */
 public record PagoSuscripcionRequest(
-
         @NotNull(message = "El id de la suscripción es obligatorio")
         Long suscripcionId,
 

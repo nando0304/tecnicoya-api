@@ -9,12 +9,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-/**
- * Datos de un servicio. La fecha de solicitud la asigna el sistema al crearlo;
- * la fecha de cierre solo se acepta en estados FINALIZADO o CANCELADO.
- */
 public record ServicioRequest(
-
         @NotNull(message = "El id del cliente es obligatorio")
         Long clienteId,
 

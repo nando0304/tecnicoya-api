@@ -9,9 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Cada petición recibe un id que va al log (MDC) y a la cabecera X-Request-Id de la respuesta. */
 class IdPeticionFilterTest {
-
     private final IdPeticionFilter filtro = new IdPeticionFilter();
 
     @Test

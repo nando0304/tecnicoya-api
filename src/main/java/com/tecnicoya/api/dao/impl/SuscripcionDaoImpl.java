@@ -5,15 +5,12 @@ import com.tecnicoya.api.model.Suscripcion;
 import com.tecnicoya.api.model.enums.EstadoSuscripcion;
 import org.springframework.stereotype.Repository;
 
-/** Implementación JPA de {@link ISuscripcionDao}. */
 @Repository
 public class SuscripcionDaoImpl extends GenericDaoImpl<Suscripcion, Long> implements ISuscripcionDao {
-
     public SuscripcionDaoImpl() {
         super(Suscripcion.class);
     }
 
-    /** Trae el técnico, su usuario y el plan en la misma consulta (evita el problema N+1). */
     @Override
     protected String consultaListar() {
         return """

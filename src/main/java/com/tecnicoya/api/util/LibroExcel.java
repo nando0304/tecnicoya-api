@@ -26,27 +26,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-/**
- * Arma un libro de Excel ({@code .xlsx}) con Apache POI.
- *
- * <p>Cada hoja tiene un título, una fila de encabezados con estilo, filtros automáticos, la fila de encabezados
- * fija al desplazarse y anchos de columna ajustados al contenido. Las celdas toman el tipo del valor: números,
- * montos con formato de moneda, fechas con formato de fecha y el resto como texto.
- *
- * <p>Seguridad: los textos se escriben siempre como texto ({@code setCellValue(String)}), nunca como fórmula, por lo
- * que un valor como {@code =HYPERLINK(...)} ingresado por un usuario no se ejecuta al abrir el archivo
- * (previene la "inyección de fórmulas").
- *
- * <pre>{@code
- * try (LibroExcel libro = new LibroExcel()) {
- *     libro.agregarHoja("Usuarios", "Listado de usuarios", List.of("ID", "Nombre"), filas);
- *     byte[] xlsx = libro.aBytes();
- * }
- * }</pre>
- */
 public final class LibroExcel implements AutoCloseable {
-
-    /** Ancho máximo de una columna, en caracteres. */
     private static final int ANCHO_MAXIMO = 60;
     private static final int ANCHO_MINIMO = 8;
 
@@ -84,15 +64,6 @@ public final class LibroExcel implements AutoCloseable {
         estiloFecha = conFormato("dd/mm/yyyy");
     }
 
-    /**
-     * Agrega una hoja con un título en la primera fila, los encabezados en la tercera y luego los datos.
-     *
-     * @param nombre      nombre de la pestaña (se ajusta si tiene caracteres no permitidos por Excel)
-     * @param titulo      texto de la primera fila
-     * @param encabezados nombres de las columnas
-     * @param filas       valores de cada fila, en el mismo orden que los encabezados; puede ser vacía o nula
-     * @return esta misma instancia, para encadenar llamadas
-     */
     public LibroExcel agregarHoja(String nombre, String titulo, List<String> encabezados, List<List<?>> filas) {
         checkArgument(!encabezados.isEmpty(), "La hoja debe tener al menos una columna");
         Sheet hoja = libro.createSheet(WorkbookUtil.createSafeSheetName(nombre));
@@ -133,23 +104,10 @@ public final class LibroExcel implements AutoCloseable {
         return this;
     }
 
-    /**
-     * Agrega una hoja de dos columnas (indicador y valor), útil para resúmenes.
-     *
-     * @param nombre      nombre de la pestaña
-     * @param titulo      texto de la primera fila
-     * @param indicadores filas de dos elementos: nombre del indicador y su valor
-     * @return esta misma instancia
-     */
     public LibroExcel agregarResumen(String nombre, String titulo, List<List<?>> indicadores) {
         return agregarHoja(nombre, titulo, List.of("Indicador", "Valor"), indicadores);
     }
 
-    /**
-     * Genera el archivo.
-     *
-     * @return contenido del archivo {@code .xlsx}
-     */
     public byte[] aBytes() {
         try (ByteArrayOutputStream salida = new ByteArrayOutputStream()) {
             libro.write(salida);
@@ -168,7 +126,6 @@ public final class LibroExcel implements AutoCloseable {
         }
     }
 
-    /** Escribe el valor con el tipo y estilo que le corresponde y devuelve su largo aproximado en caracteres. */
     private int escribir(Cell celda, Object valor) {
         if (valor instanceof BigDecimal monto) {
             return escribirNumero(celda, monto.doubleValue(), estiloMoneda, monto.toPlainString().length() + 4);

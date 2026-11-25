@@ -1,12 +1,3 @@
-# Monitoreo visual de TécnicoYa: Prometheus guarda las métricas de la API y Grafana las muestra en paneles.
-# Guía completa: docs/monitoreo.md
-#
-#   1. Inicie la API (puerto 8080) con MONITOREO_TOKEN definido en el .env.
-#   2. Copie ese mismo token en monitoreo/prometheus/token.txt (una sola línea, ignorado por git).
-#   3. Desde esta carpeta:  docker compose up -d
-#   4. Grafana:     http://localhost:3000  (usuario admin / clave admin; pide cambiarla al entrar)
-#      Prometheus:  http://localhost:9090  (pestaña "Alerts" para ver las alertas)
-#   Para detenerlo:  docker compose down
 services:
   prometheus:
     image: prom/prometheus:v3.5.0
@@ -18,7 +9,6 @@ services:
       - ./prometheus/alertas.yml:/etc/prometheus/alertas.yml:ro
       - ./prometheus/token.txt:/etc/prometheus/token.txt:ro
       - prometheus-datos:/prometheus
-    # La API corre fuera de Docker, en la PC: así el contenedor la encuentra también en Linux
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
@@ -34,7 +24,6 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/tecnicoya-api.json
     volumes:
-      # Fuente de datos (Prometheus) y panel de TécnicoYa ya configurados al iniciar
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
       - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
       - grafana-datos:/var/lib/grafana

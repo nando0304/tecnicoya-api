@@ -9,14 +9,12 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/** Atención que un cliente solicita y que realiza un técnico (tabla {@code servicio}). */
 @Entity
 @Table(name = "servicio")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Servicio {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idServicio")
@@ -26,7 +24,6 @@ public class Servicio {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Usuario cliente;
 
-    /** Puede ser nulo mientras el servicio no tenga un técnico asignado. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;

@@ -13,9 +13,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/** Si no se envía {@code fechaPago} se registra la fecha y hora actual. */
 public record EvidenciaPagoRequest(
-
         @NotNull(message = "El id del servicio es obligatorio")
         Long servicioId,
 

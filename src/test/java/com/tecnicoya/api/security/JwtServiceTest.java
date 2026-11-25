@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class JwtServiceTest {
-
     static final String SECRETO = "clave-de-prueba-con-mas-de-32-caracteres";
     static final UsuarioResponse USUARIO = new UsuarioResponse(2L, "María", "Quispe", "maria.quispe@correo.example",
             null, TipoUsuario.CLIENTE, EstadoUsuario.ACTIVO, LocalDateTime.now());
@@ -33,7 +32,6 @@ class JwtServiceTest {
 
     @Test
     void validarToken_conDatosCambiados_esRechazado() {
-        // Un cliente toma los datos (payload) de un token de administrador y conserva su propia firma
         UsuarioResponse admin = new UsuarioResponse(1L, "Carlos", "Mendoza", "carlos.mendoza@tecnicoya.example",
                 null, TipoUsuario.ADMINISTRADOR, EstadoUsuario.ACTIVO, LocalDateTime.now());
         String[] cliente = jwtService.generarToken(USUARIO).split("\\.");

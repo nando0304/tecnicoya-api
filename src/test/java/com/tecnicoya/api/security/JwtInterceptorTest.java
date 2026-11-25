@@ -21,9 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Prueba el interceptor con un controlador real: subir un archivo pide token y descargarlo no. */
 class JwtInterceptorTest {
-
     @TempDir
     private Path directorio;
     private MockMvc mockMvc;
@@ -63,7 +61,6 @@ class JwtInterceptorTest {
 
     @Test
     void rutaPublica_noPideToken() throws Exception {
-        // Llega al controlador sin token: responde 404 porque el archivo no existe, no 401
         mockMvc.perform(get("/api/archivos/{nombre}", "inexistente.pdf"))
                 .andExpect(status().isNotFound());
     }

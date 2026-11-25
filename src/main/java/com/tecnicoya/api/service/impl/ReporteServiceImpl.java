@@ -27,19 +27,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Implementación de {@link ReporteService}.
- *
- * <p>Lee los datos con los DAO y arma los archivos con {@link LibroExcel} (Apache POI). Para los indicadores por
- * técnico agrupa los servicios y calificaciones con {@code Multimaps.index} de Google Guava, que crea un mapa
- * "técnico → lista de servicios" en una sola pasada.
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ReporteServiceImpl implements ReporteService {
-
     private static final List<String> COLUMNAS_USUARIOS = ImmutableList.of(
             "ID", "Nombres", "Apellidos", "Correo", "Teléfono", "Tipo", "Estado", "Fecha de registro");
     private static final List<String> COLUMNAS_TECNICOS = ImmutableList.of(

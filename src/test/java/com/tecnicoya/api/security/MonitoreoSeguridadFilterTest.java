@@ -18,15 +18,13 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Los endpoints de /actuator: health es público y el resto solo lo ve el administrador o Prometheus. */
 class MonitoreoSeguridadFilterTest {
-
     private static final String TOKEN_PROMETHEUS = "token-de-prometheus-para-pruebas";
     private static final UsuarioResponse ADMINISTRADOR = new UsuarioResponse(1L, "Ana", "Torres",
             "admin@correo.example", null, TipoUsuario.ADMINISTRADOR, EstadoUsuario.ACTIVO, LocalDateTime.now());
 
     private final JwtService jwtService = new JwtService(JwtServiceTest.SECRETO, 8);
-    /** Imita a GlobalExceptionHandler: 401 si falta el token y 403 si el rol no tiene permiso. */
+
     private final HandlerExceptionResolver resolver = (request, response, handler, ex) -> {
         response.setStatus(ex instanceof NoAutenticadoException ? 401 : ex instanceof AccesoDenegadoException ? 403 : 500);
         return new ModelAndView();
@@ -72,7 +70,7 @@ class MonitoreoSeguridadFilterTest {
 
         HttpServletRequest recibida = (HttpServletRequest) cadena.getRequest();
         assertThat(recibida.getUserPrincipal().getName()).isEqualTo("1");
-        // Con este rol Actuator muestra el detalle de /actuator/health (management.endpoint.health.roles)
+
         assertThat(recibida.isUserInRole("ADMINISTRADOR")).isTrue();
     }
 

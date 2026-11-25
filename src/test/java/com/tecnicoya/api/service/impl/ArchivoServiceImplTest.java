@@ -20,8 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ArchivoServiceImplTest {
-
-    /** SHA-256 de "abc", vector de prueba del estándar FIPS 180-2. */
     private static final String SHA256_ABC = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad";
 
     @TempDir

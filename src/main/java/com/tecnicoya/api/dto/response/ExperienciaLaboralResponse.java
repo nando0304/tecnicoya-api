@@ -4,7 +4,6 @@ import com.tecnicoya.api.model.ExperienciaLaboral;
 
 import java.time.LocalDate;
 
-/** Experiencia laboral devuelta por la API, con el nombre del técnico. */
 public record ExperienciaLaboralResponse(
         Long idExperiencia,
         Long tecnicoId,

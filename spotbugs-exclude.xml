@@ -1,49 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Hallazgos de SpotBugs + FindSecBugs (SAST) revisados uno por uno y aceptados como falsos positivos.
-  Cada exclusión indica por qué no es una vulnerabilidad. Los hallazgos reales se corrigieron en el código:
-    - CRLF_INJECTION_LOGS: los datos del cliente (correo, IP, ruta, método, rol) pasan por Auditoria.limpiar().
-    - EI_EXPOSE_REP2 en CorsConfig: copia defensiva del arreglo de orígenes.
-    - EI_EXPOSE_REP/REP2 en ApiErrorResponse: copia inmutable del mapa de errores.
-    - CT_CONSTRUCTOR_THROW: JwtService y ArchivoServiceImpl ahora son clases final.
-    - SE_TRANSIENT_FIELD_NOT_RESTORED: DemasiadosIntentosException ya no marca como transient un campo serializable.
-  Ejecutar:  ./mvnw compile spotbugs:check
--->
+
 <FindBugsFilter xmlns="https://github.com/spotbugs/filter/3.0.0">
 
-    <!-- Informativo: FindSecBugs marca cada método @GetMapping/@PostMapping... como "punto de entrada que se
-         debe revisar". Todos están revisados: JwtInterceptor exige token, @RequiereRol limita por rol y
-         ControlAcceso verifica que el registro pertenezca al usuario. -->
     <Match>
         <Bug pattern="SPRING_ENDPOINT"/>
     </Match>
 
-    <!-- Entidades JPA: Hibernate necesita getters y setters que devuelvan y reciban las referencias reales
-         (relaciones @ManyToOne, fechas) para administrar el estado persistente. Nunca salen de la API:
-         los controladores responden con DTOs (record) creados a partir de ellas. -->
     <Match>
         <Package name="com.tecnicoya.api.model"/>
         <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
     </Match>
 
-    <!-- La cabecera Authorization sí viene del cliente, pero no se confía en ella: el token se valida con
-         su firma HMAC-SHA256 y su fecha de vencimiento (JwtService.validarToken) antes de usarlo. -->
     <Match>
         <Class name="com.tecnicoya.api.security.JwtInterceptor"/>
         <Bug pattern="SERVLET_HEADER"/>
     </Match>
 
-    <!-- Commons IO 2.7+ lanza IllegalArgumentException ante un byte nulo en el nombre (se captura y responde 400).
-         Además el nombre original solo se usa para leer la extensión (lista blanca): el archivo se guarda con el
-         hash SHA-256 de su contenido como nombre, nunca con el nombre que envía el usuario. -->
     <Match>
         <Class name="com.tecnicoya.api.service.impl.ArchivoServiceImpl"/>
         <Bug pattern="WEAK_FILENAMEUTILS"/>
     </Match>
 
-    <!-- CRLF en logs: los valores registrados en estos métodos son de tipo Long o enum (id del usuario, rol,
-         tipo de usuario) o constantes internas (nombre del reporte), que no pueden contener saltos de línea.
-         Además logback-spring.xml reemplaza \r y \n en cada mensaje (%replace). -->
     <Match>
         <Bug pattern="CRLF_INJECTION_LOGS"/>
         <Or>
@@ -70,19 +47,12 @@
         </Or>
     </Match>
 
-    <!-- Manejador del error 500: registra el objeto de la excepción para tener la traza completa en el log del
-         servidor (el cliente solo recibe un mensaje genérico). El método y la ruta ya pasan por Auditoria.limpiar(). -->
     <Match>
         <Class name="com.tecnicoya.api.exception.GlobalExceptionHandler"/>
         <Method name="manejarGeneral"/>
         <Bug pattern="CRLF_INJECTION_LOGS"/>
     </Match>
 
-    <!-- Monitoreo. Las cabeceras vienen del cliente, pero no se confía en ellas:
-         - MonitoreoSeguridadFilter: el token de Authorization se valida con su firma (JwtService.validarToken) o se
-           compara en tiempo constante con el token de monitoreo antes de dar acceso a /actuator.
-         - IdPeticionFilter: X-Request-Id solo se reutiliza si cumple [A-Za-z0-9-]{8,64}; si no, se genera un UUID.
-           Así no puede llevar saltos de línea al log ni a la cabecera de la respuesta. -->
     <Match>
         <Or>
             <Class name="com.tecnicoya.api.security.MonitoreoSeguridadFilter"/>

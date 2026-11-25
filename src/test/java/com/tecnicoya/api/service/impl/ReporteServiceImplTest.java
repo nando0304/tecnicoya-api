@@ -33,10 +33,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-/** Genera los reportes con DAO simulados y vuelve a abrir el .xlsx con Apache POI para revisar su contenido. */
 @ExtendWith(MockitoExtension.class)
 class ReporteServiceImplTest {
-
     @Mock
     private IUsuarioDao usuarioDao;
     @Mock

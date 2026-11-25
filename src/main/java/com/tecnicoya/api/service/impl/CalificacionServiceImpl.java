@@ -20,17 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Implementación de {@link CalificacionService}.
- *
- * <p>Control de acceso ({@link ControlAcceso}): solo el cliente que solicitó el servicio puede
- * calificarlo o editar su calificación.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CalificacionServiceImpl implements CalificacionService {
-
     private final ICalificacionDao calificacionDao;
     private final IServicioDao servicioDao;
     private final ControlAcceso controlAcceso;
