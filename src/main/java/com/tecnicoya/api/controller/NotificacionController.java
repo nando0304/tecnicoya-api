@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/notificaciones")
 public class NotificacionController {
 
-    private final List> notificaciones = new CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> notificaciones = new CopyOnWriteArrayList<>();
 
     public NotificacionController() {
         Map<String, Object> inicial = new LinkedHashMap<>();
@@ -33,8 +33,8 @@ public class NotificacionController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List>> listarPorUsuario(@PathVariable int usuarioId) {
-        List> resultado = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> listarPorUsuario(@PathVariable int usuarioId) {
+        List<Map<String, Object>> resultado = new ArrayList<>();
         for (Map<String, Object> n : notificaciones) {
             if (String.valueOf(n.get("usuarioId")).equals(String.valueOf(usuarioId))) {
                 resultado.add(n);
@@ -44,7 +44,7 @@ public class NotificacionController {
     }
 
     @PostMapping
-    public ResponseEntity> crear(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> crear(@RequestBody Map<String, Object> body) {
         Map<String, Object> nueva = new LinkedHashMap<>();
         nueva.put("id", notificaciones.size() + 1);
         nueva.put("usuarioId", body.getOrDefault("usuarioId", 1));

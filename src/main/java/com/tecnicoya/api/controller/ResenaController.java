@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/resenas")
 public class ResenaController {
 
-    private final List> resenas = new CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> resenas = new CopyOnWriteArrayList<>();
 
     public ResenaController() {
         resenas.add(Map.of(
@@ -31,13 +31,13 @@ public class ResenaController {
     }
 
     @GetMapping
-    public ResponseEntity<List>> listarResenas() {
+    public ResponseEntity<List<Map<String, Object>>> listarResenas() {
         return ResponseEntity.ok(List.copyOf(resenas));
     }
 
     @GetMapping("/tecnico/{tecnicoId}")
-    public ResponseEntity<List>> listarPorTecnico(@PathVariable int tecnicoId) {
-        List> filtradas = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> listarPorTecnico(@PathVariable int tecnicoId) {
+        List<Map<String, Object>> filtradas = new ArrayList<>();
         for (Map<String, Object> r : resenas) {
             if (String.valueOf(r.get("tecnicoId")).equals(String.valueOf(tecnicoId))) {
                 filtradas.add(r);
@@ -47,7 +47,7 @@ public class ResenaController {
     }
 
     @PostMapping
-    public ResponseEntity> registrarResena(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> registrarResena(@RequestBody Map<String, Object> body) {
         int nextId = resenas.size() + 1;
         Map<String, Object> nueva = Map.of(
                 "id", nextId,

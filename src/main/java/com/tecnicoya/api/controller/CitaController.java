@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/citas")
 public class CitaController {
 
-    private final List> citas = new CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> citas = new CopyOnWriteArrayList<>();
 
     public CitaController() {
         Map<String, Object> inicial = new LinkedHashMap<>();
@@ -32,8 +32,8 @@ public class CitaController {
     }
 
     @GetMapping("/tecnico/{tecnicoId}")
-    public ResponseEntity<List>> listarPorTecnico(@PathVariable int tecnicoId) {
-        List> resultado = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> listarPorTecnico(@PathVariable int tecnicoId) {
+        List<Map<String, Object>> resultado = new ArrayList<>();
         for (Map<String, Object> c : citas) {
             if (String.valueOf(c.get("tecnicoId")).equals(String.valueOf(tecnicoId))) {
                 resultado.add(c);
@@ -43,7 +43,7 @@ public class CitaController {
     }
 
     @PostMapping
-    public ResponseEntity> agendar(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> agendar(@RequestBody Map<String, Object> body) {
         Map<String, Object> nueva = new LinkedHashMap<>();
         nueva.put("id", citas.size() + 1);
         nueva.put("tecnicoId", body.getOrDefault("tecnicoId", 10));

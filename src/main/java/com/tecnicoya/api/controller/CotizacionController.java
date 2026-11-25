@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cotizaciones")
 public class CotizacionController {
 
-    private final List> cotizaciones = new CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> cotizaciones = new CopyOnWriteArrayList<>();
 
     public CotizacionController() {
         Map<String, Object> inicial = new LinkedHashMap<>();
@@ -32,8 +32,8 @@ public class CotizacionController {
     }
 
     @GetMapping("/ticket/{ticketId}")
-    public ResponseEntity<List>> listarPorTicket(@PathVariable String ticketId) {
-        List> resultado = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> listarPorTicket(@PathVariable String ticketId) {
+        List<Map<String, Object>> resultado = new ArrayList<>();
         for (Map<String, Object> ct : cotizaciones) {
             if (String.valueOf(ct.get("ticketId")).equalsIgnoreCase(ticketId)) {
                 resultado.add(ct);
@@ -43,7 +43,7 @@ public class CotizacionController {
     }
 
     @PostMapping
-    public ResponseEntity> crear(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> crear(@RequestBody Map<String, Object> body) {
         Map<String, Object> nueva = new LinkedHashMap<>();
         nueva.put("id", cotizaciones.size() + 1);
         nueva.put("ticketId", body.getOrDefault("ticketId", "TCK-1001"));

@@ -31,7 +31,7 @@ public class SoporteController {
     }
 
     @GetMapping("/tickets")
-    public ResponseEntity<List>> listarTickets() {
+    public ResponseEntity<List<Map<String, Object>>> listarTickets() {
         return ResponseEntity.ok(List.copyOf(tickets.values()));
     }
 
@@ -46,7 +46,7 @@ public class SoporteController {
     }
 
     @PostMapping("/tickets")
-    public ResponseEntity> crearTicket(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> crearTicket(@RequestBody Map<String, Object> body) {
         String id = "TCK-" + UUID.randomUUID().toString().substring(0, 6).toUpperCase();
         Map<String, Object> nuevoTicket = Map.of(
                 "id", id,

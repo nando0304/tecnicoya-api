@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/dispositivos")
 public class DispositivoController {
 
-    private final List> dispositivos = new CopyOnWriteArrayList<>();
+    private final List<Map<String, Object>> dispositivos = new CopyOnWriteArrayList<>();
 
     public DispositivoController() {
         Map<String, Object> inicial = new LinkedHashMap<>();
@@ -32,8 +32,8 @@ public class DispositivoController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List>> listarPorUsuario(@PathVariable int usuarioId) {
-        List> resultado = new ArrayList<>();
+    public ResponseEntity<List<Map<String, Object>>> listarPorUsuario(@PathVariable int usuarioId) {
+        List<Map<String, Object>> resultado = new ArrayList<>();
         for (Map<String, Object> d : dispositivos) {
             if (String.valueOf(d.get("usuarioId")).equals(String.valueOf(usuarioId))) {
                 resultado.add(d);
@@ -43,7 +43,7 @@ public class DispositivoController {
     }
 
     @PostMapping
-    public ResponseEntity> registrar(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, Object>> registrar(@RequestBody Map<String, Object> body) {
         Map<String, Object> nuevo = new LinkedHashMap<>();
         nuevo.put("id", dispositivos.size() + 1);
         nuevo.put("usuarioId", body.getOrDefault("usuarioId", 1));
