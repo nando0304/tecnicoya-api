@@ -94,4 +94,37 @@
         <appender-ref ref="ASYNC_ARCHIVO"/>
         <appender-ref ref="ASYNC_JSON"/>
     </root>
+
+    <springProfile name="nube">
+        <springProperty scope="context" name="LOKI_URL" source="LOKI_URL"/>
+        <springProperty scope="context" name="LOKI_USUARIO" source="LOKI_USUARIO"/>
+        <springProperty scope="context" name="LOKI_TOKEN" source="LOKI_TOKEN"/>
+
+        <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+            <batchTimeoutMs>5000</batchTimeoutMs>
+            <http>
+                <url>${LOKI_URL}</url>
+                <auth>
+                    <username>${LOKI_USUARIO}</username>
+                    <password>${LOKI_TOKEN}</password>
+                </auth>
+            </http>
+            <format>
+                <label>
+                    <pattern>app=tecnicoya-api,nivel=%level,logger=%logger{0}</pattern>
+                </label>
+                <message>
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{usuario:-anonimo}] %logger{40} - ${MENSAJE_SEGURO}%n%wEx</pattern>
+                </message>
+            </format>
+        </appender>
+
+        <logger name="AUDITORIA">
+            <appender-ref ref="LOKI"/>
+        </logger>
+
+        <root>
+            <appender-ref ref="LOKI"/>
+        </root>
+    </springProfile>
 </configuration>

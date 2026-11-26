@@ -1,0 +1,11 @@
+.env
+target
+logs
+uploads
+monitoreo
+docs
+postman
+database
+.git
+.idea
+.vscode
